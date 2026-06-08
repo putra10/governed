@@ -195,6 +195,4 @@ class App {
 const app = new App();
 app.init();
 
-if (import.meta.env.DEV) {
-  window.GOVERNED = app;
-}
+window.GOVERNED = app;
