@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   root: '.',
-  base: '/hunt.github.io/',
+  base: '/governed/',
   publicDir: false,
   build: {
     outDir: 'docs',
