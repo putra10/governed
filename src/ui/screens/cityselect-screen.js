@@ -22,9 +22,32 @@ const CITIES = [
   { key: 'tehran',       name: 'Tehran',         tier: 'war',     color: '#cc2222', lon:  51.39,  lat:  35.69, zoomW: 130, problems: 'Active War, Internal faction war',      flavor: 'Sanctions, strikes, and a city holding its breath.' },
   { key: 'tel_aviv',     name: 'Tel Aviv',       tier: 'war',     color: '#cc2222', lon:  34.78,  lat:  32.09, zoomW: 40,  labelDx:  3, labelDy: -4, labelAnchor: 'start', problems: 'Active War, Missile threat',       flavor: 'Modern, brilliant, under fire. Literally.' },
   { key: 'crimea',       name: 'Crimea',         tier: 'war',     color: '#cc2222', lon:  34.10,  lat:  45.00, zoomW: 130, problems: 'Active warzone, Split allegiance',      flavor: 'Two flags. One peninsula. No easy answers.' },
-  { key: 'gaza',         name: 'Gaza',           tier: 'extreme', color: '#cc44cc', lon:  34.47,  lat:  31.51, zoomW: 40,  labelDx: -3, labelDy:  8, labelAnchor: 'end',   problems: 'Destroyed, Active warzone',        flavor: 'Survival mode only. Just endure.' },
+  { key: 'gaza',         name: 'Gaza',           tier: 'extreme', color: '#cc44cc', lon:  34.47,  lat:  31.51, zoomW: 40,  labelDx: -3, labelDy:  0, labelAnchor: 'end',   problems: 'Destroyed, Active warzone',        flavor: 'Survival mode only. Just endure.' },
   { key: 'caracas',      name: 'Caracas',        tier: 'extreme', color: '#cc44cc', lon: -66.90,  lat:  10.48, zoomW: 130, problems: 'Instability, Economic collapse',        flavor: "Everything is broken. You're in charge. Good luck." },
   { key: 'mogadishu',    name: 'Mogadishu',      tier: 'extreme', color: '#cc44cc', lon:  45.34,  lat:   2.05, zoomW: 130, problems: 'Terrorism, Corruption, Infrastructure', flavor: 'The city is rebuilding from decades of war, but the shadows are long.' },
+];
+
+const PLANNED_CITIES = [
+  { name: 'Tallinn',      lon:  24.75, lat:  59.44 }, { name: 'Tirana',       lon:  19.82, lat:  41.33 },
+  { name: 'Tokyo',        lon: 139.69, lat:  35.68 }, { name: 'Delhi',        lon:  77.20, lat:  28.61 },
+  { name: 'Cairo',        lon:  31.24, lat:  30.04 }, { name: 'São Paulo',    lon: -46.63, lat: -23.55 },
+  { name: 'Moscow',       lon:  37.62, lat:  55.75 }, { name: 'Davos',        lon:   9.51, lat:  46.80 },
+  { name: 'Istanbul',     lon:  28.98, lat:  41.01 }, { name: 'Dar es Salaam', lon:  39.28, lat: -6.79 },
+  { name: 'Mexico City',  lon: -99.13, lat:  19.43 }, { name: 'Buenos Aires', lon: -58.38, lat: -34.60 },
+  { name: 'Bangkok',      lon: 100.52, lat:  13.75 }, { name: 'Dubai',        lon:  55.30, lat:  25.20 },
+  { name: 'Chisinau',     lon:  28.86, lat:  47.01 }, { name: 'Djibouti',     lon:  43.15, lat:  11.59 },
+  { name: 'Barcelona',    lon:   2.17, lat:  41.39 }, { name: 'Lima',         lon: -77.04, lat: -12.04 },
+  { name:'Swansea',       lon: -3.94,  lat:  51.62 }, { name:'Ho Chi Minh',   lon: 106.63, lat:  10.82 },
+  { name:'Labuan Bajo',   lon: 119.89, lat:  -8.50 }, { name:'Vancouver',     lon: -123.12,lat:  49.28 },
+  { name:'Kampala',       lon:  32.58, lat:   0.35 }, { name:'Tunis',         lon:  10.17, lat:  36.80 },
+  { name:'Casablanca',    lon: -7.62,  lat:  33.57 }, { name:'Cape Town',     lon:  18.42, lat: -33.93 },
+  { name:'Bandar Abbas',  lon:  55.80, lat:  27.18 }, { name:'Honiara',       lon: 159.95, lat: -9.43 },
+  { name:'Nicosia',       lon:  33.36, lat:  35.17 }, { name:'Benghazi',      lon:  20.07, lat:  32.12 },
+  { name:'Havana',         lon: -82.36, lat:  23.11 }, { name:'Guatemala City', lon: -90.51, lat:  14.63 },
+  { name:'Manila',         lon: 120.98, lat:  14.60 }, { name:'Chengdu',        lon: 104.06, lat:  30.67 },
+  { name:'Austin',         lon: -97.74, lat:  30.27 }, { name:'Vladivostok',    lon: 131.92, lat:  43.12 },
+  { name:'Erbil',          lon:  44.00, lat:  36.19 }, { name:'Suva',           lon: 178.44, lat: -18.14},
+  { name:'Falkland',       lon: -58.43, lat: -51.80 }, { name:'Perth',          lon: 115.86, lat: -31.95 }
 ];
 
 const TIER_LABEL = { easy: 'EASY', medium: 'MEDIUM', hard: 'HARD', extreme: 'EXTREME', war: 'WAR ZONE' };
@@ -66,10 +89,9 @@ export class CitySelectScreen {
         </div>
         <div class="cs-body">
           <div class="cs-map-panel" id="cs-map-panel" style="background-color: #0d1a24; position: relative; overflow: hidden;">
-            <svg id="cs-worldmap" viewBox="247.5 116.4 480.2 250.1"
-              xmlns="http://www.w3.org/2000/svg"
+            <svg id="cs-worldmap" xmlns="http://www.w3.org/2000/svg"
               style="width:100%;height:100%;display:block;cursor:grab;touch-action:none">
-              <!-- Giant rectangle to ensure ocean color NEVER ends during aspect ratio changes -->
+              <!-- Giant rect behind everything for ocean color consistency -->
               <rect x="-5000" y="-5000" width="10000" height="10000" fill="#0d1a24"/>
               <g class="countries-group"></g>
               <g class="pins-group"></g>
@@ -121,47 +143,79 @@ export class CitySelectScreen {
   static bind(container, handlers) {
     container.querySelector('#cs-back')?.addEventListener('click', () => handlers.goToMenu());
 
-    // Scale of the D3 Map
-    const SVG_W = 960, SVG_H = 500; 
+    // --- MATHEMATICAL LIMITS OF THE D3 MAP ---
+    // The scale(153) projection specifically draws the continents exactly inside this box:
+    const WORLD_X = 61;   // The far left edge (Alaska/Americas)
+    const WORLD_Y = 32;   // Top of Greenland
+    const WORLD_W = 838;  // Width of all continents
+    const WORLD_H = 436;  // Height down to Antarctica
 
-    // The ACTUAL drawn bounds of the D3 map (removes the 60px of empty ocean padding)
-    const BOUNDS_X = 61;
-    const BOUNDS_Y = 32;
-    const BOUNDS_W = 838;
-    const BOUNDS_H = 436;
-    
-    // The perfect framing viewbox where the map starts
-    const VB_INIT = { x: 247.5, y: 116.4, w: 480.2, h: 250.1 };
-    
-    const MIN_W = 30;
-    const MAX_W = VB_INIT.w; // Locked max zoom out
-    const ASPECT_RATIO = VB_INIT.h / VB_INIT.w; // Ensures aspect ratio never warps
-    
-    let vb = { ...VB_INIT };
+    let vb = { x: 247.5, y: 116.4, w: 480.2, h: 250.1 }; // Initial startup coords
+    const MIN_W = 50; // Closest allowed zoom
     let animFrame = null;
 
-    const svg      = container.querySelector('#cs-worldmap');
+    const svg = container.querySelector('#cs-worldmap');
     const mapPanel = container.querySelector('#cs-map-panel');
-    const hintEl   = container.querySelector('#cs-map-hint');
+    const hintEl = container.querySelector('#cs-map-hint');
 
     function applyVB() {
-      svg.setAttribute('viewBox', vb.x + ' ' + vb.y + ' ' + vb.w + ' ' + vb.h);
+      svg.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
     }
 
     function clampVB() {
-      // 1. Lock zoom depth perfectly
-      if (vb.w > MAX_W) vb.w = MAX_W;
+      const rect = svg.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+
+      const screenRatio = rect.height / rect.width;
+
+      // 1. DYNAMIC ZOOM OUT LIMIT
+      // We calculate the largest possible box that fits perfectly inside the continents
+      // without revealing the empty oceans beyond WORLD_W or WORLD_H.
+      const maxAllowedW = Math.min(WORLD_W, WORLD_H / screenRatio);
+
+      // Enforce zoom boundaries
+      if (vb.w > maxAllowedW) vb.w = maxAllowedW;
       if (vb.w < MIN_W) vb.w = MIN_W;
-      vb.h = vb.w * ASPECT_RATIO;
+
+      // Update height dynamically to match your screen aspect ratio flawlessly (NO Letterboxing)
+      vb.h = vb.w * screenRatio;
+
+      // 2. PANNING BOUNDARIES
+      // Treat the exact edge of the landmasses as solid brick walls.
+      const maxX = (WORLD_X + WORLD_W) - vb.w;
+      const maxY = (WORLD_Y + WORLD_H) - vb.h;
+
+      vb.x = Math.max(WORLD_X, Math.min(vb.x, maxX));
+      vb.y = Math.max(WORLD_Y, Math.min(vb.y, maxY));
+    }
+
+    // Call on load and window resize to constantly adjust boundaries
+    setTimeout(() => { clampVB(); applyVB(); }, 10);
+    window.addEventListener('resize', () => { clampVB(); applyVB(); });
+
+    function getResetTarget() {
+      const rect = svg.getBoundingClientRect();
+      const screenRatio = rect.height / rect.width;
       
-      // 2. Lock panning to the ACTUAL map layout borders
-      const minX = BOUNDS_X;
-      const minY = BOUNDS_Y;
-      const maxX = (BOUNDS_X + BOUNDS_W) - vb.w;
-      const maxY = (BOUNDS_Y + BOUNDS_H) - vb.h;
+      // We try to use your preferred starting zoom (width: 480.2)
+      let targetW = 480.2;
+      const maxAllowedW = Math.min(WORLD_W, WORLD_H / screenRatio);
+      if (targetW > maxAllowedW) targetW = maxAllowedW;
       
-      vb.x = Math.max(minX, Math.min(vb.x, maxX));
-      vb.y = Math.max(minY, Math.min(vb.y, maxY));
+      let targetH = targetW * screenRatio;
+
+      // We aim for your preferred center point (Middle East/Asia)
+      const prefCenterX = 247.5 + (480.2 / 2);
+      const prefCenterY = 116.4 + (250.1 / 2);
+
+      let targetX = prefCenterX - (targetW / 2);
+      let targetY = prefCenterY - (targetH / 2);
+
+      // Ensure the reset target is legally in bounds
+      targetX = Math.max(WORLD_X, Math.min(targetX, (WORLD_X + WORLD_W) - targetW));
+      targetY = Math.max(WORLD_Y, Math.min(targetY, (WORLD_Y + WORLD_H) - targetH));
+
+      return { x: targetX, y: targetY, w: targetW, h: targetH };
     }
 
     function animateToVB(target, duration) {
@@ -169,16 +223,21 @@ export class CitySelectScreen {
       if (animFrame) cancelAnimationFrame(animFrame);
       const start = { ...vb };
       const t0 = performance.now();
+      
       (function step(now) {
         const t = Math.min((now - t0) / duration, 1);
         const e = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+        
         vb = {
           x: start.x + (target.x - start.x) * e,
           y: start.y + (target.y - start.y) * e,
           w: start.w + (target.w - start.w) * e,
           h: start.h + (target.h - start.h) * e,
         };
+        
+        clampVB(); // Safety net: constantly enforce aspect ratio and walls during animation
         applyVB();
+        
         if (t < 1) animFrame = requestAnimationFrame(step);
       })(t0);
     }
@@ -192,13 +251,16 @@ export class CitySelectScreen {
       const svgY = vb.y + (my / rect.height) * vb.h;
       
       const factor = e.deltaY > 0 ? 1.15 : 0.87;
-      let nw = vb.w * factor;
+      vb.w *= factor; // Only adjust width initially
       
-      // Enforce limits before modifying X and Y
-      nw = Math.max(MIN_W, Math.min(MAX_W, nw));
-      const nh = nw * ASPECT_RATIO;
+      // CLAMP 1: Enforces max zoom constraints and generates precise vb.h
+      clampVB(); 
       
-      vb = { x: svgX - (mx/rect.width)*nw, y: svgY - (my/rect.height)*nh, w: nw, h: nh };
+      // Slide x and y so the mouse cursor stays exactly over the target landmass
+      vb.x = svgX - (mx / rect.width) * vb.w;
+      vb.y = svgY - (my / rect.height) * vb.h;
+      
+      // CLAMP 2: Make sure the new mouse-tracking coordinates didn't push us into the wall
       clampVB(); 
       applyVB();
     }, { passive: false });
@@ -213,7 +275,8 @@ export class CitySelectScreen {
     window.addEventListener('mousemove', (e) => {
       if (!drag) return;
       const rect = svg.getBoundingClientRect();
-      vb = { ...drag.vb,
+      vb = { 
+        ...drag.vb,
         x: drag.vb.x - ((e.clientX - drag.sx) / rect.width) * drag.vb.w,
         y: drag.vb.y - ((e.clientY - drag.sy) / rect.height) * drag.vb.h,
       };
@@ -245,7 +308,8 @@ export class CitySelectScreen {
       e.preventDefault();
       const rect = svg.getBoundingClientRect();
       if (e.touches.length === 1 && touch) {
-        vb = { ...touch.vb,
+        vb = { 
+          ...touch.vb,
           x: touch.vb.x - ((e.touches[0].clientX - touch.sx) / rect.width) * touch.vb.w,
           y: touch.vb.y - ((e.touches[0].clientY - touch.sy) / rect.height) * touch.vb.h,
         };
@@ -255,16 +319,17 @@ export class CitySelectScreen {
         const t0 = e.touches[0], t1 = e.touches[1];
         const dist = Math.hypot(t1.clientX - t0.clientX, t1.clientY - t0.clientY);
         
-        let nw = pinchData.vb.w * (pinchData.dist / dist);
-        nw = Math.max(MIN_W, Math.min(MAX_W, nw));
-        const nh = nw * ASPECT_RATIO;
-        
+        vb.w = pinchData.vb.w * (pinchData.dist / dist);
+        clampVB(); // Generates constrained w and exact h
+
         const mx = pinchData.cx - rect.left, my = pinchData.cy - rect.top;
         const svgX = pinchData.vb.x + (mx / rect.width) * pinchData.vb.w;
         const svgY = pinchData.vb.y + (my / rect.height) * pinchData.vb.h;
         
-        vb = { x: svgX - (mx/rect.width)*nw, y: svgY - (my/rect.height)*nh, w: nw, h: nh };
-        clampVB(); 
+        vb.x = svgX - (mx / rect.width) * vb.w;
+        vb.y = svgY - (my / rect.height) * vb.h;
+        
+        clampVB(); // Secondary clamp for walls
         applyVB();
       }
     }, { passive: false });
@@ -346,20 +411,23 @@ export class CitySelectScreen {
     function zoomToCity(key) {
       const c = CITIES_MAP[key];
       if (!c || c.projX == null) return;
-      const zw = c.zoomW || 160;
-      const zh = zw * ASPECT_RATIO; 
       
-      let targetX = c.projX - zw/2;
-      let targetY = c.projY - zh/2;
+      const rect = svg.getBoundingClientRect();
+      if (!rect.width) return;
       
-      // Auto-zooming uses the same exact physical bounds
-      const maxX = (BOUNDS_X + BOUNDS_W) - zw;
-      const maxY = (BOUNDS_Y + BOUNDS_H) - zh;
+      const screenRatio = rect.height / rect.width;
       
-      targetX = Math.max(BOUNDS_X, Math.min(targetX, maxX));
-      targetY = Math.max(BOUNDS_Y, Math.min(targetY, maxY));
+      const targetW = c.zoomW || 160;
+      const targetH = targetW * screenRatio; 
       
-      animateToVB({ x: targetX, y: targetY, w: zw, h: zh });
+      let targetX = c.projX - targetW/2;
+      let targetY = c.projY - targetH/2;
+      
+      // Auto-zooming wall clamps
+      targetX = Math.max(WORLD_X, Math.min(targetX, (WORLD_X + WORLD_W) - targetW));
+      targetY = Math.max(WORLD_Y, Math.min(targetY, (WORLD_Y + WORLD_H) - targetH));
+      
+      animateToVB({ x: targetX, y: targetY, w: targetW, h: targetH });
     }
 
     container.querySelectorAll('.cs-term-city').forEach(function(el) {
@@ -387,7 +455,7 @@ export class CitySelectScreen {
       });
     });
 
-    svg.addEventListener('dblclick', function() { animateToVB(VB_INIT); });
+    svg.addEventListener('dblclick', function() { animateToVB(getResetTarget()); });
 
     acceptBtn.addEventListener('click', function() {
       if (!selectedKey) return;
@@ -400,7 +468,7 @@ export class CitySelectScreen {
     const ns = 'http://www.w3.org/2000/svg';
 
     try {
-      const projection = d3.geoNaturalEarth1().scale(153).translate([SVG_W/2, SVG_H/2]);
+      const projection = d3.geoNaturalEarth1().scale(153).translate([960/2, 500/2]);
       const pathGen    = d3.geoPath().projection(projection);
       const countriesG = container.querySelector('.countries-group');
 
@@ -412,7 +480,7 @@ export class CitySelectScreen {
       gEl.setAttribute('stroke-width', '0.4');
       countriesG.appendChild(gEl);
 
-      // Land fill (Natural Earth 50m)
+      // Land fill
       const landEl = document.createElementNS(ns, 'path');
       landEl.setAttribute('d', pathGen(topo.feature(landData, landData.objects.land)));
       landEl.setAttribute('fill', '#1a2d1f');
@@ -429,7 +497,7 @@ export class CitySelectScreen {
         countriesG.appendChild(p);
       });
 
-      // City pins
+      // Playable City pins
       const pinsG = container.querySelector('.pins-group');
       CITIES.forEach(function(c) {
         const proj = projection([c.lon, c.lat]);
@@ -520,6 +588,48 @@ export class CitySelectScreen {
           selectCity(c.key);
           zoomToCity(c.key);
         });
+      });
+
+      // Planned (locked) city dots
+      PLANNED_CITIES.forEach(function(c) {
+        const proj = projection([c.lon, c.lat]);
+        const px = proj[0], py = proj[1];
+
+        const g = document.createElementNS(ns, 'g');
+        g.style.cursor = 'default';
+        g.style.pointerEvents = 'none';
+
+        const dot = document.createElementNS(ns, 'circle');
+        dot.setAttribute('cx', String(px));
+        dot.setAttribute('cy', String(py));
+        dot.setAttribute('r', '0.5');
+        dot.setAttribute('fill', '#3a3a3a');
+        dot.setAttribute('opacity', '1');
+        g.appendChild(dot);
+
+        const ring = document.createElementNS(ns, 'circle');
+        ring.setAttribute('cx', String(px));
+        ring.setAttribute('cy', String(py));
+        ring.setAttribute('r', '0.9');
+        ring.setAttribute('fill', 'none');
+        ring.setAttribute('stroke', '#444');
+        ring.setAttribute('stroke-width', '0.4');
+        ring.setAttribute('opacity', '1');
+        g.appendChild(ring);
+
+        const lbl = document.createElementNS(ns, 'text');
+        lbl.setAttribute('x', String(px - 4));
+        lbl.setAttribute('y', String(py + 3));
+        lbl.setAttribute('fill', '#adabab');
+        lbl.setAttribute('font-size', '2');
+        lbl.setAttribute('font-family', 'monospace');
+        lbl.setAttribute('letter-spacing', '0.2');
+        lbl.setAttribute('text-anchor', 'start');
+        lbl.setAttribute('opacity', '0.78');
+        lbl.textContent = c.name.toUpperCase();
+        g.appendChild(lbl);
+
+        pinsG.insertBefore(g, pinsG.firstChild);
       });
 
       if (loadingEl) loadingEl.style.display = 'none';
