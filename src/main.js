@@ -26,6 +26,11 @@ const CITY_REGISTRY = {
   mogadishu:    () => import('./data/cities/mogadishu.json'),
   johannesburg: () => import('./data/cities/johannesburg.json'),
   brisbane:     () => import('./data/cities/brisbane.json'),
+  tokyo:        () => import('./data/cities/tokyo.json'),
+  labuanbajo:   () => import('./data/cities/labuanbajo.json'),
+  guatemala:    () => import('./data/cities/guatemala.json'),
+  vladivostok:  () => import('./data/cities/vladivostok.json'),
+  erbil:        () => import('./data/cities/erbil.json'),
 };
 
 class App {

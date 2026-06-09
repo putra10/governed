@@ -2,7 +2,7 @@
   "id": "beijing",
   "name": "Beijing",
   "country": "China",
-  "tier": "medium-well",
+  "tier": "medium",
   "primary_problems": [
     "Surveillance state pressure",
     "Housing inequality",
@@ -541,6 +541,72 @@
           }
         }
       ]
+    },
+    {
+      "id": "party_faction_purge",
+      "title": "Central Discipline Investigation",
+      "description": "A senior official in the Beijing municipal apparatus has been detained for serious violations of party discipline and law. This is clearly a factional purge orchestrated by central rivals, and investigators are heavily scrutinizing all associated cadres.",
+      "turn_min": 6,
+      "turn_max": 11,
+      "options": [
+        {
+          "tag": "SAFE",
+          "label": "Publicly endorse the discipline commission's purge.",
+          "consequences": {
+            "approval_delta": -10,
+            "budget_delta": 0,
+            "scandal_risk": 10,
+            "advisor_effects": [
+              {
+                "advisor_id": "military_liaison",
+                "trust_delta": 20
+              },
+              {
+                "advisor_id": "urban_planning",
+                "trust_delta": -15
+              }
+            ]
+          }
+        },
+        {
+          "tag": "BOLD",
+          "label": "Maintain bureaucratic silence and distance quietly.",
+          "consequences": {
+            "approval_delta": 0,
+            "budget_delta": -10,
+            "scandal_risk": 35,
+            "advisor_effects": [
+              {
+                "advisor_id": "urban_planning",
+                "trust_delta": 10
+              },
+              {
+                "advisor_id": "military_liaison",
+                "trust_delta": -10
+              }
+            ]
+          }
+        },
+        {
+          "tag": "CHAOS",
+          "label": "Defend the official's ideological loyalty.",
+          "consequences": {
+            "approval_delta": 15,
+            "budget_delta": 0,
+            "scandal_risk": 85,
+            "advisor_effects": [
+              {
+                "advisor_id": "finance",
+                "trust_delta": 15
+              },
+              {
+                "advisor_id": "military_liaison",
+                "trust_delta": -40
+              }
+            ]
+          }
+        }
+      ]
     }
   ],
   "scandals": [
@@ -561,6 +627,20 @@
       "title": "Undisclosed Foreign Assets",
       "description": "A senior official's family holds undisclosed assets in a foreign jurisdiction.",
       "approval_penalty": -14
+    },
+    {
+      "id": "factional_loyalty_leak",
+      "title": "Improper Factional Contacts Revealed",
+      "description": "Internal communications leaked to the Central Commission for Discipline Inspection show your office maintaining contact with a faction recently classified as lacking absolute political loyalty.",
+      "severity_tier": "major",
+      "approval_penalty": -22
+    },
+    {
+      "id": "purge_complicity",
+      "title": "Mistaken Factional Alignment Exposed",
+      "description": "Evidence has surfaced that you actively assisted in building a corruption case against a rival cadre who has just been personally rehabilitated by the central leadership. You have severely miscalculated the political winds.",
+      "severity_tier": "career_ending",
+      "approval_penalty": -40
     }
   ],
   "comment_library": {

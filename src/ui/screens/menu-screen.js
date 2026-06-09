@@ -16,7 +16,7 @@ export class MenuScreen {
 
         <div class="menu-mid">
           <div class="pill-row">
-            <div class="pill pill-red">20 CITIES</div>
+            <div class="pill pill-red">25 CITIES</div>
             <div class="pill pill-amber">12 TURNS</div>
             <div class="pill pill-green">INFINITE REGRET</div>
           </div>
@@ -133,17 +133,17 @@ export class MenuScreen {
 
     // Positions spread across screen avoiding center
     const SLOTS = [
-      { top: '6%',  left: '2%'  },
+      { top: '6%', left: '2%' },
       { top: '11%', right: '3%' },
-      { top: '22%', left: '1%'  },
+      { top: '22%', left: '1%' },
       { top: '28%', right: '2%' },
-      { top: '38%', left: '3%'  },
+      { top: '38%', left: '3%' },
       { top: '44%', right: '1%' },
-      { top: '55%', left: '2%'  },
+      { top: '55%', left: '2%' },
       { top: '60%', right: '3%' },
-      { top: '70%', left: '1%'  },
+      { top: '70%', left: '1%' },
       { top: '75%', right: '2%' },
-      { top: '83%', left: '3%'  },
+      { top: '83%', left: '3%' },
       { top: '88%', right: '1%' },
     ];
 
@@ -166,10 +166,10 @@ export class MenuScreen {
         position: 'absolute',
         ...pos,
         color: COLORS[i % COLORS.length],
-        fontSize: '8px',
+        fontSize: '0.5rem',
         fontFamily: 'var(--font-mono)',
         letterSpacing: '.05em',
-        maxWidth: '220px',
+        maxWidth: '13.75rem',
         lineHeight: '1.4',
         pointerEvents: 'none',
         zIndex: '0',
@@ -216,7 +216,7 @@ export class MenuScreen {
 
           <p><strong>Difficulty</strong> varies by city: Easy cities are stable and well-funded. Hard and Extreme cities start with low approval, broken budgets, and advisors who are already plotting. War zones are survival mode.</p>
 
-          <p><strong>20 cities</strong> available -- each with unique advisors (3-5 depending on city size), scandals, crises, and cultural voice. Some cities have special income mechanics: Cayman's offshore tax base pays regardless of approval; Gaza runs on international aid.</p>
+          <p><strong>25 cities</strong> available -- each with unique advisors (3-5 depending on city size), scandals, crises, and cultural voice. Some cities have special income mechanics: Cayman's offshore tax base pays regardless of approval; Gaza runs on international aid.</p>
 
           <p>End your term with <strong>65%+ approval</strong> to receive an invitation to govern again.</p>
         </div>
@@ -234,14 +234,14 @@ export class MenuScreen {
       <div class="modal-box">
         <div class="modal-title">CREDITS</div>
         <div class="modal-body">
-          <p><strong>GOVERNED</strong> -- A governance simulator</p>
-          <p>Design &amp; concept by Hunt</p>
-          <p>Art &amp; UI by Claude Opus 4.8</p>
-          <p>Code by Claude Sonnet 4.6 &amp; Kimi K2.6</p>
-          <p>Writing by Hunt</p>
-          <p>My Advisor for this project are:</p>
+          <p><strong>GOVERNED</strong> — A Relentless Governance Simulator</p>
+          <p>Vision &amp; Architecture: Hunt</p>
+          <p>Visuals &amp; Interface: Claude Opus 4.8</p>
+          <p>Core Engineering: Claude Sonnet 4.6 &amp; Kimi K2.6</p>
+          <p>Lore &amp; Narrative: Hunt</p>
+          <p>Synthetic Advisors &amp; Neural Collaborators:</p>
           <ul>
-            <li>Deepseek-V3</li>
+            <li>DeepSeek-V3</li>
             <li>Claude Sonnet 4.6</li>
             <li>Claude Opus 4.7</li>
             <li>OpenAI GPT-5.5</li>
@@ -249,8 +249,7 @@ export class MenuScreen {
             <li>Gemini 3.1 Pro</li>
             <li>Gemini 3.5 Flash</li>
           </ul>
-          <p>Built with Vite + Vanilla JS</p>
-          <p style="margin-top:12px;color:#555;font-size:8px;">20 cities. 12 turns. Infinite regret.</p>
+          <p>Forged with Vite + Vanilla JavaScript</p>
         </div>
         <button class="modal-close" id="modal-close">CLOSE</button>
       </div>`;

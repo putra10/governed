@@ -2,7 +2,7 @@
   "id": "tehran",
   "name": "Tehran",
   "country": "Iran",
-  "tier": "hard",
+  "tier": "war",
   "primary_problems": [
     "Active war pressure",
     "Internal faction war",

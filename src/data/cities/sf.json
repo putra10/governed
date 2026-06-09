@@ -8,7 +8,7 @@
     "Homelessness",
     "Political dysfunction"
   ],
-  "flavor_text": "A 7x7 mile city that hosts the world's richest industry and some of its most visible poverty — sometimes on the same block. SF invented both the counterculture and venture capital. Governing it means satisfying the world's most opinionated 800,000 people.",
+  "flavor_text": "A 7x7 mile city that hosts the world's richest industry and some of its most visible poverty \u2014 sometimes on the same block. SF invented both the counterculture and venture capital. Governing it means satisfying the world's most opinionated 800,000 people.",
   "starting": {
     "approval": 60,
     "budget": 800,
@@ -26,7 +26,7 @@
       "id": "finance",
       "name": "Alex Wong",
       "role": "City Controller",
-      "portrait": "💻",
+      "portrait": "\ud83d\udcbb",
       "agenda": "Tax the tech sector more effectively before the next bust leaves SF with a boom-built budget.",
       "dialogue": {
         "briefing": [
@@ -49,7 +49,7 @@
       "id": "military_liaison",
       "name": "Chief William Park",
       "role": "SFPD Chief",
-      "portrait": "👮",
+      "portrait": "\ud83d\udc6e",
       "agenda": "Rebuild SFPD capacity following staffing exodus and refocus on property crime.",
       "dialogue": {
         "briefing": [
@@ -72,7 +72,7 @@
       "id": "urban_planning",
       "name": "Kenji Tanaka",
       "role": "Planning Department Director",
-      "portrait": "🌉",
+      "portrait": "\ud83c\udf09",
       "agenda": "Eliminate SF's byzantine permitting system before it kills the housing pipeline entirely.",
       "dialogue": {
         "briefing": [
@@ -95,7 +95,7 @@
       "id": "transport",
       "name": "Carmen Rodriguez",
       "role": "SFMTA Director",
-      "portrait": "🚋",
+      "portrait": "\ud83d\ude8b",
       "agenda": "Make SF's transit reliable enough that tech workers actually use it.",
       "dialogue": {
         "briefing": [
@@ -118,7 +118,7 @@
       "id": "religious_affairs",
       "name": "Sister Mary Corcoran",
       "role": "Tenderloin Community Coalition Director",
-      "portrait": "⛪",
+      "portrait": "\u26ea",
       "agenda": "Address homelessness through housing-first policy rather than criminalization.",
       "dialogue": {
         "briefing": [
@@ -259,7 +259,7 @@
     {
       "id": "tech_shuttle_tax",
       "title": "Tech Shuttle Congestion Fee",
-      "description": "Private tech company buses use Muni stops and contribute to traffic. A per-stop fee could generate 50M annually. Tech companies threaten to stop the shuttle program entirely — which would add 10,000 cars to city roads.",
+      "description": "Private tech company buses use Muni stops and contribute to traffic. A per-stop fee could generate 50M annually. Tech companies threaten to stop the shuttle program entirely \u2014 which would add 10,000 cars to city roads.",
       "turn_available": 3,
       "options": [
         {
@@ -549,6 +549,20 @@
       "title": "Lavish Expense Account",
       "description": "A city official's expense account included private jets and five-star hotels at public cost.",
       "approval_penalty": -9
+    },
+    {
+      "id": "valley_vc_trafficking_island",
+      "title": "Mayor Linked to Tech Billionaire's Blackmail Ring",
+      "description": "The FBI has indicted a prominent Silicon Valley venture capitalist who bankrolled your election, exposing his private 'start-up incubator' island as a front for sex trafficking. Subpoenaed emails reveal your office frequently expedited city contracts for his associates following these exclusive retreats.",
+      "severity_tier": "career_ending",
+      "approval_penalty": -40
+    },
+    {
+      "id": "startup_founder_abuse_ring",
+      "title": "Tech Mogul's Arrest Shakes City Hall",
+      "description": "An eccentric tech founder known for hosting lavish, invite-only networking parties has been federally charged with trafficking and coercion. Critics are demanding to know why you accepted maximum campaign contributions and tech-policy advice from his network despite long-standing industry rumors.",
+      "severity_tier": "major",
+      "approval_penalty": -22
     }
   ],
   "comment_library": {
@@ -603,14 +617,14 @@
       "The recall organizers are printing flyers as we speak. Ink is wet."
     ],
     "media": [
-      "SF Chronicle: Mayor defends fentanyl plan amid Board of Supervisors standoff — 'This is a health emergency, not a photo op'",
+      "SF Chronicle: Mayor defends fentanyl plan amid Board of Supervisors standoff \u2014 'This is a health emergency, not a photo op'",
       "Mission Local: Displacement tracker shows 340 Mission District families issued Ellis Act notices in Q1",
       "The Standard SF: Downtown office vacancy hits 37% as third SoMa co-working brand folds this year",
       "SF Chronicle: BART board approves $180M line extension study; Caltrain integration timeline 'unclear'",
-      "Mission Local: Boudin recall anniversary — what actually changed at the DA's office after Brooke Jenkins took over",
+      "Mission Local: Boudin recall anniversary \u2014 what actually changed at the DA's office after Brooke Jenkins took over",
       "The Standard SF: Board of Supervisors 6-5 vote blocks Mayor's Tenderloin emergency powers for second time",
       "SF Chronicle: SFUSD eyes closure of 7 more schools as enrollment drops below 50,000 citywide",
-      "The Standard SF: Tech company exodus from SF continues — Salesforce subletting 40% of its Transbay tower"
+      "The Standard SF: Tech company exodus from SF continues \u2014 Salesforce subletting 40% of its Transbay tower"
     ],
     "politician": [
       "Board of Supervisors (District 6): 'The Tenderloin deserves investment, not incarceration. We won't rubber-stamp more sweeps.'",

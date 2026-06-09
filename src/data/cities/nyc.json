@@ -2,7 +2,7 @@
   "id": "nyc",
   "name": "New York City",
   "country": "USA",
-  "tier": "medium-well",
+  "tier": "medium",
   "primary_problems": [
     "Housing crisis",
     "Inequality",
@@ -577,6 +577,20 @@
       "title": "Migrant Shelter Contract Profiteering",
       "description": "A shelter operator connected to city officials billed 200M for services not rendered.",
       "approval_penalty": -15
+    },
+    {
+      "id": "elite_financier_trafficking_ring",
+      "title": "Mayor Tied to Disgraced Hedge Fund Mogul",
+      "description": "Federal agents raided the Upper East Side townhouse of your top campaign bundler, uncovering a sprawling international blackmail and trafficking ring. Flight logs leaked to the press show you traveled on his private jet to a secluded private island on multiple occasions.",
+      "severity_tier": "career_ending",
+      "approval_penalty": -40
+    },
+    {
+      "id": "donor_gala_blackmail_scandal",
+      "title": "City Hall Panics Over Financier Indictment",
+      "description": "A prominent Wall Street financier and major donor to your mayoral transition fund has been arrested for operating an elite trafficking network. Photos of you sharing a toast with him at a recent charity gala are currently dominating the tabloid front pages.",
+      "severity_tier": "major",
+      "approval_penalty": -22
     }
   ],
   "comment_library": {

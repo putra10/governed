@@ -50,7 +50,7 @@ export function renderAdvisorCard(advisor) {
     <div class="acard ${cardCls}" data-advisor="${advisor.id}">
       <div class="an">
         ${advisor.name}
-        ${relIcon ? `<span style="color:${relColor};font-size:10px;margin-left:4px">${relIcon} ${relLabel}</span>` : ''}
+        ${relIcon ? `<span style="color:${relColor};font-size: 0.625rem;margin-left: 0.25rem">${relIcon} ${relLabel}</span>` : ''}
       </div>
       <div class="ar">${advisor.domain} &middot; Trust ${trust}%</div>
       ${warningHtml}

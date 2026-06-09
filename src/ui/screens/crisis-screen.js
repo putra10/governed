@@ -132,10 +132,6 @@ export class CrisisScreen {
               </div>
             </div>
           </div>
-          <div class="crisis-side">
-            <div class="cs-h">ADVISOR REACTION</div>
-            ${pressureCards}
-          </div>
         </div>
       </div>`;
   }

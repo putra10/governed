@@ -116,7 +116,7 @@ export class SettingsScreen {
               <div class="st-stat-grid">
                 <div class="st-stat-card">
                   <div class="st-sc-label">CURRENT CITY</div>
-                  <div class="st-sc-val" style="font-size:16px">${state.city.city_name}</div>
+                  <div class="st-sc-val" style="font-size: 1rem">${state.city.city_name}</div>
                   <div class="st-sc-sub">Turn ${state.turn} of 12</div>
                 </div>
                 <div class="st-stat-card">
@@ -126,7 +126,7 @@ export class SettingsScreen {
                 </div>
                 <div class="st-stat-card">
                   <div class="st-sc-label">BUDGET</div>
-                  <div class="st-sc-val" style="font-size:16px">${state.budget}M</div>
+                  <div class="st-sc-val" style="font-size: 1rem">${state.budget}M</div>
                   <div class="st-sc-sub">${state.budget < 0 ? 'In deficit' : 'Surplus'}</div>
                 </div>
                 <div class="st-stat-card">
@@ -144,14 +144,14 @@ export class SettingsScreen {
                   <div class="st-sc-val">${scandalCount}</div>
                   <div class="st-sc-sub">Resolved this term</div>
                 </div>
-              </div>` : `<div class="st-rl-desc" style="padding:8px 0">No active game session.</div>`}
+              </div>` : `<div class="st-rl-desc" style="padding: 0.5rem 0">No active game session.</div>`}
             </div>
 
             <!-- DATA -->
             <div class="st-section" id="tab-data">
               <div class="st-s-title">SESSION DATA</div>
 
-              <div class="st-row" style="margin-top:8px">
+              <div class="st-row" style="margin-top: 0.5rem">
                 <div class="st-row-label">
                   <div class="st-rl-name" style="color:#e05c5c">Reset Save Data</div>
                   <div class="st-rl-desc">Wipe saved game and return to city select. Cannot be undone.</div>
