@@ -7,6 +7,36 @@ import { pick } from '../ui-helpers.js';
 import { SCANDAL_SEVERITY } from '../../engine/scandal-system.js';
 
 
+// Source ids → human explanation of WHY this scandal just hit
+function _revealSourceLabel(source) {
+  if (!source) return 'The story broke overnight.';
+  if (source.startsWith('bribe_'))     return 'The back-channel payment leaked.';
+  if (source === 'threat_backfire')    return 'Your threat backfired — they went to the press.';
+  if (source === 'leak')               return 'Your leak splashed back on the office.';
+  if (source === 'corrupt_pact')       return 'The corruption scheme was discovered.';
+  if (source === 'romance')            return 'The affair went public.';
+  if (source === 'auto_fired')         return 'You left the story unanswered. It ran.';
+  return 'Fallout from your decision.';
+}
+
+function renderScandalReveals(reveals) {
+  if (!reveals || !reveals.length) return '';
+  return reveals.map((r, i) => `
+    <div class="betrayal-overlay" data-scandal-reveal-index="${i}">
+      <div class="betrayal-modal sr-modal">
+        <div class="betrayal-header">
+          <span class="betrayal-icon">&#x1F4F0;</span>
+          <span class="betrayal-label">SCANDAL ERUPTS</span>
+          <span class="sr-tier sr-tier--${r.severity_tier}">${(r.severity_tier ?? 'minor').replace('_', '-').toUpperCase()}</span>
+        </div>
+        <div class="betrayal-name">${r.title}</div>
+        <div class="betrayal-note">${_revealSourceLabel(r.source)}</div>
+        <div class="sr-penalty">${r.penalty}% approval</div>
+        <button class="betrayal-dismiss" data-dismiss-scandal-reveal="${i}">ACKNOWLEDGE</button>
+      </div>
+    </div>`).join('');
+}
+
 function renderBetrayalEvents(betrayals) {
   if (!betrayals || !betrayals.length) return '';
   return betrayals.map((b, i) => {
@@ -173,21 +203,46 @@ function renderBribeOffers(bribes) {
 function renderScandalCard(scandal) {
   const tier     = scandal.severity_tier ?? 'minor';
   const tierDef  = SCANDAL_SEVERITY[tier] ?? SCANDAL_SEVERITY.minor;
-  const penalty  = Math.abs(tierDef.approvalPenalty);
+  // Show the scandal's actual authored penalty, not the generic tier value
+  const penalty  = Math.abs(scandal.approval_penalty ?? tierDef.approvalPenalty);
   const isCareer = tier === 'career_ending';
   const label    = tierDef.label ?? 'Political Scandal';
 
-  // Tier-specific response buttons (career_ending uses respondToScandal, others use suppress/accept)
+  // Human-readable effect note for a tier response
+  const responseNote = (r) => {
+    const parts = [];
+    if (r.budgetCost)  parts.push(`-${r.budgetCost}M`);
+    if (r.approvalMod) parts.push(`${r.approvalMod > 0 ? '+' : ''}${r.approvalMod}% recovery`);
+    if (r.agendaMod)   parts.push(`agendas ${r.agendaMod > 0 ? '+' : ''}${r.agendaMod}`);
+    return parts.join(' · ');
+  };
+
+  // Tier-specific response buttons. Career-ending: responses only.
+  // Other tiers: suppress / accept, plus "manage the story" responses —
+  // the base penalty (-${penalty}%) still applies, the response shapes it.
   let actionButtons;
   if (isCareer) {
-    actionButtons = tierDef.responses.map(r => `
+    // Career-ending: make the stakes explicit — "Desperate Last Stand" costs
+    // money and used to read like a suppress button, but it's a 25% gamble
+    actionButtons = tierDef.responses.map(r => {
+      const bits = [];
+      if (r.budgetCost)  bits.push(`-${r.budgetCost}M`);
+      if (r.miracleRoll) bits.push('25% survival — failure ends your term');
+      if (r.gameOver)    bits.push('ends your term');
+      return `
       <button class="sc-response sc-response--${r.id}" data-scandal-response="${r.id}">
-        ${r.label}${r.budgetCost ? ` (-${r.budgetCost}M)` : ''}
-      </button>`).join('');
+        ${r.label}${bits.length ? ` <span class="sc-resp-note">(${bits.join(' · ')})</span>` : ''}
+      </button>`;
+    }).join('');
   } else {
     actionButtons = `
       <button class="sc-suppress" id="btn-suppress-scandal">SUPPRESS (${scandal.suppress_cost}M)</button>
-      <button class="sc-accept" id="btn-accept-scandal">ACCEPT (-${penalty}%)</button>`;
+      <button class="sc-accept" id="btn-accept-scandal">ACCEPT (-${penalty}%)</button>
+      <div class="sc-manage-label">OR MANAGE THE STORY &middot; base hit -${penalty}% applies, then:</div>
+      ${tierDef.responses.map(r => `
+        <button class="sc-response sc-response--${r.id}" data-scandal-response="${r.id}">
+          ${r.label}${responseNote(r) ? ` <span class="sc-resp-note">(${responseNote(r)})</span>` : ''}
+        </button>`).join('')}`;
   }
 
   return `
@@ -203,7 +258,9 @@ function renderScandalCard(scandal) {
         Accept: <span class="sc-bad">-${penalty}% approval</span>
         &nbsp;&middot;&nbsp;
         Suppress: <span class="sc-warn">-${scandal.suppress_cost}M budget</span>
-      </div>` : ''}
+      </div>` : `<div class="sc-terms">
+        <span class="sc-bad">This cannot be suppressed or accepted. Survive it — or resign.</span>
+      </div>`}
       <div class="sc-actions">${actionButtons}</div>
     </div>`;
 }
@@ -229,10 +286,16 @@ export class DispatchScreen {
       if (line) tickerParts.push(line.slice(0, 35) + '...');
     });
 
-    // Crisis window
+    // Crisis window — must match the engine's CRISIS_TURNS [4, 8, 12]
+    // (the old formula ceil(turn/3)*3+3 produced 6/9/15, none of which
+    // are actual crisis turns)
+    const CRISIS_TURNS = [4, 8, 12];
+    const nextWindow = CRISIS_TURNS.find(t => t > state.turn);
     const crisisWindowText = state.activeCrises.length
       ? 'CRISIS ACTIVE - respond now'
-      : `Next eligible: Turn ${Math.ceil((state.turn) / 3) * 3 + 3}`;
+      : nextWindow
+        ? `Next eligible: Turn ${nextWindow}`
+        : 'No further windows this term';
 
     // Story section
     let storyHTML = renderStoryCard(state, decision);
@@ -251,6 +314,7 @@ export class DispatchScreen {
 
     return `
       <div class="screen">
+        ${renderScandalReveals(state.pendingScandalReveals)}
         ${renderBetrayalEvents(state.pendingBetrayals)}
         ${renderTopBar(state)}
         <div class="mobile-tab-strip">
@@ -300,7 +364,7 @@ export class DispatchScreen {
           <div class="right">
             <div class="adv-area">
               <div class="adv-h">ADVISORS</div>
-              ${advisors.map(a => renderAdvisorCard(a)).join('')}
+              ${advisors.map(a => renderAdvisorCard(a, (state.pendingBribes ?? []).some(b => b.advisorId === a.id))).join('')}
               ${renderBribeOffers(state.pendingBribes)}
               ${renderContractOffers(state.pendingContractOffers, state.activeContractDeals)}
             </div>
@@ -378,6 +442,12 @@ export class DispatchScreen {
     container.querySelectorAll('[data-dismiss-betrayal]').forEach(btn => {
       btn.addEventListener('click', () => {
         handlers.dismissBetrayal?.();
+      });
+    });
+
+    container.querySelectorAll('[data-dismiss-scandal-reveal]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        handlers.dismissScandalReveal?.();
       });
     });
 

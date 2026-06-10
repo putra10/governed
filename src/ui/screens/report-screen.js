@@ -3,7 +3,10 @@ import { renderReportCard } from '../components/report-card.js';
 
 export class ReportScreen {
   static render(state) {
-    const recalled = state.approval <= 0;
+    const scandalExit = state.endReason === 'career_ending_scandal';
+    const walkedAway  = state.endReason === 'resigned';
+    const resigned = scandalExit || walkedAway;
+    const recalled = !resigned && (state.endReason === 'recalled' || state.approval <= 0);
     const decisions = state.pastDecisions;
 
     const worstDecision = decisions.reduce((worst, d) => {
@@ -41,7 +44,18 @@ export class ReportScreen {
 
     // Outcome
     let outcomeTitle, outcomeDesc, primaryCls;
-    if (recalled) {
+    if (walkedAway) {
+      outcomeTitle = 'RESIGNED';
+      outcomeDesc  = `You walked away on your own terms at turn ${state.turn}. The city shrugs and moves on.`;
+      primaryCls   = '';
+    } else if (scandalExit) {
+      const gambled = state.flags?.miracle_failed;
+      outcomeTitle = gambled ? 'THE LAST STAND FAILED' : 'RESIGNED IN DISGRACE';
+      outcomeDesc  = gambled
+        ? 'You gambled 150M on a desperate last stand — and lost. The scandal ended your career anyway.'
+        : 'A career-ending scandal forced you from office before the end of your term.';
+      primaryCls   = '';
+    } else if (recalled) {
       outcomeTitle = 'RECALLED';
       outcomeDesc  = 'Public confidence collapsed. Your term ended early.';
       primaryCls   = '';
@@ -64,8 +78,8 @@ export class ReportScreen {
         <div class="report-screen">
           <div class="report-header">
             <div class="rh-kicker">END OF TERM - ${state.turn * 6} WEEKS IN OFFICE</div>
-            <div class="rh-title">${recalled ? 'RECALLED - ' : ''}Final Report - ${state.city?.city_name ?? 'City'}</div>
-            <div class="rh-sub">${recalled ? 'Public confidence collapsed.' : 'Term completed. That alone is an achievement.'}</div>
+            <div class="rh-title">${resigned ? 'RESIGNED - ' : recalled ? 'RECALLED - ' : ''}Final Report - ${state.city?.city_name ?? 'City'}</div>
+            <div class="rh-sub">${walkedAway ? 'You left office voluntarily.' : scandalExit ? 'The scandal could not be survived.' : recalled ? 'Public confidence collapsed.' : 'Term completed. That alone is an achievement.'}</div>
           </div>
           ${renderReportCard(state)}
           <div class="domain-grid">${domainsHTML}</div>
@@ -83,7 +97,7 @@ export class ReportScreen {
             <div class="verdict">
               <div class="v-name">CRISES SURVIVED</div>
               <div class="v-val" style="color:var(--color-amber)">${state.pastCrises.length}</div>
-              <div class="v-label">out of ${state.city?.crises?.length ?? '?'} possible</div>
+              <div class="v-label">out of ${Math.min(3, state.city?.crises?.length ?? 3)} possible</div>
             </div>
           </div>
           ${worstDecision ? `
@@ -91,6 +105,19 @@ export class ReportScreen {
               <div class="worst-l">WORST DECISION</div>
               <div class="worst-t">Turn ${worstDecision.turn} - ${worstDecision.decisionId}. Approval delta: ${worstDecision.delta >= 0 ? '+' : ''}${worstDecision.delta}.</div>
             </div>` : ''}
+          ${(() => {
+            const dd = state.dirtyDeeds ?? {};
+            const dirty = (dd.skimmed ?? 0) + (dd.threats ?? 0) + (dd.leaks ?? 0) + (dd.exposed ?? 0) > 0;
+            return dirty ? `
+            <div class="worst-box">
+              <div class="worst-l">DIRTY HANDS</div>
+              <div class="worst-t">Skimmed ${dd.skimmed ?? 0}M from the treasury &middot; ${dd.threats ?? 0} threat(s) &middot; ${dd.leaks ?? 0} leak(s) &middot; ${dd.exposed ?? 0} scheme(s) exposed. History keeps receipts.</div>
+            </div>` : `
+            <div class="worst-box">
+              <div class="worst-l">CLEAN HANDS</div>
+              <div class="worst-t">No back-channel schemes this term. The auditors found nothing — because there was nothing.</div>
+            </div>`;
+          })()}
           <div class="roast-box">
             <div class="roast-l">CITY SPEAKS</div>
             <div class="roast-t">"${roastBody}"</div>
@@ -100,7 +127,6 @@ export class ReportScreen {
               <strong>${outcomeTitle}.</strong> ${outcomeDesc}
             </div>
             <div class="outcome-actions">
-              <div class="oa-btn" id="btn-retry">Retry ${state.city?.city_name ?? 'City'}</div>
               <div class="oa-btn ${primaryCls}" id="btn-restart">Main Menu</div>
             </div>
           </div>
@@ -109,7 +135,6 @@ export class ReportScreen {
   }
 
   static bind(container) {
-    container.querySelector('#btn-retry')?.addEventListener('click',   () => window.location.reload());
     container.querySelector('#btn-restart')?.addEventListener('click', () => window.location.reload());
   }
 }

@@ -1,6 +1,11 @@
 // src/engine/scandal-system.js
 // GDD Section 3.5 -- Four severity tiers with city-specific reactions
-import { randomPick } from '../utils/random.js';
+import { randomPick, random } from '../utils/random.js';
+
+// Validate a severity key from city JSON; fall back safely on typos
+function safeTier(key, fallback = 'minor') {
+  return SCANDAL_SEVERITY[key] ? key : fallback;
+}
 
 export const SCANDAL_SEVERITY = {
   minor: {
@@ -77,26 +82,44 @@ export class ScandalSystem {
   // Apply a scandal object to game state
   _applyScandal(scandal, sourceId = 'unknown') {
     const s = this.state;
-    const tier = SCANDAL_SEVERITY[scandal.severity_tier ?? 'minor'];
+    const tierKey = safeTier(scandal.severity_tier ?? 'minor');
+    const tier = SCANDAL_SEVERITY[tierKey];
 
-    s.shiftApproval(tier.approvalPenalty);
+    // Respect the city-authored approval_penalty when present; only fall
+    // back to the generic tier penalty. (Previously the authored value was
+    // ignored entirely, so most scandals hit a flat -5 'minor' penalty.)
+    const penalty = scandal.approval_penalty ?? tier.approvalPenalty;
+    s.shiftApproval(penalty);
+
+    // Surprise scandals (decision fallout, bribes, leaks, exposures...) get a
+    // reveal popup so the player knows WHY approval just moved. Scandals the
+    // player explicitly accepted (sourceId 'accepted') skip it — they chose.
+    if (sourceId !== 'accepted') {
+      if (!s.pendingScandalReveals) s.pendingScandalReveals = [];
+      s.pendingScandalReveals.push({
+        title: scandal.title ?? 'Political Scandal',
+        severity_tier: tierKey,
+        penalty,
+        source: sourceId,
+        turn: s.turn,
+      });
+    }
 
     if (!s.activeScandals) s.activeScandals = [];
     s.activeScandals.push({
       ...scandal,
       sourceTurn: s.turn,
       sourceId,
-      severity_tier: scandal.severity_tier ?? 'minor'
+      severity_tier: tierKey
     });
 
     // Read reaction from city JSON; fall back to generic pool
-    const tierKey = scandal.severity_tier ?? 'minor';
     const cityReaction = s.city?.scandal_reactions?.[tierKey] ?? FALLBACK_REACTIONS[tierKey];
     if (cityReaction) {
       s.recentComments = [cityReaction, ...(s.recentComments ?? [])].slice(0, 5);
     }
 
-    console.log('[Scandal]', scandal.title ?? scandal.id, '-- tier:', scandal.severity_tier ?? 'minor', '(' + tier.approvalPenalty + ' approval)');
+    console.log('[Scandal]', scandal.title ?? scandal.id, '-- tier:', tierKey, '(' + penalty + ' approval)');
   }
 
   _synthesizeScandal(tierKey, sourceId) {
@@ -112,13 +135,14 @@ export class ScandalSystem {
   // Romance-exposure scandal -- triggered by advisor system
   triggerRomanceExposure(advisorName) {
     const s = this.state;
-    const culture = s.city?.romance_exposure ?? { severity: 'moderate', flavour: null };
+    const culture  = s.city?.romance_exposure ?? { severity: 'moderate', flavour: null };
+    const severity = safeTier(culture.severity, 'moderate');
 
     const scandal = {
       id: `romance_exposure_${advisorName.toLowerCase().replace(/\s+/g, '_')}`,
       title: `Governor's Relationship with ${advisorName} Exposed`,
-      severity_tier: culture.severity,
-      approval_penalty: SCANDAL_SEVERITY[culture.severity].approvalPenalty,
+      severity_tier: severity,
+      approval_penalty: SCANDAL_SEVERITY[severity].approvalPenalty,
     };
 
     this._applyScandal(scandal, 'romance');
@@ -130,8 +154,8 @@ export class ScandalSystem {
     const advisor = s.advisors.find(a => a.name === advisorName);
     if (advisor) advisor.romanceExposed = true;
 
-    console.log('[Romance Exposed]', advisorName, '-- severity:', culture.severity);
-    return culture.severity;
+    console.log('[Romance Exposed]', advisorName, '-- severity:', severity);
+    return severity;
   }
 
   getCityReaction(tierKey) {
@@ -140,15 +164,15 @@ export class ScandalSystem {
   }
 
   getResponseOptions(scandalObj) {
-    const tier = SCANDAL_SEVERITY[scandalObj?.severity_tier ?? 'minor'];
-    return tier?.responses ?? SCANDAL_SEVERITY.minor.responses;
+    const tier = SCANDAL_SEVERITY[safeTier(scandalObj?.severity_tier ?? 'minor')];
+    return tier.responses;
   }
 
   // Apply player response to a scandal
   // Returns: { gameOver: bool, miracleSaved: bool }
   applyResponse(scandalObj, responseId) {
     const s = this.state;
-    const tier = SCANDAL_SEVERITY[scandalObj?.severity_tier ?? 'minor'];
+    const tier = SCANDAL_SEVERITY[safeTier(scandalObj?.severity_tier ?? 'minor')];
     const response = tier.responses.find(r => r.id === responseId);
     if (!response) return { gameOver: false, miracleSaved: false };
 
@@ -157,11 +181,22 @@ export class ScandalSystem {
     }
 
     if (response.miracleRoll) {
-      const saved = Math.random() < 0.25;
+      const saved = random() < 0.25;
       if (!saved) {
         return { gameOver: true, miracleSaved: false };
       }
+      // BUGFIX: surviving the miracle previously applied NO scandal penalty —
+      // a career-ending scandal netted +15 approval. The scandal still
+      // happened: apply its penalty first, then the response modifiers.
+      s.shiftApproval(scandalObj?.approval_penalty ?? tier.approvalPenalty);
       console.log('[Miracle] The governor survived a career-ending scandal!');
+    }
+
+    // Non-career responses (deny / apologize / investigate...): the scandal
+    // still lands — the response only shapes the damage. Without this, a
+    // "Public Apology" would be a free +5 and strictly dominate accepting.
+    if (!response.miracleRoll) {
+      s.shiftApproval(scandalObj?.approval_penalty ?? tier.approvalPenalty);
     }
 
     if (response.budgetCost) s.shiftBudget(-response.budgetCost);

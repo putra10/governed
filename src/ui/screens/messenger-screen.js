@@ -1,5 +1,5 @@
 import { trustStatus, advisorCardClass, pick, now } from '../ui-helpers.js';
-import { EMERGENCY_POWERS } from '../../engine/advisor-system.js';
+import { EMERGENCY_POWERS, BACK_CHANNEL_ACTIONS } from '../../engine/advisor-system.js';
 
 export class MessengerScreen {
   static render(state, activeAdvisorId) {
@@ -75,6 +75,7 @@ export class MessengerScreen {
               </div>` : ''}
             ${MessengerScreen._renderRecommendation(state, advisor)}
             ${MessengerScreen._renderEmergencyPower(state, advisor)}
+            ${MessengerScreen._renderBackChannel(state, advisor)}
           </div>
           <div class="qr-bar">
             <div class="qr-l">CHOOSE RESPONSE</div>
@@ -128,6 +129,45 @@ export class MessengerScreen {
       </div>`;
   }
 
+  static _renderBackChannel(state, advisor) {
+    if (advisor.betrayed) return '';
+
+    // Active scheme status (always visible while a pact runs)
+    let pactHtml = '';
+    if (advisor.corruptPact) {
+      const riskPct = Math.round((0.05 + 0.01 * (advisor.pactTurns ?? 0)) * 100);
+      pactHtml = `
+        <div class="bc-status">
+          ACTIVE SCHEME &middot; turn ${advisor.pactTurns ?? 0} &middot;
+          skimmed ${advisor.totalSkimmed ?? 0}M &middot;
+          discovery risk ${riskPct}%/turn
+        </div>`;
+    }
+
+    const available = Object.entries(BACK_CHANNEL_ACTIONS)
+      .filter(([, a]) => a.condition(state, advisor));
+
+    if (!available.length && !pactHtml) return '';
+
+    const used = state.backChannelUsedTurn === state.turn;
+    const body = used
+      ? `<div class="bc-used">Back channel already used this turn.</div>`
+      : available.map(([id, a]) => `
+          <button class="bc-action" data-back-channel="${id}">
+            <span class="bca-label">${a.label}</span>
+            <span class="bca-desc">${a.desc}</span>
+            <span class="bca-note">${a.note}</span>
+          </button>`).join('');
+
+    return `
+      <div class="adv-bc">
+        <div class="adv-bc-header">&#x1F56F; BACK CHANNEL</div>
+        ${pactHtml}
+        ${body}
+        <div class="adv-bc-warn">One back-channel action per turn &middot; nothing here is deniable forever</div>
+      </div>`;
+  }
+
   static bind(state, activeAdvisorId, container, handlers, reRenderCallback) {
     const advisor = state.advisors.find(a => a.id === activeAdvisorId);
     if (!advisor) return;
@@ -169,6 +209,12 @@ export class MessengerScreen {
 
     container.querySelector('[data-use-emergency]')?.addEventListener('click', (e) => {
       handlers.useEmergencyPower?.(e.currentTarget.dataset.useEmergency);
+    });
+
+    container.querySelectorAll('[data-back-channel]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        handlers.backChannelAction?.(activeAdvisorId, btn.dataset.backChannel);
+      });
     });
   }
 }

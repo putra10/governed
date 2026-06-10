@@ -1,5 +1,5 @@
 // src/engine/turn-manager.js — Turn flow controller
-import { randomPick } from '../utils/random.js';
+import { randomPick, random } from '../utils/random.js';
 import { saveGame } from '../utils/local-storage.js';
 import { CrisisManager } from './crisis-manager.js';
 import { AdvisorSystem, EMERGENCY_POWERS, ADVISOR_SECRET_CRISIS_OPTIONS } from './advisor-system.js';
@@ -45,6 +45,7 @@ export class TurnManager {
       });
     });
     this.advisorSystem.tickRelationships(this.scandalSystem);
+    this.advisorSystem.processCorruptPacts(this.scandalSystem);
     this.advisorSystem.generateBribeOffers();
 
     // 2. Push any queued crisis (from unlock_follow_up) to active
@@ -240,15 +241,20 @@ export class TurnManager {
   _checkEndConditions() {
     const s = this.state;
 
-    if (s.approval <= 0) return 'recalled';
+    if (s.approval <= 0) { s.endReason = 'recalled'; return 'recalled'; }
 
-    if (s.turn >= 12) return 'term_complete';
+    // Term completes at turn 12 — but NOT while a crisis is still unresolved.
+    // Otherwise a crisis triggered on turn 12 could be ignored with no consequence.
+    if (s.turn >= 12 && s.activeCrises.length === 0) {
+      s.endReason = 'term_complete';
+      return 'term_complete';
+    }
 
     // 3+ consecutive failed crises
     if (s.pastCrises.length >= 3) {
       const lastThree = s.pastCrises.slice(-3);
       const allFailed = lastThree.every(c => (c.consequences?.approval_delta ?? 0) < -5);
-      if (allFailed && s.approval < 20) return 'recalled';
+      if (allFailed && s.approval < 20) { s.endReason = 'recalled'; return 'recalled'; }
     }
 
     return null;
@@ -307,12 +313,13 @@ export class TurnManager {
     const approvalPanic = Math.max(0, (37 - s.approval) / 37);
     let   chance        = 0.20 + debtPressure * 0.15 + approvalPanic * 0.20;
 
+    const urbanAdv = s.advisors?.find(a => a.id === 'urban_planning' && !a.betrayed);
     if (urbanAdv && (urbanAdv.trust ?? 0) >= 75) {
       chance *= 0.80;
       console.log('[Advisor Passive] Urban Planning reduces unrest chance by 20%');
     }
 
-    if (Math.random() >= chance) return;
+    if (random() >= chance) return;
 
     const type = s.approval < 18 ? 'riot'
                : s.approval < 28 ? 'demonstration'
@@ -338,7 +345,9 @@ export class TurnManager {
         console.log('[Unrest] Riot: negotiated (−40M)'); break;
       case 'crackdown':
         s.shiftApproval(-18);
-        if (Math.random() < 0.30) this._rollScandalEvent();
+        // 30% flat scandal chance — bypasses _rollScandalEvent's own gate so
+        // the effective probability matches the design (was ~6% before)
+        if (random() < 0.30) this._createPendingScandal();
         console.log('[Unrest] Riot: crackdown (−18 approval, 30% scandal)'); break;
     }
     s.pendingUnrest = null;
@@ -396,15 +405,20 @@ export class TurnManager {
     if (!bribe) return;
 
     s.pendingBribes = s.pendingBribes.filter(b => b.advisorId !== advisorId);
+
+    // Guard: never pay a betrayed advisor (offer should already be purged
+    // by triggerBetrayal, but a stale save could still contain one)
+    const advisor = s.getAdvisor(advisorId);
+    if (advisor?.betrayed) { this.saveState(); return; }
+
     s.shiftBudget(-bribe.cost);
 
-    const advisor = s.getAdvisor(advisorId);
     if (advisor) {
       advisor.agendaProgress = Math.max(0, advisor.agendaProgress - bribe.agendaReduction);
       advisor.trust          = Math.min(100, (advisor.trust ?? 50) + bribe.trustGain);
     }
 
-    if (Math.random() < bribe.scandalRisk) {
+    if (random() < bribe.scandalRisk) {
       this.scandalSystem.trigger('bribe_' + advisorId);
       console.warn(`[Bribe] Accepted from ${advisorId} — scandal triggered!`);
     } else {
@@ -420,8 +434,21 @@ export class TurnManager {
 
     s.pendingBribes = s.pendingBribes.filter(b => b.advisorId !== advisorId);
     const advisor = s.getAdvisor(advisorId);
-    if (advisor) {
+    if (advisor && !advisor.betrayed) {
       advisor.agendaProgress = Math.min(100, (advisor.agendaProgress ?? 0) + 10);
+      // The snub can push the agenda past the betrayal threshold — fire it
+      // now instead of silently waiting for next turn's tick
+      if (advisor.agendaProgress >= 80) {
+        this.advisorSystem.triggerBetrayal(advisor, (b) => {
+          if (!s.pendingBetrayals) s.pendingBetrayals = [];
+          s.pendingBetrayals.push({
+            advisorId:    b.id,
+            advisorName:  b.name,
+            line:         b.dialogue?.betrayal ?? 'I can no longer serve you.',
+            relationship: b.relationshipType ?? 'neutral',
+          });
+        });
+      }
     }
     console.log(`[Bribe] Declined from ${advisorId}`);
     this.saveState();
@@ -438,7 +465,14 @@ export class TurnManager {
       console.log('[Advisor Passive] Military reduces scandal chance by 15%');
     }
 
-    if (Math.random() >= chance) return;
+    if (random() >= chance) return;
+    this._createPendingScandal();
+  }
+
+  // Creates a pending scandal unconditionally (no probability gate).
+  // Used by _rollScandalEvent (after its roll) and crackdown (flat 30%).
+  _createPendingScandal() {
+    const s = this.state;
     if (s.pendingScandal) return;
 
     const available = (s.city?.scandals ?? []).filter(sc =>
@@ -447,7 +481,7 @@ export class TurnManager {
     );
     if (!available.length) return;
 
-    const scandal = available[Math.floor(Math.random() * available.length)];
+    const scandal = randomPick(available);
     const tier = scandal.severity_tier ?? 'minor';
     const SUPPRESS_COSTS = { minor: 20, moderate: 40, major: 80, career_ending: 150 };
     s.pendingScandal = {
@@ -458,15 +492,16 @@ export class TurnManager {
     console.log(`[Scandal] "${scandal.title ?? scandal.id}" (${tier}) erupts`);
   }
 
-  _fireScandal(scandal) {
-    this.scandalSystem._applyScandal(scandal, 'auto_fired');
-    console.log(`[Scandal auto-fired] ${scandal.title ?? scandal.id}`);
+  _fireScandal(scandal, sourceId = 'auto_fired') {
+    this.scandalSystem._applyScandal(scandal, sourceId);
+    console.log(`[Scandal fired] ${scandal.title ?? scandal.id} (${sourceId})`);
   }
 
   acceptScandal() {
     const s = this.state;
     if (!s.pendingScandal) return;
-    this._fireScandal(s.pendingScandal);
+    // 'accepted' = player chose this — no surprise reveal popup
+    this._fireScandal(s.pendingScandal, 'accepted');
     s.pendingScandal = null;
     this.saveState();
   }
@@ -488,6 +523,16 @@ export class TurnManager {
     const result = this.scandalSystem.applyResponse(s.pendingScandal, responseId);
     if (!result.gameOver) s.resolvedScandals.push(s.pendingScandal.id);
     s.pendingScandal = null;
+    // Early end-of-term via scandal: resignation/failed miracle, or the
+    // scandal's approval hit dropping the governor to 0
+    if (result.gameOver) {
+      s.endReason = 'career_ending_scandal';
+      // Distinguish "gambled on the miracle and lost" from a plain resignation
+      if (responseId === 'miracle') s.setFlag('miracle_failed', true);
+    } else if (s.approval <= 0) {
+      s.endReason = 'recalled';
+      result.gameOver = true;
+    }
     this.saveState();
     return result;
   }
@@ -495,5 +540,24 @@ export class TurnManager {
   shiftAdvisorRelationship(advisorId, delta) {
     this.advisorSystem.shiftRelationship(advisorId, delta);
     this.saveState();
+  }
+
+  // ── Back channel (messenger actions) ──────────────────────────────────
+  backChannelAction(advisorId, actionId) {
+    const s = this.state;
+    const result = this.advisorSystem.executeBackChannel(
+      advisorId, actionId, this.scandalSystem,
+      (b) => {
+        if (!s.pendingBetrayals) s.pendingBetrayals = [];
+        s.pendingBetrayals.push({
+          advisorId:    b.id,
+          advisorName:  b.name,
+          line:         b.dialogue?.betrayal ?? 'I can no longer serve you.',
+          relationship: b.relationshipType ?? 'neutral',
+        });
+      }
+    );
+    this.saveState();
+    return result;
   }
 }

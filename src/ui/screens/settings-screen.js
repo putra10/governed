@@ -1,5 +1,7 @@
 // src/ui/screens/settings-screen.js
 // Full tabbed settings UI using st-* CSS classes
+import { saveSettings } from '../../utils/settings-store.js';
+import { loadCareerStats } from '../../utils/career-stats.js';
 
 export class SettingsScreen {
   static render(state) {
@@ -110,8 +112,45 @@ export class SettingsScreen {
 
             <!-- STATS -->
             <div class="st-section" id="tab-stats">
-              <div class="st-s-title">PLAYER STATS</div>
+              <div class="st-s-title">CAREER</div>
+              ${(() => {
+                const c = loadCareerStats();
+                return `
+              <div class="st-stat-grid">
+                <div class="st-stat-card">
+                  <div class="st-sc-label">GAMES STARTED</div>
+                  <div class="st-sc-val">${c.gamesStarted}</div>
+                  <div class="st-sc-sub">All time</div>
+                </div>
+                <div class="st-stat-card">
+                  <div class="st-sc-label">TERMS COMPLETED</div>
+                  <div class="st-sc-val">${c.termsCompleted}</div>
+                  <div class="st-sc-sub">Survived all 12 turns</div>
+                </div>
+                <div class="st-stat-card">
+                  <div class="st-sc-label">RECALLED</div>
+                  <div class="st-sc-val">${c.recalled}</div>
+                  <div class="st-sc-sub">Approval collapsed</div>
+                </div>
+                <div class="st-stat-card">
+                  <div class="st-sc-label">RESIGNED</div>
+                  <div class="st-sc-val">${c.resigned}</div>
+                  <div class="st-sc-sub">Career-ending scandals</div>
+                </div>
+                <div class="st-stat-card">
+                  <div class="st-sc-label">BEST APPROVAL</div>
+                  <div class="st-sc-val">${c.bestApproval}%</div>
+                  <div class="st-sc-sub">At term end</div>
+                </div>
+                <div class="st-stat-card">
+                  <div class="st-sc-label">TURNS GOVERNED</div>
+                  <div class="st-sc-val">${c.turnsGoverned}</div>
+                  <div class="st-sc-sub">Across all cities</div>
+                </div>
+              </div>`;
+              })()}
 
+              <div class="st-s-title" style="margin-top: 0.875rem">CURRENT SESSION</div>
               ${state.city ? `
               <div class="st-stat-grid">
                 <div class="st-stat-card">
@@ -151,6 +190,17 @@ export class SettingsScreen {
             <div class="st-section" id="tab-data">
               <div class="st-s-title">SESSION DATA</div>
 
+              ${state.city ? `
+              <div class="st-row" style="margin-top: 0.5rem">
+                <div class="st-row-label">
+                  <div class="st-rl-name" style="color:#d4a843">Resign Early</div>
+                  <div class="st-rl-desc">End your term in ${state.city.city_name} now and see the final report. Counts as a resignation.</div>
+                </div>
+                <div class="st-row-control">
+                  <button class="st-speed-btn st-warn-btn" id="btn-resign-early">RESIGN</button>
+                </div>
+              </div>` : ''}
+
               <div class="st-row" style="margin-top: 0.5rem">
                 <div class="st-row-label">
                   <div class="st-rl-name" style="color:#e05c5c">Reset Save Data</div>
@@ -187,20 +237,29 @@ export class SettingsScreen {
       });
     });
 
-    // Toggle: sound
+    // Toggle: sound — persisted immediately (independent of game saves)
     container.querySelector('#toggle-sound')?.addEventListener('click', () => {
       state.settings.sound = !state.settings.sound;
+      saveSettings(state.settings);
       reRenderCallback();
     });
 
-    // Setting groups (feedSpeed, scandalFreq, language)
+    // Setting groups (feedSpeed, scandalFreq, language) — persisted immediately
     container.querySelectorAll('[data-setting]').forEach(btn => {
       btn.addEventListener('click', () => {
         const key = btn.dataset.setting;
         const val = btn.dataset.value;
         state.settings[key] = val;
+        saveSettings(state.settings);
         reRenderCallback();
       });
+    });
+
+    // Resign early
+    container.querySelector('#btn-resign-early')?.addEventListener('click', () => {
+      if (confirm('Resign your office now? Your term ends immediately and this counts as a resignation.')) {
+        handlers.resignEarly?.();
+      }
     });
 
     // Reset save

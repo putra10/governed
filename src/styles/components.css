@@ -320,6 +320,32 @@
   min-height: 0;
 }
 
+/* Desktop: never clip the dispatch text.
+   When a scandal/unrest card stacks into .dec, .dec used to grow unbounded
+   and crush .story (overflow:hidden) down to a single clipped line.
+   Now: .story scrolls if needed, and .dec caps at ~72% of the column and
+   scrolls internally, so the story always keeps readable space. */
+@media (min-width: 769px) {
+  .story {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #2a2a2a transparent;
+  }
+  .dec {
+    max-height: 72%;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #2a2a2a transparent;
+  }
+  /* END TURN stays visible while the decision panel scrolls */
+  .dec .skip-btn {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    background: #0a0a0a;
+  }
+}
+
 /* Turn pip row */
 .pip-row {
   display: flex;
@@ -1180,6 +1206,25 @@
   background: #1a0c0c;
 }
 
+/* "Manage the story" section on non-career scandal cards */
+.sc-manage-label {
+  flex-basis: 100%;
+  width: 100%;
+  font-size: 0.4375rem;
+  color: #6a5030;
+  letter-spacing: .08em;
+  margin-top: 0.375rem;
+  padding-top: 0.375rem;
+  border-top: 0.5px solid #2a1a10;
+}
+
+.sc-resp-note {
+  font-weight: 400;
+  color: #997;
+  font-size: 0.4375rem;
+  letter-spacing: 0;
+}
+
 /* ── Civil Unrest cards (riot / demonstration / strike) ───────────────────── */
 .unrest-card {
   background: #100a00;
@@ -1386,6 +1431,87 @@
 .adv-ep-warn {
   font-size: 0.375rem;
   color: #4a3a11;
+  margin-top: 0.25rem;
+  text-align: center;
+}
+
+/* ── Back channel (messenger) ─────────────────────────────────────────────── */
+.adv-bc {
+  background: #0c0810;
+  border: 0.5px solid #2a1a3a;
+  border-left: 3px solid #6a4a9a;
+  border-radius: 4px;
+  padding: 0.5rem 0.625rem;
+  margin: 0.5rem 0;
+}
+
+.adv-bc-header {
+  font-size: 0.4375rem;
+  color: #8a6ab8;
+  letter-spacing: .12em;
+  margin-bottom: 0.375rem;
+}
+
+.bc-status {
+  font-size: 0.4375rem;
+  color: #c8a040;
+  background: #161008;
+  border: 0.5px solid #3a2a10;
+  border-radius: 3px;
+  padding: 0.3rem 0.4rem;
+  margin-bottom: 0.375rem;
+  letter-spacing: .04em;
+}
+
+.bc-action {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  width: 100%;
+  text-align: left;
+  background: #120c1a;
+  border: 0.5px solid #2a1a3a;
+  border-radius: 3px;
+  padding: 0.375rem 0.5rem;
+  margin-bottom: 0.3rem;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  transition: border-color .15s, background .15s;
+}
+
+.bc-action:hover {
+  border-color: #6a4a9a;
+  background: #1a1226;
+}
+
+.bca-label {
+  font-size: 0.5rem;
+  color: #b090e0;
+  letter-spacing: .08em;
+}
+
+.bca-desc {
+  font-size: 0.4375rem;
+  color: #777;
+  line-height: 1.45;
+}
+
+.bca-note {
+  font-size: 0.375rem;
+  color: #54407a;
+  font-style: italic;
+}
+
+.bc-used {
+  font-size: 0.4375rem;
+  color: #555;
+  text-align: center;
+  padding: 0.375rem 0;
+}
+
+.adv-bc-warn {
+  font-size: 0.375rem;
+  color: #3a2a55;
   margin-top: 0.25rem;
   text-align: center;
 }
@@ -1641,11 +1767,17 @@
     flex-direction: column;
   }
 
-  /* Story: natural height at top, flex-shrink:0 so it never collapses */
+  /* Story: capped height with internal scroll — long dispatch text scrolls
+     inside its own area instead of pushing decisions far below the fold */
   .story {
     padding: 0.875rem 0.875rem 0.5rem;
     flex-shrink: 0;
     min-height: 0;
+    max-height: 45svh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #2a2a2a transparent;
   }
 
   .pip-row {
@@ -1678,14 +1810,14 @@
     line-height: 1.75;
   }
 
-  /* ── Decisions: pushed to bottom via margin-top: auto ── */
-  /* margin-top:auto works in flex containers — consumes all spare space above */
+  /* ── Decisions: anchored to the bottom when short, normal flow when tall ──
+     NOTE: this block used to be position:sticky — but when a scandal card +
+     response options stack into .dec it grows TALLER than the phone screen,
+     and a sticky element taller than the viewport pins itself over the story
+     (z-index 2), burying the dispatch text. Normal flow scrolls correctly. */
   .dec {
     margin-top: auto;
     flex-shrink: 0;
-    position: sticky;
-    bottom: 0;
-    z-index: 2;
     padding: 0.625rem 0.875rem 0.875rem;
     background: #0a0a0a;
     border-top: 0.5px solid #2a2a2a;

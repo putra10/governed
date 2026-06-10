@@ -1,6 +1,11 @@
 :root {
-  /* Desktop / Laptop: 2x scale */
-  font-size: 200%;
+  /* Desktop / Laptop: FLUID scale.
+     The entire UI is sized in rem, so scaling the root font-size scales
+     everything proportionally. Reference design: 32px root at a 1920px-wide
+     viewport (100vw / 60). Any desktop width now renders the exact same
+     visual proportions — nothing gets too big on small laptops or too
+     small on large monitors. Clamped only against absurd extremes. */
+  font-size: clamp(14px, calc(100vw / 60), 64px);
 }
 
 @media (max-width: 1024px) {

@@ -234,22 +234,21 @@ export class MenuScreen {
       <div class="modal-box">
         <div class="modal-title">CREDITS</div>
         <div class="modal-body">
-          <p><strong>GOVERNED</strong> — A Relentless Governance Simulator</p>
-          <p>Vision &amp; Architecture: Hunt</p>
-          <p>Visuals &amp; Interface: Claude Opus 4.8</p>
-          <p>Core Engineering: Claude Sonnet 4.6 &amp; Kimi K2.6</p>
-          <p>Lore &amp; Narrative: Hunt</p>
-          <p>Synthetic Advisors &amp; Neural Collaborators:</p>
+          <p><strong>GOVERNED</strong> — A Governance Simulator</p>
+          <p>Game Design &amp; Direction: Hunt</p>
+          <p>Narrative &amp; World Design: Hunt</p>
+          <p>Interface Design: Claude Opus 4.8</p>
+          <p>Engine Development: Claude Sonnet 4.6, Kimi K2.6</p>
+          <p>Development Assistance — AI Systems:</p>
           <ul>
-            <li>DeepSeek-V3</li>
-            <li>Claude Sonnet 4.6</li>
-            <li>Claude Opus 4.7</li>
-            <li>OpenAI GPT-5.5</li>
-            <li>Kimi K2.6</li>
-            <li>Gemini 3.1 Pro</li>
-            <li>Gemini 3.5 Flash</li>
+            <li>Claude Fable 5, Claude Opus 4.7, Claude Sonnet 4.6 (Anthropic)</li>
+            <li>Gemini 3.1 Pro, Gemini 3.5 Flash (Google)</li>
+            <li>GPT-5.5 (OpenAI)</li>
+            <li>DeepSeek-V3 (DeepSeek)</li>
+            <li>Kimi K2.6 (Moonshot AI)</li>
           </ul>
-          <p>Forged with Vite + Vanilla JavaScript</p>
+          <p>Built with Vite and vanilla JavaScript.</p>
+          <p>&copy; 2026 Hunt. All rights reserved.</p>
         </div>
         <button class="modal-close" id="modal-close">CLOSE</button>
       </div>`;

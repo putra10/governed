@@ -1,4 +1,4 @@
-import { randomPick } from '../utils/random.js';
+import { randomPick, shuffle } from '../utils/random.js';
 
 export class CrisisManager {
   constructor(state) {
@@ -27,7 +27,7 @@ export class CrisisManager {
 
   selectCrisisPool() {
     const available = this.state.city?.crises?.filter(c => !c.war_mode) ?? [];
-    const shuffled = [...available].sort(() => Math.random() - 0.5);
+    const shuffled = shuffle(available);
     return shuffled.slice(0, Math.min(3, shuffled.length)).map(c => c.id);
   }
 

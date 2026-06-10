@@ -37,11 +37,14 @@ export class Renderer {
       declineBribe: (advisorId) => window.GOVERNED?.declineBribe(advisorId),
       shiftAdvisorRelationship: (advisorId, delta) => window.GOVERNED?.shiftAdvisorRelationship(advisorId, delta),
       dismissBetrayal: () => window.GOVERNED?.dismissBetrayal(),
+      dismissScandalReveal: () => window.GOVERNED?.dismissScandalReveal(),
       acceptContract:      (id) => window.GOVERNED?.acceptContract(id),
       declineContract:     (id) => window.GOVERNED?.declineContract(id),
       declineAllContracts: () =>  window.GOVERNED?.declineAllContracts(),
       resolveUnrest:       (action) => window.GOVERNED?.resolveUnrest(action),
       useEmergencyPower:   (id) =>     window.GOVERNED?.useEmergencyPower(id),
+      backChannelAction:   (advisorId, actionId) => window.GOVERNED?.backChannelAction(advisorId, actionId),
+      resignEarly:         () => window.GOVERNED?.resignEarly(),
     };
 
     switch (screen) {

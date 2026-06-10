@@ -208,12 +208,25 @@ function normalizeCity(data) {
     };
   });
 
-  const scandals = (data.scandals ?? []).map(scan => ({
-    ...scan,
-    description: scan.description ?? scan.title ?? 'A minor political scandal.',
-    severity: scan.severity ?? 2,
-    approval_penalty: scan.approval_penalty ?? -10
-  }));
+  // Derive severity_tier from the authored penalty when the city JSON
+  // doesn't specify one. Previously every untiered scandal defaulted to
+  // 'minor' — wrong response options, wrong suppress cost, and (before the
+  // engine fix) a flat -5 hit regardless of the authored approval_penalty.
+  const tierFromPenalty = (p) =>
+    p <= -30 ? 'career_ending' :
+    p <= -18 ? 'major'         :
+    p <= -8  ? 'moderate'      : 'minor';
+
+  const scandals = (data.scandals ?? []).map(scan => {
+    const approval_penalty = scan.approval_penalty ?? -10;
+    return {
+      ...scan,
+      description: scan.description ?? scan.title ?? 'A minor political scandal.',
+      severity: scan.severity ?? 2,
+      approval_penalty,
+      severity_tier: scan.severity_tier ?? tierFromPenalty(approval_penalty),
+    };
+  });
 
   // Preserve all comment_library sub-categories (media, politician, activist, street, etc.)
   const comment_library = {

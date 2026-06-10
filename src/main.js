@@ -3,6 +3,8 @@ import { state } from './engine/game-state.js';
 import { TurnManager } from './engine/turn-manager.js';
 import { Renderer } from './ui/renderer.js';
 import { loadCity } from './utils/validators.js';
+import { loadSettings } from './utils/settings-store.js';
+import { recordGameStart, recordGameEnd } from './utils/career-stats.js';
 
 // City registry
 const CITY_REGISTRY = {
@@ -43,8 +45,20 @@ class App {
   }
 
   init() {
+    // Restore settings persisted independently of game saves
+    const stored = loadSettings();
+    if (stored) Object.assign(this.state.settings, stored);
     this.currentScreen = 'menu';
     this.render();
+  }
+
+  // Single exit point for every game-over path — records career stats once
+  _endGame() {
+    if (!this.state.hasFlag('career_recorded')) {
+      recordGameEnd(this.state);
+      this.state.setFlag('career_recorded', true);
+    }
+    this.currentScreen = 'report';
   }
 
   render() {
@@ -76,6 +90,7 @@ class App {
       const cityData = module.default ?? module;
       const city = loadCity(cityData);
       this.state.loadCity(city);
+      recordGameStart();
       this.currentScreen = 'dispatch';
       this.render();
       console.log('GOVERNED started:', city.city_name, '| Governor:', this.governorName);
@@ -88,19 +103,36 @@ class App {
 
   handleDecision(decisionId, optionIndex) {
     this.turnManager.resolveDecision(decisionId, optionIndex);
+    this._checkInstantEnd();
     this.render();
   }
 
   handleCrisisDecision(crisisId, optionIndex, advisorSecretId = null) {
     this.turnManager.resolveCrisis(crisisId, optionIndex, advisorSecretId);
     this.currentScreen = 'dispatch';
+    this._checkInstantEnd();
     this.render();
+  }
+
+  resignEarly() {
+    if (!this.state.city || this.state.endReason) return;
+    this.state.endReason = 'resigned';
+    this._endGame();
+    this.render();
+  }
+
+  // A consequence (e.g. a triggered scandal) can zero approval mid-turn
+  _checkInstantEnd() {
+    if (this.state.approval <= 0) {
+      this.state.endReason = 'recalled';
+      this._endGame();
+    }
   }
 
   nextTurn() {
     const result = this.turnManager.processTurn();
     if (result === 'term_complete' || result === 'recalled') {
-      this.currentScreen = 'report';
+      this._endGame();
     } else if (this.state.activeCrises.length > 0) {
       this.currentScreen = 'crisis';
       this.renderer.setActiveCrisis(this.state.activeCrises[0]);
@@ -127,6 +159,11 @@ class App {
 
   acceptScandal() {
     this.turnManager.acceptScandal();
+    // A scandal's approval penalty can drop the governor to 0 — end early
+    if (this.state.approval <= 0) {
+      this.state.endReason = 'recalled';
+      this._endGame();
+    }
     this.render();
   }
 
@@ -173,10 +210,11 @@ class App {
   respondToScandal(responseId) {
     const result = this.turnManager.respondToScandal(responseId);
     if (result.gameOver) {
-      this.renderer.showScreen('report', this.state, { gameOver: true, reason: 'career_ending_scandal' });
-    } else {
-      this.render();
+      // BUGFIX: this used to call this.renderer.showScreen(), which doesn't
+      // exist — the game crashed instead of ending the term early.
+      this._endGame();
     }
+    this.render();
   }
 
   shiftAdvisorRelationship(advisorId, delta) {
@@ -184,9 +222,36 @@ class App {
     this.render();
   }
 
+  backChannelAction(advisorId, actionId) {
+    const result  = this.turnManager.backChannelAction(advisorId, actionId);
+    const advisor = this.state.getAdvisor(advisorId);
+    if (advisor && result?.msg) {
+      if (!advisor._msgLog) advisor._msgLog = [];
+      advisor._msgLog.push({ type: 'sys', text: result.msg });
+    }
+    // A back-channel scandal can end the term (career-ending leak/pact exposure)
+    if (this.state.approval <= 0) {
+      this.state.endReason = 'recalled';
+      this._endGame();
+    }
+    this.render();
+  }
+
   dismissBetrayal() {
     if (this.state.pendingBetrayals?.length > 0) {
       this.state.pendingBetrayals.shift();
+    }
+    this.render();
+  }
+
+  dismissScandalReveal() {
+    if (this.state.pendingScandalReveals?.length > 0) {
+      this.state.pendingScandalReveals.shift();
+    }
+    // A surprise scandal can zero out approval — end the term if so
+    if (this.state.approval <= 0) {
+      this.state.endReason = 'recalled';
+      this._endGame();
     }
     this.render();
   }

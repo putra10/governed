@@ -21,7 +21,7 @@ function agendaColor(pct) {
   return '#406040';
 }
 
-export function renderAdvisorCard(advisor) {
+export function renderAdvisorCard(advisor, hasOffer = false) {
   const trust    = Math.round(advisor.trust);
   const agenda   = Math.round(advisor.agendaProgress ?? 0);
   const cardCls  = advisorCardClass(trust, advisor.betrayed);
@@ -38,10 +38,14 @@ export function renderAdvisorCard(advisor) {
     warningHtml = `<div class="acard-warn acard-warn--betrayed">&#x26A0; BETRAYED</div>`;
   } else if (agenda >= 80) {
     warningHtml = `<div class="acard-warn acard-warn--danger">&#x1F534; PLOTTING AGAINST YOU</div>`;
-  } else if (agenda >= 60) {
+  } else if (hasOffer) {
+    // Only when a real bribe offer exists in state.pendingBribes —
+    // previously this showed at agenda >= 60 even with no actual offer
     warningHtml = `<div class="acard-warn acard-warn--bribe">&#x26A1; OFFERING A DEAL</div>`;
   } else if (trust < 30) {
     warningHtml = `<div class="acard-warn acard-warn--low">&#x1F4C9; CHECKED OUT</div>`;
+  } else if (agenda >= 60) {
+    warningHtml = `<div class="acard-warn acard-warn--bribe">&#x26A1; GROWING RESTLESS</div>`;
   }
 
   const aColor = agendaColor(agenda);

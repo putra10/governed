@@ -1,6 +1,6 @@
 // src/engine/game-state.js — Single source of truth
 import { getNextGenericProblem } from './generic-problems.js';
-import { seed } from '../utils/random.js';
+import { seed, shuffle } from '../utils/random.js';
 
 export const state = {
   settings: {
@@ -48,6 +48,18 @@ export const state = {
 
   recentComments: [],
 
+  // Why the game ended:
+  // null | 'recalled' | 'term_complete' | 'career_ending_scandal' | 'resigned'
+  endReason: null,
+
+  // Surprise scandals waiting for a reveal popup (decision fallout, leaks...)
+  pendingScandalReveals: [],
+
+  // Back channel: one action per turn (stores the turn it was used)
+  backChannelUsedTurn: 0,
+  // Tally of dirty politics for the end-of-term report
+  dirtyDeeds: { skimmed: 0, threats: 0, leaks: 0, exposed: 0 },
+
   // ── Lifecycle ─────────────────────────────────────────────────────────
 
   loadCity(cityData) {
@@ -61,7 +73,7 @@ export const state = {
     this.pendingCrisis = null;
     const TIER_ADVISOR_COUNTS = { easy: 5, medium: 5, hard: 4, extreme: 3, war: 3 };
     const targetCount = cityData.advisor_count ?? TIER_ADVISOR_COUNTS[cityData.tier] ?? 5;
-    const shuffled = [...cityData.advisors].sort(() => Math.random() - 0.5);
+    const shuffled = shuffle(cityData.advisors);
     const selectedAdvisors = shuffled.slice(0, Math.min(targetCount, shuffled.length));
     this.advisors = selectedAdvisors.map(a => ({
       ...a,
@@ -71,6 +83,12 @@ export const state = {
       romanceExposed: false,
       relationshipType: 'neutral',
       emergencyPowerUsed: false,
+      corruptPact: false,
+      pactTurns: 0,
+      totalSkimmed: 0,
+      pactResidual: 0,
+      threatCount: 0,
+      leakUsed: false,
     }));
     this.pastDecisions = [];
     this.pastCrises = [];
@@ -92,6 +110,10 @@ export const state = {
     this.consecutiveDeficitTurns = 0;
     this.pendingUnrest = null;
     this.pendingDecisionRecommendations = {};
+    this.endReason = null;
+    this.pendingScandalReveals = [];
+    this.backChannelUsedTurn = 0;
+    this.dirtyDeeds = { skimmed: 0, threats: 0, leaks: 0, exposed: 0 };
   },
 
   // ── Decision pacing ───────────────────────────────────────────────────
@@ -142,7 +164,7 @@ export const state = {
 
   selectCrisisPool() {
     const available = this.city.crises.filter(c => !c.war_mode);
-    const shuffled = [...available].sort(() => Math.random() - 0.5);
+    const shuffled = shuffle(available);
     return shuffled.slice(0, Math.min(3, shuffled.length)).map(c => c.id);
   },
 
@@ -192,6 +214,12 @@ export const state = {
         romanceExposed: a.romanceExposed,
         relationshipType: a.relationshipType ?? 'neutral',
         emergencyPowerUsed: a.emergencyPowerUsed ?? false,
+        corruptPact: a.corruptPact ?? false,
+        pactTurns: a.pactTurns ?? 0,
+        totalSkimmed: a.totalSkimmed ?? 0,
+        pactResidual: a.pactResidual ?? 0,
+        threatCount: a.threatCount ?? 0,
+        leakUsed: a.leakUsed ?? false,
       })),
       pastDecisions: this.pastDecisions,
       pastCrises: this.pastCrises,
@@ -209,6 +237,12 @@ export const state = {
       lastContractOfferTurn: this.lastContractOfferTurn,
       consecutiveDeficitTurns: this.consecutiveDeficitTurns,
       pendingUnrest: this.pendingUnrest,
+      pendingBetrayals: this.pendingBetrayals,
+      recentComments: this.recentComments,
+      endReason: this.endReason,
+      pendingScandalReveals: this.pendingScandalReveals,
+      backChannelUsedTurn: this.backChannelUsedTurn,
+      dirtyDeeds: this.dirtyDeeds,
       flags: this.flags,
     });
   },
@@ -239,18 +273,36 @@ export const state = {
     this.lastContractOfferTurn  = parsed.lastContractOfferTurn ?? 0;
     this.consecutiveDeficitTurns = parsed.consecutiveDeficitTurns ?? 0;
     this.pendingUnrest           = parsed.pendingUnrest ?? null;
+    this.pendingBetrayals        = parsed.pendingBetrayals ?? [];
+    this.recentComments          = parsed.recentComments ?? [];
+    this.endReason               = parsed.endReason ?? null;
+    this.pendingScandalReveals   = parsed.pendingScandalReveals ?? [];
+    this.backChannelUsedTurn     = parsed.backChannelUsedTurn ?? 0;
+    this.dirtyDeeds              = parsed.dirtyDeeds ?? { skimmed: 0, threats: 0, leaks: 0, exposed: 0 };
     this.flags                   = parsed.flags ?? {};
 
-    (parsed.advisors ?? []).forEach(saved => {
-      const advisor = this.getAdvisor(saved.id);
-      if (advisor) {
-        advisor.trust              = saved.trust;
-        advisor.agendaProgress     = saved.agendaProgress;
-        advisor.betrayed           = saved.betrayed;
-        advisor.romanceExposed     = saved.romanceExposed ?? false;
-        advisor.relationshipType   = saved.relationshipType ?? 'neutral';
-        advisor.emergencyPowerUsed = saved.emergencyPowerUsed ?? false;
-      }
-    });
+    // Rebuild the advisor roster from the SAVE, not from loadCity's random
+    // shuffle — otherwise loading a save reshuffles which advisors are in play
+    // and saved trust/agenda state is silently lost.
+    if (parsed.advisors?.length) {
+      this.advisors = parsed.advisors.map(saved => {
+        const base = cityData.advisors.find(a => a.id === saved.id) ?? { id: saved.id };
+        return {
+          ...base,
+          trust:              saved.trust,
+          agendaProgress:     saved.agendaProgress,
+          betrayed:           saved.betrayed ?? false,
+          romanceExposed:     saved.romanceExposed ?? false,
+          relationshipType:   saved.relationshipType ?? 'neutral',
+          emergencyPowerUsed: saved.emergencyPowerUsed ?? false,
+          corruptPact:        saved.corruptPact ?? false,
+          pactTurns:          saved.pactTurns ?? 0,
+          totalSkimmed:       saved.totalSkimmed ?? 0,
+          pactResidual:       saved.pactResidual ?? 0,
+          threatCount:        saved.threatCount ?? 0,
+          leakUsed:           saved.leakUsed ?? false,
+        };
+      });
+    }
   },
 };

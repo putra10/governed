@@ -1,5 +1,6 @@
 // src/engine/contract-system.js — Budget contracts / side quests
 import contracts from '../../Hardcoded things/contract_offers.json';
+import { random, randomPick, shuffle } from '../utils/random.js';
 
 const TIER_CHANCE   = { easy: 0.20, medium: 0.20, hard: 0.30, extreme: 0.30, war: 0.30 };
 const COOLDOWN_TURNS = 2;
@@ -16,6 +17,12 @@ export class ContractSystem {
     s.activeContractDeals = s.activeContractDeals.filter(deal => {
       s.shiftBudget(deal.installmentAmount);
       deal.turnsRemaining--;
+      // Pay out any rounding remainder on the final installment so the
+      // total always equals the contract's full reward_budget
+      if (deal.turnsRemaining === 0 && deal.remainder) {
+        s.shiftBudget(deal.remainder);
+        console.log(`[Contract] Final remainder: "${deal.title}" +${deal.remainder}M`);
+      }
       console.log(`[Contract] Installment: "${deal.title}" +${deal.installmentAmount}M (${deal.turnsRemaining} left)`);
       return deal.turnsRemaining > 0;
     });
@@ -32,20 +39,20 @@ export class ContractSystem {
     const deficitBonus = (s.consecutiveDeficitTurns ?? 0) >= 2 ? 0.20 : 0;
     const chance       = Math.min(0.70, base + deficitBonus);
     if (deficitBonus > 0) console.log(`[Contract] Deficit streak bonus +20% (streak: ${s.consecutiveDeficitTurns})`);
-    if (Math.random() > chance) return;
+    if (random() > chance) return;
 
     const pool = this._getEligibleContracts();
     if (!pool.length) return;
 
     const competingPool = pool.filter(c => c.can_compete);
-    if (competingPool.length >= 2 && Math.random() < COMPETE_CHANCE) {
+    if (competingPool.length >= 2 && random() < COMPETE_CHANCE) {
       const [a, b] = this._pickTwo(competingPool);
       s.pendingContractOffers = [a, b];
       console.log(`[Contract] Competing: "${a.title}" vs "${b.title}"`);
       return;
     }
 
-    const chosen = pool[Math.floor(Math.random() * pool.length)];
+    const chosen = randomPick(pool);
     s.pendingContractOffers = [chosen];
     console.log(`[Contract] Offer: "${chosen.title}"`);
   }
@@ -58,11 +65,13 @@ export class ContractSystem {
 
     if (c.duration > 1) {
       const installment = Math.floor(c.reward_budget / c.duration);
+      const remainder   = c.reward_budget - installment * c.duration;
       if (!s.activeContractDeals) s.activeContractDeals = [];
       s.activeContractDeals.push({
         id: c.id, title: c.title,
         installmentAmount: installment,
         turnsRemaining: c.duration,
+        remainder,
       });
       console.log(`[Contract] Multi-turn: "${c.title}" +${installment}M x${c.duration}`);
     } else {
@@ -71,7 +80,7 @@ export class ContractSystem {
     }
 
     if (c.approval_delta) s.shiftApproval(c.approval_delta);
-    if (c.scandal_risk && Math.random() < c.scandal_risk) this._triggerContractScandal();
+    if (c.scandal_risk && random() < c.scandal_risk) this._triggerContractScandal();
 
     (c.advisor_effects ?? []).forEach(eff => {
       const adv = s.getAdvisor(eff.advisor_id);
@@ -80,6 +89,9 @@ export class ContractSystem {
 
     if (!s.acceptedContracts) s.acceptedContracts = [];
     s.acceptedContracts.push(c.id);
+    // Mark losing competing offers as declined so they can't re-appear later
+    if (!s.declinedContracts) s.declinedContracts = [];
+    offers.filter(x => x.id !== c.id).forEach(x => s.declinedContracts.push(x.id));
     s.pendingContractOffers = [];
     s.lastContractOfferTurn = s.turn;
   }
@@ -145,7 +157,7 @@ export class ContractSystem {
   }
 
   _pickTwo(arr) {
-    const copy = [...arr].sort(() => Math.random() - 0.5);
+    const copy = shuffle(arr);
     return [copy[0], copy[1]];
   }
 
@@ -157,7 +169,7 @@ export class ContractSystem {
       !(s.resolvedScandals ?? []).includes(sc.id)
     );
     if (!available.length) return;
-    const sc   = available[Math.floor(Math.random() * available.length)];
+    const sc   = randomPick(available);
     const tier = sc.severity_tier ?? 'minor';
     const SUPPRESS_COSTS = { minor: 20, moderate: 40, major: 80, career_ending: 150 };
     s.pendingScandal = { ...sc, severity_tier: tier, suppress_cost: SUPPRESS_COSTS[tier] ?? 20 };
