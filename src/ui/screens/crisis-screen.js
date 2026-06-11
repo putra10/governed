@@ -2,6 +2,7 @@ import { renderTopBar } from '../components/top-bar.js';
 import { renderCrisisBanner } from '../components/crisis-banner.js';
 import { renderEscalationTracker } from '../components/escalation-tracker.js';
 import { tagClass, pick } from '../ui-helpers.js';
+import { domainOf } from '../../engine/advisor-system.js';
 
 // Secret options offered by advisors with matching domain and trust >= 60.
 const ADVISOR_SECRET_OPTIONS = {
@@ -47,9 +48,9 @@ export class CrisisScreen {
 
     // Find most-trusted advisor whose secret option is available (trust >= 60)
     const secretAdvisor = state.advisors
-      .filter(a => !a.betrayed && (a.trust ?? 0) >= 60 && ADVISOR_SECRET_OPTIONS[a.id])
+      .filter(a => !a.betrayed && (a.trust ?? 0) >= 60 && ADVISOR_SECRET_OPTIONS[domainOf(a)])
       .sort((a, b) => (b.trust ?? 0) - (a.trust ?? 0))[0];
-    const secretOpt = secretAdvisor ? ADVISOR_SECRET_OPTIONS[secretAdvisor.id] : null;
+    const secretOpt = secretAdvisor ? ADVISOR_SECRET_OPTIONS[domainOf(secretAdvisor)] : null;
     const secretIdx = secretOpt ? crisis.options.length : -1;
 
     const crisisCards = crisis.options.map((opt, i) => {

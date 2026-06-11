@@ -115,7 +115,8 @@ function normalizeCity(data) {
   };
 
   const advisors = (data.advisors ?? []).map(adv => {
-    const defaults = ADVISOR_DEFAULTS[adv.id] ?? {
+    // Candidate pools: defaults are per-DOMAIN (finance_siti → finance)
+    const defaults = ADVISOR_DEFAULTS[adv.domain_id ?? adv.id] ?? {
       domain: "Municipal Advisory",
       archetype: "Advisor",
       betrayal_trigger: "Low trust",
@@ -134,6 +135,7 @@ function normalizeCity(data) {
       competence_rating: adv.competence_rating ?? defaults.competence_rating,
       relationship_meter: adv.relationship_meter ?? trustLevels[adv.id]   ?? 50,
       dialogue: {
+        ...dialogue, // preserve optional pools (threat, quick_replies, betrayal_warning)
         briefing:         dialogue.briefing         ?? ["System status normal."],
         agreement:        dialogue.agreement        ?? defaults.agreement,
         disagreement:     dialogue.disagreement     ?? ["I advise against this."],
@@ -274,8 +276,20 @@ export function validateCity(data) {
   }
 
   if (Array.isArray(data.advisors)) {
-    if (data.advisors.length < 2 || data.advisors.length > 6) {
-      errors.push('Advisor count must be 2-6, got ' + data.advisors.length);
+    // Candidate pools: cities may ship multiple CANDIDATES per domain (the
+    // engine picks one per domain at game start). Validate distinct domains
+    // (2-6) and total candidates (2-12), and require unique ids.
+    const domains = new Set(data.advisors.map(a => a.domain_id ?? a.id));
+    if (domains.size < 2 || domains.size > 6) {
+      errors.push('Distinct advisor domains must be 2-6, got ' + domains.size);
+    }
+    if (data.advisors.length < 2 || data.advisors.length > 12) {
+      errors.push('Advisor candidate count must be 2-12, got ' + data.advisors.length);
+    }
+    const ids = new Set();
+    for (const a of data.advisors) {
+      if (ids.has(a.id)) errors.push('Duplicate advisor id: "' + a.id + '" — candidates need unique ids');
+      ids.add(a.id);
     }
     for (const advisor of data.advisors) {
       for (const field of REQUIRED_ADVISOR_FIELDS) {

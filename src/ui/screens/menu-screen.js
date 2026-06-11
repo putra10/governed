@@ -202,23 +202,25 @@ export class MenuScreen {
       <div class="modal-box">
         <div class="modal-title">HOW TO PLAY</div>
         <div class="modal-body">
-          <p>You are governor. You have <strong>12 turns</strong> to keep the city alive.</p>
+          <p><strong>JOB.</strong> You are governor. Survive <strong>12 turns</strong>. Approval hits 0% and you're recalled. How clean your hands stay is up to you.</p>
 
-          <p><strong>Each turn:</strong> read the dispatch, resolve a policy decision, and manage your advisors. Crises hit on turns 4, 8, and 12 -- respond or pay the price.</p>
+          <p><strong>EACH TURN.</strong> Read the dispatch, pick one of three answers to the day's problem — SAFE is expensive, BOLD is risky, CHAOS is cheap and unhinged. Undecided problems <strong>carry over and pile up</strong>; ignore one for 3 turns and it becomes a scandal on its own. End the term with a backlog and there's no invitation, whatever your numbers. Crises hit on turns <strong>4, 8 and 12</strong>; they can't be ignored at all.</p>
 
-          <p><strong>Approval</strong> drops to 0% and your term ends in disgrace. Keep citizens on side, handle scandals quickly, and don't run out of budget.</p>
+          <p><strong>ADVISORS.</strong> Each has trust (keep it fed or they check out) and a hidden agenda (at 80, they betray you). They give advice based on what <em>they</em> value — and a restless advisor's recommendation may be designed to hurt you. Watch the agenda bar before you trust anyone.</p>
 
-          <p><strong>Advisors</strong> have hidden agendas. Their trust decays every turn. Ignore their domain too long and they go absent -- or worse, betray you. If one betrays you, a full-screen alert fires and you must acknowledge it before continuing.</p>
+          <p><strong>BACK CHANNEL.</strong> In any advisor's chat: get closer (all the way to romance — loyal, useful, and one leaked photo from disaster), run a corrupt pact, threaten, leak dirt, or throw someone under the bus. One dirty move per turn. Lovers and crime partners are <strong>needy</strong> — most turns one of them wants something, and a red badge marks who's waiting on you.</p>
 
-          <p><strong>Scandals</strong> erupt randomly. Minor ones can be suppressed (costs budget) or accepted (costs approval). Career-ending scandals are existential -- one wrong move and it's over.</p>
+          <p><strong>SCANDALS.</strong> Suppress them with money, accept the hit, or manage the story with a response. Ignore one and it runs at full force tomorrow. Career-ending scandals offer only a 25% miracle — or resignation.</p>
 
-          <p><strong>Bribes</strong> appear when an advisor's agenda is running hot. Pay them off to buy loyalty, or decline and watch them accelerate toward betrayal.</p>
+          <p><strong>SCRUTINY.</strong> Every scandal and every scheme raises the press's attention: MURMURS &rarr; WATCHED &rarr; INVESTIGATED &rarr; UNDER SIEGE. High scrutiny makes everything leak faster; three turns under siege ends you. Stay clean to cool off — or address the nation, sacrifice a colleague, or pay to make files disappear.</p>
 
-          <p><strong>Difficulty</strong> varies by city: Easy cities are stable and well-funded. Hard and Extreme cities start with low approval, broken budgets, and advisors who are already plotting. War zones are survival mode.</p>
+          <p><strong>BLACK MARKET.</strong> Some nights after your decision, dealers knock: bought approval, wiretaps, fixers, militia payoffs, or cash for pieces of your city. Every deal works. Every deal raises scrutiny. Every deal can go wrong at the printed odds.</p>
 
-          <p><strong>25 cities</strong> available -- each with unique advisors (3-5 depending on city size), scandals, crises, and cultural voice. Some cities have special income mechanics: Cayman's offshore tax base pays regardless of approval; Gaza runs on international aid.</p>
+          <p><strong>MONEY.</strong> Taxes scale with approval. Deficits bleed approval every turn, and a broke, hated city riots. Contracts and emergency powers are your lifelines.</p>
 
-          <p>End your term with <strong>65%+ approval</strong> to receive an invitation to govern again.</p>
+          <p><strong>25 CITIES</strong>, five difficulty tiers — from stable and well-funded to war zones where the city is on fire before you arrive. Each has its own advisors, scandals, and voice.</p>
+
+          <p>Finish at <strong>65%+ approval</strong> for the good ending. Finish at all for an honest one. The final report remembers everything — including what happened in the back rooms.</p>
         </div>
         <button class="modal-close" id="modal-close">UNDERSTOOD</button>
       </div>`;
@@ -241,11 +243,12 @@ export class MenuScreen {
           <p>Engine Development: Claude Sonnet 4.6, Kimi K2.6</p>
           <p>Development Assistance — AI Systems:</p>
           <ul>
-            <li>Claude Fable 5, Claude Opus 4.7, Claude Sonnet 4.6 (Anthropic)</li>
+            <li>Claude Fable 5, Claude Opus 4.8, Claude Opus 4.7, Claude Sonnet 4.6 (Anthropic)</li>
             <li>Gemini 3.1 Pro, Gemini 3.5 Flash (Google)</li>
             <li>GPT-5.5 (OpenAI)</li>
             <li>DeepSeek-V3 (DeepSeek)</li>
             <li>Kimi K2.6 (Moonshot AI)</li>
+            <li>Qwen 3.7 Pro, Qwen 3.6 27B (Alibaba Cloud)</li>
           </ul>
           <p>Built with Vite and vanilla JavaScript.</p>
           <p>&copy; 2026 Hunt. All rights reserved.</p>

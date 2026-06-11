@@ -33,7 +33,8 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Thabo",
+      "domain_id": "finance",
       "name": "Thabo Mofokeng",
       "domain": "Finance & Tenders",
       "archetype": "Schemer",
@@ -67,7 +68,43 @@
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Nomsa",
+      "domain_id": "finance",
+      "name": "Nomsa Dlamini",
+      "domain": "Revenue & Rates",
+      "archetype": "Technocrat",
+      "hidden_agenda": "Introducing a progressive property tax that exclusively targets wealthy suburbs to fund township infrastructure.",
+      "betrayal_trigger": "Exempting Sandton and Bryanston properties from the new tax after corporate pressure.",
+      "competence_rating": 8,
+      "relationship_meter": 48,
+      "dialogue": {
+        "briefing": [
+          "We lose R2 billion annually to fraudulent property valuations in the north.",
+          "Alexandra pays rates but gets nothing back. That's not a city, it's a colony.",
+          "A 1% surcharge on properties above R5 million would build ten new schools."
+        ],
+        "agreement": [
+          "Fair is fair. The north has been freeloading for decades.",
+          "This is how we fix the budget without cutting services."
+        ],
+        "disagreement": [
+          "You're starting a class war. The wealthy will leave, and the tax base collapses.",
+          "This isn't redistribution. It's revenge dressed as policy."
+        ],
+        "betrayal": "You caved to the wealthy. I've leaked your secret deal to the press. Good luck explaining your 'progressive' credentials now.",
+        "roast": [
+          "Your 'financial strategy' is begging the national government for a bailout. I've seen more ambition from a traffic light.",
+          "You count numbers like a toddler counts candy – wrong and greedy."
+        ],
+        "scandal_reaction": [
+          "Release the valuation roll. Let the public see who owns what.",
+          "This is why we need independent revenue collection. The politicians can't be trusted."
+        ]
+      }
+    },
+    {
+      "id": "military_liaison_Captain",
+      "domain_id": "military_liaison",
       "name": "Captain Hendrik Van Der Merwe",
       "domain": "Metro Police (JMPD)",
       "archetype": "Hardliner",
@@ -91,7 +128,7 @@
         ],
         "betrayal": "You prefer chaos to order. I'm resigning to run a private firm that actually works.",
         "roast": [
-          "You are softer than a marshamallow.",
+          "You are softer than a marshmallow.",
           "This city is a crime scene and you are the suspect."
         ],
         "scandal_reaction": [
@@ -101,7 +138,43 @@
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_Colonel",
+      "domain_id": "military_liaison",
+      "name": "Colonel Naledi Mthethwa",
+      "domain": "Internal Investigations & Anti-Corruption",
+      "archetype": "Reformer",
+      "hidden_agenda": "Using corruption investigations to blackmail senior officials and seize control of police appointments.",
+      "betrayal_trigger": "Ordering her to halt an investigation into a powerful mayoral ally.",
+      "competence_rating": 9,
+      "relationship_meter": 35,
+      "dialogue": {
+        "briefing": [
+          "Half the JMPD is on the illegal mining payroll. I have the evidence.",
+          "The VIP protection unit is running a private taxi service. We should arrest them all.",
+          "We need unannounced inspections at every precinct. No warnings."
+        ],
+        "agreement": [
+          "Clean house. No one is above the law.",
+          "The public will finally trust us again."
+        ],
+        "disagreement": [
+          "You're protecting criminals in uniform. That makes you complicit.",
+          "An investigation that stops before the top is a cover-up, not justice."
+        ],
+        "betrayal": "You told me to stop. I didn't. The docket is at the NPA, and a copy is with every news desk in the country.",
+        "roast": [
+          "Your 'anti-corruption' stance is a press release. My evidence is real.",
+          "You couldn't investigate a stolen car without losing the keys."
+        ],
+        "scandal_reaction": [
+          "This is exactly why we need independent oversight.",
+          "I will not take orders to bury crimes. My oath means something."
+        ]
+      }
+    },
+    {
+      "id": "urban_planning_Lerato",
+      "domain_id": "urban_planning",
       "name": "Lerato Ndlovu",
       "domain": "Housing & Services",
       "archetype": "Idealist",
@@ -135,7 +208,43 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Mpho",
+      "domain_id": "urban_planning",
+      "name": "Mpho Serote",
+      "domain": "Land Use & Informal Settlements",
+      "archetype": "Pragmatist",
+      "hidden_agenda": "Legalizing and upgrading informal settlements to secure land tenure votes for the next election.",
+      "betrayal_trigger": "Ordering a mass eviction of an informal settlement without any relocation plan.",
+      "competence_rating": 6,
+      "relationship_meter": 60,
+      "dialogue": {
+        "briefing": [
+          "There are 200 informal settlements in this city. Ignoring them won't make them disappear.",
+          "We can provide basic services – water taps, toilets, lights – for less than the cost of evictions.",
+          "People will vote for the party that gives them a title deed."
+        ],
+        "agreement": [
+          "Upgrade, don't evict. That's how we build lasting communities.",
+          "Smart politics and decent policy. Rare."
+        ],
+        "disagreement": [
+          "You're rewarding lawbreakers. People who followed the rules will resent this.",
+          "Service upgrades without ownership rights are just slum beautification."
+        ],
+        "betrayal": "You ordered the bulldozers in. I've marked every ward counselor's house on a map for the displaced families. See how you like it.",
+        "roast": [
+          "Your 'land reform' is a slogan on a broken billboard.",
+          "I've seen more organized planning in a chicken coop."
+        ],
+        "scandal_reaction": [
+          "Blame the national housing department. Everyone does.",
+          "Announce a 'consultation process' and run out the clock."
+        ]
+      }
+    },
+    {
+      "id": "transport_Sipho",
+      "domain_id": "transport",
       "name": "Sipho 'Vusi' Zungu",
       "domain": "Transit & Taxi Associations",
       "archetype": "Fixer",
@@ -169,7 +278,43 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Zanele",
+      "domain_id": "transport",
+      "name": "Zanele Dlamini",
+      "domain": "Non-Motorized Transport & Walkability",
+      "archetype": "Activist",
+      "hidden_agenda": "Redirecting road maintenance funds to build cycling and pedestrian infrastructure in her own wealthy suburb.",
+      "betrayal_trigger": "Auditing the allocation of transport infrastructure funds by ward.",
+      "competence_rating": 5,
+      "relationship_meter": 40,
+      "dialogue": {
+        "briefing": [
+          "Johannesburg was built for cars, not people. That's a design failure, not a law of nature.",
+          "We can pedestrianize Bree Street in six months – shops will boom, crime will drop.",
+          "The northern suburbs have sidewalks. Soweto has ditches. This isn't accidental."
+        ],
+        "agreement": [
+          "Streets for people, not just engines. Finally.",
+          "The environment and the poor both win."
+        ],
+        "disagreement": [
+          "You're taking road maintenance money from Alexandra to build bike lanes in Sandton. That's apartheid planning.",
+          "Working-class people don't ride bicycles to work. They take taxis and trains."
+        ],
+        "betrayal": "You audited the ward allocations. Fine. I'll tell the press your own house has a private bike lane funded by the city.",
+        "roast": [
+          "Your 'walkability' plan is a map of your favorite coffee shops.",
+          "I've seen more practical transit proposals from a toddler with crayons."
+        ],
+        "scandal_reaction": [
+          "Blame 'car-centric thinking' – vague enough to work.",
+          "Announce a 'pedestrian safety summit' and hope no one checks the contracts."
+        ]
+      }
+    },
+    {
+      "id": "religious_affairs_Bishop",
+      "domain_id": "religious_affairs",
       "name": "Bishop Desmond Khumalo",
       "domain": "Community Liaison",
       "archetype": "Moralist",
@@ -199,6 +344,41 @@
         "scandal_reaction": [
           "God sees all.",
           "Repentance is necessary."
+        ]
+      }
+    },
+    {
+      "id": "religious_affairs_Rabbi",
+      "domain_id": "religious_affairs",
+      "name": "Rabbi David Stein",
+      "domain": "Interfaith Social Services",
+      "archetype": "Advocate",
+      "hidden_agenda": "Channeling municipal food security funds exclusively to faith-run shelters that exclude non-religious organizations.",
+      "betrayal_trigger": "Creating a secular, competitive grant process for homeless services.",
+      "competence_rating": 6,
+      "relationship_meter": 45,
+      "dialogue": {
+        "briefing": [
+          "The shelters are overflowing. We turn away 200 people a night.",
+          "Faith-based providers do the work the city won't do – at half the cost.",
+          "We can scale up overnight if you approve the grant. No red tape."
+        ],
+        "agreement": [
+          "Faith in action. The vulnerable will be sheltered.",
+          "We work faster than bureaucrats. Much faster."
+        ],
+        "disagreement": [
+          "You're excluding atheist and secular providers. That's religious discrimination.",
+          "Faith-based conditions on aid are coercion, not charity."
+        ],
+        "betrayal": "You opened the grants to everyone. Now my network is sidelined. I'll make sure every sermon mentions your name – as a warning.",
+        "roast": [
+          "You speak of compassion while cutting soup kitchens. Pharisaical.",
+          "Your 'interfaith' council includes everyone except the poor."
+        ],
+        "scandal_reaction": [
+          "This is what happens when you abandon traditional values.",
+          "The synagogue will remember this. So will the ballot box."
         ]
       }
     }

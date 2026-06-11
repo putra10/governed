@@ -8,7 +8,7 @@
     "Homelessness",
     "Political dysfunction"
   ],
-  "flavor_text": "A 7x7 mile city that hosts the world's richest industry and some of its most visible poverty \u2014 sometimes on the same block. SF invented both the counterculture and venture capital. Governing it means satisfying the world's most opinionated 800,000 people.",
+  "flavor_text": "A 7x7 mile city that hosts the world's richest industry and some of its most visible poverty — sometimes on the same block. SF invented both the counterculture and venture capital. Governing it means satisfying the world's most opinionated 800,000 people.",
   "starting": {
     "approval": 60,
     "budget": 800,
@@ -23,10 +23,11 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Alex",
+      "domain_id": "finance",
       "name": "Alex Wong",
       "role": "City Controller",
-      "portrait": "\ud83d\udcbb",
+      "portrait": "💻",
       "agenda": "Tax the tech sector more effectively before the next bust leaves SF with a boom-built budget.",
       "dialogue": {
         "briefing": [
@@ -46,10 +47,39 @@
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Maria",
+      "domain_id": "finance",
+      "name": "Maria Chen",
+      "role": "Deputy Finance Director",
+      "portrait": "📈",
+      "agenda": "Diversify city revenue beyond tech by aggressively promoting tourism and convention business.",
+      "dialogue": {
+        "briefing": [
+          "We can't rely on RSU taxes forever. When the bubble pops, we go bankrupt.",
+          "Convention attendance is still 30% below pre-pandemic. That's lost hotel tax revenue.",
+          "A modest sales tax increase for street cleaning would pass. Voters are desperate."
+        ],
+        "agreement": [
+          "Finally, someone thinking about a post-tech future.",
+          "Revenue diversification is the only sane path."
+        ],
+        "disagreement": [
+          "Raising taxes now will choke the recovery before it starts.",
+          "Tourism isn't coming back to a city that looks like a disaster zone."
+        ],
+        "roast": [
+          "Your 'tech strategy' is begging Mark Zuckerberg for a donation. Very fiscal.",
+          "I've seen more reliable revenue forecasts from a slot machine."
+        ],
+        "betrayal": "The Chamber of Commerce offered me a job. They actually understand basic economics."
+      }
+    },
+    {
+      "id": "military_liaison_Chief",
+      "domain_id": "military_liaison",
       "name": "Chief William Park",
       "role": "SFPD Chief",
-      "portrait": "\ud83d\udc6e",
+      "portrait": "👮",
       "agenda": "Rebuild SFPD capacity following staffing exodus and refocus on property crime.",
       "dialogue": {
         "briefing": [
@@ -69,10 +99,39 @@
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_Captain",
+      "domain_id": "military_liaison",
+      "name": "Captain Elena Vasquez",
+      "role": "Homeless Outreach & Crisis Response Commander",
+      "portrait": "🚓",
+      "agenda": "Divert non-violent calls away from armed police to trained mental health crisis teams.",
+      "dialogue": {
+        "briefing": [
+          "Officers spend 40% of their time on mental health and substance abuse calls. They're not trained for it.",
+          "The CARE program works – when it's funded. Right now, it's a skeleton crew.",
+          "Every armed response to a man yelling at clouds is a risk of tragedy."
+        ],
+        "agreement": [
+          "Right tool for the right job. Cops aren't social workers.",
+          "This will free officers for actual crime."
+        ],
+        "disagreement": [
+          "You're sending unarmed civilians into dangerous situations. Someone will die.",
+          "Crisis teams can't handcuff a violent suspect. Police still get called eventually."
+        ],
+        "roast": [
+          "Your 'reform' is a press release and a prayer. No budget, no training, no results.",
+          "I've seen better crisis response in a kindergarten classroom."
+        ],
+        "betrayal": "I've accepted a role with a national police reform institute. Your half-measures are embarrassing."
+      }
+    },
+    {
+      "id": "urban_planning_Kenji",
+      "domain_id": "urban_planning",
       "name": "Kenji Tanaka",
       "role": "Planning Department Director",
-      "portrait": "\ud83c\udf09",
+      "portrait": "🌉",
       "agenda": "Eliminate SF's byzantine permitting system before it kills the housing pipeline entirely.",
       "dialogue": {
         "briefing": [
@@ -92,10 +151,39 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Latisha",
+      "domain_id": "urban_planning",
+      "name": "Latisha Brown",
+      "role": "Affordable Housing Director",
+      "portrait": "🏘️",
+      "agenda": "Use state density bonus laws to build 100% affordable housing on underutilized public land.",
+      "dialogue": {
+        "briefing": [
+          "There are 200 publicly owned parcels sitting empty. Build on them. Now.",
+          "Non-profit developers can move faster than for-profit – if we stop requiring parking.",
+          "Every month we delay, construction costs rise 5%. The math gets worse, not better."
+        ],
+        "agreement": [
+          "Use public land for public good. Revolutionary concept.",
+          "Speed and scale – that's the only answer to the crisis."
+        ],
+        "disagreement": [
+          "You're ignoring environmental review. Lawsuits will tie this up for years.",
+          "Building without parking just shifts the burden to already crowded streets."
+        ],
+        "roast": [
+          "Your 'housing plan' is a PDF on a government website. Mine actually builds units.",
+          "I've seen more urgency from a sloth on tranquilizers."
+        ],
+        "betrayal": "I've started working directly with the state housing department. They have funding and no patience for your delays."
+      }
+    },
+    {
+      "id": "transport_Carmen",
+      "domain_id": "transport",
       "name": "Carmen Rodriguez",
       "role": "SFMTA Director",
-      "portrait": "\ud83d\ude8b",
+      "portrait": "🚋",
       "agenda": "Make SF's transit reliable enough that tech workers actually use it.",
       "dialogue": {
         "briefing": [
@@ -115,10 +203,39 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Marcus",
+      "domain_id": "transport",
+      "name": "Marcus Lee",
+      "role": "Streets & Traffic Safety Director",
+      "portrait": "🚲",
+      "agenda": "Implement Vision Zero with real money and political courage, not just slogans.",
+      "dialogue": {
+        "briefing": [
+          "We've had Vision Zero for a decade. Traffic deaths are up, not down.",
+          "Protected bike lanes on Folsom are popular and effective – and we keep delaying expansion.",
+          "Automated speed cameras would save lives. The state finally authorized them. Use them."
+        ],
+        "agreement": [
+          "Safety over speed. Always.",
+          "Slow streets save lives. It's not complicated."
+        ],
+        "disagreement": [
+          "Speed cameras are a regressive tax on working-class drivers.",
+          "Removing traffic lanes for bikes will gridlock the city."
+        ],
+        "roast": [
+          "Your 'safety' policy is a press conference after a child dies. Too little, too late.",
+          "I've seen more courageous leadership from a stop sign."
+        ],
+        "betrayal": "The families of crash victims have formed a coalition. I've agreed to lead their recall campaign against you."
+      }
+    },
+    {
+      "id": "religious_affairs_Sister",
+      "domain_id": "religious_affairs",
       "name": "Sister Mary Corcoran",
       "role": "Tenderloin Community Coalition Director",
-      "portrait": "\u26ea",
+      "portrait": "⛪",
       "agenda": "Address homelessness through housing-first policy rather than criminalization.",
       "dialogue": {
         "briefing": [
@@ -135,6 +252,34 @@
           "The narrative about SF has become a political weapon. The people in it are not a narrative."
         ],
         "betrayal": "I've joined a class action supporting unhoused individuals against the city's sweep policies."
+      }
+    },
+    {
+      "id": "religious_affairs_Rabbi",
+      "domain_id": "religious_affairs",
+      "name": "Rabbi David Goldstein",
+      "role": "Interfaith Food Security Network",
+      "portrait": "🕍",
+      "agenda": "Coordinate faith-based meal programs and hygiene services to fill gaps in city homeless outreach.",
+      "dialogue": {
+        "briefing": [
+          "The city shelter system turns away 500 people a night. Our synagogues and churches feed them.",
+          "You talk about 'compassion' and then cut funding for overnight warming centers.",
+          "Faith groups are doing your job for you. We could do more with half the budget of one study."
+        ],
+        "agreement": [
+          "Finally, a partnership instead of a lecture.",
+          "The pulpit and the government, working together. Rare."
+        ],
+        "disagreement": [
+          "You're offloading public responsibility onto volunteers. That's not a plan, it's a abdication.",
+          "Faith-based services can't replace actual housing. They just make the visible problem slightly less visible."
+        ],
+        "roast": [
+          "You quote scripture and cut soup kitchens. Hypocrisy has a high chair in your office.",
+          "I've seen more genuine compassion from a parking meter."
+        ],
+        "betrayal": "I've organized every faith leader in the city to oppose your budget. The votes are gone."
       }
     }
   ],
@@ -259,7 +404,7 @@
     {
       "id": "tech_shuttle_tax",
       "title": "Tech Shuttle Congestion Fee",
-      "description": "Private tech company buses use Muni stops and contribute to traffic. A per-stop fee could generate 50M annually. Tech companies threaten to stop the shuttle program entirely \u2014 which would add 10,000 cars to city roads.",
+      "description": "Private tech company buses use Muni stops and contribute to traffic. A per-stop fee could generate 50M annually. Tech companies threaten to stop the shuttle program entirely — which would add 10,000 cars to city roads.",
       "turn_available": 3,
       "options": [
         {
@@ -617,14 +762,14 @@
       "The recall organizers are printing flyers as we speak. Ink is wet."
     ],
     "media": [
-      "SF Chronicle: Mayor defends fentanyl plan amid Board of Supervisors standoff \u2014 'This is a health emergency, not a photo op'",
+      "SF Chronicle: Mayor defends fentanyl plan amid Board of Supervisors standoff — 'This is a health emergency, not a photo op'",
       "Mission Local: Displacement tracker shows 340 Mission District families issued Ellis Act notices in Q1",
       "The Standard SF: Downtown office vacancy hits 37% as third SoMa co-working brand folds this year",
       "SF Chronicle: BART board approves $180M line extension study; Caltrain integration timeline 'unclear'",
-      "Mission Local: Boudin recall anniversary \u2014 what actually changed at the DA's office after Brooke Jenkins took over",
+      "Mission Local: Boudin recall anniversary — what actually changed at the DA's office after Brooke Jenkins took over",
       "The Standard SF: Board of Supervisors 6-5 vote blocks Mayor's Tenderloin emergency powers for second time",
       "SF Chronicle: SFUSD eyes closure of 7 more schools as enrollment drops below 50,000 citywide",
-      "The Standard SF: Tech company exodus from SF continues \u2014 Salesforce subletting 40% of its Transbay tower"
+      "The Standard SF: Tech company exodus from SF continues — Salesforce subletting 40% of its Transbay tower"
     ],
     "politician": [
       "Board of Supervisors (District 6): 'The Tenderloin deserves investment, not incarceration. We won't rubber-stamp more sweeps.'",

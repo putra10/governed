@@ -33,7 +33,8 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Abdirahman",
+      "domain_id": "finance",
       "name": "Abdirahman Warsame",
       "domain": "Finance & Aid",
       "archetype": "Schemer",
@@ -67,7 +68,43 @@
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Hawa",
+      "domain_id": "finance",
+      "name": "Hawa Elmi",
+      "domain": "Finance & Diaspora Relations",
+      "archetype": "Reformer",
+      "hidden_agenda": "Channeling diaspora remittances into formal municipal bonds instead of unregulated hawala networks.",
+      "betrayal_trigger": "Bypassing the central bank to accept untraceable cash injections from foreign NGOs.",
+      "competence_rating": 8,
+      "relationship_meter": 60,
+      "dialogue": {
+        "briefing": [
+          "Diaspora remittances hit $2 billion last year, but zero cents reach the municipal ledger.",
+          "The hawala operators are resisting our new digital tax reporting mandates.",
+          "We can issue municipal reconstruction bonds, but only if we guarantee transparency."
+        ],
+        "agreement": [
+          "Finally, a policy that builds real institutional trust.",
+          "I will draft the diaspora outreach campaign immediately."
+        ],
+        "disagreement": [
+          "This is the only path to a sustainable budget.",
+          "You are empowering the same shadow networks that fund the insurgency."
+        ],
+        "betrayal": "You chose dark money over legitimate state-building. I am resigning and taking the diaspora coalition with me.",
+        "roast": [
+          "You treat the national currency like a suggestion.",
+          "Your financial strategy is just legalized looting."
+        ],
+        "scandal_reaction": [
+          "I will publish the full forensic audit. The truth will come out.",
+          "The international community needs to see these ledgers."
+        ]
+      }
+    },
+    {
+      "id": "military_liaison_Colonel",
+      "domain_id": "military_liaison",
       "name": "Colonel Hassan Jama",
       "domain": "Security",
       "archetype": "Hardliner",
@@ -101,7 +138,43 @@
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_Major",
+      "domain_id": "military_liaison",
+      "name": "Major Amina Yusuf",
+      "domain": "Intelligence & National Police",
+      "archetype": "Professional",
+      "hidden_agenda": "Building a centralized, clan-neutral intelligence unit to root out sleeper cells, bypassing traditional clan elders.",
+      "betrayal_trigger": "Appointing a known clan militia leader to a senior municipal security position.",
+      "competence_rating": 8,
+      "relationship_meter": 50,
+      "dialogue": {
+        "briefing": [
+          "Our human intelligence network indicates a planned disruption near the airport.",
+          "Police recruitment must be merit-based, not quota-based, or we infiltrate ourselves.",
+          "The insurgents are exploiting clan grievances to recruit. We must counter-narrate."
+        ],
+        "agreement": [
+          "Professionalism will save this city.",
+          "I will deploy the intelligence unit quietly."
+        ],
+        "disagreement": [
+          "You are politicizing the security forces. That is fatal.",
+          "Clan loyalty is a liability in counter-terrorism."
+        ],
+        "betrayal": "You appointed a warlord to command our streets. I am taking my intelligence files to the Federal Government.",
+        "roast": [
+          "You mistake brute force for strategy.",
+          "Your security apparatus is a revolving door for criminals."
+        ],
+        "scandal_reaction": [
+          "I will secure the evidence before it is destroyed.",
+          "We must handle this internally, or the insurgents will exploit the division."
+        ]
+      }
+    },
+    {
+      "id": "urban_planning_Fadumo",
+      "domain_id": "urban_planning",
       "name": "Fadumo Ali",
       "domain": "Reconstruction",
       "archetype": "Idealist",
@@ -135,7 +208,43 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Eng",
+      "domain_id": "urban_planning",
+      "name": "Eng. Mohamed 'Mo' Hassan",
+      "domain": "Infrastructure & Diaspora Investment",
+      "archetype": "Technocrat",
+      "hidden_agenda": "Fast-tracking a massive, diaspora-funded commercial district that requires clearing informal settlements.",
+      "betrayal_trigger": "Halting all private construction permits to conduct a 6-month environmental and social impact review.",
+      "competence_rating": 7,
+      "relationship_meter": 55,
+      "dialogue": {
+        "briefing": [
+          "Rubble clearance in Hodan is 80% complete. We can break ground on the new commercial zone.",
+          "Diaspora investors are ready to wire $50 million, but they need land titles guaranteed.",
+          "The port expansion requires rerouting the main coastal road. It will cause temporary disruption."
+        ],
+        "agreement": [
+          "Progress at last. The city will rise.",
+          "I will expedite the permits tonight."
+        ],
+        "disagreement": [
+          "Sentimentality is holding back reconstruction.",
+          "You cannot run a modern city on informal squatter rights."
+        ],
+        "betrayal": "You've stalled the capital with red tape. I'm taking the diaspora investors to Hargeisa.",
+        "roast": [
+          "You're governing a graveyard and calling it a city.",
+          "Your vision is stuck in the past, while the world moves on."
+        ],
+        "scandal_reaction": [
+          "The investors need reassurance, not apologies.",
+          "I will frame this as a necessary, temporary regulatory pause."
+        ]
+      }
+    },
+    {
+      "id": "transport_Omar",
+      "domain_id": "transport",
       "name": "Omar 'Bajaaj' Farah",
       "domain": "Transit & Port",
       "archetype": "Fixer",
@@ -169,7 +278,43 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Captain",
+      "domain_id": "transport",
+      "name": "Captain Saed Ali",
+      "domain": "Port Authority & Maritime Logistics",
+      "archetype": "Bureaucrat",
+      "hidden_agenda": "Securing exclusive customs contracts for a foreign logistics firm in exchange for kickbacks disguised as 'consulting fees'.",
+      "betrayal_trigger": "Nationalizing port customs operations or bringing in an international anti-corruption monitor.",
+      "competence_rating": 7,
+      "relationship_meter": 50,
+      "dialogue": {
+        "briefing": [
+          "Container dwell times at the port have doubled. We are losing regional cargo to Djibouti.",
+          "Customs revenue leakage is estimated at 40%. We need a private management partner.",
+          "The dredging contract is ready for signature. The foreign firm has excellent 'local knowledge'."
+        ],
+        "agreement": [
+          "Efficient and profitable. A win for the port.",
+          "I will clear the customs bottleneck immediately."
+        ],
+        "disagreement": [
+          "You are disrupting the supply chain with ideology.",
+          "State-run ports are a relic. We need private efficiency."
+        ],
+        "betrayal": "You brought in foreign auditors. My partners and I are withdrawing our 'logistical support'. Good luck moving cargo.",
+        "roast": [
+          "You treat the port like a fishing village, not a national asset.",
+          "Your logistics strategy is a bottleneck of incompetence."
+        ],
+        "scandal_reaction": [
+          "It's a misunderstanding of international maritime law.",
+          "I will have the legal team issue a strong denial."
+        ]
+      }
+    },
+    {
+      "id": "religious_affairs_Sheikh",
+      "domain_id": "religious_affairs",
       "name": "Sheikh Ibrahim",
       "domain": "Religion & Justice",
       "archetype": "Moralist",
@@ -199,6 +344,41 @@
         "scandal_reaction": [
           "May Allah forgive us.",
           "This is a moral failing."
+        ]
+      }
+    },
+    {
+      "id": "religious_affairs_Dr",
+      "domain_id": "religious_affairs",
+      "name": "Dr. Aisha Osman",
+      "domain": "Education & Moderate Islamic Outreach",
+      "archetype": "Mediator",
+      "hidden_agenda": "Redirecting madrasa funding to secular, state-approved civic education programs to counter extremist recruitment.",
+      "betrayal_trigger": "Allocating municipal funds to build a new, unregulated religious school without curriculum oversight.",
+      "competence_rating": 7,
+      "relationship_meter": 60,
+      "dialogue": {
+        "briefing": [
+          "Youth unemployment in the IDP camps is creating fertile ground for extremist recruitment.",
+          "We need to integrate civic education into the madrasa curriculum to build resilience.",
+          "Moderate clerics are being sidelined by well-funded radical preachers."
+        ],
+        "agreement": [
+          "This builds a resilient, educated generation.",
+          "I will coordinate with the moderate imams immediately."
+        ],
+        "disagreement": [
+          "You are empowering the very ideologies that destroyed this city.",
+          "Ignoring curriculum oversight is a direct threat to national security."
+        ],
+        "betrayal": "You funded the extremists' pipeline. I will expose this to the international community and the moderate clerical council.",
+        "roast": [
+          "You mistake silence for peace, and ignorance for piety.",
+          "Your policies are a gift to the insurgents."
+        ],
+        "scandal_reaction": [
+          "This undermines years of moderate outreach.",
+          "I will publicly distance my office from this decision."
         ]
       }
     }

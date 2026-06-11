@@ -77,21 +77,17 @@
 
   /* st-bottombar is flex-shrink:0 already via shared CSS */
 
-  /* Sidenav becomes a horizontal scroll strip */
+  /* Sidenav becomes a horizontal tab strip. ALL tabs fit the width —
+     it used to scroll horizontally with a hidden scrollbar, leaving
+     "Stats" and "Data" invisible off-screen on phones. */
   .st-sidenav {
     flex-direction: row;
     border-right: none;
     border-bottom: 0.5px solid #1a1a1a;
     padding: 0;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: hidden;
     min-height: 0;
-    max-height: 40px;
-    scrollbar-width: none;
-  }
-
-  .st-sidenav::-webkit-scrollbar {
-    display: none;
+    max-height: 44px;
   }
 
   .st-nav-section {
@@ -100,11 +96,16 @@
 
   .st-nav-item {
     white-space: nowrap;
-    padding: 0.625rem 1rem;
+    flex: 1 1 0;
+    text-align: center;
+    padding: 0.625rem 0.125rem;
     border-left: none;
     border-bottom: 2px solid transparent;
-    font-size: 0.625rem;
-    flex-shrink: 0;
+    font-size: 0.5rem;
+    letter-spacing: .02em;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .st-nav-item:hover {
@@ -2340,5 +2341,63 @@
     bottom: 0;
     z-index: 2;
     background: #0a0a0a;
+  }
+
+  /* ── SETTINGS: full-width horizontal tab strip ──
+     The early mobile block at the top of this file LOSES the cascade to the
+     desktop .st-* rules below it (same specificity, later wins). These
+     overrides are appended last, so they actually apply on phones. */
+  .st-body {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .st-sidenav {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-shrink: 0;
+    border-right: none;
+    border-bottom: 0.5px solid #1a1a1a;
+    padding: 0;
+    overflow: hidden;
+    max-height: none;
+  }
+
+  .st-nav-section {
+    display: none;
+  }
+
+  .st-nav-item {
+    flex: 1 1 0;
+    text-align: center;
+    padding: 0.625rem 0.125rem;
+    font-size: 0.5rem;
+    letter-spacing: .02em;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .st-nav-item.active {
+    border-left-color: transparent;
+    border-bottom: 2px solid #d4a843;
+    background: transparent;
+    color: #d4a843;
+  }
+
+  .st-nav-danger.active {
+    border-bottom-color: #e05c5c;
+  }
+
+  .st-content {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
   }
 }

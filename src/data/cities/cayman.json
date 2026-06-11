@@ -33,7 +33,8 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Julian",
+      "domain_id": "finance",
       "name": "Julian Foster",
       "domain": "Offshore Finance & Wealth Management",
       "archetype": "Schemer",
@@ -67,7 +68,43 @@
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Simone",
+      "domain_id": "finance",
+      "name": "Simone Baptiste",
+      "domain": "Sovereign Debt & Currency Stabilization",
+      "archetype": "Technocrat",
+      "hidden_agenda": "Securing a secret IMF bailout to restructure Cayman's reserves at favorable interest rates.",
+      "betrayal_trigger": "Refusing the IMF loan conditions to protect local bank secrecy laws.",
+      "competence_rating": 8,
+      "relationship_meter": 48,
+      "dialogue": {
+        "briefing": [
+          "Our foreign reserves are under serious scrutiny from the credit rating agencies.",
+          "The IMF is offering a lifeline – but they want banking transparency in return.",
+          "I can structure a deal that keeps 90% of our wealth intact. Trust me."
+        ],
+        "agreement": [
+          "Smart move. Liquidity is everything in a crisis.",
+          "The bond markets will stabilize. For now."
+        ],
+        "disagreement": [
+          "Turning down the IMF is like refusing a lifeboat on a sinking ship.",
+          "You're betting our entire treasury on a political gesture."
+        ],
+        "betrayal": "I negotiated a parallel bailout with the European Central Bank. Your approval is irrelevant now.",
+        "roast": [
+          "You manage money like a tourist playing roulette with a credit card.",
+          "I've seen more fiscal discipline in a Monopoly game."
+        ],
+        "scandal_reaction": [
+          "We need a liquidity injection and a press blackout. In that order.",
+          "The rating agencies are already circling. Say nothing."
+        ]
+      }
+    },
+    {
+      "id": "military_liaison_Inspector",
+      "domain_id": "military_liaison",
       "name": "Inspector Dale Ebanks",
       "domain": "Customs & Maritime Border Control",
       "archetype": "Hardliner",
@@ -101,7 +138,43 @@
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_Commander",
+      "domain_id": "military_liaison",
+      "name": "Commander Selena Ortiz",
+      "domain": "Coastal Surveillance & Anti-Smuggling",
+      "archetype": "Operator",
+      "hidden_agenda": "Using maritime interdiction powers to build a private intelligence network on rival officials.",
+      "betrayal_trigger": "Ordering a full audit of the coast guard's fuel and equipment logs.",
+      "competence_rating": 9,
+      "relationship_meter": 38,
+      "dialogue": {
+        "briefing": [
+          "Smugglers are using go-fast boats at night. We need radar upgrades.",
+          "I have informants in every marina from West Bay to Bodden Town.",
+          "One clean strike can decimate the illegal yacht refueling racket."
+        ],
+        "agreement": [
+          "Decisive. The waters will be under control by dawn.",
+          "Hard choices keep islands safe. I respect that."
+        ],
+        "disagreement": [
+          "You're asking us to patrol with broken equipment and empty fuel tanks.",
+          "Soft borders invite predators. You're rolling out the welcome mat."
+        ],
+        "betrayal": "Your audit would have exposed my network. So I exposed yours first – to the cartels.",
+        "roast": [
+          "You couldn't command a rowboat in a bathtub.",
+          "Your strategy meetings are longer than our entire coastline."
+        ],
+        "scandal_reaction": [
+          "Classify the incident. Burn the logs. I'll handle the rest.",
+          "This is why we don't keep written records of certain operations."
+        ]
+      }
+    },
+    {
+      "id": "urban_planning_Chloe",
+      "domain_id": "urban_planning",
       "name": "Chloe McLaughlin",
       "domain": "OECD Pressure Handling & Compliance",
       "archetype": "Fixer",
@@ -135,7 +208,43 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Marcus",
+      "domain_id": "urban_planning",
+      "name": "Marcus Webb",
+      "domain": "Housing & Zoning Enforcement",
+      "archetype": "Developer",
+      "hidden_agenda": "Acquiring protected mangrove land for a luxury resort under the guise of affordable housing.",
+      "betrayal_trigger": "Ordering an independent environmental impact study of the eastern shoreline.",
+      "competence_rating": 7,
+      "relationship_meter": 62,
+      "dialogue": {
+        "briefing": [
+          "The housing shortage is real. But so are the construction permits I've already signed.",
+          "Environmentalists will complain. They always do. Ignore them.",
+          "We can build 500 units and a marina if you just look the other way."
+        ],
+        "agreement": [
+          "Finally, a Governor who understands economic growth.",
+          "Shovels in the ground. That's what the island needs."
+        ],
+        "disagreement": [
+          "Preserving every swamp and sand dune will leave our people homeless.",
+          "You're choosing crabs over construction jobs."
+        ],
+        "betrayal": "I've already sold the mangrove parcel to a Dubai investment fund. The deal closes tomorrow.",
+        "roast": [
+          "Your environmental policy is a sticker on a bulldozer.",
+          "You couldn't zone a parking lot without creating a scandal."
+        ],
+        "scandal_reaction": [
+          "Blame the environmental review. Delay, delay, delay.",
+          "The contractors will keep quiet if we keep paying."
+        ]
+      }
+    },
+    {
+      "id": "transport_Captain",
+      "domain_id": "transport",
       "name": "Captain Billy Bodden",
       "domain": "Local Infrastructure & Maritime Transport",
       "archetype": "Idealist",
@@ -169,7 +278,43 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Della",
+      "domain_id": "transport",
+      "name": "Della Hinds",
+      "domain": "Public Transit & Road Logistics",
+      "archetype": "Pragmatist",
+      "hidden_agenda": "Channeling road repair contracts to a family-owned construction consortium.",
+      "betrayal_trigger": "Opening a public tender for all infrastructure projects above $500,000.",
+      "competence_rating": 7,
+      "relationship_meter": 52,
+      "dialogue": {
+        "briefing": [
+          "The roads are crumbling. Tourists complain. Residents rage.",
+          "We have a quote from a qualified local firm – my cousin's. It's competitive, I swear.",
+          "Fix the potholes first. Worry about corruption later."
+        ],
+        "agreement": [
+          "Fast and affordable. That's how we win elections.",
+          "The traffic will flow again. Trust me."
+        ],
+        "disagreement": [
+          "Open tenders mean mainland contractors. They'll overcharge and underdeliver.",
+          "You're drowning in paperwork while the roads sink into swamp."
+        ],
+        "betrayal": "You opened the bids. Now my family's firm is bankrupt. I'll make sure your car gets the worst pothole.",
+        "roast": [
+          "Your transit plan is 'pray for fewer cars.' Genius.",
+          "I've seen faster commutes in gridlocked Miami."
+        ],
+        "scandal_reaction": [
+          "Blame the previous administration. Always works.",
+          "Patch the road and patch the story. Double patch."
+        ]
+      }
+    },
+    {
+      "id": "religious_affairs_Pastor",
+      "domain_id": "religious_affairs",
       "name": "Pastor Thomas Hydes",
       "domain": "Community Preservation & Ethics",
       "archetype": "Moralist",
@@ -199,6 +344,41 @@
         "scandal_reaction": [
           "The truth always surfaces in the light of righteousness.",
           "You must repent before the community discovers the rest."
+        ]
+      }
+    },
+    {
+      "id": "religious_affairs_Sister",
+      "domain_id": "religious_affairs",
+      "name": "Sister GraceAnn Pinder",
+      "domain": "Faith-Based Social Services",
+      "archetype": "Advocate",
+      "hidden_agenda": "Using church food programs to register undocumented immigrants for political leverage.",
+      "betrayal_trigger": "Ordering an audit of all church-funded welfare distribution centers.",
+      "competence_rating": 6,
+      "relationship_meter": 58,
+      "dialogue": {
+        "briefing": [
+          "The food bank feeds 2,000 families a week. Many of them don't have papers.",
+          "The church is the only social safety net left on this island.",
+          "We can turn out voters if you leave us alone."
+        ],
+        "agreement": [
+          "Bless you. The vulnerable will remember this.",
+          "Faith in action. That's the Cayman way."
+        ],
+        "disagreement": [
+          "You're cutting the very programs that keep the poor from rioting.",
+          "Auditing churches is political suicide. Don't do it."
+        ],
+        "betrayal": "You audited us. Now every undocumented family knows your name – and not in a good way.",
+        "roast": [
+          "You quote scripture but hoard wealth. Typical.",
+          "Your compassion is a press release, not a policy."
+        ],
+        "scandal_reaction": [
+          "Pray for the Governor. Then call the news.",
+          "The church stands with the weak against the powerful. Always."
         ]
       }
     }

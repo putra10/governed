@@ -23,7 +23,8 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Elena",
+      "domain_id": "finance",
       "name": "Elena Vargas",
       "role": "Economic Crisis Manager",
       "portrait": "💹",
@@ -46,7 +47,32 @@
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Marcus",
+      "domain_id": "finance",
+      "name": "Marcus Chen",
+      "role": "Debt Restructuring Specialist",
+      "portrait": "📉",
+      "agenda": "Negotiate multilateral debt relief before reserves hit zero and the state defaults.",
+      "dialogue": {
+        "briefing": [
+          "Reserves cover two weeks of imports. We're bankrupt.",
+          "The black market exchange rate is 10x our official rate.",
+          "Every day we wait, the debt compounds beyond any possible payment."
+        ],
+        "disagreement": [
+          "Printing more money is not a strategy. It's arson.",
+          "You're ignoring the bondholders. They'll sue and seize assets."
+        ],
+        "roast": [
+          "Our economy is a corpse. You're just arguing over who robbed it first.",
+          "I've seen better spreadsheets in a lemonade stand."
+        ],
+        "betrayal": "I've already signed a preliminary restructuring with foreign funds. Your approval is just a formality now."
+      }
+    },
+    {
+      "id": "military_liaison_Gen",
+      "domain_id": "military_liaison",
       "name": "Gen. Marco Fuentes",
       "role": "National Guard Commander",
       "portrait": "🪖",
@@ -69,7 +95,32 @@
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_Col",
+      "domain_id": "military_liaison",
+      "name": "Col. Ana Reyes",
+      "role": "Special Operations Advisor",
+      "portrait": "🔫",
+      "agenda": "Use targeted raids and intelligence to decapitate gang leadership.",
+      "dialogue": {
+        "briefing": [
+          "We have actionable intel on three gang lieutenants. But we need a green light.",
+          "The navy can blockade coastal smuggling routes tonight.",
+          "Half the police are compromised. We'll use only military personnel."
+        ],
+        "disagreement": [
+          "Full-scale occupation drains resources we don't have.",
+          "You're asking soldiers to become social workers. That's not the mission."
+        ],
+        "roast": [
+          "Your strategy meetings are longer than our ammunition supply.",
+          "In the field, hesitation gets people killed. You hesitate constantly."
+        ],
+        "betrayal": "The generals voted. You're no longer in command. I follow orders from the palace now."
+      }
+    },
+    {
+      "id": "urban_planning_Sofia",
+      "domain_id": "urban_planning",
       "name": "Sofia Medina",
       "role": "Housing & Infrastructure",
       "portrait": "🏘️",
@@ -92,7 +143,32 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Diego",
+      "domain_id": "urban_planning",
+      "name": "Diego Mendez",
+      "role": "Slum Upgrading Director",
+      "portrait": "🏗️",
+      "agenda": "Legalize informal settlements and invest in core services to create government loyalty.",
+      "dialogue": {
+        "briefing": [
+          "70% of the city lives in irregular housing. That's a silent crisis.",
+          "Gang justice is faster than our courts. People choose it.",
+          "If we pave one street and install lights, the whole block shifts allegiance."
+        ],
+        "disagreement": [
+          "Evictions will backfire. You'll create 10,000 new enemies.",
+          "Forcing people off their land without alternatives is a gift to gangs."
+        ],
+        "roast": [
+          "Your 'urban renewal' plans are just demolition orders with nicer fonts.",
+          "The only thing you've upgraded is your security detail."
+        ],
+        "betrayal": "I've taken a job with an international NGO. They actually build things."
+      }
+    },
+    {
+      "id": "transport_Rodrigo",
+      "domain_id": "transport",
       "name": "Rodrigo Castillo",
       "role": "Logistics & Supply Chains",
       "portrait": "🚌",
@@ -115,7 +191,32 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Carmen",
+      "domain_id": "transport",
+      "name": "Carmen Suarez",
+      "role": "Port & Freight Coordinator",
+      "portrait": "🚢",
+      "agenda": "Reopen coastal shipping and secure fuel corridors to break the black market's chokehold.",
+      "dialogue": {
+        "briefing": [
+          "The port is running at 20% capacity. Shipping companies demand security guarantees.",
+          "We have 200 trucks sitting idle for lack of diesel.",
+          "Every kilo of food that goes through gangs doubles in price."
+        ],
+        "disagreement": [
+          "Blockades hurt civilians more than criminals.",
+          "You're using transport as a weapon. That's collective punishment."
+        ],
+        "roast": [
+          "Our 'supply chain' is a guy with a wheelbarrow and a prayer.",
+          "You couldn't move a shopping cart through this city."
+        ],
+        "betrayal": "The shipping cartel offered me a seat on their board. I accepted."
+      }
+    },
+    {
+      "id": "religious_affairs_Father",
+      "domain_id": "religious_affairs",
       "name": "Father Miguel Torres",
       "role": "Community Chaplain",
       "portrait": "✝️",
@@ -135,6 +236,30 @@
           "God's patience is long. Mine is shorter."
         ],
         "betrayal": "I've declared the government illegitimate from the pulpit. The community agrees."
+      }
+    },
+    {
+      "id": "religious_affairs_Sister",
+      "domain_id": "religious_affairs",
+      "name": "Sister Lucia Ortega",
+      "role": "Faith-Based Outreach Coordinator",
+      "portrait": "⛪",
+      "agenda": "Expand neutral sanctuary zones and mediate ceasefires using parish networks.",
+      "dialogue": {
+        "briefing": [
+          "We have 12 parish halls that gangs respect as safe spaces. We can expand to 30.",
+          "Mothers will talk to me when they won't talk to police.",
+          "A temporary truce saves lives while we build something more durable."
+        ],
+        "disagreement": [
+          "Turning churches into negotiation tables legitimizes criminal power.",
+          "You're asking us to bless a status quo of extortion and fear."
+        ],
+        "roast": [
+          "You speak of morals while children starve in the shadow of your palace.",
+          "I've buried too many teenagers to believe in your good intentions."
+        ],
+        "betrayal": "The Vatican has recognized my mediation as the only legitimate authority here. Goodbye."
       }
     }
   ],

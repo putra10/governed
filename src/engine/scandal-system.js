@@ -1,6 +1,7 @@
 // src/engine/scandal-system.js
 // GDD Section 3.5 -- Four severity tiers with city-specific reactions
 import { randomPick, random } from '../utils/random.js';
+import { addHeat, SCANDAL_HEAT } from './heat-system.js';
 
 // Validate a severity key from city JSON; fall back safely on typos
 function safeTier(key, fallback = 'minor') {
@@ -91,6 +92,9 @@ export class ScandalSystem {
     const penalty = scandal.approval_penalty ?? tier.approvalPenalty;
     s.shiftApproval(penalty);
 
+    // Every scandal that fires raises SCRUTINY — the city remembers
+    addHeat(s, SCANDAL_HEAT[tierKey] ?? 1, 'scandal');
+
     // Surprise scandals (decision fallout, bribes, leaks, exposures...) get a
     // reveal popup so the player knows WHY approval just moved. Scandals the
     // player explicitly accepted (sourceId 'accepted') skip it — they chose.
@@ -132,29 +136,64 @@ export class ScandalSystem {
     this._applyScandal(synth, sourceId);
   }
 
-  // Romance-exposure scandal -- triggered by advisor system
-  triggerRomanceExposure(advisorName) {
+  // Romance-exposure scandal -- triggered by advisor system.
+  // severityBoost: +1 tier (scorned ex-lover went public themselves).
+  // Returns the severity string, or null if a Deepfake Insurance shield ate it.
+  triggerRomanceExposure(advisorName, severityBoost = 0) {
     const s = this.state;
+    const me = s.marketEffects ?? {};
+
+    // Deepfake Insurance: the photos surface — and so does "proof" they're fake
+    if ((me.exposureShield ?? 0) > 0) {
+      me.exposureShield--;
+      s.recentComments = ['Compromising photos circulate — then are "debunked" as AI fakes within hours.', ...(s.recentComments ?? [])].slice(0, 5);
+      console.log('[Romance] Exposure shielded by deepfake insurance');
+      return null;
+    }
+
     const culture  = s.city?.romance_exposure ?? { severity: 'moderate', flavour: null };
-    const severity = safeTier(culture.severity, 'moderate');
+    let severity = safeTier(culture.severity, 'moderate');
+    if (severityBoost > 0) {
+      const ladder = ['minor', 'moderate', 'major', 'career_ending'];
+      severity = ladder[Math.min(3, ladder.indexOf(severity) + severityBoost)];
+    }
+
+    const advisor = s.advisors.find(a => a.name === advisorName);
+    const trust   = advisor?.trust ?? 50;
+
+    // The exposure plays differently depending on the relationship's health:
+    // trust >= 70 → they stand beside you at the podium (penalty halved);
+    // trust < 40  → they deny everything (full penalty, instant rivalry)
+    let penalty = SCANDAL_SEVERITY[severity].approvalPenalty;
+    let stance  = '';
+    if (trust >= 70) {
+      penalty = Math.round(penalty / 2);
+      stance = `${advisorName} stands beside you at the podium. The city softens, slightly.`;
+    } else if (trust < 40) {
+      stance = `${advisorName} denies everything. "A fabrication," they say, not meeting your eyes.`;
+    }
 
     const scandal = {
       id: `romance_exposure_${advisorName.toLowerCase().replace(/\s+/g, '_')}`,
       title: `Governor's Relationship with ${advisorName} Exposed`,
       severity_tier: severity,
-      approval_penalty: SCANDAL_SEVERITY[severity].approvalPenalty,
+      approval_penalty: penalty,
     };
 
     this._applyScandal(scandal, 'romance');
 
+    if (stance) s.recentComments = [stance, ...(s.recentComments ?? [])].slice(0, 5);
     if (culture.flavour) {
       s.recentComments = [culture.flavour, ...(s.recentComments ?? [])].slice(0, 5);
     }
 
-    const advisor = s.advisors.find(a => a.name === advisorName);
-    if (advisor) advisor.romanceExposed = true;
+    if (advisor) {
+      advisor.romanceExposed = true;
+      if (trust >= 70) advisor.trust = Math.min(100, trust + 10); // ride-or-die
+      else if (trust < 40) advisor.relationshipType = 'rivalry';
+    }
 
-    console.log('[Romance Exposed]', advisorName, '-- severity:', severity);
+    console.log('[Romance Exposed]', advisorName, '-- severity:', severity, '— stance trust:', trust);
     return severity;
   }
 

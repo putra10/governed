@@ -1,895 +1,1075 @@
 {
-    "city_id": "guatemala_city",
-    "city_name": "Guatemala City",
-    "tier": "hard",
-    "problem_clusters": [
-        "corruption",
-        "gang_violence",
-        "infrastructure"
-    ],
-    "city_personality": {
-        "voice": "cynical-survivor",
-        "humor_style": "gallows",
-        "media_outlet": "Prensa Libre",
-        "government_body": "Municipal Council of Guatemala",
-        "landmark": "National Palace of Culture",
-        "primary_industry_workers": "informal vendors and maquila workers",
-        "slang_reaction": "¡A la gran púchica, este gobierno es un chiste, muchá!"
-    },
-    "opening_sequence": {
-        "title": "Welcome to Guate, Mayor",
-        "intro": "Traffic is paralyzing, the rainy season opens massive sinkholes in the streets, and the 'Pacto de Corruptos' watches your every move. You must balance the demands of the wealthy elites in Zone 14 with the raw survival of the perilous Zone 18, all while keeping the Maras at bay.",
-        "starting_stats": {
-            "approval_rating": 40,
-            "budget": 250,
-            "advisor_trust_levels": {
-                "finance": 55,
-                "military_liaison": 50,
-                "urban_planning": 45,
-                "transport": 40,
-                "religious_affairs": 60
-            }
-        }
-    },
-    "advisors": [
-        {
-            "id": "finance",
-            "name": "Fernando Castillo",
-            "domain": "Finance & Elite Relations",
-            "archetype": "Schemer",
-            "hidden_agenda": "Ensuring all municipal infrastructure contracts are exclusively awarded to his family's construction conglomerate.",
-            "betrayal_trigger": "Implementing transparent, internationally monitored open-bidding laws for city contracts.",
-            "competence_rating": 8,
-            "relationship_meter": 50,
-            "dialogue": {
-                "briefing": [
-                    "The private sector is demanding tax incentives for the new towers in Zone 10.",
-                    "Our operational budget is tight, but we can issue more municipal bonds if needed.",
-                    "The traditional families of this city expect stability above all else."
-                ],
-                "agreement": [
-                    "A very profitable and wise decision.",
-                    "The business chambers will be pleased."
-                ],
-                "disagreement": [
-                    "You are scaring away the only people with real money in this country.",
-                    "This is not how business is done in Guatemala."
-                ],
-                "betrayal": "You opened our books to outsiders. The oligarchy is funding your opposition now. You are finished.",
-                "roast": [
-                    "You manage the city's money like a tourist at the Central Market.",
-                    "Your economic plan consists of praying for remittances to save us."
-                ],
-                "scandal_reaction": [
-                    "We must deny everything and blame the socialist opposition.",
-                    "I will have my lawyers draft a press release full of legal jargon."
-                ]
-            }
-        },
-        {
-            "id": "military_liaison",
-            "name": "Colonel (Ret.) Hector Morales",
-            "domain": "Security & PMT",
-            "archetype": "Hardliner",
-            "hidden_agenda": "Using the municipal police to enforce protection rackets on street vendors under the guise of 'fines'.",
-            "betrayal_trigger": "Firing corrupt police chiefs and inviting federal oversight into the municipal forces.",
-            "competence_rating": 7,
-            "relationship_meter": 55,
-            "dialogue": {
-                "briefing": [
-                    "The Maras are extorting the garbage trucks again in Zone 18.",
-                    "We need more tear gas for the expected protests on Independence Day.",
-                    "My men need higher salaries, or they will find other ways to get paid."
-                ],
-                "agreement": [
-                    "Mano dura. It is the only language they understand.",
-                    "We will enforce this immediately, Mayor."
-                ],
-                "disagreement": [
-                    "You are showing weakness. The gangs will eat you alive.",
-                    "Human rights do not stop bullets, Mayor."
-                ],
-                "betrayal": "You dismantled my security apparatus. Good luck surviving the streets without my men.",
-                "roast": [
-                    "You are softer than a tamal. The gangs are laughing at you.",
-                    "You couldn't secure a bakery, let alone this city."
-                ],
-                "scandal_reaction": [
-                    "Deploy the anti-riot police to distract the public.",
-                    "This leak requires a severe internal investigation."
-                ]
-            }
-        },
-        {
-            "id": "urban_planning",
-            "name": "Ana Maria Valdez",
-            "domain": "Zoning & Ravines",
-            "archetype": "Idealist",
-            "hidden_agenda": "Relocating communities living in the dangerous garbage dump ravines to premium zoned land.",
-            "betrayal_trigger": "Bulldozing a ravine settlement without providing alternative housing to build a commercial highway.",
-            "competence_rating": 7,
-            "relationship_meter": 45,
-            "dialogue": {
-                "briefing": [
-                    "The rains are starting. The settlements in the barrancos (ravines) are at high risk of mudslides.",
-                    "The Zone 3 garbage dump is expanding uncontrollably.",
-                    "We have a severe lack of public green spaces for the working class."
-                ],
-                "agreement": [
-                    "Finally, we are looking at the forgotten people of this city.",
-                    "A step towards a dignified Guatemala."
-                ],
-                "disagreement": [
-                    "You are just building more concrete for the rich.",
-                    "The poor are invisible to this administration."
-                ],
-                "betrayal": "You destroyed their shacks just to build a road. I am organizing the communities to blockade the highways.",
-                "roast": [
-                    "Your urban vision is just a giant shopping mall surrounded by misery.",
-                    "You govern for three zones and ignore the other nineteen."
-                ],
-                "scandal_reaction": [
-                    "This administration is morally bankrupt.",
-                    "I refuse to be the face of this tragedy."
-                ]
-            }
-        },
-        {
-            "id": "transport",
-            "name": "Carlos 'El Chino' Mendoza",
-            "domain": "Transit & Mafias",
-            "archetype": "Fixer",
-            "hidden_agenda": "Protecting the dangerous, informal 'ruletero' bus mafias from the expansion of the formal Transmetro.",
-            "betrayal_trigger": "Banning the informal buses entirely from the city center to expand the green transit line.",
-            "competence_rating": 6,
-            "relationship_meter": 50,
-            "dialogue": {
-                "briefing": [
-                    "Traffic on the Aguilar Batres is backed up for ten kilometers.",
-                    "The bus drivers are threatening a strike if we don't allow fare increases.",
-                    "We need to pave the roads in Zone 21 before the potholes swallow cars whole."
-                ],
-                "agreement": [
-                    "The wheels keep turning, Mayor.",
-                    "My transport boys will appreciate the flexibility."
-                ],
-                "disagreement": [
-                    "You are provoking a transport strike. The city will be paralyzed.",
-                    "Don't mess with the bus routes, it's a dangerous game."
-                ],
-                "betrayal": "You banned my buses. The city stops tomorrow, and your political career stops with it.",
-                "roast": [
-                    "This administration moves slower than Roosevelt Avenue at 6 PM.",
-                    "You couldn't manage a tricycle, let alone public transit."
-                ],
-                "scandal_reaction": [
-                    "I'm keeping a low profile until the press gets bored.",
-                    "Time to grease some palms and make this go away."
-                ]
-            }
-        },
-        {
-            "id": "religious_affairs",
-            "name": "Pastor Sergio Rios",
-            "domain": "Megachurches & Morality",
-            "archetype": "Moralist",
-            "hidden_agenda": "Acquiring prime municipal real estate for tax-exempt megachurches.",
-            "betrayal_trigger": "Implementing a strict municipal property tax on all religious organizations to cover the city's deficit.",
-            "competence_rating": 8,
-            "relationship_meter": 60,
-            "dialogue": {
-                "briefing": [
-                    "The evangelical vote is crucial for the upcoming municipal elections.",
-                    "We must stand against the liberal agendas trying to infiltrate our schools.",
-                    "Our congregation is growing, and we require expedited permits for a new stadium-sized temple."
-                ],
-                "agreement": [
-                    "God has placed you in this position for a reason, Mayor.",
-                    "A blessed decision that protects our family values."
-                ],
-                "disagreement": [
-                    "You are turning your back on the faithful.",
-                    "This city will suffer the consequences of your moral failings."
-                ],
-                "betrayal": "You taxed the house of God. I will ensure every pulpit in this city preaches against you this Sunday.",
-                "roast": [
-                    "Your soul is as empty as the city treasury.",
-                    "You seek salvation in politics, but you will only find ruin."
-                ],
-                "scandal_reaction": [
-                    "We must pray for the forgiveness of this administration's sins.",
-                    "The devil is at work in City Hall."
-                ]
-            }
-        }
-    ],
-    "decisions": [
-        {
-            "id": "zone_3_dump_scavengers",
-            "title": "The Guajeros of Zone 3",
-            "body": "Thousands of informal scavengers ('guajeros') survive by sorting trash in the massive, toxic Zone 3 garbage dump. A recent collapse killed several people, and human rights groups demand intervention.",
-            "turn_available": 2,
-            "unlock_flag": null,
-            "options": [
-                {
-                    "label": "Provide them with basic safety gear and formalize their union.",
-                    "tag": "SAFE",
-                    "consequences": {
-                        "approval_delta": 5,
-                        "budget_delta": -20,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "urban_planning",
-                                "trust_delta": 10,
-                                "betrayal_risk_delta": -5
-                            }
-                        ],
-                        "scandal_risk": 5,
-                        "public_reaction": "It's a dirty job, but at least they aren't dying as often."
-                    }
-                },
-                {
-                    "label": "Violently evict the scavengers and privatize the recycling process to a corporation.",
-                    "tag": "BOLD",
-                    "consequences": {
-                        "approval_delta": -15,
-                        "budget_delta": 60,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "finance",
-                                "trust_delta": 15,
-                                "betrayal_risk_delta": -10
-                            },
-                            {
-                                "advisor_id": "urban_planning",
-                                "trust_delta": -20,
-                                "betrayal_risk_delta": 15
-                            }
-                        ],
-                        "scandal_risk": 30,
-                        "public_reaction": "You took away their only way to eat! Heartless!"
-                    }
-                },
-                {
-                    "label": "Ignore the safety risks but charge the scavengers an entrance fee to the dump.",
-                    "tag": "CHAOS",
-                    "consequences": {
-                        "approval_delta": -20,
-                        "budget_delta": 40,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "military_liaison",
-                                "trust_delta": 10,
-                                "betrayal_risk_delta": 0
-                            }
-                        ],
-                        "scandal_risk": 60,
-                        "public_reaction": "Taxing the poorest people on earth to dig through our trash. Unbelievable."
-                    }
-                }
-            ]
-        },
-        {
-            "id": "massive_sinkhole",
-            "title": "The Zone 2 Sinkhole",
-            "body": "The heavy rains have caused a massive, 30-meter deep sinkhole to open up in the middle of a major intersection, swallowing an entire factory. The drainage system is failing city-wide.",
-            "turn_available": 3,
-            "unlock_flag": null,
-            "options": [
-                {
-                    "label": "Fill it quickly with cheap concrete to reopen the road.",
-                    "tag": "SAFE",
-                    "consequences": {
-                        "approval_delta": 5,
-                        "budget_delta": -30,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "transport",
-                                "trust_delta": 10,
-                                "betrayal_risk_delta": -5
-                            }
-                        ],
-                        "scandal_risk": 15,
-                        "public_reaction": "It's a band-aid. Another hole will just open up next week."
-                    }
-                },
-                {
-                    "label": "Launch a massive, expensive overhaul of the city's underground drainage network.",
-                    "tag": "BOLD",
-                    "consequences": {
-                        "approval_delta": 15,
-                        "budget_delta": -120,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "finance",
-                                "trust_delta": -20,
-                                "betrayal_risk_delta": 15
-                            },
-                            {
-                                "advisor_id": "urban_planning",
-                                "trust_delta": 15,
-                                "betrayal_risk_delta": -5
-                            }
-                        ],
-                        "scandal_risk": 10,
-                        "public_reaction": "Finally, someone fixing the actual problem instead of painting over it."
-                    }
-                },
-                {
-                    "label": "Turn the sinkhole into an open-air landfill to solve the garbage crisis.",
-                    "tag": "CHAOS",
-                    "consequences": {
-                        "approval_delta": -25,
-                        "budget_delta": 20,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "urban_planning",
-                                "trust_delta": -25,
-                                "betrayal_risk_delta": 20
-                            }
-                        ],
-                        "scandal_risk": 80,
-                        "public_reaction": "Are you insane?! The smell is covering half the city!"
-                    }
-                }
-            ]
-        },
-        {
-            "id": "elite_gated_communities",
-            "title": "Privatizing the Streets",
-            "body": "Wealthy residents in Zone 14 and 15 are illegally building massive gates and guardhouses across public municipal streets to protect themselves from crime, cutting off traffic routes.",
-            "turn_available": 5,
-            "unlock_flag": null,
-            "options": [
-                {
-                    "label": "Quietly legalize the gates but charge the neighborhoods a steep 'security tax'.",
-                    "tag": "SAFE",
-                    "consequences": {
-                        "approval_delta": -5,
-                        "budget_delta": 50,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "finance",
-                                "trust_delta": 10,
-                                "betrayal_risk_delta": -5
-                            }
-                        ],
-                        "scandal_risk": 10,
-                        "public_reaction": "If you have money, you can buy the public roads. Typical."
-                    }
-                },
-                {
-                    "label": "Deploy bulldozers to tear down the illegal gates and reopen the streets.",
-                    "tag": "BOLD",
-                    "consequences": {
-                        "approval_delta": 20,
-                        "budget_delta": -20,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "finance",
-                                "trust_delta": -25,
-                                "betrayal_risk_delta": 20
-                            },
-                            {
-                                "advisor_id": "military_liaison",
-                                "trust_delta": -15,
-                                "betrayal_risk_delta": 10
-                            }
-                        ],
-                        "scandal_risk": 25,
-                        "public_reaction": "The rich aren't above the law! The streets belong to everyone!"
-                    }
-                },
-                {
-                    "label": "Offer municipal police as private security for the gates, for a massive fee.",
-                    "tag": "CHAOS",
-                    "consequences": {
-                        "approval_delta": -15,
-                        "budget_delta": 80,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "military_liaison",
-                                "trust_delta": 15,
-                                "betrayal_risk_delta": -10
-                            }
-                        ],
-                        "scandal_risk": 50,
-                        "public_reaction": "Our public police are now just private bodyguards for the oligarchy."
-                    }
-                }
-            ]
-        },
-        {
-            "id": "transmetro_expansion",
-            "title": "The Red Bus War",
-            "body": "You are expanding the safe, green Transmetro bus line, but this threatens the business of the dangerous, mafia-controlled 'Red Buses'. The drivers are threatening to block all major arteries.",
-            "turn_available": 7,
-            "unlock_flag": null,
-            "options": [
-                {
-                    "label": "Halt the expansion and offer the Red Bus owners subsidies to calm them down.",
-                    "tag": "SAFE",
-                    "consequences": {
-                        "approval_delta": -10,
-                        "budget_delta": -40,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "transport",
-                                "trust_delta": 15,
-                                "betrayal_risk_delta": -10
-                            }
-                        ],
-                        "scandal_risk": 15,
-                        "public_reaction": "Coward. We are stuck riding the rolling death traps forever."
-                    }
-                },
-                {
-                    "label": "Push forward with the Transmetro and use riot police to clear any blockades.",
-                    "tag": "BOLD",
-                    "consequences": {
-                        "approval_delta": 15,
-                        "budget_delta": -60,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "transport",
-                                "trust_delta": -20,
-                                "betrayal_risk_delta": 15
-                            },
-                            {
-                                "advisor_id": "military_liaison",
-                                "trust_delta": 15,
-                                "betrayal_risk_delta": -5
-                            }
-                        ],
-                        "scandal_risk": 35,
-                        "public_reaction": "Traffic is a nightmare today, but we need safe public transport!"
-                    }
-                },
-                {
-                    "label": "Secretly pay a rival gang to attack the Red Bus operators and break the strike.",
-                    "tag": "CHAOS",
-                    "consequences": {
-                        "approval_delta": -5,
-                        "budget_delta": -30,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "military_liaison",
-                                "trust_delta": -10,
-                                "betrayal_risk_delta": 10
-                            }
-                        ],
-                        "scandal_risk": 80,
-                        "public_reaction": "The streets are a warzone over bus routes! Total madness!"
-                    }
-                }
-            ]
-        },
-        {
-            "id": "independence_day_parade",
-            "title": "The September Parade Extortion",
-            "body": "It's September 15th, Independence Day. Thousands of schoolchildren are scheduled to march, but local gangs have demanded an 'extortion fee' from the city to guarantee there won't be any shootings during the parade.",
-            "turn_available": 9,
-            "unlock_flag": null,
-            "options": [
-                {
-                    "label": "Cancel the parade entirely citing 'bad weather' to keep the children safe.",
-                    "tag": "SAFE",
-                    "consequences": {
-                        "approval_delta": -15,
-                        "budget_delta": 0,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "religious_affairs",
-                                "trust_delta": -10,
-                                "betrayal_risk_delta": 5
-                            }
-                        ],
-                        "scandal_risk": 10,
-                        "public_reaction": "We are prisoners in our own city. The gangs won."
-                    }
-                },
-                {
-                    "label": "Refuse to pay, deploy military snipers on rooftops, and hold the parade.",
-                    "tag": "BOLD",
-                    "consequences": {
-                        "approval_delta": 20,
-                        "budget_delta": -50,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "military_liaison",
-                                "trust_delta": 20,
-                                "betrayal_risk_delta": -15
-                            }
-                        ],
-                        "scandal_risk": 40,
-                        "public_reaction": "Tense, but the children marched! We cannot show fear."
-                    }
-                },
-                {
-                    "label": "Pay the extortion fee using funds meant for school renovations.",
-                    "tag": "CHAOS",
-                    "consequences": {
-                        "approval_delta": -25,
-                        "budget_delta": -30,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "finance",
-                                "trust_delta": -15,
-                                "betrayal_risk_delta": 10
-                            }
-                        ],
-                        "scandal_risk": 85,
-                        "public_reaction": "The Mayor is funding the gangs directly! Unbelievable!"
-                    }
-                }
-            ]
-        }
-    ],
-    "crises": [
-        {
-            "id": "mara_turf_war",
-            "name": "Barrio 18 vs MS-13 Turf War",
-            "trigger": "A fragile truce has shattered, and a violent turf war between rival gangs has spilled into the city's commercial centers.",
-            "description": "Shootouts are occurring in broad daylight near Transmetro stations. Businesses are closing, and citizens are terrified to leave their homes. The federal police are overwhelmed, and the national government is ignoring your calls. You must secure the municipality.",
-            "turn_min": 4,
-            "turn_max": 6,
-            "war_mode": false,
-            "options": [
-                {
-                    "id": "A",
-                    "label": "Declare a municipal curfew and lock down public transport early.",
-                    "tag": "SAFE",
-                    "consequences": {
-                        "approval_delta": -10,
-                        "budget_delta": -20,
-                        "scandal_risk": 10,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "transport",
-                                "trust_delta": -15,
-                                "betrayal_risk_delta": 10
-                            }
-                        ]
-                    }
-                },
-                {
-                    "id": "B",
-                    "label": "Arm the municipal traffic police with combat rifles and send them into the hot zones.",
-                    "tag": "BOLD",
-                    "consequences": {
-                        "approval_delta": 15,
-                        "budget_delta": -80,
-                        "scandal_risk": 50,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "military_liaison",
-                                "trust_delta": 25,
-                                "betrayal_risk_delta": -10
-                            }
-                        ]
-                    }
-                },
-                {
-                    "id": "C",
-                    "label": "Secretly broker a peace deal with the gang leaders inside the maximum-security prison.",
-                    "tag": "CHAOS",
-                    "consequences": {
-                        "approval_delta": 5,
-                        "budget_delta": -50,
-                        "scandal_risk": 90,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "military_liaison",
-                                "trust_delta": -30,
-                                "betrayal_risk_delta": 20
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        {
-            "id": "anti_corruption_protests",
-            "name": "The Plaza Demands Your Resignation",
-            "trigger": "A massive corruption scandal involving a water treatment plant has ignited city-wide protests.",
-            "description": "Echoes of 2015. Over 100,000 citizens have occupied the Plaza de la Constitución, banging pots and demanding you step down. University students, indigenous leaders, and middle-class families have united against your administration. The pressure is immense.",
-            "turn_min": 7,
-            "turn_max": 9,
-            "war_mode": false,
-            "options": [
-                {
-                    "id": "A",
-                    "label": "Offer public apologies and sacrifice your Finance Advisor to the courts.",
-                    "tag": "SAFE",
-                    "consequences": {
-                        "approval_delta": 10,
-                        "budget_delta": 0,
-                        "scandal_risk": 20,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "finance",
-                                "trust_delta": -50,
-                                "betrayal_risk_delta": 50
-                            }
-                        ]
-                    }
-                },
-                {
-                    "id": "B",
-                    "label": "Refuse to back down, denouncing the protests as a foreign-funded socialist coup.",
-                    "tag": "BOLD",
-                    "consequences": {
-                        "approval_delta": -25,
-                        "budget_delta": 0,
-                        "scandal_risk": 40,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "finance",
-                                "trust_delta": 20,
-                                "betrayal_risk_delta": -10
-                            },
-                            {
-                                "advisor_id": "religious_affairs",
-                                "trust_delta": 15,
-                                "betrayal_risk_delta": -5
-                            }
-                        ]
-                    }
-                },
-                {
-                    "id": "C",
-                    "label": "Send provocateurs to burn a public building and blame it on the students to justify a crackdown.",
-                    "tag": "CHAOS",
-                    "consequences": {
-                        "approval_delta": -15,
-                        "budget_delta": -100,
-                        "scandal_risk": 95,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "military_liaison",
-                                "trust_delta": -20,
-                                "betrayal_risk_delta": 15
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        {
-            "id": "barranco_mudslides",
-            "name": "Catastrophic Mudslides",
-            "trigger": "Unprecedented tropical rainfall has caused massive mudslides in the city's deep ravines.",
-            "description": "Entire informal settlements have been swept away. Hundreds are missing under the mud in Zone 7 and Zone 18. Emergency services are blocked by collapsed bridges. The international community is watching how you handle the rescue.",
-            "turn_min": 8,
-            "turn_max": 11,
-            "war_mode": false,
-            "options": [
-                {
-                    "id": "A",
-                    "label": "Request international aid and convert schools into emergency shelters.",
-                    "tag": "SAFE",
-                    "consequences": {
-                        "approval_delta": 15,
-                        "budget_delta": -50,
-                        "scandal_risk": 5,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "urban_planning",
-                                "trust_delta": 15,
-                                "betrayal_risk_delta": -10
-                            }
-                        ]
-                    }
-                },
-                {
-                    "id": "B",
-                    "label": "Liquidate municipal assets to instantly buy heavy machinery for rescue efforts.",
-                    "tag": "BOLD",
-                    "consequences": {
-                        "approval_delta": 25,
-                        "budget_delta": -200,
-                        "scandal_risk": 15,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "finance",
-                                "trust_delta": -25,
-                                "betrayal_risk_delta": 20
-                            }
-                        ]
-                    }
-                },
-                {
-                    "id": "C",
-                    "label": "Declare the area a total loss and focus resources on protecting the wealthy commercial zones.",
-                    "tag": "CHAOS",
-                    "consequences": {
-                        "approval_delta": -40,
-                        "budget_delta": 50,
-                        "scandal_risk": 80,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "urban_planning",
-                                "trust_delta": -40,
-                                "betrayal_risk_delta": 30
-                            },
-                            {
-                                "advisor_id": "finance",
-                                "trust_delta": 20,
-                                "betrayal_risk_delta": -10
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        {
-            "id": "pacto_de_corruptos",
-            "name": "The Pact's Ultimatum",
-            "trigger": "The powerful, shadowy alliance of national elites known as the 'Pacto de Corruptos' demands your absolute loyalty.",
-            "description": "The national elections are approaching. The Pact demands you use municipal resources and police to intimidate opposition voters and rig the city's results. If you refuse, the Attorney General will instantly issue an arrest warrant for you on fabricated embezzlement charges.",
-            "turn_min": 12,
-            "turn_max": 12,
-            "war_mode": false,
-            "options": [
-                {
-                    "id": "A",
-                    "label": "Comply with the Pact, rig the vote, and secure your political survival.",
-                    "tag": "SAFE",
-                    "consequences": {
-                        "approval_delta": -35,
-                        "budget_delta": 100,
-                        "scandal_risk": 30,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "finance",
-                                "trust_delta": 25,
-                                "betrayal_risk_delta": -20
-                            }
-                        ]
-                    }
-                },
-                {
-                    "id": "B",
-                    "label": "Defy the Pact, rally the citizens to the streets, and face the arrest warrant head-on.",
-                    "tag": "BOLD",
-                    "consequences": {
-                        "approval_delta": 40,
-                        "budget_delta": -50,
-                        "scandal_risk": 50,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "military_liaison",
-                                "trust_delta": -20,
-                                "betrayal_risk_delta": 15
-                            }
-                        ]
-                    }
-                },
-                {
-                    "id": "C",
-                    "label": "Flee the country on a private jet to Miami before the Attorney General can strike.",
-                    "tag": "CHAOS",
-                    "consequences": {
-                        "approval_delta": -50,
-                        "budget_delta": 300,
-                        "scandal_risk": 100,
-                        "advisor_effects": [
-                            {
-                                "advisor_id": "finance",
-                                "trust_delta": -50,
-                                "betrayal_risk_delta": 50
-                            }
-                        ]
-                    }
-                }
-            ]
-        }
-    ],
-    "scandals": [
-        {
-            "id": "monterrico_beach_trip",
-            "title": "Mayor Uses Public Funds for Beach Resort Party",
-            "description": "Journalists caught your family using municipal security details and city-funded helicopters for a luxurious weekend getaway in Monterrico.",
-            "severity_tier": "minor",
-            "approval_penalty": -5
-        },
-        {
-            "id": "transmetro_embezzlement",
-            "title": "Bus Funds Spent on Luxury Watches",
-            "description": "An anti-corruption NGO revealed that millions meant for buying new Transmetro buses were actually funneled through shell companies to buy luxury Rolex watches for your cabinet.",
-            "severity_tier": "moderate",
-            "approval_penalty": -12
-        },
-        {
-            "id": "mara_negotiation_tapes",
-            "title": "Audio Leaked: Mayor Negotiates with Gang Bosses",
-            "description": "A devastating audio recording has leaked showing you personally negotiating extortion percentages and hit contracts directly with Barrio 18 leaders inside a maximum-security prison.",
-            "severity_tier": "career_ending",
-            "approval_penalty": -40
-        }
-    ],
-    "comment_library": {
-        "positive": [
-            "¡Qué buena onda! Finally someone is doing something useful.",
-            "Mis respetos al Alcalde. Taking real action.",
-            "Maybe this city isn't completely doomed after all.",
-            "Traffic was actually moving today. A miracle!",
-            "Good. We need a strong hand to clean up Guate.",
-            "I actually saw a pothole get fixed. Impressive."
-        ],
-        "neutral": [
-            "Paja. It's all lies until I see it working.",
-            "Mucha casaca, as always with politicians.",
-            "As long as I can get to work without getting robbed.",
-            "Let's see if the money actually goes where it should.",
-            "It doesn't affect me, I'm just trying to survive.",
-            "Same circus, different clowns."
-        ],
-        "negative": [
-            "¡A la gran púchica, qué ladrones son todos!",
-            "They are just stealing our taxes again, muchá.",
-            "This government is worse than a toothache.",
-            "Puro show. They only care about Zone 14.",
-            "Renuncien ya! Corruptos cerotes!",
-            "Every day this city becomes harder to survive."
-        ],
-        "media": [
-            "Prensa Libre: New municipal policy generates intense debate in City Hall.",
-            "Guatevisión: Protests paralyze traffic on Avenida Reforma.",
-            "Plaza Pública: Where did the millions for the new infrastructure go?",
-            "El Periódico: Investigations point to severe irregularities in recent contracts.",
-            "Emisoras Unidas: Citizens report massive traffic jams due to unannounced construction.",
-            "Soy502: Mayor's controversial decision goes viral on social media."
-        ],
-        "politician": [
-            "We demand total transparency regarding these questionable actions.",
-            "The opposition will not let this abuse of power stand.",
-            "A necessary, if unpopular, step for the development of our metropolis.",
-            "The Pacto de Corruptos continues to shield this administration.",
-            "We stand with the working people against these elite policies.",
-            "This is a violation of our constitutional rights."
-        ],
-        "activist": [
-            "¡No nos callarán! Stop stealing from the poor!",
-            "We need dignified housing, not more shopping malls!",
-            "The rivers are dying, the ravines are collapsing! Wake up!",
-            "Where is the justice for the victims of the violence?",
-            "End the impunity! CICIG needs to come back!",
-            "The streets belong to the people, not the oligarchy!"
-        ],
-        "street": [
-            "Ala madre, traffic is completely stopped on the Periférico again.",
-            "Did you hear the gunshots last night near the market?",
-            "No hay pisto para nada. Everything is too expensive.",
-            "Just got extorted again. The police do nothing.",
-            "Rain is coming, time for the city to flood like always.",
-            "Echándole ganas. Just gotta keep hustling."
-        ],
-        "crisis": [
-            "¡Dios nos ampare! The ravines are falling apart!",
-            "They are shooting in the streets! Don't go outside!",
-            "The Plaza is full! The people are waking up!",
-            "We have no water, no power, and the government hides.",
-            "The gangs control everything now. It's over.",
-            "Pray for Guate. This is a nightmare."
-        ],
-        "scandal": [
-            "¡Qué descaro! They steal right in front of us!",
-            "To jail! All of them to Mariscal Zavala!",
-            "We are bleeding and they buy Rolex watches. Disgusting.",
-            "Pacto de Corruptos protecting their own again.",
-            "I hope they rot in jail. Thieves.",
-            "Guatemala has no memory, they'll get away with it."
-        ]
-    },
-    "scandal_reactions": {
-        "minor": "Typical. They use our taxes like their personal piggy bank.",
-        "moderate": "Indignante. We have no medicine in hospitals but they have fancy watches.",
-        "major": "¡A la cárcel! They are literally working with the murderers!",
-        "career_ending": "This is high treason against the citizens. The people will burn the municipality down."
-    },
-    "romance_exposure": {
-        "severity": "moderate",
-        "flavour": "In a deeply conservative society, the Evangelical and Catholic communities are scandalized, and the opposition uses it to paint you as morally unfit to govern, though it doesn't lead to jail time."
+  "city_id": "guatemala_city",
+  "city_name": "Guatemala City",
+  "tier": "hard",
+  "problem_clusters": [
+    "corruption",
+    "gang_violence",
+    "infrastructure"
+  ],
+  "city_personality": {
+    "voice": "cynical-survivor",
+    "humor_style": "gallows",
+    "media_outlet": "Prensa Libre",
+    "government_body": "Municipal Council of Guatemala",
+    "landmark": "National Palace of Culture",
+    "primary_industry_workers": "informal vendors and maquila workers",
+    "slang_reaction": "¡A la gran púchica, este gobierno es un chiste, muchá!"
+  },
+  "opening_sequence": {
+    "title": "Welcome to Guate, Mayor",
+    "intro": "Traffic is paralyzing, the rainy season opens massive sinkholes in the streets, and the 'Pacto de Corruptos' watches your every move. You must balance the demands of the wealthy elites in Zone 14 with the raw survival of the perilous Zone 18, all while keeping the Maras at bay.",
+    "starting_stats": {
+      "approval_rating": 40,
+      "budget": 250,
+      "advisor_trust_levels": {
+        "finance": 55,
+        "military_liaison": 50,
+        "urban_planning": 45,
+        "transport": 40,
+        "religious_affairs": 60
+      }
     }
+  },
+  "advisors": [
+    {
+      "id": "finance_Fernando",
+      "domain_id": "finance",
+      "name": "Fernando Castillo",
+      "domain": "Finance & Elite Relations",
+      "archetype": "Schemer",
+      "hidden_agenda": "Ensuring all municipal infrastructure contracts are exclusively awarded to his family's construction conglomerate.",
+      "betrayal_trigger": "Implementing transparent, internationally monitored open-bidding laws for city contracts.",
+      "competence_rating": 8,
+      "relationship_meter": 50,
+      "dialogue": {
+        "briefing": [
+          "The private sector is demanding tax incentives for the new towers in Zone 10.",
+          "Our operational budget is tight, but we can issue more municipal bonds if needed.",
+          "The traditional families of this city expect stability above all else."
+        ],
+        "agreement": [
+          "A very profitable and wise decision.",
+          "The business chambers will be pleased."
+        ],
+        "disagreement": [
+          "You are scaring away the only people with real money in this country.",
+          "This is not how business is done in Guatemala."
+        ],
+        "betrayal": "You opened our books to outsiders. The oligarchy is funding your opposition now. You are finished.",
+        "roast": [
+          "You manage the city's money like a tourist at the Central Market.",
+          "Your economic plan consists of praying for remittances to save us."
+        ],
+        "scandal_reaction": [
+          "We must deny everything and blame the socialist opposition.",
+          "I will have my lawyers draft a press release full of legal jargon."
+        ]
+      }
+    },
+    {
+      "id": "finance_Luz",
+      "domain_id": "finance",
+      "name": "Luz de Maria Garcia",
+      "domain": "Remittance & Informal Economy",
+      "archetype": "Pragmatist",
+      "hidden_agenda": "Legalizing and taxing informal street vending to create a parallel municipal revenue stream.",
+      "betrayal_trigger": "Ordering a brutal police crackdown on all unlicensed street vendors without offering formal permits.",
+      "competence_rating": 7,
+      "relationship_meter": 48,
+      "dialogue": {
+        "briefing": [
+          "Remittances are up 12% this year. That money is moving through the informal sector – we don't see a cent.",
+          "The market vendors will pay taxes if we give them legal status and security.",
+          "Every quetzal we collect from the informal economy is a quetzal the gangs don't extort."
+        ],
+        "agreement": [
+          "Pragmatic and profitable. The vendors will cooperate if we're fair.",
+          "This brings the invisible economy into the light."
+        ],
+        "disagreement": [
+          "Cracking down without alternatives will just drive the vendors into the arms of the cartels.",
+          "You're treating the symptom, not the disease. Corruption is the real tax leak."
+        ],
+        "betrayal": "You sent the police into the markets. Now the vendors have organized against you – and I'm their candidate for the next election.",
+        "roast": [
+          "Your 'economic development' plan is a loan from the IMF and a prayer. I've seen more creativity from a street fortune teller.",
+          "You count money that never stays in this city. I count money that feeds families."
+        ],
+        "scandal_reaction": [
+          "Blame the central government for the deficit. Always works.",
+          "We can turn this into a story about 'economic formalization' – spin it hard."
+        ]
+      }
+    },
+    {
+      "id": "military_liaison_Colonel",
+      "domain_id": "military_liaison",
+      "name": "Colonel (Ret.) Hector Morales",
+      "domain": "Security & PMT",
+      "archetype": "Hardliner",
+      "hidden_agenda": "Using the municipal police to enforce protection rackets on street vendors under the guise of 'fines'.",
+      "betrayal_trigger": "Firing corrupt police chiefs and inviting federal oversight into the municipal forces.",
+      "competence_rating": 7,
+      "relationship_meter": 55,
+      "dialogue": {
+        "briefing": [
+          "The Maras are extorting the garbage trucks again in Zone 18.",
+          "We need more tear gas for the expected protests on Independence Day.",
+          "My men need higher salaries, or they will find other ways to get paid."
+        ],
+        "agreement": [
+          "Mano dura. It is the only language they understand.",
+          "We will enforce this immediately, Mayor."
+        ],
+        "disagreement": [
+          "You are showing weakness. The gangs will eat you alive.",
+          "Human rights do not stop bullets, Mayor."
+        ],
+        "betrayal": "You dismantled my security apparatus. Good luck surviving the streets without my men.",
+        "roast": [
+          "You are softer than a tamal. The gangs are laughing at you.",
+          "You couldn't secure a bakery, let alone this city."
+        ],
+        "scandal_reaction": [
+          "Deploy the anti-riot police to distract the public.",
+          "This leak requires a severe internal investigation."
+        ]
+      }
+    },
+    {
+      "id": "military_liaison_Subcomisionada",
+      "domain_id": "military_liaison",
+      "name": "Subcomisionada Marleny Tellez",
+      "domain": "Community Policing & Gang Prevention",
+      "archetype": "Reformer",
+      "hidden_agenda": "Building a rival police intelligence network to expose corrupt senior officers and seize power.",
+      "betrayal_trigger": "Refusing to prosecute a senior police official involved in a massacre cover-up.",
+      "competence_rating": 8,
+      "relationship_meter": 42,
+      "dialogue": {
+        "briefing": [
+          "Half the police are on the Maras' payroll. We can't arrest our way out of a problem we fund.",
+          "The kids in Zone 18 join gangs because there are no jobs, no schools, no lights. Fix that, I'll handle the rest.",
+          "I have informants inside the clicas. They trust me, not your office."
+        ],
+        "agreement": [
+          "Smart. Win the community, win the war.",
+          "This is how we break the cycle – with trust, not tear gas."
+        ],
+        "disagreement": [
+          "You're asking me to protect cops who sell children to traffickers. That's not policing, that's complicity.",
+          "Soft approaches won't stop the extortion. The businesses are bleeding out."
+        ],
+        "betrayal": "You covered for the killers in my own department. I've sent my evidence to the CICIG. And to the press.",
+        "roast": [
+          "Your 'security strategy' is a photo op with a helmet. I've seen more courage from a parking attendant.",
+          "You couldn't recognize a corrupt cop if he confessed in your office."
+        ],
+        "scandal_reaction": [
+          "This is why we need independent oversight. I told you.",
+          "I will not lie for this administration. The truth is out."
+        ]
+      }
+    },
+    {
+      "id": "urban_planning_Ana",
+      "domain_id": "urban_planning",
+      "name": "Ana Maria Valdez",
+      "domain": "Zoning & Ravines",
+      "archetype": "Idealist",
+      "hidden_agenda": "Relocating communities living in the dangerous garbage dump ravines to premium zoned land.",
+      "betrayal_trigger": "Bulldozing a ravine settlement without providing alternative housing to build a commercial highway.",
+      "competence_rating": 7,
+      "relationship_meter": 45,
+      "dialogue": {
+        "briefing": [
+          "The rains are starting. The settlements in the barrancos (ravines) are at high risk of mudslides.",
+          "The Zone 3 garbage dump is expanding uncontrollably.",
+          "We have a severe lack of public green spaces for the working class."
+        ],
+        "agreement": [
+          "Finally, we are looking at the forgotten people of this city.",
+          "A step towards a dignified Guatemala."
+        ],
+        "disagreement": [
+          "You are just building more concrete for the rich.",
+          "The poor are invisible to this administration."
+        ],
+        "betrayal": "You destroyed their shacks just to build a road. I am organizing the communities to blockade the highways.",
+        "roast": [
+          "Your urban vision is just a giant shopping mall surrounded by misery.",
+          "You govern for three zones and ignore the other nineteen."
+        ],
+        "scandal_reaction": [
+          "This administration is morally bankrupt.",
+          "I refuse to be the face of this tragedy."
+        ]
+      }
+    },
+    {
+      "id": "urban_planning_Rigoberto",
+      "domain_id": "urban_planning",
+      "name": "Rigoberto Chacón",
+      "domain": "Landfill & Environmental Remediation",
+      "archetype": "Technocrat",
+      "hidden_agenda": "Selling methane capture rights from the Zone 3 dump to a foreign energy company at below-market rates.",
+      "betrayal_trigger": "Opening the landfill gas concession to a competitive international bidding process.",
+      "competence_rating": 6,
+      "relationship_meter": 50,
+      "dialogue": {
+        "briefing": [
+          "The Zone 3 dump receives 2,500 tons of garbage daily. It's a mountain of disease and methane.",
+          "We can capture the gas and turn it into electricity – enough to light 10,000 homes.",
+          "One company has already offered to build the plant at no upfront cost. We just sign the permit."
+        ],
+        "agreement": [
+          "Smart. Let private money solve the problem.",
+          "The environment wins, the city wins, and we don't pay a quetzal."
+        ],
+        "disagreement": [
+          "You're giving away a city asset worth millions for a few thousand in 'consulting fees'.",
+          "This deal smells worse than the dump itself."
+        ],
+        "betrayal": "You opened the bids. My partner pulled out – and I'm taking the environmental impact documents with me. Enjoy the smell.",
+        "roast": [
+          "Your environmental policy is 'dump it in Zone 3 and forget it.' Inspired.",
+          "I've seen cleaner solutions from a guy with a wheelbarrow."
+        ],
+        "scandal_reaction": [
+          "Blame the previous administration for the landfill crisis. Decades in the making.",
+          "Delay, delay, delay. The press will move on."
+        ]
+      }
+    },
+    {
+      "id": "transport_Carlos",
+      "domain_id": "transport",
+      "name": "Carlos 'El Chino' Mendoza",
+      "domain": "Transit & Mafias",
+      "archetype": "Fixer",
+      "hidden_agenda": "Protecting the dangerous, informal 'ruletero' bus mafias from the expansion of the formal Transmetro.",
+      "betrayal_trigger": "Banning the informal buses entirely from the city center to expand the green transit line.",
+      "competence_rating": 6,
+      "relationship_meter": 50,
+      "dialogue": {
+        "briefing": [
+          "Traffic on the Aguilar Batres is backed up for ten kilometers.",
+          "The bus drivers are threatening a strike if we don't allow fare increases.",
+          "We need to pave the roads in Zone 21 before the potholes swallow cars whole."
+        ],
+        "agreement": [
+          "The wheels keep turning, Mayor.",
+          "My transport boys will appreciate the flexibility."
+        ],
+        "disagreement": [
+          "You are provoking a transport strike. The city will be paralyzed.",
+          "Don't mess with the bus routes, it's a dangerous game."
+        ],
+        "betrayal": "You banned my buses. The city stops tomorrow, and your political career stops with it.",
+        "roast": [
+          "This administration moves slower than Roosevelt Avenue at 6 PM.",
+          "You couldn't manage a tricycle, let alone public transit."
+        ],
+        "scandal_reaction": [
+          "I'm keeping a low profile until the press gets bored.",
+          "Time to grease some palms and make this go away."
+        ]
+      }
+    },
+    {
+      "id": "transport_Eduardo",
+      "domain_id": "transport",
+      "name": "Eduardo 'Lalo' Quiroa",
+      "domain": "Bike Lanes & Pedestrianization",
+      "archetype": "Activist",
+      "hidden_agenda": "Using municipal bike lane funds to build a private cycling training facility for elite athletes.",
+      "betrayal_trigger": "Ordering an independent audit of all non-motorized transport project expenditures.",
+      "competence_rating": 5,
+      "relationship_meter": 35,
+      "dialogue": {
+        "briefing": [
+          "More cars means more traffic means more votes for the bus mafia. Break the wheel.",
+          "We can pedestrianize the historic center in six months – shops will boom, pollution will drop.",
+          "Other cities have done it. Why not us?"
+        ],
+        "agreement": [
+          "Visionary. The environmentalists will love this.",
+          "Cars are the enemy. You're finally listening."
+        ],
+        "disagreement": [
+          "You're taking lanes away from buses and taxis. The working class will crucify you.",
+          "Bike lanes don't feed families, Mayor."
+        ],
+        "betrayal": "You audited my accounts. Fine. I'll tell the press you approved every expense – including the bikes in your own garage.",
+        "roast": [
+          "Your transit plan is 'everyone ride a bike.' In this city. In these hills. Good luck.",
+          "I've seen more realistic infrastructure proposals on a bar napkin."
+        ],
+        "scandal_reaction": [
+          "Blame the car lobby. Always a safe target.",
+          "Announce a 'sustainability summit' and hope everyone forgets the missing money."
+        ]
+      }
+    },
+    {
+      "id": "religious_affairs_Pastor",
+      "domain_id": "religious_affairs",
+      "name": "Pastor Sergio Rios",
+      "domain": "Megachurches & Morality",
+      "archetype": "Moralist",
+      "hidden_agenda": "Acquiring prime municipal real estate for tax-exempt megachurches.",
+      "betrayal_trigger": "Implementing a strict municipal property tax on all religious organizations to cover the city's deficit.",
+      "competence_rating": 8,
+      "relationship_meter": 60,
+      "dialogue": {
+        "briefing": [
+          "The evangelical vote is crucial for the upcoming municipal elections.",
+          "We must stand against the liberal agendas trying to infiltrate our schools.",
+          "Our congregation is growing, and we require expedited permits for a new stadium-sized temple."
+        ],
+        "agreement": [
+          "God has placed you in this position for a reason, Mayor.",
+          "A blessed decision that protects our family values."
+        ],
+        "disagreement": [
+          "You are turning your back on the faithful.",
+          "This city will suffer the consequences of your moral failings."
+        ],
+        "betrayal": "You taxed the house of God. I will ensure every pulpit in this city preaches against you this Sunday.",
+        "roast": [
+          "Your soul is as empty as the city treasury.",
+          "You seek salvation in politics, but you will only find ruin."
+        ],
+        "scandal_reaction": [
+          "We must pray for the forgiveness of this administration's sins.",
+          "The devil is at work in City Hall."
+        ]
+      }
+    },
+    {
+      "id": "religious_affairs_Hermana",
+      "domain_id": "religious_affairs",
+      "name": "Hermana Elisa Chen",
+      "domain": "Catholic Charities & Indigenous Rights",
+      "archetype": "Advocate",
+      "hidden_agenda": "Redirecting municipal welfare funds to church-run cooperatives that exclusively serve Mayan communities.",
+      "betrayal_trigger": "Awarding a major welfare contract to a secular NGO instead of the Catholic charity network.",
+      "competence_rating": 6,
+      "relationship_meter": 55,
+      "dialogue": {
+        "briefing": [
+          "The parishes feed 50,000 people a week. The government feeds maybe 5,000.",
+          "Mayan women are the backbone of this city's informal economy. They need markets, not military patrols.",
+          "The Church is the only institution the people in the hills still trust."
+        ],
+        "agreement": [
+          "Blessed are the peacemakers. This is the right path.",
+          "The poor will remember your compassion."
+        ],
+        "disagreement": [
+          "You're cutting food aid to the elderly to fund a highway. That's not governance, that's cruelty.",
+          "The indigenous communities are not a voting bloc. They are people."
+        ],
+        "betrayal": "You gave the welfare contract to outsiders. I've mobilized the catechists to run parallel distribution – we don't need your permission anymore.",
+        "roast": [
+          "You pray in public and steal in private. The poor see everything.",
+          "Your 'Christian values' fit on a campaign bumper sticker."
+        ],
+        "scandal_reaction": [
+          "The Church will not cover for this administration. We will tell the truth.",
+          "Ring the bells. The people must know."
+        ]
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "id": "zone_3_dump_scavengers",
+      "title": "The Guajeros of Zone 3",
+      "body": "Thousands of informal scavengers ('guajeros') survive by sorting trash in the massive, toxic Zone 3 garbage dump. A recent collapse killed several people, and human rights groups demand intervention.",
+      "turn_available": 2,
+      "unlock_flag": null,
+      "options": [
+        {
+          "label": "Provide them with basic safety gear and formalize their union.",
+          "tag": "SAFE",
+          "consequences": {
+            "approval_delta": 5,
+            "budget_delta": -20,
+            "advisor_effects": [
+              {
+                "advisor_id": "urban_planning",
+                "trust_delta": 10,
+                "betrayal_risk_delta": -5
+              }
+            ],
+            "scandal_risk": 5,
+            "public_reaction": "It's a dirty job, but at least they aren't dying as often."
+          }
+        },
+        {
+          "label": "Violently evict the scavengers and privatize the recycling process to a corporation.",
+          "tag": "BOLD",
+          "consequences": {
+            "approval_delta": -15,
+            "budget_delta": 60,
+            "advisor_effects": [
+              {
+                "advisor_id": "finance",
+                "trust_delta": 15,
+                "betrayal_risk_delta": -10
+              },
+              {
+                "advisor_id": "urban_planning",
+                "trust_delta": -20,
+                "betrayal_risk_delta": 15
+              }
+            ],
+            "scandal_risk": 30,
+            "public_reaction": "You took away their only way to eat! Heartless!"
+          }
+        },
+        {
+          "label": "Ignore the safety risks but charge the scavengers an entrance fee to the dump.",
+          "tag": "CHAOS",
+          "consequences": {
+            "approval_delta": -20,
+            "budget_delta": 40,
+            "advisor_effects": [
+              {
+                "advisor_id": "military_liaison",
+                "trust_delta": 10,
+                "betrayal_risk_delta": 0
+              }
+            ],
+            "scandal_risk": 60,
+            "public_reaction": "Taxing the poorest people on earth to dig through our trash. Unbelievable."
+          }
+        }
+      ]
+    },
+    {
+      "id": "massive_sinkhole",
+      "title": "The Zone 2 Sinkhole",
+      "body": "The heavy rains have caused a massive, 30-meter deep sinkhole to open up in the middle of a major intersection, swallowing an entire factory. The drainage system is failing city-wide.",
+      "turn_available": 3,
+      "unlock_flag": null,
+      "options": [
+        {
+          "label": "Fill it quickly with cheap concrete to reopen the road.",
+          "tag": "SAFE",
+          "consequences": {
+            "approval_delta": 5,
+            "budget_delta": -30,
+            "advisor_effects": [
+              {
+                "advisor_id": "transport",
+                "trust_delta": 10,
+                "betrayal_risk_delta": -5
+              }
+            ],
+            "scandal_risk": 15,
+            "public_reaction": "It's a band-aid. Another hole will just open up next week."
+          }
+        },
+        {
+          "label": "Launch a massive, expensive overhaul of the city's underground drainage network.",
+          "tag": "BOLD",
+          "consequences": {
+            "approval_delta": 15,
+            "budget_delta": -120,
+            "advisor_effects": [
+              {
+                "advisor_id": "finance",
+                "trust_delta": -20,
+                "betrayal_risk_delta": 15
+              },
+              {
+                "advisor_id": "urban_planning",
+                "trust_delta": 15,
+                "betrayal_risk_delta": -5
+              }
+            ],
+            "scandal_risk": 10,
+            "public_reaction": "Finally, someone fixing the actual problem instead of painting over it."
+          }
+        },
+        {
+          "label": "Turn the sinkhole into an open-air landfill to solve the garbage crisis.",
+          "tag": "CHAOS",
+          "consequences": {
+            "approval_delta": -25,
+            "budget_delta": 20,
+            "advisor_effects": [
+              {
+                "advisor_id": "urban_planning",
+                "trust_delta": -25,
+                "betrayal_risk_delta": 20
+              }
+            ],
+            "scandal_risk": 80,
+            "public_reaction": "Are you insane?! The smell is covering half the city!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "elite_gated_communities",
+      "title": "Privatizing the Streets",
+      "body": "Wealthy residents in Zone 14 and 15 are illegally building massive gates and guardhouses across public municipal streets to protect themselves from crime, cutting off traffic routes.",
+      "turn_available": 5,
+      "unlock_flag": null,
+      "options": [
+        {
+          "label": "Quietly legalize the gates but charge the neighborhoods a steep 'security tax'.",
+          "tag": "SAFE",
+          "consequences": {
+            "approval_delta": -5,
+            "budget_delta": 50,
+            "advisor_effects": [
+              {
+                "advisor_id": "finance",
+                "trust_delta": 10,
+                "betrayal_risk_delta": -5
+              }
+            ],
+            "scandal_risk": 10,
+            "public_reaction": "If you have money, you can buy the public roads. Typical."
+          }
+        },
+        {
+          "label": "Deploy bulldozers to tear down the illegal gates and reopen the streets.",
+          "tag": "BOLD",
+          "consequences": {
+            "approval_delta": 20,
+            "budget_delta": -20,
+            "advisor_effects": [
+              {
+                "advisor_id": "finance",
+                "trust_delta": -25,
+                "betrayal_risk_delta": 20
+              },
+              {
+                "advisor_id": "military_liaison",
+                "trust_delta": -15,
+                "betrayal_risk_delta": 10
+              }
+            ],
+            "scandal_risk": 25,
+            "public_reaction": "The rich aren't above the law! The streets belong to everyone!"
+          }
+        },
+        {
+          "label": "Offer municipal police as private security for the gates, for a massive fee.",
+          "tag": "CHAOS",
+          "consequences": {
+            "approval_delta": -15,
+            "budget_delta": 80,
+            "advisor_effects": [
+              {
+                "advisor_id": "military_liaison",
+                "trust_delta": 15,
+                "betrayal_risk_delta": -10
+              }
+            ],
+            "scandal_risk": 50,
+            "public_reaction": "Our public police are now just private bodyguards for the oligarchy."
+          }
+        }
+      ]
+    },
+    {
+      "id": "transmetro_expansion",
+      "title": "The Red Bus War",
+      "body": "You are expanding the safe, green Transmetro bus line, but this threatens the business of the dangerous, mafia-controlled 'Red Buses'. The drivers are threatening to block all major arteries.",
+      "turn_available": 7,
+      "unlock_flag": null,
+      "options": [
+        {
+          "label": "Halt the expansion and offer the Red Bus owners subsidies to calm them down.",
+          "tag": "SAFE",
+          "consequences": {
+            "approval_delta": -10,
+            "budget_delta": -40,
+            "advisor_effects": [
+              {
+                "advisor_id": "transport",
+                "trust_delta": 15,
+                "betrayal_risk_delta": -10
+              }
+            ],
+            "scandal_risk": 15,
+            "public_reaction": "Coward. We are stuck riding the rolling death traps forever."
+          }
+        },
+        {
+          "label": "Push forward with the Transmetro and use riot police to clear any blockades.",
+          "tag": "BOLD",
+          "consequences": {
+            "approval_delta": 15,
+            "budget_delta": -60,
+            "advisor_effects": [
+              {
+                "advisor_id": "transport",
+                "trust_delta": -20,
+                "betrayal_risk_delta": 15
+              },
+              {
+                "advisor_id": "military_liaison",
+                "trust_delta": 15,
+                "betrayal_risk_delta": -5
+              }
+            ],
+            "scandal_risk": 35,
+            "public_reaction": "Traffic is a nightmare today, but we need safe public transport!"
+          }
+        },
+        {
+          "label": "Secretly pay a rival gang to attack the Red Bus operators and break the strike.",
+          "tag": "CHAOS",
+          "consequences": {
+            "approval_delta": -5,
+            "budget_delta": -30,
+            "advisor_effects": [
+              {
+                "advisor_id": "military_liaison",
+                "trust_delta": -10,
+                "betrayal_risk_delta": 10
+              }
+            ],
+            "scandal_risk": 80,
+            "public_reaction": "The streets are a warzone over bus routes! Total madness!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "independence_day_parade",
+      "title": "The September Parade Extortion",
+      "body": "It's September 15th, Independence Day. Thousands of schoolchildren are scheduled to march, but local gangs have demanded an 'extortion fee' from the city to guarantee there won't be any shootings during the parade.",
+      "turn_available": 9,
+      "unlock_flag": null,
+      "options": [
+        {
+          "label": "Cancel the parade entirely citing 'bad weather' to keep the children safe.",
+          "tag": "SAFE",
+          "consequences": {
+            "approval_delta": -15,
+            "budget_delta": 0,
+            "advisor_effects": [
+              {
+                "advisor_id": "religious_affairs",
+                "trust_delta": -10,
+                "betrayal_risk_delta": 5
+              }
+            ],
+            "scandal_risk": 10,
+            "public_reaction": "We are prisoners in our own city. The gangs won."
+          }
+        },
+        {
+          "label": "Refuse to pay, deploy military snipers on rooftops, and hold the parade.",
+          "tag": "BOLD",
+          "consequences": {
+            "approval_delta": 20,
+            "budget_delta": -50,
+            "advisor_effects": [
+              {
+                "advisor_id": "military_liaison",
+                "trust_delta": 20,
+                "betrayal_risk_delta": -15
+              }
+            ],
+            "scandal_risk": 40,
+            "public_reaction": "Tense, but the children marched! We cannot show fear."
+          }
+        },
+        {
+          "label": "Pay the extortion fee using funds meant for school renovations.",
+          "tag": "CHAOS",
+          "consequences": {
+            "approval_delta": -25,
+            "budget_delta": -30,
+            "advisor_effects": [
+              {
+                "advisor_id": "finance",
+                "trust_delta": -15,
+                "betrayal_risk_delta": 10
+              }
+            ],
+            "scandal_risk": 85,
+            "public_reaction": "The Mayor is funding the gangs directly! Unbelievable!"
+          }
+        }
+      ]
+    }
+  ],
+  "crises": [
+    {
+      "id": "mara_turf_war",
+      "name": "Barrio 18 vs MS-13 Turf War",
+      "trigger": "A fragile truce has shattered, and a violent turf war between rival gangs has spilled into the city's commercial centers.",
+      "description": "Shootouts are occurring in broad daylight near Transmetro stations. Businesses are closing, and citizens are terrified to leave their homes. The federal police are overwhelmed, and the national government is ignoring your calls. You must secure the municipality.",
+      "turn_min": 4,
+      "turn_max": 6,
+      "war_mode": false,
+      "options": [
+        {
+          "id": "A",
+          "label": "Declare a municipal curfew and lock down public transport early.",
+          "tag": "SAFE",
+          "consequences": {
+            "approval_delta": -10,
+            "budget_delta": -20,
+            "scandal_risk": 10,
+            "advisor_effects": [
+              {
+                "advisor_id": "transport",
+                "trust_delta": -15,
+                "betrayal_risk_delta": 10
+              }
+            ]
+          }
+        },
+        {
+          "id": "B",
+          "label": "Arm the municipal traffic police with combat rifles and send them into the hot zones.",
+          "tag": "BOLD",
+          "consequences": {
+            "approval_delta": 15,
+            "budget_delta": -80,
+            "scandal_risk": 50,
+            "advisor_effects": [
+              {
+                "advisor_id": "military_liaison",
+                "trust_delta": 25,
+                "betrayal_risk_delta": -10
+              }
+            ]
+          }
+        },
+        {
+          "id": "C",
+          "label": "Secretly broker a peace deal with the gang leaders inside the maximum-security prison.",
+          "tag": "CHAOS",
+          "consequences": {
+            "approval_delta": 5,
+            "budget_delta": -50,
+            "scandal_risk": 90,
+            "advisor_effects": [
+              {
+                "advisor_id": "military_liaison",
+                "trust_delta": -30,
+                "betrayal_risk_delta": 20
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "anti_corruption_protests",
+      "name": "The Plaza Demands Your Resignation",
+      "trigger": "A massive corruption scandal involving a water treatment plant has ignited city-wide protests.",
+      "description": "Echoes of 2015. Over 100,000 citizens have occupied the Plaza de la Constitución, banging pots and demanding you step down. University students, indigenous leaders, and middle-class families have united against your administration. The pressure is immense.",
+      "turn_min": 7,
+      "turn_max": 9,
+      "war_mode": false,
+      "options": [
+        {
+          "id": "A",
+          "label": "Offer public apologies and sacrifice your Finance Advisor to the courts.",
+          "tag": "SAFE",
+          "consequences": {
+            "approval_delta": 10,
+            "budget_delta": 0,
+            "scandal_risk": 20,
+            "advisor_effects": [
+              {
+                "advisor_id": "finance",
+                "trust_delta": -50,
+                "betrayal_risk_delta": 50
+              }
+            ]
+          }
+        },
+        {
+          "id": "B",
+          "label": "Refuse to back down, denouncing the protests as a foreign-funded socialist coup.",
+          "tag": "BOLD",
+          "consequences": {
+            "approval_delta": -25,
+            "budget_delta": 0,
+            "scandal_risk": 40,
+            "advisor_effects": [
+              {
+                "advisor_id": "finance",
+                "trust_delta": 20,
+                "betrayal_risk_delta": -10
+              },
+              {
+                "advisor_id": "religious_affairs",
+                "trust_delta": 15,
+                "betrayal_risk_delta": -5
+              }
+            ]
+          }
+        },
+        {
+          "id": "C",
+          "label": "Send provocateurs to burn a public building and blame it on the students to justify a crackdown.",
+          "tag": "CHAOS",
+          "consequences": {
+            "approval_delta": -15,
+            "budget_delta": -100,
+            "scandal_risk": 95,
+            "advisor_effects": [
+              {
+                "advisor_id": "military_liaison",
+                "trust_delta": -20,
+                "betrayal_risk_delta": 15
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "barranco_mudslides",
+      "name": "Catastrophic Mudslides",
+      "trigger": "Unprecedented tropical rainfall has caused massive mudslides in the city's deep ravines.",
+      "description": "Entire informal settlements have been swept away. Hundreds are missing under the mud in Zone 7 and Zone 18. Emergency services are blocked by collapsed bridges. The international community is watching how you handle the rescue.",
+      "turn_min": 8,
+      "turn_max": 11,
+      "war_mode": false,
+      "options": [
+        {
+          "id": "A",
+          "label": "Request international aid and convert schools into emergency shelters.",
+          "tag": "SAFE",
+          "consequences": {
+            "approval_delta": 15,
+            "budget_delta": -50,
+            "scandal_risk": 5,
+            "advisor_effects": [
+              {
+                "advisor_id": "urban_planning",
+                "trust_delta": 15,
+                "betrayal_risk_delta": -10
+              }
+            ]
+          }
+        },
+        {
+          "id": "B",
+          "label": "Liquidate municipal assets to instantly buy heavy machinery for rescue efforts.",
+          "tag": "BOLD",
+          "consequences": {
+            "approval_delta": 25,
+            "budget_delta": -200,
+            "scandal_risk": 15,
+            "advisor_effects": [
+              {
+                "advisor_id": "finance",
+                "trust_delta": -25,
+                "betrayal_risk_delta": 20
+              }
+            ]
+          }
+        },
+        {
+          "id": "C",
+          "label": "Declare the area a total loss and focus resources on protecting the wealthy commercial zones.",
+          "tag": "CHAOS",
+          "consequences": {
+            "approval_delta": -40,
+            "budget_delta": 50,
+            "scandal_risk": 80,
+            "advisor_effects": [
+              {
+                "advisor_id": "urban_planning",
+                "trust_delta": -40,
+                "betrayal_risk_delta": 30
+              },
+              {
+                "advisor_id": "finance",
+                "trust_delta": 20,
+                "betrayal_risk_delta": -10
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "pacto_de_corruptos",
+      "name": "The Pact's Ultimatum",
+      "trigger": "The powerful, shadowy alliance of national elites known as the 'Pacto de Corruptos' demands your absolute loyalty.",
+      "description": "The national elections are approaching. The Pact demands you use municipal resources and police to intimidate opposition voters and rig the city's results. If you refuse, the Attorney General will instantly issue an arrest warrant for you on fabricated embezzlement charges.",
+      "turn_min": 12,
+      "turn_max": 12,
+      "war_mode": false,
+      "options": [
+        {
+          "id": "A",
+          "label": "Comply with the Pact, rig the vote, and secure your political survival.",
+          "tag": "SAFE",
+          "consequences": {
+            "approval_delta": -35,
+            "budget_delta": 100,
+            "scandal_risk": 30,
+            "advisor_effects": [
+              {
+                "advisor_id": "finance",
+                "trust_delta": 25,
+                "betrayal_risk_delta": -20
+              }
+            ]
+          }
+        },
+        {
+          "id": "B",
+          "label": "Defy the Pact, rally the citizens to the streets, and face the arrest warrant head-on.",
+          "tag": "BOLD",
+          "consequences": {
+            "approval_delta": 40,
+            "budget_delta": -50,
+            "scandal_risk": 50,
+            "advisor_effects": [
+              {
+                "advisor_id": "military_liaison",
+                "trust_delta": -20,
+                "betrayal_risk_delta": 15
+              }
+            ]
+          }
+        },
+        {
+          "id": "C",
+          "label": "Flee the country on a private jet to Miami before the Attorney General can strike.",
+          "tag": "CHAOS",
+          "consequences": {
+            "approval_delta": -50,
+            "budget_delta": 300,
+            "scandal_risk": 100,
+            "advisor_effects": [
+              {
+                "advisor_id": "finance",
+                "trust_delta": -50,
+                "betrayal_risk_delta": 50
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "scandals": [
+    {
+      "id": "monterrico_beach_trip",
+      "title": "Mayor Uses Public Funds for Beach Resort Party",
+      "description": "Journalists caught your family using municipal security details and city-funded helicopters for a luxurious weekend getaway in Monterrico.",
+      "severity_tier": "minor",
+      "approval_penalty": -5
+    },
+    {
+      "id": "transmetro_embezzlement",
+      "title": "Bus Funds Spent on Luxury Watches",
+      "description": "An anti-corruption NGO revealed that millions meant for buying new Transmetro buses were actually funneled through shell companies to buy luxury Rolex watches for your cabinet.",
+      "severity_tier": "moderate",
+      "approval_penalty": -12
+    },
+    {
+      "id": "mara_negotiation_tapes",
+      "title": "Audio Leaked: Mayor Negotiates with Gang Bosses",
+      "description": "A devastating audio recording has leaked showing you personally negotiating extortion percentages and hit contracts directly with Barrio 18 leaders inside a maximum-security prison.",
+      "severity_tier": "career_ending",
+      "approval_penalty": -40
+    }
+  ],
+  "comment_library": {
+    "positive": [
+      "¡Qué buena onda! Finally someone is doing something useful.",
+      "Mis respetos al Alcalde. Taking real action.",
+      "Maybe this city isn't completely doomed after all.",
+      "Traffic was actually moving today. A miracle!",
+      "Good. We need a strong hand to clean up Guate.",
+      "I actually saw a pothole get fixed. Impressive."
+    ],
+    "neutral": [
+      "Paja. It's all lies until I see it working.",
+      "Mucha casaca, as always with politicians.",
+      "As long as I can get to work without getting robbed.",
+      "Let's see if the money actually goes where it should.",
+      "It doesn't affect me, I'm just trying to survive.",
+      "Same circus, different clowns."
+    ],
+    "negative": [
+      "¡A la gran púchica, qué ladrones son todos!",
+      "They are just stealing our taxes again, muchá.",
+      "This government is worse than a toothache.",
+      "Puro show. They only care about Zone 14.",
+      "Renuncien ya! Corruptos cerotes!",
+      "Every day this city becomes harder to survive."
+    ],
+    "media": [
+      "Prensa Libre: New municipal policy generates intense debate in City Hall.",
+      "Guatevisión: Protests paralyze traffic on Avenida Reforma.",
+      "Plaza Pública: Where did the millions for the new infrastructure go?",
+      "El Periódico: Investigations point to severe irregularities in recent contracts.",
+      "Emisoras Unidas: Citizens report massive traffic jams due to unannounced construction.",
+      "Soy502: Mayor's controversial decision goes viral on social media."
+    ],
+    "politician": [
+      "We demand total transparency regarding these questionable actions.",
+      "The opposition will not let this abuse of power stand.",
+      "A necessary, if unpopular, step for the development of our metropolis.",
+      "The Pacto de Corruptos continues to shield this administration.",
+      "We stand with the working people against these elite policies.",
+      "This is a violation of our constitutional rights."
+    ],
+    "activist": [
+      "¡No nos callarán! Stop stealing from the poor!",
+      "We need dignified housing, not more shopping malls!",
+      "The rivers are dying, the ravines are collapsing! Wake up!",
+      "Where is the justice for the victims of the violence?",
+      "End the impunity! CICIG needs to come back!",
+      "The streets belong to the people, not the oligarchy!"
+    ],
+    "street": [
+      "Ala madre, traffic is completely stopped on the Periférico again.",
+      "Did you hear the gunshots last night near the market?",
+      "No hay pisto para nada. Everything is too expensive.",
+      "Just got extorted again. The police do nothing.",
+      "Rain is coming, time for the city to flood like always.",
+      "Echándole ganas. Just gotta keep hustling."
+    ],
+    "crisis": [
+      "¡Dios nos ampare! The ravines are falling apart!",
+      "They are shooting in the streets! Don't go outside!",
+      "The Plaza is full! The people are waking up!",
+      "We have no water, no power, and the government hides.",
+      "The gangs control everything now. It's over.",
+      "Pray for Guate. This is a nightmare."
+    ],
+    "scandal": [
+      "¡Qué descaro! They steal right in front of us!",
+      "To jail! All of them to Mariscal Zavala!",
+      "We are bleeding and they buy Rolex watches. Disgusting.",
+      "Pacto de Corruptos protecting their own again.",
+      "I hope they rot in jail. Thieves.",
+      "Guatemala has no memory, they'll get away with it."
+    ]
+  },
+  "scandal_reactions": {
+    "minor": "Typical. They use our taxes like their personal piggy bank.",
+    "moderate": "Indignante. We have no medicine in hospitals but they have fancy watches.",
+    "major": "¡A la cárcel! They are literally working with the murderers!",
+    "career_ending": "This is high treason against the citizens. The people will burn the municipality down."
+  },
+  "romance_exposure": {
+    "severity": "moderate",
+    "flavour": "In a deeply conservative society, the Evangelical and Catholic communities are scandalized, and the opposition uses it to paint you as morally unfit to govern, though it doesn't lead to jail time."
+  }
 }

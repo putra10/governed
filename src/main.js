@@ -121,6 +121,51 @@ class App {
     this.render();
   }
 
+  dismissHeatNotice() {
+    if (this.state.pendingHeatNotices?.length > 0) {
+      this.state.pendingHeatNotices.shift();
+    }
+    this.render();
+  }
+
+  buyMarketOffer(offerId) {
+    this.turnManager.buyMarketOffer(offerId);
+    this._checkInstantEnd(); // a busted deal's scandal can zero approval
+    this.render();
+  }
+
+  passMarket() {
+    this.turnManager.passMarket();
+    this.render();
+  }
+
+  addressNation(optionId) {
+    this.turnManager.addressNation(optionId);
+    this._checkInstantEnd();
+    this.render();
+  }
+
+  loverDemand(accept) {
+    const result = this.turnManager.resolveLoverDemand(accept);
+    this._logToActiveAdvisor(result);
+    this.render();
+  }
+
+  partnerDemand(accept) {
+    const result = this.turnManager.resolvePartnerDemand(accept);
+    this._logToActiveAdvisor(result);
+    this.render();
+  }
+
+  _logToActiveAdvisor(result) {
+    const advisorId = this.renderer.activeAdvisorId;
+    const advisor = advisorId ? this.state.getAdvisor(advisorId) : null;
+    if (advisor && result?.msg) {
+      if (!advisor._msgLog) advisor._msgLog = [];
+      advisor._msgLog.push({ type: 'sys', text: result.msg });
+    }
+  }
+
   // A consequence (e.g. a triggered scandal) can zero approval mid-turn
   _checkInstantEnd() {
     if (this.state.approval <= 0) {

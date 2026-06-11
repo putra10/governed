@@ -83,7 +83,7 @@ export class ContractSystem {
     if (c.scandal_risk && random() < c.scandal_risk) this._triggerContractScandal();
 
     (c.advisor_effects ?? []).forEach(eff => {
-      const adv = s.getAdvisor(eff.advisor_id);
+      const adv = s.findAdvisor ? s.findAdvisor(eff.advisor_id) : s.getAdvisor(eff.advisor_id);
       if (adv) adv.trust = Math.max(0, Math.min(100, (adv.trust ?? 50) + (eff.trust_delta ?? 0)));
     });
 
@@ -149,7 +149,7 @@ export class ContractSystem {
       if ((s.pastDecisions?.length ?? 0) < req.min_decisions_resolved) return false;
     }
     if (req.advisor_active) {
-      const adv = s.getAdvisor(req.advisor_active);
+      const adv = s.findAdvisor ? s.findAdvisor(req.advisor_active) : s.getAdvisor(req.advisor_active);
       if (!adv || adv.betrayed) return false;
       if (req.advisor_min_trust !== undefined && (adv.trust ?? 50) < req.advisor_min_trust) return false;
     }

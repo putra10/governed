@@ -1516,6 +1516,128 @@
   text-align: center;
 }
 
+/* ── Scrutiny (top bar) ───────────────────────────────────────────────────── */
+.scr-pips { display: inline-flex; gap: 2px; margin-left: 0.2rem; vertical-align: middle; }
+.scr-pip {
+  width: 0.22rem; height: 0.22rem; border-radius: 1px;
+  background: #2a2a2a; display: inline-block;
+}
+.scr-pip.on { background: currentColor; }
+
+/* ── Black market card ───────────────────────────────────────────────────── */
+.market-card {
+  background: #07070d;
+  border: 0.5px solid #1a1a30;
+  border-left: 3px solid #3a3a6a;
+  border-radius: 4px;
+  padding: 0.5rem 0.625rem;
+  margin: 0.5rem 0;
+}
+.mk-header { display: flex; align-items: center; gap: 0.3rem; margin-bottom: 0.375rem; }
+.mk-icon   { font-size: 0.625rem; }
+.mk-title  { font-size: 0.4375rem; color: #7070b8; letter-spacing: .12em; }
+.mk-offer  {
+  background: #0a0a14;
+  border: 0.5px solid #1a1a30;
+  border-radius: 3px;
+  padding: 0.375rem 0.5rem;
+  margin-bottom: 0.375rem;
+}
+.mk-name  { font-size: 0.5625rem; color: #c8c8e8; margin-bottom: 0.125rem; }
+.mk-type  { font-size: 0.375rem; color: #50508a; letter-spacing: .1em; margin-left: 0.25rem; }
+.mk-desc  { font-size: 0.4375rem; color: #777; line-height: 1.5; margin-bottom: 0.25rem; font-style: italic; }
+.mk-terms { font-size: 0.4375rem; color: #888; margin-bottom: 0.3rem; }
+.mk-good  { color: var(--color-green); }
+.mk-bad   { color: var(--color-red); }
+.mk-warn  { color: var(--color-amber); }
+.mk-buy {
+  font-size: 0.5rem; font-family: var(--font-mono); font-weight: 600;
+  letter-spacing: .06em; padding: 0.3rem 0.625rem; border-radius: 3px;
+  border: 1px solid #3a3a6a; background: #10101e; color: #b8b8e0; cursor: pointer;
+  transition: background .15s;
+}
+.mk-buy:hover { background: #1a1a30; }
+.mk-pass {
+  width: 100%; font-size: 0.4375rem; font-family: var(--font-mono);
+  letter-spacing: .1em; padding: 0.375rem 0; border-radius: 3px;
+  border: 0.5px solid #2a2a2a; background: transparent; color: #555; cursor: pointer;
+}
+.mk-pass:hover { color: #999; border-color: #444; }
+.mk-foot { font-size: 0.375rem; color: #33335a; text-align: center; margin-top: 0.25rem; }
+
+/* ── Address the Nation card ─────────────────────────────────────────────── */
+.address-card {
+  background: #0d0a05;
+  border: 0.5px solid #3a2e10;
+  border-left: 3px solid #d4a843;
+  border-radius: 4px;
+  padding: 0.5rem 0.625rem;
+  margin: 0.5rem 0;
+}
+.ad-header { display: flex; align-items: center; gap: 0.3rem; margin-bottom: 0.375rem; }
+.ad-icon   { font-size: 0.625rem; }
+.ad-title  { font-size: 0.5rem; color: var(--color-amber); letter-spacing: .1em; flex: 1; }
+.ad-once   { font-size: 0.375rem; color: #6a5420; border: 0.5px solid #3a2e10; padding: 0.1rem 0.25rem; border-radius: 2px; }
+.ad-body   { font-size: 0.4375rem; color: #998; line-height: 1.55; margin-bottom: 0.375rem; }
+.ad-actions { display: flex; flex-direction: column; gap: 0.3rem; }
+.ad-opt {
+  text-align: left; font-size: 0.5rem; font-family: var(--font-mono);
+  padding: 0.375rem 0.5rem; border-radius: 3px;
+  border: 0.5px solid #3a2e10; background: #120e06; color: #d8c89a; cursor: pointer;
+  transition: background .15s;
+}
+.ad-opt:hover { background: #1a1408; }
+
+/* ── Lover demand (messenger) ────────────────────────────────────────────── */
+.lover-demand { border-left-color: #c060c0 !important; }
+.lover-demand .adv-bc-header { color: #c080c0; }
+.ld-ask { font-size: 0.4375rem; color: #a888a8; font-style: italic; line-height: 1.5; margin-bottom: 0.375rem; }
+
+/* Backroom relations lines on the report */
+.br-line { margin-bottom: 0.25rem; line-height: 1.5; }
+
+/* ── Unread / needs-an-answer badges ─────────────────────────────────────── */
+.acard-unread {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0.55rem;
+  height: 0.55rem;
+  padding: 0 0.12rem;
+  margin-left: 0.25rem;
+  border-radius: 999px;
+  background: var(--color-red);
+  color: #fff;
+  font-size: 0.375rem;
+  font-weight: 700;
+  vertical-align: middle;
+  animation: unreadPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes unreadPulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+
+.at-urgent {
+  color: var(--color-red) !important;
+}
+
+.tab-dot {
+  display: inline-block;
+  width: 0.3rem;
+  height: 0.3rem;
+  margin-left: 0.25rem;
+  border-radius: 50%;
+  background: var(--color-red);
+  vertical-align: super;
+  animation: unreadPulse 1.6s ease-in-out infinite;
+}
+
+/* Partner demand box (messenger) — money-green accent */
+.partner-demand { border-left-color: #4a8a4a !important; }
+.partner-demand .adv-bc-header { color: #6ab06a; }
+
 /* ── Crisis secret option card ────────────────────────────────────────────── */
 .cc-secret {
   border: 1px solid #2a4a1a !important;
@@ -1767,17 +1889,14 @@
     flex-direction: column;
   }
 
-  /* Story: capped height with internal scroll — long dispatch text scrolls
-     inside its own area instead of pushing decisions far below the fold */
+  /* Story: natural height, flowing in the column scroll. A fixed 45svh cap
+     used to leave a dead empty zone between the story and the bottom-anchored
+     decision panel whenever story content (e.g. the market card) ran long.
+     The whole .center column scrolls, so long content just scrolls normally. */
   .story {
     padding: 0.875rem 0.875rem 0.5rem;
     flex-shrink: 0;
     min-height: 0;
-    max-height: 45svh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: #2a2a2a transparent;
   }
 
   .pip-row {

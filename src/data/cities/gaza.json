@@ -23,7 +23,8 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Layla",
+      "domain_id": "finance",
       "name": "Layla Mansour",
       "role": "Finance & Aid Coordinator",
       "portrait": "💰",
@@ -46,7 +47,32 @@
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Tariq",
+      "domain_id": "finance",
+      "name": "Tariq Abdo",
+      "role": "Informal Economy & Crossings",
+      "portrait": "💸",
+      "agenda": "Keep cash flowing through informal channels when formal aid is blocked.",
+      "dialogue": {
+        "briefing": [
+          "The banks are empty. But the money changers in the market still have liquidity.",
+          "Egyptian brokers want 30% of any humanitarian transfer. I can negotiate down to 18%.",
+          "Crypto is too volatile, but hawala networks are moving value in hours, not weeks."
+        ],
+        "disagreement": [
+          "Cutting off the informal sector will collapse what's left of the economy.",
+          "You're fighting the last war. The real money moves underground."
+        ],
+        "roast": [
+          "Your 'official' budget is a work of fiction. My ledgers are ugly but real.",
+          "I've seen more honest accounting in a smuggler's back pocket."
+        ],
+        "betrayal": "The hawala dealers offered me a partnership. They move faster than your bureaucracy."
+      }
+    },
+    {
+      "id": "military_liaison_Col",
+      "domain_id": "military_liaison",
       "name": "Col. Faris Khalil",
       "role": "Military Liaison",
       "portrait": "⚔️",
@@ -69,7 +95,32 @@
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_Lt",
+      "domain_id": "military_liaison",
+      "name": "Lt. Samar Haddad",
+      "role": "Civil Protection & Ceasefire Monitoring",
+      "portrait": "🛡️",
+      "agenda": "Reduce civilian casualties through localized, tactical truces and de-escalation.",
+      "dialogue": {
+        "briefing": [
+          "We have a list of safe routes for ambulances – if both sides respect it.",
+          "Local commanders are tired too. They might agree to a neighborhood ceasefire.",
+          "Every dead child is a recruiter for the next generation of fighters."
+        ],
+        "disagreement": [
+          "Local truces without political cover are just temporary delays of the inevitable.",
+          "You're asking fighters to trust the enemy. That's a hard sell."
+        ],
+        "roast": [
+          "Your 'military strategy' is more bombings and empty promises.",
+          "I've seen less collateral damage from a drunk with a grenade."
+        ],
+        "betrayal": "I've been sharing troop movements with humanitarian groups – and with the other side. It saves lives."
+      }
+    },
+    {
+      "id": "urban_planning_Dr",
+      "domain_id": "urban_planning",
       "name": "Dr. Nadia Saleh",
       "role": "Reconstruction Lead",
       "portrait": "🏗️",
@@ -92,7 +143,32 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Rami",
+      "domain_id": "urban_planning",
+      "name": "Rami Jaber",
+      "role": "Shelter & Camp Coordination",
+      "portrait": "⛺",
+      "agenda": "Provide emergency shelter and sanitation to internally displaced people before winter.",
+      "dialogue": {
+        "briefing": [
+          "Eighty thousand people are sleeping in damaged schools and open fields.",
+          "One latrine per 200 people is a disease outbreak waiting to happen.",
+          "Winter is coming. We need tarps, blankets, and heating fuel – none of which we have."
+        ],
+        "disagreement": [
+          "Closing camps to consolidate resources will just create new displacement elsewhere.",
+          "You're rationing dignity. People notice."
+        ],
+        "roast": [
+          "Your 'housing solution' is a plastic sheet and a prayer.",
+          "I've seen better living conditions in a prison yard."
+        ],
+        "betrayal": "I've started working directly with UNRWA. At least they deliver supplies instead of speeches."
+      }
+    },
+    {
+      "id": "transport_Yusef",
+      "domain_id": "transport",
       "name": "Yusef Hamdan",
       "role": "Logistics & Corridors",
       "portrait": "🚛",
@@ -115,7 +191,32 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Hanan",
+      "domain_id": "transport",
+      "name": "Hanan Moussa",
+      "role": "Civilian Evacuation Coordinator",
+      "portrait": "🚌",
+      "agenda": "Evacuate vulnerable civilians from combat zones using negotiated safe passages.",
+      "dialogue": {
+        "briefing": [
+          "We have a list of 5,000 elderly, sick, and children needing evacuation. Permission is denied daily.",
+          "Buses are being stopped at checkpoints. Drivers are terrified.",
+          "One successful evacuation builds trust for the next. One failure kills the entire system."
+        ],
+        "disagreement": [
+          "Evacuation is surrender by another name. The fighters will never agree.",
+          "You're asking civilians to leave their homes forever. That's ethnic cleansing of a sort."
+        ],
+        "roast": [
+          "Your 'evacuation plan' is telling people to run and hope. Inspiring.",
+          "I've seen more organized exits from a burning nightclub."
+        ],
+        "betrayal": "The Red Cross hired me directly. I'm done begging your office for permission to save lives."
+      }
+    },
+    {
+      "id": "religious_affairs_Sheikh",
+      "domain_id": "religious_affairs",
       "name": "Sheikh Omar Al-Rifa",
       "role": "Community & Clergy",
       "portrait": "🕌",
@@ -135,6 +236,30 @@
           "Even the faithful are losing faith — in you."
         ],
         "betrayal": "I've declared you unfit to lead. The community follows me now."
+      }
+    },
+    {
+      "id": "religious_affairs_Sister",
+      "domain_id": "religious_affairs",
+      "name": "Sister Maryam Khoury",
+      "role": "Interfaith Hospital Network",
+      "portrait": "✝️",
+      "agenda": "Protect medical neutrality by organizing clergy to escort ambulances and guard hospitals.",
+      "dialogue": {
+        "briefing": [
+          "Two hospitals have been hit this month. No one is safe, not even the wounded.",
+          "The churches and mosques can provide neutral escorts if we coordinate.",
+          "International law means nothing without someone willing to enforce it on the ground."
+        ],
+        "disagreement": [
+          "Using religious symbols as shields will backfire when one side decides they're legitimate targets.",
+          "You're politicizing faith. That's dangerous."
+        ],
+        "roast": [
+          "You speak of mercy while children bleed on waiting room floors.",
+          "I've buried more babies than you've attended cabinet meetings."
+        ],
+        "betrayal": "The Vatican has recognized my hospital protection network as the only functioning medical authority. Your government is irrelevant."
       }
     }
   ],

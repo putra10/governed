@@ -59,10 +59,19 @@ export class ReportScreen {
       outcomeTitle = 'RECALLED';
       outcomeDesc  = 'Public confidence collapsed. Your term ended early.';
       primaryCls   = '';
-    } else if (state.approval >= 65) {
+    } else if (state.approval >= 65 && (() => {
+      // More than one problem left undecided = no invitation, period.
+      const unresolved = (state.presentedDecisions ?? []).filter(id =>
+        !state.pastDecisions.some(p => p.decisionId === id)).length;
+      return unresolved <= 1;
+    })()) {
       outcomeTitle = 'INVITATION RECEIVED';
       outcomeDesc  = `Your ${state.approval}% approval earned recognition. A senior position awaits.`;
       primaryCls   = 'primary';
+    } else if (state.approval >= 65) {
+      outcomeTitle = 'NO INVITATION — UNFINISHED BUSINESS';
+      outcomeDesc  = `Your ${state.approval}% approval impressed. The stack of unanswered problems on your desk did not.`;
+      primaryCls   = '';
     } else {
       outcomeTitle = 'NO INVITATION';
       outcomeDesc  = `Your ${state.approval}% approval was noted but not rewarded. The city moves on.`;
@@ -107,16 +116,37 @@ export class ReportScreen {
             </div>` : ''}
           ${(() => {
             const dd = state.dirtyDeeds ?? {};
-            const dirty = (dd.skimmed ?? 0) + (dd.threats ?? 0) + (dd.leaks ?? 0) + (dd.exposed ?? 0) > 0;
+            const dirty = (dd.skimmed ?? 0) + (dd.threats ?? 0) + (dd.leaks ?? 0) + (dd.exposed ?? 0) + (dd.marketBuys ?? 0) > 0;
             return dirty ? `
             <div class="worst-box">
               <div class="worst-l">DIRTY HANDS</div>
-              <div class="worst-t">Skimmed ${dd.skimmed ?? 0}M from the treasury &middot; ${dd.threats ?? 0} threat(s) &middot; ${dd.leaks ?? 0} leak(s) &middot; ${dd.exposed ?? 0} scheme(s) exposed. History keeps receipts.</div>
+              <div class="worst-t">Skimmed ${dd.skimmed ?? 0}M from the treasury &middot; ${dd.threats ?? 0} threat(s) &middot; ${dd.leaks ?? 0} leak(s) &middot; ${dd.marketBuys ?? 0} black market deal(s) &middot; ${dd.exposed ?? 0} scheme(s) exposed. History keeps receipts.</div>
             </div>` : `
             <div class="worst-box">
               <div class="worst-l">CLEAN HANDS</div>
               <div class="worst-t">No back-channel schemes this term. The auditors found nothing — because there was nothing.</div>
             </div>`;
+          })()}
+          ${(() => {
+            // BACKROOM RELATIONS: what really happened between you and them
+            const lines = state.advisors.map(a => {
+              const bits = [];
+              if (a.sacrificed) bits.push('thrown under the bus');
+              else if (a.betrayed) bits.push('betrayed you');
+              if (a.relationshipType === 'romantic' && !a.betrayed) bits.push(a.romanceExposed ? 'your lover — exposed, stayed' : 'your secret lover');
+              else if (a.romanceExposed) bits.push('the affair that went public');
+              if ((a.scorned ?? 0) > 0) bits.push('scorned ex-lover');
+              if ((a.totalSkimmed ?? 0) > 0) bits.push(`pact partner (${a.totalSkimmed}M skimmed)`);
+              if ((a.threatCount ?? 0) > 0) bits.push(`threatened ×${a.threatCount}`);
+              if (a.leakUsed) bits.push('smeared in the press by your office');
+              if (!bits.length && a.relationshipType === 'rivalry') bits.push('open rivalry');
+              return bits.length ? `<div class="br-line"><strong>${a.name}</strong> — ${bits.join(' · ')}</div>` : '';
+            }).filter(Boolean);
+            return lines.length ? `
+            <div class="worst-box">
+              <div class="worst-l">BACKROOM RELATIONS</div>
+              <div class="worst-t">${lines.join('')}</div>
+            </div>` : '';
           })()}
           <div class="roast-box">
             <div class="roast-l">CITY SPEAKS</div>

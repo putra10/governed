@@ -30,7 +30,6 @@ export class SettingsScreen {
     return `
       <div class="st-screen">
         <div class="st-topbar">
-          <button class="st-back" id="btn-settings-back">&#x2190; BACK</button>
           <span class="st-title">SETTINGS</span>
         </div>
 
@@ -222,8 +221,7 @@ export class SettingsScreen {
   }
 
   static bind(state, container, handlers, reRenderCallback) {
-    // Back buttons
-    container.querySelector('#btn-settings-back')?.addEventListener('click', () => handlers.goToMenu());
+    // Close button (bottom bar)
     container.querySelector('#btn-settings-back2')?.addEventListener('click', () => handlers.goToMenu());
 
     // Tab switching

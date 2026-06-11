@@ -45,6 +45,12 @@ export class Renderer {
       useEmergencyPower:   (id) =>     window.GOVERNED?.useEmergencyPower(id),
       backChannelAction:   (advisorId, actionId) => window.GOVERNED?.backChannelAction(advisorId, actionId),
       resignEarly:         () => window.GOVERNED?.resignEarly(),
+      dismissHeatNotice:   () => window.GOVERNED?.dismissHeatNotice(),
+      buyMarketOffer:      (offerId) => window.GOVERNED?.buyMarketOffer(offerId),
+      passMarket:          () => window.GOVERNED?.passMarket(),
+      addressNation:       (optionId) => window.GOVERNED?.addressNation(optionId),
+      loverDemand:         (accept) => window.GOVERNED?.loverDemand(accept),
+      partnerDemand:       (accept) => window.GOVERNED?.partnerDemand(accept),
     };
 
     switch (screen) {

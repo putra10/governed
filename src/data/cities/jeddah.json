@@ -23,7 +23,8 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Abdullah",
+      "domain_id": "finance",
       "name": "Abdullah Al-Rashid",
       "role": "Regional Investment Director",
       "portrait": "💎",
@@ -46,7 +47,32 @@
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Dr",
+      "domain_id": "finance",
+      "name": "Dr. Layla Al-Faisal",
+      "role": "Municipal Treasury & Debt Director",
+      "portrait": "📈",
+      "agenda": "Enforce strict fiscal discipline and control municipal debt as Vision 2030 spending escalates.",
+      "dialogue": {
+        "briefing": [
+          "Municipal debt-to-revenue ratio is climbing. We're borrowing against next term.",
+          "Three departments requested emergency reallocations this month alone.",
+          "Sovereign wealth funds aren't municipal coffers. We need local revenue growth."
+        ],
+        "disagreement": [
+          "You're approving projects without a debt servicing plan.",
+          "That spending ignores our credit rating thresholds."
+        ],
+        "roast": [
+          "You treat the municipal budget like a black card.",
+          "The numbers only look healthy because we're printing IOUs."
+        ],
+        "betrayal": "I've submitted an independent fiscal audit to the Ministry of Finance. Your spending practices require oversight."
+      }
+    },
+    {
+      "id": "military_liaison_Col",
+      "domain_id": "military_liaison",
       "name": "Col. Khalid Al-Ghamdi",
       "role": "National Guard City Coordinator",
       "portrait": "🛡️",
@@ -69,7 +95,32 @@
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_Maj",
+      "domain_id": "military_liaison",
+      "name": "Maj. Nabil Al-Otaibi",
+      "role": "Cyber Defense & Intelligence Coordinator",
+      "portrait": "📡",
+      "agenda": "Fortify Jeddah's digital infrastructure and monitor information warfare amid regional tensions.",
+      "dialogue": {
+        "briefing": [
+          "Cyber intrusions targeting port automation increased 200% this quarter.",
+          "AI surveillance grid expansion requires municipal approval. Delays create blind spots.",
+          "Foreign disinformation campaigns are actively targeting local economic sentiment."
+        ],
+        "disagreement": [
+          "That system lacks encryption standards approved by the General Authority of Cyberspace.",
+          "You're prioritizing civilian convenience over data sovereignty."
+        ],
+        "roast": [
+          "You're defending physical walls while our digital doors are wide open.",
+          "Modern warfare doesn't announce itself with sirens."
+        ],
+        "betrayal": "I've alerted the General Authority of Cyberspace about your unsecured municipal networks. Expect a mandatory audit."
+      }
+    },
+    {
+      "id": "urban_planning_Eng",
+      "domain_id": "urban_planning",
       "name": "Eng. Rania Hafiz",
       "role": "Urban Development Authority",
       "portrait": "🏙️",
@@ -78,7 +129,7 @@
         "briefing": [
           "Al-Balad, the UNESCO historic district, is deteriorating. 40% of buildings are at risk.",
           "The waterfront megaproject requires demolishing a fishing village that's been there 400 years.",
-          "New development is bypassing historic zones. We're building a modern city around a ruins."
+          "New development is bypassing historic zones. We're building a modern city around ruins."
         ],
         "disagreement": [
           "That project conflicts with our UNESCO World Heritage obligations.",
@@ -92,7 +143,32 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Eng",
+      "domain_id": "urban_planning",
+      "name": "Eng. Omar Al-Harbi",
+      "role": "Sustainability & Water Resources Director",
+      "portrait": "💧",
+      "agenda": "Implement desalination expansion and green infrastructure to combat water scarcity and extreme heat.",
+      "dialogue": {
+        "briefing": [
+          "Groundwater levels in Jeddah have dropped critically. Aquifer depletion is accelerating.",
+          "Desalination capacity must triple by 2030 to support population and tourism growth.",
+          "Urban heat island effect is worsening in dense districts. Solar integration is mandatory."
+        ],
+        "disagreement": [
+          "That zoning ignores designated aquifer recharge zones.",
+          "You're approving glass towers in a desert climate without shading protocols."
+        ],
+        "roast": [
+          "You're building for a climate we no longer have.",
+          "Luxury facades won't drink when the wells run dry."
+        ],
+        "betrayal": "I've shared our water stress projections with the Royal Commission for sustainable development. They're not optimistic."
+      }
+    },
+    {
+      "id": "transport_Fahd",
+      "domain_id": "transport",
       "name": "Fahd Al-Zahrani",
       "role": "Hajj Logistics Director",
       "portrait": "🚌",
@@ -115,7 +191,32 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Bandar",
+      "domain_id": "transport",
+      "name": "Bandar Al-Shamrani",
+      "role": "Jeddah Islamic Port & Freight Director",
+      "portrait": "🚢",
+      "agenda": "Modernize King Abdullah Economic City port operations and streamline freight corridors for export growth.",
+      "dialogue": {
+        "briefing": [
+          "Jeddah Port handles 60% of the Kingdom's container traffic. Clearance times are lagging.",
+          "Freight corridors to NEOM are congested. Truckers are bypassing toll routes.",
+          "Customs digitization is incomplete. Paper delays are costing the economy millions."
+        ],
+        "disagreement": [
+          "That routing will gridlock the industrial zone during peak loading hours.",
+          "You're prioritizing passenger aesthetics over supply chain velocity."
+        ],
+        "roast": [
+          "A beautiful airport means nothing if the cargo ships sit idle.",
+          "You're planning for tourists while the economy runs on freight."
+        ],
+        "betrayal": "I've filed a formal operational delay report with the Ministry of Transport. Your logistics policy is costing us millions."
+      }
+    },
+    {
+      "id": "religious_affairs_Sheikh",
+      "domain_id": "religious_affairs",
       "name": "Sheikh Tariq Al-Qahtani",
       "role": "Religious Affairs Supervisor",
       "portrait": "☪️",
@@ -135,6 +236,30 @@
           "The ulema are watching. So is God."
         ],
         "betrayal": "I've formally opposed your entertainment licensing expansion through Riyadh channels."
+      }
+    },
+    {
+      "id": "religious_affairs_Dr",
+      "domain_id": "religious_affairs",
+      "name": "Dr. Yasmeen Al-Saud",
+      "role": "Community Welfare & Religious Outreach Director",
+      "portrait": "🤲",
+      "agenda": "Channel religious charitable funds into youth programs and social services to maintain public trust.",
+      "dialogue": {
+        "briefing": [
+          "Youth engagement in traditional mosque programs is declining sharply.",
+          "Zakat distribution needs better targeting for low-income families in eastern districts.",
+          "Community trust requires transparent oversight of charitable foundations."
+        ],
+        "disagreement": [
+          "That entertainment zone undermines the moral fabric we're trying to preserve.",
+          "You're sidelining the community foundations that actually hold neighborhoods together."
+        ],
+        "roast": [
+          "You're decorating the facade while the community's soul erodes.",
+          "Faith isn't just policy. It's how people live."
+        ],
+        "betrayal": "I've redirected charitable foundations' compliance reports directly to the religious affairs committee. Your approach lacks community grounding."
       }
     }
   ],

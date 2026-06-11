@@ -2,11 +2,13 @@
 import { randomPick, random } from '../utils/random.js';
 import { saveGame } from '../utils/local-storage.js';
 import { CrisisManager } from './crisis-manager.js';
-import { AdvisorSystem, EMERGENCY_POWERS, ADVISOR_SECRET_CRISIS_OPTIONS } from './advisor-system.js';
+import { AdvisorSystem, EMERGENCY_POWERS, ADVISOR_SECRET_CRISIS_OPTIONS, domainOf } from './advisor-system.js';
 import { ConsequenceSim } from './consequence-sim.js';
 import { ScandalSystem } from './scandal-system.js';
 import { ContractSystem } from './contract-system.js';
+import { MarketSystem } from './market-system.js';
 import { getGenericProblemById } from './generic-problems.js';
+import { heatLevel, scandalChanceMult, addHeat } from './heat-system.js';
 
 export class TurnManager {
   constructor(state) {
@@ -19,6 +21,7 @@ export class TurnManager {
     this.scandalSystem  = new ScandalSystem(state);
     this.consequenceSim = new ConsequenceSim(state, this.advisorSystem, this.scandalSystem);
     this.contractSystem = new ContractSystem(state);
+    this.marketSystem   = new MarketSystem(state);
   }
 
   // ── Main turn loop ────────────────────────────────────────────────────
@@ -32,6 +35,9 @@ export class TurnManager {
       this._fireScandal(s.pendingScandal);
       s.pendingScandal = null;
     }
+
+    // 0.5 SCRUTINY decay/escalation + black market housekeeping
+    this._processHeatAndMarket();
 
     // 1. Situation Update — tick agendas, relationships, then check for bribe offers
     this.advisorSystem.tickAgendas((betrayedAdvisor) => {
@@ -69,9 +75,13 @@ export class TurnManager {
     //    lands on the new turn number, not the old one.
     s.turn++;
 
-    // Reset per-turn decision quota (always 1 generic problem per turn)
+    // Reset per-turn decision quota (always 1 NEW generic problem per turn;
+    // unresolved problems from previous turns carry over on top)
     s.decisionsThisTurn    = 0;
     s.maxDecisionsThisTurn = 1;
+
+    // Problems ignored for 3 turns disclose themselves — badly
+    this._processOverdueProblems();
 
     // Economy: collect taxes then apply any budget pressure
     this._applyPassiveTax();
@@ -100,10 +110,17 @@ export class TurnManager {
 
     // 6. Natural crisis trigger check — push to activeCrises
     if (this.crisisManager.shouldTriggerCrisis()) {
-      const crisisId = this.crisisManager.triggerCrisis();
-      if (crisisId) {
-        this.saveState();
-        return 'crisis_triggered';
+      // Friends in High Places: the next window is someone else's problem
+      if (s.marketEffects?.skipNextCrisis) {
+        s.marketEffects.skipNextCrisis = false;
+        s.recentComments = ['A crisis brews — and is quietly handled before it reaches your desk.', ...(s.recentComments ?? [])].slice(0, 5);
+        console.log('[Market] Crisis window skipped (friends in high places)');
+      } else {
+        const crisisId = this.crisisManager.triggerCrisis();
+        if (crisisId) {
+          this.saveState();
+          return 'crisis_triggered';
+        }
       }
     }
 
@@ -111,6 +128,145 @@ export class TurnManager {
     this.saveState();
 
     return null; // null = continue playing
+  }
+
+  // ── SCRUTINY + market per-turn processing ─────────────────────────────
+
+  _processHeatAndMarket() {
+    const s  = this.state;
+    const me = s.marketEffects ?? (s.marketEffects = {});
+
+    // Last night's market offers expired at dawn
+    this.marketSystem.clearOffers();
+
+    // Heat decay: -1 per clean turn (no heat gained during the previous turn)
+    if ((s.heat ?? 0) > 0 && (s.lastHeatGainTurn ?? 0) < s.turn) {
+      s.heat = Math.max(0, s.heat - 1);
+    }
+
+    // UNDER SIEGE clock: 3 consecutive turns at siege = recall vote
+    if (heatLevel(s.heat).id === 'siege') {
+      s.siegeTurns = (s.siegeTurns ?? 0) + 1;
+    } else {
+      s.siegeTurns = 0;
+    }
+
+    // Impeachment: entering siege queues a major scandal
+    if (s.hasFlag('impeachment_pending')) {
+      s.flags.impeachment_pending = false;
+      this.scandalSystem._applyScandal({
+        id: `impeachment_${s.turn}`,
+        title: 'Impeachment Proceedings Opened',
+        severity_tier: 'major',
+      }, 'impeachment');
+    }
+
+    // The Fixer's failure: cleared scandal resurfaces one tier worse
+    if (me.resurface) {
+      const SUPPRESS_COSTS = { minor: 20, moderate: 40, major: 80, career_ending: 150 };
+      s.pendingScandal = {
+        ...me.resurface,
+        title: `${me.resurface.title} — RESURFACED`,
+        suppress_cost: SUPPRESS_COSTS[me.resurface.severity_tier] ?? 40,
+      };
+      me.resurface = null;
+      console.warn('[Market] The Fixer failed — the story is back, and worse');
+    }
+
+    // Streamed incomes (ghost payroll, checkpoint tolls) with exposure rolls
+    if (me.incomes?.length) {
+      me.incomes = me.incomes.filter(inc => {
+        s.shiftBudget(inc.amount);
+        inc.turnsLeft--;
+        if (inc.risk && random() < inc.risk) {
+          this.scandalSystem._applyScandal({
+            id: `income_exposed_${s.turn}`,
+            title: `${inc.label ?? 'Off-Books Income'} Exposed`,
+            severity_tier: inc.tier ?? 'moderate',
+          }, 'black_market');
+          return false; // the stream dies with the story
+        }
+        return inc.turnsLeft > 0;
+      });
+    }
+
+    // Approval drips (documentary, checkpoint resentment)
+    if (me.drips?.length) {
+      me.drips = me.drips.filter(d => {
+        s.shiftApproval(d.amount);
+        d.turnsLeft--;
+        return d.turnsLeft > 0;
+      });
+    }
+
+    // Pension loan due
+    if (me.loanDue && s.turn >= me.loanDue.dueTurn) {
+      if (s.budget >= me.loanDue.amount) {
+        s.shiftBudget(-me.loanDue.amount);
+        s.recentComments = ['The pension fund "loan" is quietly repaid.', ...(s.recentComments ?? [])].slice(0, 5);
+      } else {
+        this.scandalSystem._applyScandal({
+          id: `pension_default_${s.turn}`,
+          title: 'Pension Fund Raid Exposed — Retirees Unpaid',
+          severity_tier: 'major',
+        }, 'black_market');
+        addHeat(s, 3, 'loan_default');
+      }
+      me.loanDue = null;
+    }
+
+    // Arms sale blowback: armed populace
+    if (me.forcedUnrestTurn && s.turn >= me.forcedUnrestTurn && !s.pendingUnrest) {
+      s.pendingUnrest = { type: 'riot', turn: s.turn };
+      me.forcedUnrestTurn = null;
+      console.warn('[Market] Armed populace — riot erupts');
+    }
+  }
+
+  // ── Overdue problems ───────────────────────────────────────────────────
+  // A problem left undecided for 3 turns resolves ITSELF: 50% it becomes a
+  // scandal ("Governor Ignored..."), 50% the public just turns on you.
+
+  _processOverdueProblems() {
+    const s = this.state;
+    const unresolved = (s.presentedDecisions ?? []).filter(id =>
+      !s.pastDecisions.some(p => p.decisionId === id));
+
+    for (const id of unresolved) {
+      const presented = s.problemDeadlines?.[id] ?? s.turn;
+      if (s.turn - presented < 3) continue;
+
+      // Close it permanently (counts as ignored, never re-offered)
+      s.pastDecisions.push({ turn: s.turn, decisionId: id, optionIndex: -1, consequences: {}, ignored: true });
+      if (s.problemDeadlines) delete s.problemDeadlines[id];
+      s.ignoredProblems = (s.ignoredProblems ?? 0) + 1;
+
+      const prob  = getGenericProblemById(id, s.city);
+      const title = prob?.title ?? 'a city problem';
+
+      if (random() < 0.5) {
+        this.scandalSystem._applyScandal({
+          id: `ignored_${id}`,
+          title: `Governor Sat On It: ${title}`,
+          severity_tier: 'moderate',
+        }, 'ignored_problem');
+      } else {
+        s.shiftApproval(-5);
+        s.recentComments = [
+          `Three weeks. Nothing done about "${title}". They simply don't care.`,
+          ...(s.recentComments ?? []),
+        ].slice(0, 5);
+        if (!s.pendingScandalReveals) s.pendingScandalReveals = [];
+        s.pendingScandalReveals.push({
+          title: `The City Gives Up On: ${title}`,
+          severity_tier: 'minor',
+          penalty: -5,
+          source: 'ignored_problem',
+          turn: s.turn,
+        });
+      }
+      console.warn(`[Overdue] Problem "${id}" disclosed itself after 3 turns`);
+    }
   }
 
   // ── Decision resolution ───────────────────────────────────────────────
@@ -123,7 +279,18 @@ export class TurnManager {
     const option = decision.options[optionIndex];
     if (!option) { console.warn('Option not found:', optionIndex); return; }
 
-    this.consequenceSim.apply(option.consequences, {
+    // Buy the Front Page: this decision's approval loss is halved
+    let consequences = option.consequences;
+    const me = s.marketEffects ?? {};
+    if (me.halveNextDecisionLoss && (consequences.approval_delta ?? 0) < 0) {
+      consequences = { ...consequences, approval_delta: Math.round(consequences.approval_delta / 2) };
+      me.halveNextDecisionLoss = false;
+      console.log('[Market] Front page bought — damage halved');
+    } else if (me.halveNextDecisionLoss) {
+      me.halveNextDecisionLoss = false; // consumed either way
+    }
+
+    this.consequenceSim.apply(consequences, {
       turn: s.turn,
       sourceId: decisionId,
       optionIndex
@@ -158,7 +325,7 @@ export class TurnManager {
     //            and slow their betrayal clock (good governance = loyalty)
     const dom = decision._domain;
     if (dom) {
-      const adv = s.advisors.find(a => a.id === dom && !a.betrayed);
+      const adv = s.advisors.find(a => domainOf(a) === dom && !a.betrayed);
       if (adv) {
         adv.trust          = Math.min(100, (adv.trust ?? 50) + 5);
         adv.agendaProgress = Math.max(0,   (adv.agendaProgress ?? 0) - 8);
@@ -167,6 +334,10 @@ export class TurnManager {
     }
 
     this._generateReaction(option.consequences.approval_delta ?? 0);
+
+    // The black market knocks AFTER the day's decision — and it read the paper
+    this.marketSystem.rollOffers(decision._domain ?? null);
+
     this.saveState();
   }
 
@@ -178,11 +349,12 @@ export class TurnManager {
     // Advisor secret option: virtual index beyond normal options
     let option;
     if (advisorSecretId) {
-      const secretConseq = ADVISOR_SECRET_CRISIS_OPTIONS[advisorSecretId];
+      const secretAdv = s.findAdvisor(advisorSecretId);
+      const secretConseq = ADVISOR_SECRET_CRISIS_OPTIONS[secretAdv ? domainOf(secretAdv) : advisorSecretId];
       if (secretConseq) {
         option = { consequences: secretConseq };
         // Reward the advisor who helped (+5 trust)
-        const adv = s.getAdvisor(advisorSecretId);
+        const adv = secretAdv;
         if (adv) {
           adv.trust = Math.min(100, (adv.trust ?? 50) + 5);
           console.log(`[Crisis Secret] ${adv.name} +5 trust for secret option`);
@@ -194,7 +366,26 @@ export class TurnManager {
 
     if (!option) { console.warn('Crisis option not found:', optionIndex); return; }
 
-    this.consequenceSim.apply(option.consequences, {
+    // Black market crisis modifiers (broker / consultant / sold ambulances)
+    let cons = option.consequences;
+    const me = s.marketEffects ?? {};
+    if (me.crisisCostHalf || me.crisisApprovalHalf || me.crisisApprovalWorsen) {
+      cons = { ...cons };
+      if (me.crisisCostHalf && (cons.budget_delta ?? 0) < 0) {
+        cons.budget_delta = Math.round(cons.budget_delta / 2);
+        me.crisisCostHalf = false;
+      }
+      if (me.crisisApprovalHalf && (cons.approval_delta ?? 0) < 0) {
+        cons.approval_delta = Math.round(cons.approval_delta / 2);
+        me.crisisApprovalHalf = false;
+      }
+      if (me.crisisApprovalWorsen && (cons.approval_delta ?? 0) < 0) {
+        cons.approval_delta -= me.crisisApprovalWorsen;
+        me.crisisApprovalWorsen = 0;
+      }
+    }
+
+    this.consequenceSim.apply(cons, {
       turn: s.turn,
       sourceId: crisisId,
       optionIndex
@@ -223,7 +414,9 @@ export class TurnManager {
     if (!lib) return;
 
     let pool;
-    if (context === 'crisis')    pool = lib.crisis;
+    // Troll farm: the feed loves you, regardless of reality
+    if (s.turn <= (s.marketEffects?.feedPositiveUntil ?? 0)) pool = lib.positive;
+    else if (context === 'crisis')    pool = lib.crisis;
     else if (approvalDelta > 5)  pool = lib.positive;
     else if (approvalDelta < -5) pool = lib.negative;
     else                         pool = lib.neutral;
@@ -242,6 +435,9 @@ export class TurnManager {
     const s = this.state;
 
     if (s.approval <= 0) { s.endReason = 'recalled'; return 'recalled'; }
+
+    // 3 consecutive turns UNDER SIEGE = recall vote passes
+    if ((s.siegeTurns ?? 0) >= 3) { s.endReason = 'recalled'; return 'recalled'; }
 
     // Term completes at turn 12 — but NOT while a crisis is still unresolved.
     // Otherwise a crisis triggered on turn 12 could be ignored with no consequence.
@@ -275,7 +471,7 @@ export class TurnManager {
     s.shiftBudget(income);
 
     // Trust-gated passive: finance advisor at ≥75 trust provides +10M/turn bonus
-    const finAdv = s.advisors?.find(a => a.id === 'finance' && !a.betrayed);
+    const finAdv = s.advisors?.find(a => domainOf(a) === 'finance' && !a.betrayed);
     if (finAdv && (finAdv.trust ?? 0) >= 75) {
       s.shiftBudget(10);
       console.log('[Advisor Passive] Finance bonus: +10M (trust ≥75)');
@@ -286,6 +482,21 @@ export class TurnManager {
 
   _applyBudgetPressure() {
     const s = this.state;
+    const me = s.marketEffects ?? {};
+
+    // Emergency slush fund: auto-injects when the budget first dips below 0
+    if (s.budget < 0 && me.slushFund) {
+      s.shiftBudget(me.slushFund);
+      s.recentComments = ['An account nobody knew existed quietly covers the gap.', ...(s.recentComments ?? [])].slice(0, 5);
+      me.slushFund = null;
+    }
+
+    // Quiet Austerity: deficit penalties paused
+    if (s.budget < 0 && s.turn <= (me.deficitPauseUntil ?? 0)) {
+      console.log('[Market] Deficit penalty suppressed (quiet austerity)');
+      return;
+    }
+
     if (s.budget < 0) {
       s.consecutiveDeficitTurns = (s.consecutiveDeficitTurns ?? 0) + 1;
       if (s.budget < -200) {
@@ -309,11 +520,21 @@ export class TurnManager {
     if (s.turn < 3) return;
     if (s.budget >= 0 || s.approval >= 37) return;
 
+    // Black market auras
+    const me = s.marketEffects ?? {};
+    if (s.turn <= (me.unrestImmunityUntil ?? 0)) {
+      console.log('[Market] Unrest suppressed (militia/mercenary payoff)');
+      return;
+    }
+
     const debtPressure  = Math.min(1, Math.abs(s.budget) / 300);
     const approvalPanic = Math.max(0, (37 - s.approval) / 37);
     let   chance        = 0.20 + debtPressure * 0.15 + approvalPanic * 0.20;
 
-    const urbanAdv = s.advisors?.find(a => a.id === 'urban_planning' && !a.betrayed);
+    if (s.turn <= (me.unrestDampUntil ?? 0))  chance *= 0.5;
+    if (s.turn <= (me.unrestBoostUntil ?? 0)) chance *= 1.25;
+
+    const urbanAdv = s.advisors?.find(a => domainOf(a) === 'urban_planning' && !a.betrayed);
     if (urbanAdv && (urbanAdv.trust ?? 0) >= 75) {
       chance *= 0.80;
       console.log('[Advisor Passive] Urban Planning reduces unrest chance by 20%');
@@ -357,11 +578,19 @@ export class TurnManager {
   // War/extreme cities bleed approval every turn
   _applyTierPassiveDrain() {
     const s    = this.state;
+    const me   = s.marketEffects ?? {};
     const tier = s.city?.tier;
+
+    if (s.turn <= (me.tierDrainPauseUntil ?? 0)) {
+      console.log('[Market] Tier drain paused (warlord truce)');
+      return;
+    }
+    const half = me.halveDrainsTurn === s.turn;
+
     if (tier === 'war') {
-      s.shiftApproval(-2);
-      console.log('[Tier] War zone instability: -2 approval');
-    } else if (tier === 'extreme') {
+      s.shiftApproval(half ? -1 : -2);
+      console.log('[Tier] War zone instability');
+    } else if (tier === 'extreme' && !half) {
       s.shiftApproval(-1);
       console.log('[Tier] Extreme pressure: -1 approval');
     }
@@ -373,7 +602,7 @@ export class TurnManager {
     const advisor = s.getAdvisor(advisorId);
     if (!advisor || advisor.betrayed || advisor.emergencyPowerUsed) return;
 
-    const power = EMERGENCY_POWERS[advisorId];
+    const power = EMERGENCY_POWERS[domainOf(advisor)];
     if (!power) return;
     if (!power.condition(s, advisor)) return;
 
@@ -459,13 +688,35 @@ export class TurnManager {
     const SCANDAL_CHANCE = { low: 0.08, normal: 0.20, high: 0.38 };
     let chance = SCANDAL_CHANCE[s.settings?.scandalFreq ?? 'normal'];
 
-    const milAdv = s.advisors?.find(a => a.id === 'military_liaison' && !a.betrayed);
+    const milAdv = s.advisors?.find(a => domainOf(a) === 'military_liaison' && !a.betrayed);
     if (milAdv && (milAdv.trust ?? 0) >= 75) {
       chance *= 0.85;
       console.log('[Advisor Passive] Military reduces scandal chance by 15%');
     }
 
+    // SCRUTINY multiplier: the press smells blood at higher heat levels
+    chance *= scandalChanceMult(s.heat);
+    // Market effects: media settlement / silenced journalist dampers
+    const me = s.marketEffects ?? {};
+    if (me.scandalMult && s.turn <= (me.scandalMultUntil ?? 0)) chance *= me.scandalMult;
+
     if (random() >= chance) return;
+
+    // Bug the Newsroom: you saw the story coming — consume one skip
+    if ((me.skipScandalRolls ?? 0) > 0) {
+      me.skipScandalRolls--;
+      s.recentComments = ['Your newsroom source kills a story before it runs.', ...(s.recentComments ?? [])].slice(0, 5);
+      return;
+    }
+
+    // Lover tip-off: a devoted lover (romantic, trust ≥ 70) warns you — 35%
+    const lover = s.advisors?.find(a => a.relationshipType === 'romantic' && !a.betrayed && (a.trust ?? 0) >= 70);
+    if (lover && random() < 0.35) {
+      s.recentComments = [`${lover.name}, quietly: "Don't be near the docks tomorrow. Trust me."`, ...(s.recentComments ?? [])].slice(0, 5);
+      console.log(`[Lover] ${lover.name} tipped off the governor — scandal averted`);
+      return;
+    }
+
     this._createPendingScandal();
   }
 
@@ -539,6 +790,67 @@ export class TurnManager {
 
   shiftAdvisorRelationship(advisorId, delta) {
     this.advisorSystem.shiftRelationship(advisorId, delta);
+    this.saveState();
+  }
+
+  resolveLoverDemand(accept) {
+    const result = this.advisorSystem.resolveLoverDemand(accept);
+    this.saveState();
+    return result;
+  }
+
+  resolvePartnerDemand(accept) {
+    const result = this.advisorSystem.resolvePartnerDemand(accept);
+    this.saveState();
+    return result;
+  }
+
+  // ── Black market actions ───────────────────────────────────────────────
+
+  buyMarketOffer(offerId) {
+    const result = this.marketSystem.buy(offerId, this.scandalSystem);
+    this.saveState();
+    return result;
+  }
+
+  passMarket() {
+    this.marketSystem.clearOffers();
+    this.saveState();
+  }
+
+  // ── Address the Nation (heat defuse, once per term) ───────────────────
+  // Fixed mechanics across cities; flavor text comes from city JSON.
+
+  addressNation(optionId) {
+    const s = this.state;
+    if (s.hasFlag('address_used')) return;
+    if ((s.heat ?? 0) < 25) return;
+    s.setFlag('address_used', true);
+
+    switch (optionId) {
+      case 'own_it':
+        s.shiftApproval(-5);
+        addHeat(s, -6, 'address');
+        console.log('[Address] Full apology: -5 approval, heat -6');
+        break;
+      case 'defiant':
+        s.shiftApproval(3);
+        addHeat(s, 2, 'address');
+        if (random() < 0.15) this._createPendingScandal();
+        console.log('[Address] Defiant: +3 approval, heat +2, 15% scandal');
+        break;
+      case 'deflect': {
+        s.shiftApproval(-2);
+        addHeat(s, -3, 'address');
+        const live = s.advisors.filter(a => !a.betrayed);
+        const fallGuy = randomPick(live);
+        if (fallGuy) {
+          fallGuy.agendaProgress = Math.min(100, (fallGuy.agendaProgress ?? 0) + 10);
+          console.log(`[Address] Deflected — ${fallGuy.name} noticed the implication (+10 agenda)`);
+        }
+        break;
+      }
+    }
     this.saveState();
   }
 

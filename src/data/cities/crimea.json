@@ -23,7 +23,8 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Viktor",
+      "domain_id": "finance",
       "name": "Viktor Sorokin",
       "role": "Regional Finance Director",
       "portrait": "💰",
@@ -46,7 +47,32 @@
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Oksana",
+      "domain_id": "finance",
+      "name": "Oksana Petrenko",
+      "role": "Shadow Economy Analyst",
+      "portrait": "💸",
+      "agenda": "Formalize black-market trade networks into taxable gray-zone enterprises.",
+      "dialogue": {
+        "briefing": [
+          "Half the peninsula's economy runs through unregistered bazaars and smugglers.",
+          "If we don't tax the informal sector, Moscow will simply confiscate it.",
+          "Crypto exchanges on Telegram are moving more value than our banks."
+        ],
+        "disagreement": [
+          "Cracking down on bazaars without alternatives will starve rural districts.",
+          "You're trying to put a spreadsheet on a war economy."
+        ],
+        "roast": [
+          "Your official budget is fiction. My numbers are ugly but real.",
+          "I've seen more honest accounting in a pickpocket's ledger."
+        ],
+        "betrayal": "The black-market consortium offered me a seat. Their currency holds value better than yours."
+      }
+    },
+    {
+      "id": "military_liaison_Col",
+      "domain_id": "military_liaison",
       "name": "Col. Dmitri Volkov",
       "role": "Russian Military Coordinator",
       "portrait": "🎖️",
@@ -69,7 +95,32 @@
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_Maj",
+      "domain_id": "military_liaison",
+      "name": "Maj. Alisa Voronova",
+      "role": "Civil-Military Operations Chief",
+      "portrait": "🪖",
+      "agenda": "Reduce military friction with civilians by creating demilitarized aid corridors.",
+      "dialogue": {
+        "briefing": [
+          "Checkpoints are turning every town into a pressure cooker. We need mobile patrols, not blockades.",
+          "Soldiers confiscate civilian cars for 'military use' – that's a recruitment ad for partisans.",
+          "One food truck with military escort can pacify a village faster than a tank company."
+        ],
+        "disagreement": [
+          "Softening military posture now will be seen as weakness by both sides.",
+          "You're asking soldiers to be social workers. They're not trained for that."
+        ],
+        "roast": [
+          "Your idea of counterinsurgency is more roadblocks. Brilliant.",
+          "I've seen less collateral damage in a demolition derby."
+        ],
+        "betrayal": "I've been quietly sharing checkpoint schedules with humanitarian groups – and Kyiv. They're more careful than you."
+      }
+    },
+    {
+      "id": "urban_planning_Anna",
+      "domain_id": "urban_planning",
       "name": "Anna Kovalenko",
       "role": "Infrastructure Director",
       "portrait": "🏗️",
@@ -92,7 +143,32 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Ruslan",
+      "domain_id": "urban_planning",
+      "name": "Ruslan Abdullayev",
+      "role": "Post-War Reconstruction Forecaster",
+      "portrait": "📐",
+      "agenda": "Design dual-use infrastructure that can serve both Russian and future Ukrainian administration.",
+      "dialogue": {
+        "briefing": [
+          "Any bridge we build today may be shelled tomorrow. So build modular, rebuildable systems.",
+          "The power grid is a patchwork of Soviet, Russian, and stolen Ukrainian parts.",
+          "We should be mapping land mines now – for clearance in ten years."
+        ],
+        "disagreement": [
+          "You're planning for defeat. That's treason under current law.",
+          "Dual-use just means half-useless for everyone."
+        ],
+        "roast": [
+          "Your five-year plan is 'pray the war ends.' Mine involves concrete.",
+          "I've drawn blueprints for cities that no longer exist. You're worse than an optimist – you're a procrastinator."
+        ],
+        "betrayal": "I've kept a full copy of all infrastructure damage assessments. Ukraine will pay well for these."
+      }
+    },
+    {
+      "id": "transport_Stepan",
+      "domain_id": "transport",
       "name": "Stepan Morozov",
       "role": "Transport & Logistics",
       "portrait": "🌉",
@@ -115,7 +191,32 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Larisa",
+      "domain_id": "transport",
+      "name": "Larisa Tkachenko",
+      "role": "Rail & Evacuation Coordinator",
+      "portrait": "🚆",
+      "agenda": "Establish civilian evacuation protocols that function during active combat.",
+      "dialogue": {
+        "briefing": [
+          "The railway to Dzhankoi is vulnerable to drone strikes. We need reroute plans yesterday.",
+          "Evacuation trains mix civilians with military cargo – that's a war crime waiting to happen.",
+          "Ports in Feodosia could move 5,000 people a day if we clear the mines."
+        ],
+        "disagreement": [
+          "Evacuation planning is seen as defeatism by Russian command.",
+          "You can't evacuate a population that refuses to leave."
+        ],
+        "roast": [
+          "Your logistics plan is 'everyone walk to the bridge.' Inspiring.",
+          "I've seen more organized retreats in a kindergarten fire drill."
+        ],
+        "betrayal": "I've already pre-registered evacuation lists with Ukrainian NGOs. They'll have buses ready when the front moves."
+      }
+    },
+    {
+      "id": "religious_affairs_Mufti",
+      "domain_id": "religious_affairs",
       "name": "Mufti Ismet Gafarov",
       "role": "Tatar Community Representative",
       "portrait": "🕌",
@@ -135,6 +236,30 @@
           "You govern us without hearing us."
         ],
         "betrayal": "I've formally requested international protection for the Tatar community. Your government is the threat."
+      }
+    },
+    {
+      "id": "religious_affairs_Archpriest",
+      "domain_id": "religious_affairs",
+      "name": "Archpriest Grigory Popov",
+      "role": "Moscow Patriarchate Liaison",
+      "portrait": "⛪",
+      "agenda": "Consolidate Orthodox Church influence as a pro-Russian social control mechanism.",
+      "dialogue": {
+        "briefing": [
+          "The parish network covers every village. Our priests report on local morale.",
+          "Ukrainian Orthodox congregations are being pressured to switch to Moscow jurisdiction.",
+          "Blessing military units increases enlistment. We've seen the numbers."
+        ],
+        "disagreement": [
+          "Excommunicating Ukrainian loyalists will create underground churches, not converts.",
+          "You're weaponizing confession. That's sacrilege dressed as strategy."
+        ],
+        "roast": [
+          "You use God as a border guard. Blasphemy with a budget.",
+          "I've blessed more guns than marriages this year. What a ministry."
+        ],
+        "betrayal": "The Patriarch has assigned a new overseer for Crimea. Your cooperation is no longer required."
       }
     }
   ],

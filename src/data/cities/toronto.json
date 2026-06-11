@@ -23,7 +23,8 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Dr",
+      "domain_id": "finance",
       "name": "Dr. Priya Sharma",
       "role": "City CFO",
       "portrait": "📊",
@@ -46,7 +47,32 @@
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Malik",
+      "domain_id": "finance",
+      "name": "Malik Chowdhury",
+      "role": "Treasury & Revenue Director",
+      "portrait": "💰",
+      "agenda": "Introduce a municipal sales tax to reduce reliance on volatile development charges and property taxes.",
+      "dialogue": {
+        "briefing": [
+          "Every new condo tower adds services without enough tax revenue. The math is broken.",
+          "A 1% municipal sales tax would generate $800 million annually – from tourists too.",
+          "The province will never approve it. But we need to force the conversation."
+        ],
+        "disagreement": [
+          "A new tax in a cost-of-living crisis is political suicide.",
+          "You're asking working families to pay more while developers pay less."
+        ],
+        "roast": [
+          "Your 'fiscal plan' is hoping for a federal bailout. I've seen more ambition from a parking meter.",
+          "Toronto's revenue toolkit is a butter knife in a gunfight."
+        ],
+        "betrayal": "The province offered me a role designing their municipal funding review. They actually want solutions."
+      }
+    },
+    {
+      "id": "military_liaison_Chief",
+      "domain_id": "military_liaison",
       "name": "Chief Sandra Williams",
       "role": "Toronto Police Chief",
       "portrait": "👮‍♀️",
@@ -69,7 +95,32 @@
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_Inspector",
+      "domain_id": "military_liaison",
+      "name": "Inspector Marcus Chen",
+      "role": "Community Safety & Crisis Response Commander",
+      "portrait": "🚔",
+      "agenda": "Expand civilian-led crisis response teams to handle mental health and non-violent calls without police.",
+      "dialogue": {
+        "briefing": [
+          "We send armed officers to wellness checks and noise complaints. That's expensive and dangerous.",
+          "The PAIR program (Police and Alternate Integrated Response) works – when funded.",
+          "Toronto has the resources to be a national leader in crisis response. We lack the will."
+        ],
+        "disagreement": [
+          "Unarmed teams cannot respond to weapons calls. We still need police backup.",
+          "You're cutting police budget without scaling alternatives first. That's reckless."
+        ],
+        "roast": [
+          "Your 'reform' is a pilot project that never scales. Show me the budget, not the press release.",
+          "I've seen more crisis competence from a 911 dispatcher on hold."
+        ],
+        "betrayal": "The province's new community safety office offered me a director role. Your dithering cost us."
+      }
+    },
+    {
+      "id": "urban_planning_James",
+      "domain_id": "urban_planning",
       "name": "James O'Brien",
       "role": "Chief Planner",
       "portrait": "🏙️",
@@ -92,7 +143,32 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Amina",
+      "domain_id": "urban_planning",
+      "name": "Amina Warsame",
+      "role": "Affordable Housing & Inclusionary Zoning Lead",
+      "portrait": "🏘️",
+      "agenda": "Mandate inclusionary zoning citywide and use expropriation powers to acquire land for non-profit housing.",
+      "dialogue": {
+        "briefing": [
+          "Market-rate housing will never be affordable to half this city. We need social housing – built, not hoped for.",
+          "We own 1,200 vacant or underused city properties. Why are we sitting on them?",
+          "Vienna builds 10,000 social units a year. They have half our population."
+        ],
+        "disagreement": [
+          "Expropriation scares private capital. Without them, we build nothing.",
+          "Inclusionary zoning only works in a hot market. When prices drop, developers walk."
+        ],
+        "roast": [
+          "Your 'housing plan' is a zoning bylaw amendment and a prayer. Mine has shovels.",
+          "I've seen more urgency from a sloth on sedatives."
+        ],
+        "betrayal": "The provincial housing task force asked me to draft their report. I'll write what the city won't say."
+      }
+    },
+    {
+      "id": "transport_CEO",
+      "domain_id": "transport",
       "name": "CEO Fatima Al-Hassan",
       "role": "TTC Chair",
       "portrait": "🚌",
@@ -115,7 +191,32 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Dmitri",
+      "domain_id": "transport",
+      "name": "Dmitri Volkov",
+      "role": "Active Transportation & Cycling Infrastructure Director",
+      "portrait": "🚲",
+      "agenda": "Build a connected, protected cycling network across all wards, not just downtown.",
+      "dialogue": {
+        "briefing": [
+          "Bloor bike lanes increased business. The data is clear. Still, every new lane is a fight.",
+          "Etobicoke and Scarborough have almost zero protected infrastructure. Their residents also cycle.",
+          "We can connect the waterfront trail to the Finch corridor for under $50 million. That's pocket change."
+        ],
+        "disagreement": [
+          "Removing car lanes for bikes in the suburbs is electoral poison.",
+          "You're building for able-bodied commuters, not families or seniors."
+        ],
+        "roast": [
+          "Your 'active transport' plan is a map of downtown coffee shops.",
+          "I've seen more courage from a popped tire."
+        ],
+        "betrayal": "The province's Active Transport Fund granted me $200 million directly. Your delays are now irrelevant."
+      }
+    },
+    {
+      "id": "religious_affairs_Pastor",
+      "domain_id": "religious_affairs",
       "name": "Pastor David Osei",
       "role": "Newcomer Community Services Coordinator",
       "portrait": "🤝",
@@ -135,6 +236,34 @@
           "Toronto's multiculturalism is a policy. New York's is a fact."
         ],
         "betrayal": "I've endorsed a candidate whose platform prioritizes newcomer services. That's where I stand."
+      }
+    },
+    {
+      "id": "religious_affairs_Imam",
+      "domain_id": "religious_affairs",
+      "name": "Imam Abdullah Mirza",
+      "role": "Interfaith Housing & Food Security Network Lead",
+      "portrait": "🕌",
+      "agenda": "Coordinate faith-owned land for affordable housing and community kitchens citywide.",
+      "dialogue": {
+        "briefing": [
+          "Churches, mosques, and synagogues own millions of square feet of underused parking lots and basements.",
+          "We can build 5,000 affordable units on faith-owned land – if zoning permits it.",
+          "The city's food banks are overwhelmed. Our congregations can distribute twice as much at half the cost."
+        ],
+        "agreement": [
+          "Faith in action, not just words. This is how we serve.",
+          "The pulpit and the city, working together. Rare and powerful."
+        ],
+        "disagreement": [
+          "You're asking religious groups to do your job. That's abdication, not partnership.",
+          "Building on faith land will trigger legal challenges about church-state separation."
+        ],
+        "roast": [
+          "Your 'faith engagement' is a photo op at a Ramadan dinner. My engagement puts roofs over heads.",
+          "I've seen more compassion from a property tax bill."
+        ],
+        "betrayal": "The provincial government has funded our faith-based housing pilot directly. Your office's approval is no longer needed."
       }
     }
   ],

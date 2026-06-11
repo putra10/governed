@@ -23,7 +23,8 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Yael",
+      "domain_id": "finance",
       "name": "Yael Shapiro",
       "role": "Economic Affairs Director",
       "portrait": "💼",
@@ -46,7 +47,32 @@
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Dr",
+      "domain_id": "finance",
+      "name": "Dr. Noa Levi",
+      "role": "Cost of Living & Social Welfare Director",
+      "portrait": "🏠",
+      "agenda": "Stabilize the cost of living crisis and protect displaced families and small businesses from war economy inflation.",
+      "dialogue": {
+        "briefing": [
+          "Rent in Tel Aviv spiked 40% since reservist call-ups. Working families are falling behind.",
+          "Corner stores and local markets are closing while tech parks get tax holidays.",
+          "We need direct subsidies for reservist households. Morale is an economic metric too."
+        ],
+        "disagreement": [
+          "You're cutting social aid to fund another venture capital subsidy. This ignores the working class.",
+          "GDP means nothing if grocery prices outpace wages."
+        ],
+        "roast": [
+          "You measure success in funding rounds while mothers skip meals.",
+          "The economy isn't just unicorns. It's the people who actually live here."
+        ],
+        "betrayal": "I've redirected municipal welfare funds to grassroots cooperatives and published the budget reallocation. The city will know who stands with them."
+      }
+    },
+    {
+      "id": "military_liaison_Col",
+      "domain_id": "military_liaison",
       "name": "Col. Avi Bernstein",
       "role": "IDF City Coordinator",
       "portrait": "🛡️",
@@ -69,7 +95,32 @@
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_Brig",
+      "domain_id": "military_liaison",
+      "name": "Brig. Gen. Tal Mor",
+      "role": "Home Front Command & Civil Defense Director",
+      "portrait": "🚨",
+      "agenda": "Maximize civilian survival rates and psychological resilience through decentralized shelter networks and trauma support.",
+      "dialogue": {
+        "briefing": [
+          "60% of municipal shelters lack proper ventilation or accessibility ramps. That's a death trap.",
+          "PTSD among urban youth is doubling weekly. We need trauma response teams, not just sirens.",
+          "Civilian drill compliance is dropping. Fear fatigue is real."
+        ],
+        "disagreement": [
+          "Militarizing civilian zones without psychological support creates long-term societal damage.",
+          "You're treating symptoms, not the population."
+        ],
+        "roast": [
+          "Iron Dome intercepts missiles. It doesn't intercept trauma.",
+          "Security without humanity is just occupation by another name."
+        ],
+        "betrayal": "I've filed a civil defense compliance report directly with the Supreme Court. Public safety can't be a backroom negotiation."
+      }
+    },
+    {
+      "id": "urban_planning_Miriam",
+      "domain_id": "urban_planning",
       "name": "Miriam Cohen",
       "role": "City Infrastructure Director",
       "portrait": "🏗️",
@@ -92,7 +143,32 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Lior",
+      "domain_id": "urban_planning",
+      "name": "Lior Ben-Ami",
+      "role": "Cultural Revival & Adaptive Reuse Director",
+      "portrait": "🎭",
+      "agenda": "Maintain Tel Aviv's social fabric and economic vibrancy through creative space reuse and supporting the cultural sector during conflict.",
+      "dialogue": {
+        "briefing": [
+          "Downtown occupancy is at 30%. Empty spaces breed despair, not security.",
+          "We can convert vacant hotels into community shelters without breaking the bank.",
+          "Bauhaus heritage buildings are deteriorating from security closures and neglect."
+        ],
+        "disagreement": [
+          "Turning the city into a fortress destroys the very culture people are fighting for.",
+          "Adaptive reuse costs half of new construction and keeps neighborhoods alive."
+        ],
+        "roast": [
+          "You're building a bunker city with no soul. Tel Aviv without its streets is just concrete.",
+          "Resilience isn't just reinforced walls. It's keeping people out in the open."
+        ],
+        "betrayal": "I've partnered with international cultural NGOs to repurpose municipal properties. Your zoning board was too slow to save them."
+      }
+    },
+    {
+      "id": "transport_Danny",
+      "domain_id": "transport",
       "name": "Danny Levy",
       "role": "Emergency Transport Coordinator",
       "portrait": "🚑",
@@ -115,7 +191,32 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Maya",
+      "domain_id": "transport",
+      "name": "Maya Rosenberg",
+      "role": "Public Transit & Commuter Normalization Director",
+      "portrait": "🚆",
+      "agenda": "Restore civilian mobility and normalize daily commutes through expanded transit capacity and AI traffic routing during security events.",
+      "dialogue": {
+        "briefing": [
+          "Light rail ridership is down, but dedicated bus lanes could absorb the drop.",
+          "We need predictive traffic AI to reroute commuters around alert zones automatically.",
+          "People are abandoning public transit out of fear, not inconvenience."
+        ],
+        "disagreement": [
+          "Emergency routing alone doesn't solve daily gridlock. You can't run a global city on crisis mode.",
+          "Commuter morale is collapsing. Predictability is a security asset."
+        ],
+        "roast": [
+          "Your transport plan only works if everyone is in a hospital or a shelter. The rest of us need to get to work.",
+          "We're treating daily mobility like a luxury, not infrastructure."
+        ],
+        "betrayal": "I've activated the municipal traffic AI to override your emergency closures during non-critical hours. Commuters need predictability."
+      }
+    },
+    {
+      "id": "religious_affairs_Rabbi",
+      "domain_id": "religious_affairs",
       "name": "Rabbi Moshe Katz",
       "role": "Haredi Community Liaison",
       "portrait": "✡️",
@@ -135,6 +236,30 @@
           "Without Haredi political support, you have no government."
         ],
         "betrayal": "Our political bloc is withdrawing support from your coalition. Publicly, today."
+      }
+    },
+    {
+      "id": "religious_affairs_Dr",
+      "domain_id": "religious_affairs",
+      "name": "Dr. Samir Khoury",
+      "role": "Jaffa & Intercommunity Civil Affairs Director",
+      "portrait": "🤝",
+      "agenda": "Strengthen cohesion between Tel Aviv-Jaffa's Jewish, Arab, and secular populations through equitable resource distribution and shared emergency infrastructure.",
+      "dialogue": {
+        "briefing": [
+          "Jaffa's Arab neighborhoods lack adequate shelter infrastructure and emergency funding.",
+          "Coexistence isn't a slogan; it's our security strategy during prolonged conflict.",
+          "Joint emergency response teams perform 30% better than segregated ones."
+        ],
+        "disagreement": [
+          "Prioritizing one community over another fractures our emergency response network.",
+          "You're treating coexistence as a luxury, not a municipal necessity."
+        ],
+        "roast": [
+          "Tel Aviv preaches liberalism but practices neighborhood segregation. Jaffa pays the price.",
+          "A divided city is a fragile city. The sirens don't discriminate."
+        ],
+        "betrayal": "I've established an independent cross-community emergency council. Your office is officially bypassed on Jaffa resource allocation."
       }
     }
   ],

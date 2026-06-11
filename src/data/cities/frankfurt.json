@@ -23,7 +23,8 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Klaus",
+      "domain_id": "finance",
       "name": "Klaus Metzger",
       "role": "Stadtrat für Finanzen",
       "portrait": "🏦",
@@ -46,7 +47,32 @@
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Yelena",
+      "domain_id": "finance",
+      "name": "Yelena Brandt",
+      "role": "Budget & Investment Controller",
+      "portrait": "📊",
+      "agenda": "Secure public-private partnerships to fund social housing without raising property taxes.",
+      "dialogue": {
+        "briefing": [
+          "Municipal bonds are cheap now. We should borrow 2 billion for infrastructure.",
+          "The real estate lobby is blocking our social housing targets – they want luxury towers.",
+          "If we don't spend the EU recovery funds by next year, Brussels takes them back."
+        ],
+        "disagreement": [
+          "You're mortgaging the next generation's tax revenue for projects we can't maintain.",
+          "Public-private partnerships are just privatization by another name."
+        ],
+        "roast": [
+          "You manage the city's money like a gambler on a hot streak.",
+          "I've seen more fiscal discipline in a Monopoly game."
+        ],
+        "betrayal": "I've accepted a position with the European Central Bank. Your budget deficit is now their problem."
+      }
+    },
+    {
+      "id": "military_liaison_Kommissar",
+      "domain_id": "military_liaison",
       "name": "Kommissar Britta Hoffmann",
       "role": "Public Safety Director",
       "portrait": "👮‍♀️",
@@ -69,7 +95,32 @@
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_Polizeirat",
+      "domain_id": "military_liaison",
+      "name": "Polizeirat Jürgen Weber",
+      "role": "Crisis Response & Counterterrorism",
+      "portrait": "🚔",
+      "agenda": "Establish a centralized real-time surveillance hub to predict and prevent street violence.",
+      "dialogue": {
+        "briefing": [
+          "The new AI-based camera system in the Hauptbahnhof can predict crowd violence before it erupts.",
+          "Organized crime clans control half the drug trade. We need RICO-style asset forfeiture.",
+          "Cyber threats to city infrastructure are rising – the water system was probed twice last month."
+        ],
+        "disagreement": [
+          "You're trading civil liberties for a false sense of security.",
+          "Predictive policing targets neighborhoods, not criminals. That's how riots start."
+        ],
+        "roast": [
+          "Your 'security strategy' is more cameras and more overtime. Zero innovation.",
+          "I've seen better crisis management in a burning dumpster."
+        ],
+        "betrayal": "I've shared our surveillance playbook with a private security firm. They pay better and don't second-guess my methods."
+      }
+    },
+    {
+      "id": "urban_planning_Dr",
+      "domain_id": "urban_planning",
       "name": "Dr. Ingrid Schneider",
       "role": "Stadtplanungsamt Director",
       "portrait": "🏛️",
@@ -92,7 +143,32 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Tobias",
+      "domain_id": "urban_planning",
+      "name": "Tobias Voss",
+      "role": "Green Infrastructure & Climate Adaptation",
+      "portrait": "🌳",
+      "agenda": "Transform vacant lots and underused rail corridors into climate-resilient public parks and green roofs.",
+      "dialogue": {
+        "briefing": [
+          "Summer temperatures in the city center are 8 degrees higher than the suburbs. That kills people.",
+          "We can green 200 rooftops and create 15 new pocket parks with existing budget.",
+          "The Main riverfront needs flood protection and public access – not another corporate plaza."
+        ],
+        "disagreement": [
+          "You're prioritizing trees over housing. People need shelter first.",
+          "Green infrastructure doesn't solve the affordability crisis. It's a distraction."
+        ],
+        "roast": [
+          "Your climate plan is a single recycling bin and a press release.",
+          "I've seen more environmental commitment from a coal mine."
+        ],
+        "betrayal": "I've joined an environmental NGO that's suing the city for violating EU air quality laws. See you in court."
+      }
+    },
+    {
+      "id": "transport_Martin",
+      "domain_id": "transport",
       "name": "Martin Bauer",
       "role": "Stadtwerke Transport Director",
       "portrait": "🚋",
@@ -115,7 +191,32 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Leila",
+      "domain_id": "transport",
+      "name": "Leila Sadeghi",
+      "role": "Logistics & Port Operations",
+      "portrait": "🚢",
+      "agenda": "Expand Frankfurt's river freight capacity to reduce truck traffic on the A5 and A3 autobahns.",
+      "dialogue": {
+        "briefing": [
+          "The Main river port operates at 60% capacity. We can double container handling by 2030.",
+          "Last-mile delivery emissions are skyrocketing due to Amazon and DHL. We need inner-city micro-hubs.",
+          "The airport cargo hub is at capacity. A rail bypass would relieve it."
+        ],
+        "disagreement": [
+          "Expanding river freight means dredging and more diesel barges. That's not green.",
+          "You're solving logistics while ignoring commuters. The U-Bahn is falling apart."
+        ],
+        "roast": [
+          "Your transport strategy is 'hope traffic disappears.' Brilliant.",
+          "I've seen faster cargo movement in a wheelchair line."
+        ],
+        "betrayal": "The logistics industry offered me a directorship. Your bureaucracy was killing me anyway."
+      }
+    },
+    {
+      "id": "religious_affairs_Pastor",
+      "domain_id": "religious_affairs",
       "name": "Pastor Ibrahim Al-Masri",
       "role": "Interfaith Integration Coordinator",
       "portrait": "🕍",
@@ -135,6 +236,30 @@
           "Frankfurt's multiculturalism is a logo. The substance needs work."
         ],
         "betrayal": "I've joined a civil society coalition challenging your integration policy publicly."
+      }
+    },
+    {
+      "id": "religious_affairs_Rabbi",
+      "domain_id": "religious_affairs",
+      "name": "Rabbi Sarah Goldberg",
+      "role": "Community Resilience & Holocaust Memorial",
+      "portrait": "🕎",
+      "agenda": "Secure protection for Jewish institutions while fostering intergenerational memory work in schools.",
+      "dialogue": {
+        "briefing": [
+          "The Jewish community is shrinking because families feel unsafe walking in kippah.",
+          "We need police presence outside the Westend synagogue every Saturday – that costs money.",
+          "Holocaust education is mandatory in schools, but teachers lack training. I can fix that."
+        ],
+        "disagreement": [
+          "Cutting cultural funding for memorial work is short-sighted and cruel.",
+          "You say 'never again' but defund the institutions that teach it."
+        ],
+        "roast": [
+          "You host memorial ceremonies and vote against our security budget. Hypocrisy has a seat at your table.",
+          "My grandparents survived the camps. Your indifference is just quieter."
+        ],
+        "betrayal": "I've gone public with your budget cuts. The Jewish community will remember this during elections."
       }
     }
   ],

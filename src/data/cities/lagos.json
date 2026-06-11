@@ -23,7 +23,8 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Amara",
+      "domain_id": "finance",
       "name": "Amara Okafor",
       "role": "Lagos State Finance Commissioner",
       "portrait": "📈",
@@ -46,7 +47,32 @@
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Chief",
+      "domain_id": "finance",
+      "name": "Chief Tunde Bakare",
+      "role": "Commissioner for Revenue & Informal Economy",
+      "portrait": "💼",
+      "agenda": "Formalize and tax Lagos's massive informal sector while navigating powerful market union resistance.",
+      "dialogue": {
+        "briefing": [
+          "The Alaba and Mile 12 markets handle more daily transactions than three state treasuries combined.",
+          "Market union leaders are threatening a sit-in if we digitize levies without consultation.",
+          "Naira depreciation means import-based traders need temporary tariff relief, not heavier taxes."
+        ],
+        "disagreement": [
+          "You're pricing out the traders who actually feed this city.",
+          "Mandating digital payments ignores the reality of cash-dependent markets."
+        ],
+        "roast": [
+          "Your revenue strategy relies on formal sectors that employ less than 20% of Lagosians.",
+          "We're counting dollars while ignoring the cedis and naira in the streets."
+        ],
+        "betrayal": "I leaked the phased tax rollout schedule to the National Union of Road Transport Workers. Expect a market blockade."
+      }
+    },
+    {
+      "id": "military_liaison_Supt",
+      "domain_id": "military_liaison",
       "name": "Supt. Chukwuemeka Eze",
       "role": "Lagos Police Liaison",
       "portrait": "👮",
@@ -69,7 +95,32 @@
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_Commander",
+      "domain_id": "military_liaison",
+      "name": "Commander Nkechi Okonkwo",
+      "role": "Lagos State Emergency Management & Naval Coordinator",
+      "portrait": "⚓",
+      "agenda": "Secure Lagos's coastal borders against smuggling, kidnapping, and illegal immigration while modernizing flood response.",
+      "dialogue": {
+        "briefing": [
+          "The Lagos Lagoon is a hotspot for illicit fuel and arms smuggling. Patrols are stretched thin.",
+          "Seasonal flooding in Ibeju-Lekki requires immediate sand dredging and pump deployment.",
+          "Kidnapping syndicates are using waterways to bypass mainland checkpoints."
+        ],
+        "disagreement": [
+          "Militarizing the waterways will choke legitimate fishing and transport routes.",
+          "You're prioritizing coastal resorts over vulnerable mainland communities."
+        ],
+        "roast": [
+          "Our emergency response moves slower than the tide.",
+          "You treat the lagoon like a lake, not a frontline."
+        ],
+        "betrayal": "I've reported your delayed flood mitigation funding directly to the Federal Ministry of Interior. They're auditing us."
+      }
+    },
+    {
+      "id": "urban_planning_Dr",
+      "domain_id": "urban_planning",
       "name": "Dr. Funmi Adeyemi",
       "role": "Urban Development Director",
       "portrait": "🌆",
@@ -92,7 +143,32 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Engr",
+      "domain_id": "urban_planning",
+      "name": "Engr. Musa Ibrahim",
+      "role": "Flood Control & Drainage Systems Director",
+      "portrait": "🌊",
+      "agenda": "Implement massive drainage upgrades and enforce strict zoning in flood-prone areas, even if it delays commercial projects.",
+      "dialogue": {
+        "briefing": [
+          "The Ikorodu and Oworonshoki drainage channels are 80% blocked by illegal structures.",
+          "Rainfall intensity has increased 25% in ten years. Our 1970s designs can't cope.",
+          "Sand dredging for land reclamation is choking the lagoon's natural outflow."
+        ],
+        "disagreement": [
+          "Halting profitable construction for drainage works kills local jobs.",
+          "You're using flood risk as an excuse to block urban renewal."
+        ],
+        "roast": [
+          "We pour concrete over canals and wonder why the city drowns.",
+          "Your planning horizon ends at the next rainy season."
+        ],
+        "betrayal": "I've shared detailed flood vulnerability maps with international NGOs and urban planning journals. The public deserves transparency."
+      }
+    },
+    {
+      "id": "transport_Balogun",
+      "domain_id": "transport",
       "name": "Balogun Adewale",
       "role": "Lagos Metropolitan Transport Authority",
       "portrait": "🚢",
@@ -115,7 +191,32 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Madam",
+      "domain_id": "transport",
+      "name": "Madam Clara Afolabi",
+      "role": "Road Maintenance & Transit Integration Planner",
+      "portrait": "🚐",
+      "agenda": "Fix the crumbling road network and integrate informal transport (okada, keke) into a regulated public system.",
+      "dialogue": {
+        "briefing": [
+          "The Third Mainland Bridge approach roads are developing critical fatigue cracks.",
+          "Okada and keke operators provide 60% of last-mile mobility. Banning them causes chaos.",
+          "Road maintenance contracts are 40% complete but 90% invoiced."
+        ],
+        "disagreement": [
+          "Banning informal transport punishes the poor for infrastructure failures.",
+          "You're patching potholes instead of fixing the foundation."
+        ],
+        "roast": [
+          "Your road network looks like a war zone, not a commercial capital.",
+          "We plan transit for commuters who exist on paper, not in reality."
+        ],
+        "betrayal": "I've aligned with the informal transport unions to block your new concession road contracts. They won't be ignored."
+      }
+    },
+    {
+      "id": "religious_affairs_Bishop",
+      "domain_id": "religious_affairs",
       "name": "Bishop Emmanuel Adekunle",
       "role": "Interfaith Community Liaison",
       "portrait": "⛪",
@@ -135,6 +236,30 @@
           "Even the churches are losing patience."
         ],
         "betrayal": "I've endorsed the opposition candidate from the pulpit. The people deserve better."
+      }
+    },
+    {
+      "id": "religious_affairs_Sheikh",
+      "domain_id": "religious_affairs",
+      "name": "Sheikh Ibrahim Yusuf",
+      "role": "Islamic Welfare & Community Development Advisor",
+      "portrait": "🕌",
+      "agenda": "Channel religious charity (Zakat) into state-backed education and healthcare while maintaining clerical independence from political pressure.",
+      "dialogue": {
+        "briefing": [
+          "Mosque-led health clinics serve over 120,000 residents in northern Lagos annually.",
+          "Zakat collection is fragmented. Centralizing it could fund three new polytechnics.",
+          "Youth unemployment in Ajegunle is creating fertile ground for extremist recruitment."
+        ],
+        "disagreement": [
+          "State oversight of religious charity violates clerical autonomy.",
+          "You're treating faith communities as political tools, not partners."
+        ],
+        "roast": [
+          "Policies without moral grounding are just expensive distractions.",
+          "The mosques don't need your permits. They need your respect."
+        ],
+        "betrayal": "I've mobilized the clerical council to formally oppose your education reform bill. It lacks community consultation."
       }
     }
   ],

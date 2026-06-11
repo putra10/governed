@@ -23,7 +23,8 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Dr",
+      "domain_id": "finance",
       "name": "Dr. Wei Hao",
       "role": "Municipal Economic Director",
       "portrait": "📊",
@@ -46,7 +47,32 @@
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Prof",
+      "domain_id": "finance",
+      "name": "Prof. Lin Xia",
+      "role": "Central Bank Policy Advisor",
+      "portrait": "🏦",
+      "agenda": "Balance local debt relief with strict national monetary tightening directives.",
+      "dialogue": {
+        "briefing": [
+          "Local government financing vehicles (LGFVs) are showing signs of severe stress.",
+          "The digital yuan rollout in Beijing must be flawless to set a national example.",
+          "Foreign direct investment is cooling; we need to project absolute macroeconomic stability."
+        ],
+        "disagreement": [
+          "Injecting liquidity here violates the central bank's deleveraging mandate.",
+          "You are treating symptoms, not the structural debt disease."
+        ],
+        "roast": [
+          "You think printing money solves governance? Try explaining that to the Politburo.",
+          "Fiscal fantasy is not an economic strategy."
+        ],
+        "betrayal": "I have forwarded your local debt restructuring proposals to the National Audit Office. They are not pleased."
+      }
+    },
+    {
+      "id": "military_liaison_Gen",
+      "domain_id": "military_liaison",
       "name": "Gen. Zhang Peng",
       "role": "PLA Garrison Commander",
       "portrait": "🎖️",
@@ -69,7 +95,32 @@
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_Col",
+      "domain_id": "military_liaison",
+      "name": "Col. Wang Lei",
+      "role": "Strategic Support Force Liaison",
+      "portrait": "🛰️",
+      "agenda": "Secure Beijing's digital and information infrastructure against foreign and domestic threats.",
+      "dialogue": {
+        "briefing": [
+          "Cyber intrusions targeting municipal databases have increased by 300% this quarter.",
+          "We need tighter control over tech firms handling sensitive geospatial data.",
+          "Information warfare is the new frontline; civilian networks are highly vulnerable."
+        ],
+        "disagreement": [
+          "Opening that public data portal is an unacceptable national security liability.",
+          "You underestimate the sophistication of the threat actors targeting us."
+        ],
+        "roast": [
+          "You govern like it's 1990. The battlefield is now in the cloud.",
+          "Civilian convenience is a luxury we can no longer afford."
+        ],
+        "betrayal": "I've initiated a security clearance review of your entire administrative staff. Expect visits from State Security."
+      }
+    },
+    {
+      "id": "urban_planning_Architect",
+      "domain_id": "urban_planning",
       "name": "Architect Liu Fang",
       "role": "Urban Construction Bureau Director",
       "portrait": "🏗️",
@@ -92,7 +143,32 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Planner",
+      "domain_id": "urban_planning",
+      "name": "Planner Zhao Ming",
+      "role": "Smart City Development Director",
+      "portrait": "🌆",
+      "agenda": "Implement AI-driven urban management while mitigating public surveillance backlash.",
+      "dialogue": {
+        "briefing": [
+          "The new AI traffic management system reduces congestion but raises privacy complaints.",
+          "Green belts are being encroached upon by unauthorized commercial developments.",
+          "We must make Beijing a model of 'ecological civilization' by 2030."
+        ],
+        "disagreement": [
+          "Bypassing the environmental impact assessment is a direct violation of Party doctrine.",
+          "Smart city tech is useless if the public actively sabotages the sensors."
+        ],
+        "roast": [
+          "You're building a concrete jungle and calling it a 'smart city'.",
+          "Efficiency without humanity is just authoritarian engineering."
+        ],
+        "betrayal": "I leaked the true environmental impact reports of your flagship project to domestic eco-activists. The pressure is mounting."
+      }
+    },
+    {
+      "id": "transport_Engineer",
+      "domain_id": "transport",
       "name": "Engineer Chen Jian",
       "role": "Beijing Metro Authority Director",
       "portrait": "🚄",
@@ -115,7 +191,32 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Director",
+      "domain_id": "transport",
+      "name": "Director Sun Yan",
+      "role": "Regional Logistics and Aviation Coordinator",
+      "portrait": "✈️",
+      "agenda": "Integrate Beijing's airports and freight networks with the broader Jing-Jin-Ji megaregion.",
+      "dialogue": {
+        "briefing": [
+          "Daxing Airport is underutilized while Capital Airport remains severely congested.",
+          "Freight truck emissions are choking the southern districts.",
+          "High-speed rail cargo is the future, but the intermodal hubs are incomplete."
+        ],
+        "disagreement": [
+          "Prioritizing passenger terminals over freight logistics hurts the regional supply chain.",
+          "That budget allocation ignores the Jing-Jin-Ji integration mandate."
+        ],
+        "roast": [
+          "You're obsessed with moving people, but the economy runs on moving goods.",
+          "A pretty train station doesn't fix a broken supply chain."
+        ],
+        "betrayal": "I've submitted a formal complaint to the Ministry of Transport about your mismanagement of the Jing-Jin-Ji freight budget."
+      }
+    },
+    {
+      "id": "religious_affairs_Director",
+      "domain_id": "religious_affairs",
       "name": "Director Mei Xiulan",
       "role": "United Front Work Department Liaison",
       "portrait": "🏛️",
@@ -135,6 +236,30 @@
           "Clumsy handling creates problems the Party must clean up."
         ],
         "betrayal": "I've escalated concerns about your religious affairs management to the United Front Work Department."
+      }
+    },
+    {
+      "id": "religious_affairs_Official",
+      "domain_id": "religious_affairs",
+      "name": "Official Guo Tao",
+      "role": "Ethnic Affairs Commission Representative",
+      "portrait": "🤝",
+      "agenda": "Promote 'ethnic unity' and Sinicization of religious practices among Beijing's minority populations.",
+      "dialogue": {
+        "briefing": [
+          "We need to increase Mandarin proficiency programs in minority community centers.",
+          "Certain foreign-funded cultural NGOs are pushing narratives that contradict national unity.",
+          "The Sinicization of religious venues must be visibly accelerated this year."
+        ],
+        "disagreement": [
+          "Allowing that cultural festival to proceed without Party oversight is a risk.",
+          "You are being too soft. Unity requires firm ideological guidance."
+        ],
+        "roast": [
+          "You mistake appeasement for harmony. It is a dangerous illusion.",
+          "The Party demands integration, not isolated enclaves."
+        ],
+        "betrayal": "I have compiled a dossier on your 'lenient' handling of foreign NGO activities and sent it to the Political and Legal Affairs Commission."
       }
     }
   ],

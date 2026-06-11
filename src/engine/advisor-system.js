@@ -1,5 +1,13 @@
 // src/engine/advisor-system.js
 import { randomPick, random } from '../utils/random.js';
+import { addHeat } from './heat-system.js';
+
+// Canonical domain of an advisor. Candidate-pool advisors carry a unique `id`
+// (e.g. "finance_siti") plus a `domain_id` ("finance"); legacy advisors use
+// their id AS the domain. All domain-bound systems key off this.
+export function domainOf(advisor) {
+  return advisor?.domain_id ?? advisor?.id;
+}
 
 // ── Crisis Secret Options (mirrored from crisis-screen for engine use) ────────
 export const ADVISOR_SECRET_CRISIS_OPTIONS = {
@@ -94,10 +102,20 @@ export const BACK_CHANNEL_ACTIONS = {
     label: 'THREATEN',
     desc:  'Use what you know about their agenda as leverage. Private and free — but it can backfire into the press, and repeated threats escalate.',
     note:  'Trigger: their agenda ≥ 40 & your approval ≥ 45 · third threat = they snap',
-    condition: (s, adv) =>
-      (adv.agendaProgress ?? 0) >= 40 &&
-      s.approval >= 45 &&
-      (adv.threatCount ?? 0) < 3,
+    condition: (s, adv) => {
+      const unlocked = s.marketEffects?.threatUnlock &&
+        s.marketEffects.threatUnlock.advisorId === adv.id &&
+        s.turn <= s.marketEffects.threatUnlock.until;
+      return ((adv.agendaProgress ?? 0) >= 40 || unlocked) &&
+        s.approval >= 45 &&
+        (adv.threatCount ?? 0) < 3;
+    },
+  },
+  sacrifice: {
+    label: 'THROW UNDER THE BUS',
+    desc:  'Blame them for everything, publicly. They are finished — and the press moves on to fresher meat.',
+    note:  'Trigger: SCRUTINY ≥ 20 · heat -10 · +2% approval · remaining advisors -8 trust (worse if they are your lover)',
+    condition: (s, adv) => (s.heat ?? 0) >= 20 && !adv.betrayed,
   },
   leak: {
     label: 'LEAK DIRT',
@@ -131,10 +149,17 @@ export class AdvisorSystem {
 
   tickAgendas(onBetrayal) {
     const s = this.state;
+    const me = s.marketEffects ?? {};
     for (const advisor of s.advisors) {
       if (advisor.betrayed) continue;
 
-      advisor.agendaProgress = Math.min(AGENDA_MAX, (advisor.agendaProgress ?? 0) + AGENDA_TICK);
+      // Black market: frozen agendas (mole / shadow cabinet) don't advance
+      const frozen =
+        (me.agendaFreeze && me.agendaFreeze.advisorId === advisor.id && s.turn <= me.agendaFreeze.until) ||
+        (s.turn <= (me.allAgendaFreezeUntil ?? 0));
+      if (!frozen) {
+        advisor.agendaProgress = Math.min(AGENDA_MAX, (advisor.agendaProgress ?? 0) + AGENDA_TICK);
+      }
 
       // Layer 1: base trust decay — 2pts/turn regardless of relationship
       // Relationship modifier is applied on top in tickRelationships()
@@ -164,15 +189,94 @@ export class AdvisorSystem {
       // Romance exposure risk — 5% per turn if romantic and not yet exposed
       if (rel === 'romantic' && !advisor.romanceExposed && bonus.scandalRisk) {
         if (random() < bonus.scandalRisk && scandalSystem) {
-          // triggerRomanceExposure RETURNS the severity string — capture it
-          const severityAfterExposure =
-            scandalSystem.triggerRomanceExposure(advisor.name) ?? 'moderate';
-          if (['career_ending', 'major'].includes(severityAfterExposure)) {
+          // triggerRomanceExposure RETURNS the severity string (null = shielded)
+          const severityAfterExposure = scandalSystem.triggerRomanceExposure(advisor.name);
+          if (severityAfterExposure && ['career_ending', 'major'].includes(severityAfterExposure)
+              && (advisor.trust ?? 50) < 70) {
             advisor.relationshipType = 'rivalry';
           }
         }
       }
+
+      // Scorned ex-lover: 2 turns of 10%/turn risk they go public themselves,
+      // one severity tier worse (a breakup is never a clean exit)
+      if ((advisor.scorned ?? 0) > 0 && !advisor.romanceExposed) {
+        advisor.scorned--;
+        if (random() < 0.10 && scandalSystem) {
+          scandalSystem.triggerRomanceExposure(advisor.name, 1);
+          advisor.relationshipType = 'rivalry';
+          console.warn(`[Scorned] ${advisor.name} went to the press about the affair`);
+        }
+      }
+
+      // Lover demands: 40% chance EVERY turn — love is needy by design
+      if (rel === 'romantic' && !advisor.betrayed &&
+          (advisor.lastDemandTurn ?? 0) < s.turn && !s.pendingLoverDemand &&
+          random() < 0.40) {
+        advisor.lastDemandTurn = s.turn;
+        const type = random() < 0.5 ? 'fund' : 'pardon';
+        s.pendingLoverDemand = { advisorId: advisor.id, advisorName: advisor.name, type };
+        console.log(`[Lover] ${advisor.name} has a request (${type})`);
+      }
     }
+  }
+
+  // Lover demand resolution: fund their pet project / pardon a relative —
+  // or refuse and watch the relationship cool
+  resolveLoverDemand(accept) {
+    const s = this.state;
+    const demand = s.pendingLoverDemand;
+    if (!demand) return { ok: false, msg: 'No request pending.' };
+    const advisor = s.getAdvisor(demand.advisorId);
+    s.pendingLoverDemand = null;
+    if (!advisor || advisor.betrayed) return { ok: false, msg: 'They are gone.' };
+
+    if (accept) {
+      if (demand.type === 'fund') {
+        s.shiftBudget(-30);
+        advisor.trust = Math.min(100, (advisor.trust ?? 50) + 5);
+        return { ok: true, msg: `You funded ${advisor.name}'s district project. (-30M, +5 trust) Love is expensive.` };
+      }
+      addHeat(s, 1, 'lover_pardon');
+      advisor.trust = Math.min(100, (advisor.trust ?? 50) + 5);
+      return { ok: true, msg: `You made a relative's case quietly disappear. (+1 heat, +5 trust) Love keeps receipts.` };
+    }
+
+    this.shiftRelationship(advisor.id, -1);
+    return { ok: true, msg: `You said no. ${advisor.name} heard something else. (relationship cools)` };
+  }
+
+  // Crime partner demand resolution: pay them off / calm them down — or
+  // refuse and watch the scheme get riskier
+  resolvePartnerDemand(accept) {
+    const s = this.state;
+    const demand = s.pendingPartnerDemand;
+    if (!demand) return { ok: false, msg: 'No demand pending.' };
+    const advisor = s.getAdvisor(demand.advisorId);
+    s.pendingPartnerDemand = null;
+    if (!advisor || advisor.betrayed || !advisor.corruptPact) {
+      return { ok: false, msg: 'The arrangement is already over.' };
+    }
+
+    if (demand.type === 'bigger_cut') {
+      if (accept) {
+        s.shiftBudget(-25);
+        advisor.trust = Math.min(100, (advisor.trust ?? 50) + 5);
+        return { ok: true, msg: `You paid ${advisor.name}'s bigger cut. (-25M, +5 trust) Partners stay loyal when fed.` };
+      }
+      advisor.trust = Math.max(0, (advisor.trust ?? 50) - 8);
+      advisor.pactTurns = (advisor.pactTurns ?? 0) + 1;
+      return { ok: true, msg: `You refused. ${advisor.name} takes it personally — and gets sloppy. (trail thickens, -8 trust)` };
+    }
+
+    // cold_feet
+    if (accept) {
+      advisor.pactPaused = 1;
+      return { ok: true, msg: `You let the scheme go quiet for a turn. ${advisor.name} breathes again. (no skim, no risk next turn)` };
+    }
+    advisor.trust = Math.max(0, (advisor.trust ?? 50) - 5);
+    advisor.pactTurns = (advisor.pactTurns ?? 0) + 1;
+    return { ok: true, msg: `You pushed on. Nervous partners make mistakes. (trail thickens, -5 trust)` };
   }
 
   // ── Relationship shift ─────────────────────────────────────────────────────────
@@ -214,7 +318,12 @@ export class AdvisorSystem {
     this.state.recentComments = [`⚠ BETRAYAL — ${advisor.name}: "${line}"`];
 
     // Betrayal costs approval; worse if relationship was romantic (public optics)
-    const betrayalPenalty = advisor.relationshipType === 'romantic' ? -15 : -10;
+    let betrayalPenalty = advisor.relationshipType === 'romantic' ? -15 : -10;
+    // Bodyguard detail: the cameras see less of it
+    if (this.state.marketEffects?.betrayalHalf) {
+      betrayalPenalty = Math.round(betrayalPenalty / 2);
+      this.state.marketEffects.betrayalHalf = false;
+    }
     this.state.shiftApproval(betrayalPenalty);
 
     console.warn(`[BETRAYAL] ${advisor.name} (relationship: ${advisor.relationshipType ?? 'neutral'})`);
@@ -223,25 +332,58 @@ export class AdvisorSystem {
 
   // ── Advisor Recommendations ───────────────────────────────────────────────────
   // Called in processTurn after decision is loaded. Domain-matched advisors
-  // suggest the option with the best approval outcome.
+  // recommend by PERSONALITY, SELF-INTEREST and (if plotting) SABOTAGE —
+  // not by what's objectively safest for you.
 
   generateRecommendations(decision) {
     const s = this.state;
     s.pendingDecisionRecommendations = {};
     if (!decision) return;
 
+    // What each advisor actually values (budget scaled /20 so money doesn't
+    // always dominate; scandal_risk in %):
+    const PERSONALITY = {
+      finance:           { budget: 1.5, approval: 0.5, scandal: -0.2 }, // cold bottom line
+      military_liaison:  { budget: 0.3, approval: 0.8, scandal: -1.0 }, // hates exposure
+      urban_planning:    { budget: 0.4, approval: 1.2, scandal: -0.3 }, // loves the public
+      religious_affairs: { budget: 0.2, approval: 1.0, scandal: -0.8 }, // morality optics
+      transport:         { budget: 1.0, approval: 0.7, scandal: -0.3 }, // pragmatist
+    };
+
     for (const advisor of s.advisors) {
       if (advisor.betrayed) continue;
-      if (advisor.id !== decision._domain) continue;
+      if (domainOf(advisor) !== decision._domain) continue;
 
-      let best = 0;
-      let bestDelta = -Infinity;
+      const w = PERSONALITY[domainOf(advisor)] ?? { budget: 0.5, approval: 1.0, scandal: -0.5 };
+      const agenda = advisor.agendaProgress ?? 0;
+      // A plotting advisor (agenda >= 60) has a 50% chance of giving advice
+      // designed to WEAKEN you. The agenda bar is your only warning.
+      const scheming = agenda >= 60 && random() < 0.5;
+
+      let best = 0, bestScore = -Infinity;
       decision.options.forEach((opt, i) => {
-        const aD = opt.consequences?.approval_delta ?? 0;
-        if (aD > bestDelta) { bestDelta = aD; best = i; }
+        const c = opt.consequences ?? {};
+        let score =
+          (c.approval_delta ?? 0) * w.approval +
+          ((c.budget_delta ?? 0) / 20) * w.budget +
+          ((c.scandal_risk ?? 0) / 10) * w.scandal;
+
+        // Self-interest: how does this option treat THEM?
+        const self = (c.advisor_effects ?? []).find(e =>
+          e.advisor_id === advisor.id || e.advisor_id === domainOf(advisor));
+        if (self) score += (self.trust_delta ?? 0) * 1.5 - (self.betrayal_risk_delta ?? 0);
+
+        // Sabotage: invert the approval term, twice over
+        if (scheming) score -= (c.approval_delta ?? 0) * 2;
+
+        // Human noise — nobody's judgement is a spreadsheet
+        score += (random() - 0.5) * 4;
+
+        if (score > bestScore) { bestScore = score; best = i; }
       });
+
       s.pendingDecisionRecommendations[advisor.id] = best;
-      console.log(`[Advisor] ${advisor.name} recommends option ${best} for "${decision.id}"`);
+      console.log(`[Advisor] ${advisor.name} recommends option ${best} for "${decision.id}"${scheming ? ' (SCHEMING)' : ''}`);
     }
   }
 
@@ -284,7 +426,7 @@ export class AdvisorSystem {
   _generateIntel(advisor, s) {
     const rate       = s.getTaxRate ? s.getTaxRate() : 50;
     const nextIncome = Math.round(rate * (s.approval / 100));
-    switch (advisor.id) {
+    switch (domainOf(advisor)) {
       case 'finance':
         if (s.budget + nextIncome < 0)
           return `Next turn budget projection: ${s.budget + nextIncome}M. Deficit likely — act now.`;
@@ -342,8 +484,14 @@ export class AdvisorSystem {
 
     const advisor = s.advisors.find(a => a.id === advisorId && !a.betrayed);
     if (!advisor) return { ok: false, msg: 'This advisor is no longer available.' };
-    if (s.backChannelUsedTurn === s.turn)
-      return { ok: false, msg: 'You have already used the back channel this turn.' };
+    if (s.backChannelUsedTurn === s.turn) {
+      // Burner phones: one extra back-channel action this turn
+      if (s.marketEffects?.freeBackChannel) {
+        s.marketEffects.freeBackChannel = false;
+      } else {
+        return { ok: false, msg: 'You have already used the back channel this turn.' };
+      }
+    }
 
     const action = BACK_CHANNEL_ACTIONS[actionId];
     if (!action || !action.condition(s, advisor))
@@ -357,27 +505,88 @@ export class AdvisorSystem {
       case 'end_pact':      return this._bcEndPact(advisor);
       case 'threaten':      return this._bcThreaten(advisor, scandalSystem, onBetrayal);
       case 'leak':          return this._bcLeak(advisor, scandalSystem);
+      case 'sacrifice':     return this._bcSacrifice(advisor);
       default:              return { ok: false, msg: 'Unknown move.' };
     }
   }
 
   _bcGetCloser(advisor) {
+    const s = this.state;
+    // ONE lover only — pursuing someone new means the current lover finds out
+    const currentLover = s.advisors.find(a =>
+      a.relationshipType === 'romantic' && !a.betrayed && a.id !== advisor.id);
+
     this.shiftRelationship(advisor.id, +1);
     advisor.trust = Math.min(100, (advisor.trust ?? 50) + 3);
+
+    let jealousy = '';
+    if (currentLover) {
+      currentLover.relationshipType = 'rivalry';
+      currentLover.scorned = 2; // a scorned lover may go public
+      jealousy = ` ${currentLover.name} found out. They are not taking it well.`;
+    }
+
     const rel = advisor.relationshipType;
     const msg = rel === 'romantic'
-      ? `Things with ${advisor.name} have become... personal. (+4 trust/turn, 5%/turn exposure risk — permanent while it lasts)`
-      : `You spent the evening with ${advisor.name}. The relationship deepens. (${rel})`;
+      ? `Things with ${advisor.name} have become... personal. (+4 trust/turn, 5%/turn exposure risk — permanent while it lasts)${jealousy}`
+      : `You spent the evening with ${advisor.name}. The relationship deepens. (${rel})${jealousy}`;
     return { ok: true, msg };
   }
 
   _bcKeepDistance(advisor) {
     const wasRomantic = advisor.relationshipType === 'romantic';
     this.shiftRelationship(advisor.id, -1);
+    if (wasRomantic) {
+      // Breakups are dangerous, not safe: 2 turns of scorned-leak risk
+      advisor.scorned = 2;
+    }
     const msg = wasRomantic
-      ? `You ended it with ${advisor.name}. No more loyalty bonus — and what happened still happened.`
+      ? `You ended it with ${advisor.name}. No more loyalty bonus — and they know everything. Pray they stay quiet.`
       : `You put some distance between yourself and ${advisor.name}. (${advisor.relationshipType})`;
     return { ok: true, msg };
+  }
+
+  _bcSacrifice(advisor) {
+    const s = this.state;
+    const wasLover = advisor.relationshipType === 'romantic';
+
+    // Mark them gone — same exclusions as betrayal, plus the sacrifice flag
+    advisor.betrayed = true;
+    advisor.sacrificed = true;
+    advisor.corruptPact = false;
+    if (s.pendingBribes?.length) {
+      s.pendingBribes = s.pendingBribes.filter(b => b.advisorId !== advisor.id);
+    }
+
+    if (wasLover) {
+      // The press FEASTS — but the public finds it cruel
+      addHeat(s, -12, 'sacrifice_lover');
+      s.shiftApproval(-4);
+      s.advisors.forEach(a => { if (!a.betrayed) a.trust = Math.max(0, (a.trust ?? 50) - 12); });
+    } else {
+      addHeat(s, -10, 'sacrifice');
+      s.shiftApproval(2);
+      s.advisors.forEach(a => { if (!a.betrayed) a.trust = Math.max(0, (a.trust ?? 50) - 8); });
+    }
+
+    if (!s.pendingBetrayals) s.pendingBetrayals = [];
+    s.pendingBetrayals.push({
+      advisorId:    advisor.id,
+      advisorName:  advisor.name,
+      line:         wasLover
+        ? 'After everything... you fed me to them. I hope it was worth it.'
+        : 'You needed a body, and mine was closest. I understand. I will not forgive.',
+      relationship: advisor.relationshipType ?? 'neutral',
+      sacrificed:   true,
+    });
+
+    console.warn(`[Sacrifice] ${advisor.name} thrown under the bus${wasLover ? ' (LOVER)' : ''}`);
+    return {
+      ok: true,
+      msg: wasLover
+        ? `You blamed ${advisor.name} for everything. The press devours the story (heat -12) — but the city saw what you did to someone you loved. (-4% approval, cabinet shaken)`
+        : `You blamed ${advisor.name} for everything. The press moves on (heat -10, +2% approval) — but your cabinet just watched a colleague burn. (-8 trust all)`,
+    };
   }
 
   _pactSkim() {
@@ -464,6 +673,20 @@ export class AdvisorSystem {
       if (advisor.betrayed) continue;
 
       if (advisor.corruptPact) {
+        // Lay low: a calmed partner skips this turn's skim AND risk roll
+        if ((advisor.pactPaused ?? 0) > 0) {
+          advisor.pactPaused--;
+          console.log(`[Pact] ${advisor.name}: scheme lying low this turn`);
+          continue;
+        }
+
+        // Crime partners are needy too: 40%/turn they demand an answer
+        if (!s.pendingPartnerDemand && random() < 0.40) {
+          const type = random() < 0.5 ? 'bigger_cut' : 'cold_feet';
+          s.pendingPartnerDemand = { advisorId: advisor.id, advisorName: advisor.name, type };
+          console.log(`[Pact] ${advisor.name} needs an answer (${type})`);
+        }
+
         const skim = this._pactSkim();
         s.shiftBudget(skim);
         advisor.pactTurns    = (advisor.pactTurns ?? 0) + 1;
@@ -484,6 +707,13 @@ export class AdvisorSystem {
 
   // Severity escalates with how long the scheme ran — the trail never resets
   _exposePact(advisor, scandalSystem) {
+    const me = this.state.marketEffects ?? {};
+    if ((me.exposureShield ?? 0) > 0) {
+      me.exposureShield--;
+      this.state.recentComments = ['Leaked ledgers are dismissed as forgeries within the hour.', ...(this.state.recentComments ?? [])].slice(0, 5);
+      console.log('[Pact] Exposure shielded by deepfake insurance');
+      return;
+    }
     const turns = advisor.pactTurns ?? 0;
     const tier  = turns <= 2 ? 'minor'
                 : turns <= 5 ? 'moderate'
@@ -515,7 +745,7 @@ export class AdvisorSystem {
     for (const advisor of s.advisors) {
       if (advisor.betrayed) continue;
       if ((advisor.trust ?? 50) >= 30) continue;
-      const penalty = ABSENCE_PENALTY[advisor.id];
+      const penalty = ABSENCE_PENALTY[domainOf(advisor)];
       if (!penalty) continue;
       if (penalty.budget)   s.shiftBudget(penalty.budget);
       if (penalty.approval) s.shiftApproval(penalty.approval);

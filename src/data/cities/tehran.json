@@ -23,7 +23,8 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Dr",
+      "domain_id": "finance",
       "name": "Dr. Arash Tehrani",
       "role": "Economic Affairs Minister",
       "portrait": "📊",
@@ -46,7 +47,32 @@
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Farzad",
+      "domain_id": "finance",
+      "name": "Farzad Maleki",
+      "role": "Budget & Planning Deputy",
+      "portrait": "🧾",
+      "agenda": "Slash non-essential public sector jobs to redirect funds to basic services like water and electricity.",
+      "dialogue": {
+        "briefing": [
+          "The state owns 60% of the economy. That's a structural deficit we can't afford.",
+          "Every month we delay subsidy reform, the next generation pays.",
+          "We can cut 200,000 ghost employees from the payroll tomorrow if we had political will."
+        ],
+        "disagreement": [
+          "Mass layoffs in an election year will trigger unrest. Wait.",
+          "You're austerity masquerading as reform. The poor will suffer most."
+        ],
+        "roast": [
+          "Your 'economic strategy' is begging for IMF scraps. Disgraceful.",
+          "I've seen more fiscal discipline from a household with five unemployed sons."
+        ],
+        "betrayal": "I've made a deal with the private sector chamber. They'll fund my alternative budget – and my new ministry."
+      }
+    },
+    {
+      "id": "military_liaison_Brig",
+      "domain_id": "military_liaison",
       "name": "Brig. Hossein Karimi",
       "role": "IRGC Liaison",
       "portrait": "⚔️",
@@ -69,7 +95,36 @@
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_Col",
+      "domain_id": "military_liaison",
+      "name": "Col. Parvin Ehsani",
+      "role": "Basij Coordination Chief",
+      "portrait": "🛡️",
+      "agenda": "Deploy Basij volunteer networks for civil defence and moral surveillance in every neighborhood.",
+      "dialogue": {
+        "briefing": [
+          "The Basij have 2 million trained members nationally. We can mobilize 50,000 in Tehran within hours.",
+          "Foreign influence operations target our youth through social media. We need counter-narratives.",
+          "A neighborhood watch program with Basij volunteers reduces petty crime and ideological deviation."
+        ],
+        "agreement": [
+          "The streets will be secure. Morally and physically.",
+          "We will identify the disloyal elements before they act."
+        ],
+        "disagreement": [
+          "You're arming ideologues with state power. That's a recipe for abuse.",
+          "The Basij answer to the Supreme Leader, not to you. Don't forget that."
+        ],
+        "roast": [
+          "Your 'security' is a slogan and a budget cut. We provide actual boots on the ground.",
+          "I've seen more loyalty from a stray cat than from your office."
+        ],
+        "betrayal": "The Basij commander has ordered us to monitor your communications. The Leader has concerns."
+      }
+    },
+    {
+      "id": "urban_planning_Maryam",
+      "domain_id": "urban_planning",
       "name": "Maryam Rostami",
       "role": "City Development Director",
       "portrait": "🏙️",
@@ -92,7 +147,36 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Behrouz",
+      "domain_id": "urban_planning",
+      "name": "Behrouz Ahmadi",
+      "role": "Slum Upgrading & Informal Settlements",
+      "portrait": "🏚️",
+      "agenda": "Regularize and upgrade informal settlements on the southern periphery before they become permanent ghettos.",
+      "dialogue": {
+        "briefing": [
+          "30% of Tehranis live in informal settlements with no legal title, no sewage, no fire safety.",
+          "We can provide deeds and basic utilities for 1/10th the cost of forced evictions.",
+          "The southern districts are a powder keg. Another heatwave, another fire, and the city burns."
+        ],
+        "agreement": [
+          "Land rights and basic dignity. The poor will finally have a stake.",
+          "This is how we prevent a social explosion – with concrete, not tear gas."
+        ],
+        "disagreement": [
+          "Formalizing squatters is rewarding lawbreakers. The property owners will revolt.",
+          "You're creating a permanent underclass with cheap fixes. Build real housing or nothing."
+        ],
+        "roast": [
+          "Your 'vision' for the south is a fresh coat of paint on a collapsed sewer.",
+          "I've seen more humane urban planning in a refugee camp."
+        ],
+        "betrayal": "I've registered the informal settlements as a voting bloc. They'll support my candidate, not yours."
+      }
+    },
+    {
+      "id": "transport_Kamran",
+      "domain_id": "transport",
       "name": "Kamran Sadeghi",
       "role": "Transport & Fuel Distribution",
       "portrait": "⛽",
@@ -115,7 +199,36 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Golnar",
+      "domain_id": "transport",
+      "name": "Golnar Saidi",
+      "role": "Metro Expansion & Pedestrianisation Lead",
+      "portrait": "🚇",
+      "agenda": "Accelerate metro construction and pedestrian zones despite IRGC opposition to 'Western-style' urbanism.",
+      "dialogue": {
+        "briefing": [
+          "Each new metro line takes 12 years to approve, 8 to build. We don't have 20 years.",
+          "The bazaar merchants support pedestrianisation – more foot traffic, more sales.",
+          "The conservatives will call bike lanes 'un-Islamic'. Let them. We build anyway."
+        ],
+        "agreement": [
+          "Speed over consensus. The city can't wait for every cleric's approval.",
+          "Modern infrastructure is not Western. It's necessary."
+        ],
+        "disagreement": [
+          "You're picking a fight with the bazaari and the clergy simultaneously. Political suicide.",
+          "Pedestrian zones in summer? At 40 degrees? Have you walked outside?"
+        ],
+        "roast": [
+          "Your 'transit plan' is a wish list with no budget and no allies.",
+          "I've seen faster construction in a tomb."
+        ],
+        "betrayal": "The Reformist Front has offered me the transport portfolio after the next election. I'm done waiting for your 'consensus'."
+      }
+    },
+    {
+      "id": "religious_affairs_Ayatollah",
+      "domain_id": "religious_affairs",
       "name": "Ayatollah Shirazi",
       "role": "Clerical Representative",
       "portrait": "☪️",
@@ -135,6 +248,34 @@
           "The clergy will not support a governor who abandons principle."
         ],
         "betrayal": "I've filed a formal complaint with the Supreme Leader's office. Your tenure is under review."
+      }
+    },
+    {
+      "id": "religious_affairs_Hojjat",
+      "domain_id": "religious_affairs",
+      "name": "Hojjat al-Islam Mohsen Qorbani",
+      "role": "Friday Prayer Leader (Temp)",
+      "portrait": "🕋",
+      "agenda": "Use the pulpit to rally support for economic self-reliance and anti-corruption campaigns.",
+      "dialogue": {
+        "briefing": [
+          "The people are angry at corruption, not at the Revolution. Give me names, I'll name them from the pulpit.",
+          "We can channel Friday prayers into volunteer labor for street cleaning and food distribution.",
+          "The reformists want to separate religion from governance. That is the real threat."
+        ],
+        "agreement": [
+          "Faith and action together. The mosque will mobilize.",
+          "The clergy stands with you against the thieves."
+        ],
+        "disagreement": [
+          "Attacking the wealthy from the pulpit will alienate your own donors.",
+          "You're using religion as a whip. That ends badly for everyone."
+        ],
+        "roast": [
+          "You speak of piety while your ministers steal. Hypocrisy has a name, and it's yours.",
+          "I've seen more genuine Islam in a prison cell than in your palace."
+        ],
+        "betrayal": "The conservative clerical council has withdrawn their support. I must follow their guidance. You are alone."
       }
     }
   ],

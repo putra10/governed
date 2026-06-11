@@ -23,14 +23,15 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Ho",
+      "domain_id": "finance",
       "name": "Ho Mei Lin",
       "role": "Ministry of Finance Liaison",
       "portrait": "🏦",
       "agenda": "Diversify Singapore's economy beyond finance and semiconductors before the next global shock.",
       "dialogue": {
         "briefing": [
-          "Our reserves are sovereign wealth fund-large. Our deployment strategy needs modernizing.",
+          "Our reserves are sovereign wealth fund-large. Our deployment strategy needs modernising.",
           "The semiconductor dependency is a geopolitical risk. Taiwan Strait instability affects us directly.",
           "Tourism and finance are our dual engines. Both are climate-vulnerable."
         ],
@@ -39,14 +40,39 @@
           "The Ministry of Finance requires alignment before any new program."
         ],
         "roast": [
-          "We've optimized ourselves into a corner. The optimization continues regardless.",
+          "We've optimised ourselves into a corner. The optimisation continues regardless.",
           "Singapore is a very efficient machine. The question is what it's for."
         ],
         "betrayal": "I've submitted a dissenting memo to the Ministry regarding your fiscal priorities. It's in the record."
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Vikram",
+      "domain_id": "finance",
+      "name": "Vikram Rajan",
+      "role": "Monetary Authority of Singapore Advisor",
+      "portrait": "💹",
+      "agenda": "Strengthen Singapore's position as a carbon trading and green finance hub to capture new growth.",
+      "dialogue": {
+        "briefing": [
+          "The global south will need billions in transition financing. We can be the intermediary.",
+          "Carbon credits are messy, but the first mover advantage is real.",
+          "Our forex reserves are solid. We can afford strategic bets on new asset classes."
+        ],
+        "disagreement": [
+          "You're gambling with reserves meant for currency stability.",
+          "Green finance is mostly branding. The fundamentals haven't changed."
+        ],
+        "roast": [
+          "Your 'diversification' plan is a buzzword bingo card.",
+          "I've seen more financial innovation from a hawker centre's QR code."
+        ],
+        "betrayal": "MAS has accepted my secondment to an international climate finance body. Your growth agenda is too slow for me."
+      }
+    },
+    {
+      "id": "military_liaison_BG",
+      "domain_id": "military_liaison",
       "name": "BG David Toh",
       "role": "MINDEF Liaison",
       "portrait": "🛡️",
@@ -55,7 +81,7 @@
         "briefing": [
           "NS disruptions from our policy decisions affect SAF readiness. They're connected.",
           "Regional tensions are at their highest since the Cold War. Our posture must reflect this.",
-          "Cybersecurity is the new defense frontier. We're investing but not fast enough."
+          "Cybersecurity is the new defence frontier. We're investing but not fast enough."
         ],
         "disagreement": [
           "National security implications of that decision haven't been considered.",
@@ -63,13 +89,42 @@
         ],
         "roast": [
           "Singapore's security is not an afterthought. Govern accordingly.",
-          "Our neighbors are watching every decision you make."
+          "Our neighbours are watching every decision you make."
         ],
         "betrayal": "I've raised concerns about your management with MINDEF leadership. This is noted."
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_COL",
+      "domain_id": "military_liaison",
+      "name": "COL (Ret.) Serene Koh",
+      "role": "Total Defence Secretariat",
+      "portrait": "⚓",
+      "agenda": "Integrate civilian crisis resilience (food, energy, cyber) into the national defence framework.",
+      "dialogue": {
+        "briefing": [
+          "A military threat is one scenario. A pandemic or grid failure is equally dangerous.",
+          "We have three weeks of rice reserves. That's not resilience, it's a prayer.",
+          "The sixth pillar of Total Defence is digital. We're losing that battle."
+        ],
+        "agreement": [
+          "Total Defence only works if civilians believe it. You're finally acting like it.",
+          "Resilience is a whole-of-society job, not just SAF's."
+        ],
+        "disagreement": [
+          "You're blurring military and civilian roles. That's how trust erodes.",
+          "Stockpiling rice is not the same as deterring a hostile navy."
+        ],
+        "roast": [
+          "Your 'defence' plan is a PowerPoint. My plan keeps the lights on.",
+          "I've seen more operational security from a public Telegram group."
+        ],
+        "betrayal": "The National Security Coordination Secretariat has asked me to bypass your office. I've accepted."
+      }
+    },
+    {
+      "id": "urban_planning_Lim",
+      "domain_id": "urban_planning",
       "name": "Lim Shu Fen",
       "role": "URA Chief Planner",
       "portrait": "🏙️",
@@ -92,7 +147,36 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Mohamed",
+      "domain_id": "urban_planning",
+      "name": "Mohamed Faizal",
+      "role": "HDB Deputy CEO (Estate Management)",
+      "portrait": "🏘️",
+      "agenda": "Retrofit older estates for climate resilience and ageing-in-place before they become unlivable.",
+      "dialogue": {
+        "briefing": [
+          "Our older HDB blocks weren't designed for 35°C days. The elderly are suffering.",
+          "Lift upgrading is behind schedule. Many blocks have no wheelchair access.",
+          "We can install rooftop solar and cooling paint in every precinct – but the budget is not approved."
+        ],
+        "agreement": [
+          "Fix the foundations before building new towers. Common sense.",
+          "Ageing estates need love, not just new BTO launches."
+        ],
+        "disagreement": [
+          "Retrofitting is expensive and disruptive. New towns generate political goodwill faster.",
+          "You're prioritising the past over the future."
+        ],
+        "roast": [
+          "Your 'estate renewal' is a fresh coat of paint and a prayer.",
+          "I've seen better maintenance from a condominium management dispute."
+        ],
+        "betrayal": "I've gone to the press with the internal report showing how underfunded our retrofitting program is. Sorry, but residents deserve to know."
+      }
+    },
+    {
+      "id": "transport_Jason",
+      "domain_id": "transport",
       "name": "Jason Ng",
       "role": "LTA Director",
       "portrait": "🚇",
@@ -115,7 +199,36 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Nurul",
+      "domain_id": "transport",
+      "name": "Nurul Huda",
+      "role": "Active Mobility & Pedestrian Safety Lead",
+      "portrait": "🚶",
+      "agenda": "Transform Singapore into a walkable city by reallocating road space from cars to people.",
+      "dialogue": {
+        "briefing": [
+          "Widening roads induces demand. We've known this for 50 years. We still do it.",
+          "Silver zones reduce elderly accidents by 80% – but we've only built 30 of them.",
+          "The Park Connector Network is great for recreation, not for daily commutes."
+        ],
+        "agreement": [
+          "Streets for people, not just for vehicles. Finally.",
+          "Walkable cities are liveable cities. Evidence is overwhelming."
+        ],
+        "disagreement": [
+          "Removing car lanes without alternative capacity will gridlock the CBD.",
+          "You're solving for able-bodied downtown workers, not the elderly in the suburbs."
+        ],
+        "roast": [
+          "Your 'car-lite' policy is a slogan on a bus ad. Mine has actual bollards.",
+          "I've seen more pedestrian priority in a Formula One pit lane."
+        ],
+        "betrayal": "The Walking and Cycling Association has asked me to chair their board. I'll advocate from outside your slow-moving bureaucracy."
+      }
+    },
+    {
+      "id": "religious_affairs_Dr",
+      "domain_id": "religious_affairs",
       "name": "Dr. Rahul Menon",
       "role": "Racial and Religious Harmony Director",
       "portrait": "🤝",
@@ -123,7 +236,7 @@
       "dialogue": {
         "briefing": [
           "CMIO framework works but new communities don't fit neatly into it.",
-          "Online radicalization is the new threat to religious harmony. It moves faster than policy.",
+          "Online radicalisation is the new threat to religious harmony. It moves faster than policy.",
           "The GRC system protects minority representation but limits political competition."
         ],
         "disagreement": [
@@ -135,6 +248,34 @@
           "We celebrate multiracialism on National Day. We need to practice it on the other 364."
         ],
         "betrayal": "I've spoken at a civil society forum about racial policy gaps without government clearance."
+      }
+    },
+    {
+      "id": "religious_affairs_Ustazah",
+      "domain_id": "religious_affairs",
+      "name": "Ustazah Aisyah Binte Hassan",
+      "role": "Interfaith Youth Engagement Coordinator",
+      "portrait": "🕌",
+      "agenda": "Build cross-community trust through shared civic projects (cleanups, tuition, food drives) rather than top-down messaging.",
+      "dialogue": {
+        "briefing": [
+          "The young don't read harmony white papers. They volunteer together or they radicalise alone.",
+          "We can put 500 Malay, Chinese, Indian, and Eurasian kids on a beach cleanup next month. It costs almost nothing.",
+          "The madrasah students feel alienated from national service discussions. Bring them in, not interrogate them."
+        ],
+        "agreement": [
+          "Shared sweat builds shared trust. I like it.",
+          "This is how we prevent future fault lines – by creating positive contact."
+        ],
+        "disagreement": [
+          "You're naive. Volunteers don't stop a riot.",
+          "The religious hardliners will accuse you of diluting faith. Be ready."
+        ],
+        "roast": [
+          "Your 'harmony' is a photo op with four leaders. My harmony is 500 kids who share ice packs after garbage duty.",
+          "I've seen more interfaith cooperation in a hawker centre queue than in your office."
+        ],
+        "betrayal": "The National Youth Council funded my projects directly. Your office's approval is no longer required."
       }
     }
   ],

@@ -16,6 +16,9 @@ function _revealSourceLabel(source) {
   if (source === 'corrupt_pact')       return 'The corruption scheme was discovered.';
   if (source === 'romance')            return 'The affair went public.';
   if (source === 'auto_fired')         return 'You left the story unanswered. It ran.';
+  if (source === 'ignored_problem')    return 'You left it on your desk for three weeks.';
+  if (source === 'impeachment')        return 'The hearings have begun.';
+  if (source === 'black_market')       return 'A deal went wrong.';
   return 'Fallout from your decision.';
 }
 
@@ -37,6 +40,76 @@ function renderScandalReveals(reveals) {
     </div>`).join('');
 }
 
+function renderHeatNotices(notices) {
+  if (!notices || !notices.length) return '';
+  return notices.map((n, i) => `
+    <div class="betrayal-overlay" data-heat-notice-index="${i}">
+      <div class="betrayal-modal sr-modal">
+        <div class="betrayal-header">
+          <span class="betrayal-icon">&#x1F50E;</span>
+          <span class="betrayal-label">SCRUTINY: ${n.level}</span>
+        </div>
+        <div class="betrayal-note">${n.note}</div>
+        <button class="betrayal-dismiss" data-dismiss-heat-notice="${i}">ACKNOWLEDGE</button>
+      </div>
+    </div>`).join('');
+}
+
+function renderMarketOffers(offers) {
+  if (!offers || !offers.length) return '';
+  return `
+    <div class="market-card">
+      <div class="mk-header">
+        <span class="mk-icon">&#x1F311;</span>
+        <span class="mk-title">THE BLACK MARKET IS OPEN TONIGHT</span>
+      </div>
+      ${offers.map(o => {
+        const price = o.askingPrice ?? 0;
+        const priceLabel = price < 0 ? `+${-price}M` : `${price}M`;
+        const riskLabel = o.risk ? `${Math.round(o.risk.chance * 100)}% it goes wrong` : 'no visible risk';
+        return `
+        <div class="mk-offer">
+          <div class="mk-name">${o.title} <span class="mk-type">${o.type.toUpperCase()}</span></div>
+          <div class="mk-desc">${o.desc}</div>
+          <div class="mk-terms">
+            ${price < 0 ? `Pays: <span class="mk-good">${priceLabel}</span>` : `Cost: <span class="mk-bad">${priceLabel}</span>`}
+            &nbsp;&middot;&nbsp; Heat: <span class="mk-warn">+${o.heat ?? 0}</span>
+            &nbsp;&middot;&nbsp; <span class="mk-warn">${riskLabel}</span>
+          </div>
+          <button class="mk-buy" data-buy-offer="${o.id}">${price < 0 ? 'SELL' : 'BUY'} (${priceLabel})</button>
+        </div>`;
+      }).join('')}
+      <button class="mk-pass" id="btn-pass-market">WALK AWAY</button>
+      <div class="mk-foot">Offers vanish at dawn &middot; every deal raises SCRUTINY</div>
+    </div>`;
+}
+
+function renderAddressCard(state) {
+  if ((state.heat ?? 0) < 25 || state.flags?.address_used) return '';
+  const atn = state.city?.address_the_nation ?? {};
+  const flavor = atn.option_flavor ?? {};
+  return `
+    <div class="address-card">
+      <div class="ad-header">
+        <span class="ad-icon">&#x1F399;</span>
+        <span class="ad-title">${atn.title ?? 'ADDRESS THE NATION'}</span>
+        <span class="ad-once">ONCE PER TERM</span>
+      </div>
+      <div class="ad-body">${atn.body ?? 'The press demands answers. A podium waits. What you say next will follow you.'}</div>
+      <div class="ad-actions">
+        <button class="ad-opt" data-address-option="own_it">
+          ${flavor.own_it ?? 'Own everything. Full apology.'} <span class="sc-resp-note">(-5% approval · heat -6)</span>
+        </button>
+        <button class="ad-opt" data-address-option="defiant">
+          ${flavor.defiant ?? 'Go on the attack. The press is the real scandal.'} <span class="sc-resp-note">(+3% approval · heat +2 · 15% scandal)</span>
+        </button>
+        <button class="ad-opt" data-address-option="deflect">
+          ${flavor.deflect ?? 'Blame outside agitators.'} <span class="sc-resp-note">(-2% approval · heat -3 · someone takes it personally)</span>
+        </button>
+      </div>
+    </div>`;
+}
+
 function renderBetrayalEvents(betrayals) {
   if (!betrayals || !betrayals.length) return '';
   return betrayals.map((b, i) => {
@@ -50,8 +123,8 @@ function renderBetrayalEvents(betrayals) {
     <div class="betrayal-overlay" data-betrayal-index="${i}">
       <div class="betrayal-modal">
         <div class="betrayal-header">
-          <span class="betrayal-icon">${relIcon}</span>
-          <span class="betrayal-label">ADVISOR BETRAYAL</span>
+          <span class="betrayal-icon">${b.sacrificed ? '\u{1F68C}' : relIcon}</span>
+          <span class="betrayal-label">${b.sacrificed ? 'SACRIFICED' : 'ADVISOR BETRAYAL'}</span>
         </div>
         <div class="betrayal-name">${b.advisorName}</div>
         <div class="betrayal-note">${relNote}</div>
@@ -314,12 +387,13 @@ export class DispatchScreen {
 
     return `
       <div class="screen">
+        ${renderHeatNotices(state.pendingHeatNotices)}
         ${renderScandalReveals(state.pendingScandalReveals)}
         ${renderBetrayalEvents(state.pendingBetrayals)}
         ${renderTopBar(state)}
         <div class="mobile-tab-strip">
           <button class="mob-tab mob-tab--active" data-mob-tab="dispatch">DISPATCH</button>
-          <button class="mob-tab" data-mob-tab="advisors">ADVISORS</button>
+          <button class="mob-tab" data-mob-tab="advisors">ADVISORS${(state.pendingLoverDemand || state.pendingPartnerDemand || state.pendingBribes?.length) ? '<span class="tab-dot"></span>' : ''}</button>
           <button class="mob-tab" data-mob-tab="feed">FEED</button>
         </div>
         <div class="main-body">
@@ -348,6 +422,7 @@ export class DispatchScreen {
             <div class="story">
               <div class="pip-row">${pipRowHTML}</div>
               ${storyHTML}
+              ${renderMarketOffers(state.pendingMarketOffers)}
             </div>
             <div class="dec">
               <div class="dec-l">YOUR DECISION</div>
@@ -355,6 +430,7 @@ export class DispatchScreen {
                 <div class="cards">${renderDecisionCards(decision)}</div>
                 <button class="confirm-btn" id="btn-confirm-decision" disabled>SELECT AN OPTION ABOVE</button>
               ` : `<div class="no-dec">No decisions pending this turn.</div>`}
+              ${renderAddressCard(state)}
               ${state.pendingScandal ? renderScandalCard(state.pendingScandal) : ''}
               ${state.pendingUnrest  ? renderUnrestCard(state.pendingUnrest)   : ''}
               <button class="skip-btn" id="btn-next-turn">END TURN</button>
@@ -364,7 +440,11 @@ export class DispatchScreen {
           <div class="right">
             <div class="adv-area">
               <div class="adv-h">ADVISORS</div>
-              ${advisors.map(a => renderAdvisorCard(a, (state.pendingBribes ?? []).some(b => b.advisorId === a.id))).join('')}
+              ${advisors.map(a => renderAdvisorCard(
+                a,
+                (state.pendingBribes ?? []).some(b => b.advisorId === a.id),
+                state.pendingLoverDemand?.advisorId === a.id || state.pendingPartnerDemand?.advisorId === a.id
+              )).join('')}
               ${renderBribeOffers(state.pendingBribes)}
               ${renderContractOffers(state.pendingContractOffers, state.activeContractDeals)}
             </div>
@@ -448,6 +528,28 @@ export class DispatchScreen {
     container.querySelectorAll('[data-dismiss-scandal-reveal]').forEach(btn => {
       btn.addEventListener('click', () => {
         handlers.dismissScandalReveal?.();
+      });
+    });
+
+    container.querySelectorAll('[data-dismiss-heat-notice]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        handlers.dismissHeatNotice?.();
+      });
+    });
+
+    container.querySelectorAll('[data-buy-offer]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        handlers.buyMarketOffer?.(btn.dataset.buyOffer);
+      });
+    });
+
+    container.querySelector('#btn-pass-market')?.addEventListener('click', () => {
+      handlers.passMarket?.();
+    });
+
+    container.querySelectorAll('[data-address-option]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        handlers.addressNation?.(btn.dataset.addressOption);
       });
     });
 

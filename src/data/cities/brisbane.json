@@ -33,7 +33,8 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Sarah",
+      "domain_id": "finance",
       "name": "Sarah Jenkins",
       "domain": "Treasury",
       "archetype": "Pragmatist",
@@ -67,7 +68,43 @@
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Mark",
+      "domain_id": "finance",
+      "name": "Mark 'Macca' Henderson",
+      "domain": "Ratepayers & Revenue",
+      "archetype": "Populist",
+      "hidden_agenda": "Slashing council rates to zero to win the next election, regardless of service delivery.",
+      "betrayal_trigger": "Raising council rates above inflation to fund a new civic stadium.",
+      "competence_rating": 6,
+      "relationship_meter": 70,
+      "dialogue": {
+        "briefing": [
+          "Ratepayers are screaming about the new utility charges.",
+          "The garbage collection contract is up for renewal.",
+          "Local businesses are threatening to leave due to red tape."
+        ],
+        "agreement": [
+          "Puts money back in pockets.",
+          "The punters will love this."
+        ],
+        "disagreement": [
+          "You're taxing us into the ground.",
+          "This is a vote-loser, mate."
+        ],
+        "betrayal": "You've turned into a tax-and-spend politician. I'm backing an independent against you.",
+        "roast": [
+          "Your financial plan is a joke.",
+          "You treat the public purse like your own wallet."
+        ],
+        "scandal_reaction": [
+          "The tabloids are going to have a field day.",
+          "Just tell them it was a clerical error."
+        ]
+      }
+    },
+    {
+      "id": "military_liaison_Senior",
+      "domain_id": "military_liaison",
       "name": "Senior Sergeant Craig O'Donovan",
       "domain": "Police & Emergency",
       "archetype": "Loyalist",
@@ -101,7 +138,43 @@
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_Commissioner",
+      "domain_id": "military_liaison",
+      "name": "Commissioner Chloe Vance",
+      "domain": "Fire & Emergency Services",
+      "archetype": "Crisis Manager",
+      "hidden_agenda": "Diverting all emergency funding to buy state-of-the-art aerial firefighting tech, ignoring urban rescue.",
+      "betrayal_trigger": "Cutting the emergency services budget to fund a new police academy.",
+      "competence_rating": 9,
+      "relationship_meter": 50,
+      "dialogue": {
+        "briefing": [
+          "Bushfire risk is extreme this weekend.",
+          "Our flood response protocols need a rewrite.",
+          "Volunteer numbers in the rural fire brigades are dropping."
+        ],
+        "agreement": [
+          "Keeps the crews safe.",
+          "Good operational call."
+        ],
+        "disagreement": [
+          "You're putting lives at risk.",
+          "This ignores the hazard mapping."
+        ],
+        "betrayal": "You've compromised our emergency response. I'm going to the press.",
+        "roast": [
+          "Your disaster plan is wishful thinking.",
+          "You'd panic in a phone booth."
+        ],
+        "scandal_reaction": [
+          "I'm activating the media liaison.",
+          "Don't talk to the press without me."
+        ]
+      }
+    },
+    {
+      "id": "urban_planning_Dr",
+      "domain_id": "urban_planning",
       "name": "Dr. Liam Nguyen",
       "domain": "Planning & Environment",
       "archetype": "Idealist",
@@ -135,7 +208,43 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Victoria",
+      "domain_id": "urban_planning",
+      "name": "Victoria Sterling",
+      "domain": "Development & Zoning",
+      "archetype": "Developer Darling",
+      "hidden_agenda": "Pushing for ultra-high density 'Singapore-style' mega-towers in the CBD fringe to maximize developer profits.",
+      "betrayal_trigger": "Imposing a strict three-storey height limit on all new CBD fringe developments.",
+      "competence_rating": 8,
+      "relationship_meter": 60,
+      "dialogue": {
+        "briefing": [
+          "The developers are threatening a capital strike.",
+          "We need to upzone the transit corridors.",
+          "Affordable housing targets are scaring off investors."
+        ],
+        "agreement": [
+          "Keeps the cranes in the sky.",
+          "Good for growth."
+        ],
+        "disagreement": [
+          "You're strangling the city's growth.",
+          "NIMBYs are running the show."
+        ],
+        "betrayal": "You've killed the development pipeline. Enjoy the housing crisis.",
+        "roast": [
+          "Your planning scheme is a relic.",
+          "You're running the city like a gated community."
+        ],
+        "scandal_reaction": [
+          "This will spook the investors.",
+          "I'll handle the developer calls."
+        ]
+      }
+    },
+    {
+      "id": "transport_Emma",
+      "domain_id": "transport",
       "name": "Emma Wilson",
       "domain": "Infrastructure",
       "archetype": "Fixer",
@@ -169,7 +278,43 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Jaxon",
+      "domain_id": "transport",
+      "name": "Jaxon Reed",
+      "domain": "Active Transport & Mobility",
+      "archetype": "Progressive Activist",
+      "hidden_agenda": "Banning private cars from the entire CBD and inner suburbs to force a shift to cycling and micro-mobility.",
+      "betrayal_trigger": "Widening the M1 and adding a new lane to the Gateway Bridge.",
+      "competence_rating": 7,
+      "relationship_meter": 65,
+      "dialogue": {
+        "briefing": [
+          "Cycling fatalities are up this year.",
+          "The bus network reliability is terrible.",
+          "E-scooter clutter is causing pedestrian complaints."
+        ],
+        "agreement": [
+          "Gets people moving.",
+          "A win for the planet."
+        ],
+        "disagreement": [
+          "You're prioritizing cars over people.",
+          "This is 1950s thinking."
+        ],
+        "betrayal": "You're just building more roads for more traffic. I'm organizing a protest.",
+        "roast": [
+          "Your transport vision is just more asphalt.",
+          "You're addicted to the internal combustion engine."
+        ],
+        "scandal_reaction": [
+          "The green vote will abandon you.",
+          "This is a step backward."
+        ]
+      }
+    },
+    {
+      "id": "religious_affairs_Reverend",
+      "domain_id": "religious_affairs",
       "name": "Reverend Peter Davies",
       "domain": "Community & Heritage",
       "archetype": "Moralist",
@@ -199,6 +344,41 @@
         "scandal_reaction": [
           "A disappointing moral failure.",
           "The community is shocked."
+        ]
+      }
+    },
+    {
+      "id": "religious_affairs_Amina",
+      "domain_id": "religious_affairs",
+      "name": "Amina El-Sayed",
+      "domain": "Multicultural & Community Cohesion",
+      "archetype": "Community Diplomat",
+      "hidden_agenda": "Securing massive council grants exclusively for ethnic community festivals and cultural centers, alienating the Anglo-Celtic base.",
+      "betrayal_trigger": "Canceling the council's Multicultural Festival budget to fund a traditional Australia Day concert.",
+      "competence_rating": 7,
+      "relationship_meter": 60,
+      "dialogue": {
+        "briefing": [
+          "The new migrant communities need better translation services at council.",
+          "There are tensions over land use for cultural festivals.",
+          "Youth engagement in the ethnic communities is dropping."
+        ],
+        "agreement": [
+          "Builds a stronger community.",
+          "Very inclusive."
+        ],
+        "disagreement": [
+          "You're ignoring a huge chunk of the population.",
+          "This sends a terrible message."
+        ],
+        "betrayal": "You've abandoned the diverse communities that built this city. We will not forget this.",
+        "roast": [
+          "Your community engagement is purely tokenistic.",
+          "You only care about the traditional voter base."
+        ],
+        "scandal_reaction": [
+          "This plays into the hands of the populists.",
+          "I'll do damage control with the community leaders."
         ]
       }
     }

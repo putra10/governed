@@ -77,7 +77,9 @@ export function getGenericProblemById(id, city) {
 export function getNextGenericProblem(state) {
   if (!state.city) return null;
 
-  // Keep showing any unresolved presented decision until player resolves it
+  // Keep showing any unresolved presented decision until player resolves it.
+  // Unresolved problems CARRY OVER between turns (oldest first) — and after
+  // 3 turns the turn-manager discloses them with consequences.
   const unresolvedId = state.presentedDecisions.find(id =>
     !state.pastDecisions.some(p => p.decisionId === id)
   );
@@ -86,8 +88,9 @@ export function getNextGenericProblem(state) {
     if (unresolvedProb) return unresolvedProb;
   }
 
-  // Enforce per-turn quota: return null once cap is reached so player ends turn
-  if (state.decisionCapReached && state.decisionCapReached()) return null;
+  // Only ONE NEW problem is presented per turn (carryover resolutions don't
+  // consume the day's new problem — that used to eat a content day)
+  if (state.lastPresentTurn === state.turn) return null;
 
   // Surface a new eligible problem
   const eligible = ALL_GENERIC_PROBLEMS.filter(p => {
@@ -95,7 +98,7 @@ export function getNextGenericProblem(state) {
     if (state.presentedDecisions.includes(p.id)) return false;
     // Layer 2: advisor with trust < 30 stops flagging their domain's problems
     if (p._domain && state.advisors?.length) {
-      const adv = state.advisors.find(a => a.id === p._domain && !a.betrayed);
+      const adv = state.advisors.find(a => (a.domain_id ?? a.id) === p._domain && !a.betrayed);
       if (adv && (adv.trust ?? 50) < 30) return false;
     }
     const turnMin = p.turn_min ?? 1;
@@ -119,7 +122,10 @@ export function getNextGenericProblem(state) {
       !state.pastDecisions.some(past => past.decisionId === p.id)
     );
     // Reset presentedDecisions so replayed problems show fresh
-    if (pool.length > 0) state.presentedDecisions = [];
+    if (pool.length > 0) {
+      state.presentedDecisions = [];
+      state.problemDeadlines = {};
+    }
   }
 
   if (pool.length === 0) return null;
@@ -127,6 +133,9 @@ export function getNextGenericProblem(state) {
   const chosen = randomPick(pool);
   if (chosen) {
     state.presentedDecisions.push(chosen.id);
+    if (!state.problemDeadlines) state.problemDeadlines = {};
+    state.problemDeadlines[chosen.id] = state.turn; // 3-turn clock starts
+    state.lastPresentTurn = state.turn;
     return normalizeProblem(chosen, state.city);
   }
 

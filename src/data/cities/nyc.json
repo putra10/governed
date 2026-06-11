@@ -23,7 +23,8 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Janet",
+      "domain_id": "finance",
       "name": "Janet Kim",
       "role": "NYC Office of Management and Budget Director",
       "portrait": "📋",
@@ -46,7 +47,32 @@
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Richard",
+      "domain_id": "finance",
+      "name": "Richard Sterling",
+      "role": "NYC Economic Development Corporation (EDC) President",
+      "portrait": "🏢",
+      "agenda": "Lure Fortune 500 companies and tech giants with massive tax subsidies, regardless of local impact.",
+      "dialogue": {
+        "briefing": [
+          "Amazon and Citadel are looking at Miami. We need to offer them a billion in tax breaks to stay.",
+          "The commercial real estate vacancy rate in Midtown is 20%. We must convert offices to residential, or let them rot.",
+          "Small businesses complain about taxes, but tech hubs are the only things growing our revenue base."
+        ],
+        "disagreement": [
+          "You're letting ideology kill a deal that would bring 5,000 high-paying jobs.",
+          "Tax abatements are an investment, not a giveaway. You're looking at it wrong."
+        ],
+        "roast": [
+          "You're running the city's economy like a community board meeting. It's too small.",
+          "We can't fund the subway on the goodwill of local coffee shops."
+        ],
+        "betrayal": "I've leaked the details of your failed tech-hub negotiations to the Wall Street Journal. The business community needs to know you're hostile."
+      }
+    },
+    {
+      "id": "military_liaison_Commissioner",
+      "domain_id": "military_liaison",
       "name": "Commissioner Ray Torres",
       "role": "NYPD Police Commissioner",
       "portrait": "👮",
@@ -69,7 +95,32 @@
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_Aisha",
+      "domain_id": "military_liaison",
+      "name": "Aisha Vance",
+      "role": "Director of the Mayor's Office to Prevent Gun Violence",
+      "portrait": "🕊️",
+      "agenda": "Redirect NYPD budget to community-based violence interrupters and mental health responders.",
+      "dialogue": {
+        "briefing": [
+          "NYPD spent 11 billion last year. Gun violence actually went up in the neighborhoods that need it most.",
+          "The CAHOOMS and Cure Violence programs are underfunded. They actually stop shootings before they happen.",
+          "We need a non-police response for mental health crises. The NYPD is treating them like criminals."
+        ],
+        "disagreement": [
+          "Throwing more money at the NYPD won't solve a mental health and poverty crisis.",
+          "You're prioritizing the police union over the lives of kids in East New York."
+        ],
+        "roast": [
+          "Arresting our way out of trauma is a strategy that failed thirty years ago.",
+          "You think buying more squad cars makes us safe? It just makes us a police state."
+        ],
+        "betrayal": "I'm testifying before the City Council budget committee tomorrow. I'm bringing the data that proves your policing strategy is a failure."
+      }
+    },
+    {
+      "id": "urban_planning_Maria",
+      "domain_id": "urban_planning",
       "name": "Maria Santos",
       "role": "NYC Department of City Planning Director",
       "portrait": "🗽",
@@ -92,7 +143,32 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Eleanor",
+      "domain_id": "urban_planning",
+      "name": "Eleanor Prescott",
+      "role": "Chair of the Landmarks Preservation Commission",
+      "portrait": "🏛️",
+      "agenda": "Protect NYC's historic architecture and block any development that alters neighborhood 'character'.",
+      "dialogue": {
+        "briefing": [
+          "Developers are trying to tear down another row of 19th-century brownstones in the West Village.",
+          "The new supertall on 57th Street is casting shadows over Central Park. It's an ecological and aesthetic disaster.",
+          "We have 450 pending applications to demolish historic structures. My staff is drowning."
+        ],
+        "disagreement": [
+          "Once a historic facade is gone, it's gone forever. You can't put a price on it.",
+          "You're treating NYC like a blank canvas for billionaires. It's a museum."
+        ],
+        "roast": [
+          "Your idea of 'affordable housing' is a glass box that doesn't match the street wall.",
+          "You'd pave over the Brooklyn Bridge if a developer promised you a cut of the tolls."
+        ],
+        "betrayal": "I've officially designated the entire block you wanted to rezone as a historic district. Good luck building your tower now."
+      }
+    },
+    {
+      "id": "transport_David",
+      "domain_id": "transport",
       "name": "David Chen",
       "role": "MTA Liaison",
       "portrait": "🚇",
@@ -115,7 +191,32 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Sarah",
+      "domain_id": "transport",
+      "name": "Sarah Kessler",
+      "role": "NYC Department of Transportation (DOT) Commissioner",
+      "portrait": "🚲",
+      "agenda": "Reclaim street space from cars for protected bike lanes, busways, and pedestrian plazas, infuriating drivers and delivery unions.",
+      "dialogue": {
+        "briefing": [
+          "We need to expand the 14th Street busway model to the B46 and M15 routes. The delivery unions are already protesting.",
+          "Pedestrian fatalities are up. We need to lower speed limits and add more raised crosswalks in the outer boroughs.",
+          "The protected bike lane network is fragmented. We need to rip up 500 parking spots a month to connect it."
+        ],
+        "disagreement": [
+          "You're caving to the suburban drivers who commute into the city. Streets are for people, not cars.",
+          "Removing a parking spot to build a bus lane saves lives. It's not a debate."
+        ],
+        "roast": [
+          "You treat the Department of Transportation like it's the Department of Automobile Storage.",
+          "A city designed for cars is a city that hates its children."
+        ],
+        "betrayal": "I've authorized the installation of permanent concrete bollards on the avenues you wanted to keep open to traffic. The paint is already dry."
+      }
+    },
+    {
+      "id": "religious_affairs_Rev",
+      "domain_id": "religious_affairs",
       "name": "Rev. Marcus James",
       "role": "Interfaith Coalition Director",
       "portrait": "⛪",
@@ -135,6 +236,30 @@
           "I've been to more funerals of young people than I can count this year."
         ],
         "betrayal": "I've endorsed the city council opposition and will campaign against your reelection."
+      }
+    },
+    {
+      "id": "religious_affairs_Monsignor",
+      "domain_id": "religious_affairs",
+      "name": "Monsignor Thomas Doyle",
+      "role": "Archdiocesan Liaison to the City",
+      "portrait": "✝️",
+      "agenda": "Secure city subsidies for Catholic schools and facilitate the sale of underutilized church properties to luxury developers to fund the Archdiocese.",
+      "dialogue": {
+        "briefing": [
+          "We are closing three more parishes in the Bronx. The maintenance costs are bankrupting the Archdiocese.",
+          "The city needs to offer tuition vouchers for our Catholic school students. They're fleeing to public schools that are failing.",
+          "We own prime real estate in Manhattan that's just sitting there as empty rectories. Let us sell it to the developers."
+        ],
+        "disagreement": [
+          "You can't expect the Church to run the city's social safety net without financial support.",
+          "Blocking our property sales to fund affordable housing is just punishing the Archdiocese."
+        ],
+        "roast": [
+          "The city takes our tax-exempt status for granted while we educate a quarter of your students.",
+          "You look at our land and see public housing. I see the future of the Archdiocese."
+        ],
+        "betrayal": "I've instructed the Archdiocese to halt all our charitable partnerships with the city. You can run the soup kitchens yourself."
       }
     }
   ],

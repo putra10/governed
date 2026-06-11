@@ -1,6 +1,6 @@
 // src/engine/game-state.js — Single source of truth
 import { getNextGenericProblem } from './generic-problems.js';
-import { seed, shuffle } from '../utils/random.js';
+import { seed, shuffle, randomPick } from '../utils/random.js';
 
 export const state = {
   settings: {
@@ -45,6 +45,11 @@ export const state = {
   presentedDecisions: [],
   decisionsThisTurn: 0,
   maxDecisionsThisTurn: 1,
+  // Problem backlog: id → turn it was presented. Unresolved problems carry
+  // over; after 3 turns they disclose themselves (scandal or public anger).
+  problemDeadlines: {},
+  lastPresentTurn: 0,
+  ignoredProblems: 0,
 
   recentComments: [],
 
@@ -58,7 +63,22 @@ export const state = {
   // Back channel: one action per turn (stores the turn it was used)
   backChannelUsedTurn: 0,
   // Tally of dirty politics for the end-of-term report
-  dirtyDeeds: { skimmed: 0, threats: 0, leaks: 0, exposed: 0 },
+  dirtyDeeds: { skimmed: 0, threats: 0, leaks: 0, exposed: 0, marketBuys: 0 },
+
+  // SCRUTINY (heat) system
+  heat: 0,
+  lastHeatGainTurn: 0,
+  siegeTurns: 0,
+  pendingHeatNotices: [],
+
+  // Black market
+  pendingMarketOffers: [],
+  purchasedOffers: [],
+  marketEffects: {},
+
+  // Lover arc + crime partner demands
+  pendingLoverDemand: null,
+  pendingPartnerDemand: null,
 
   // ── Lifecycle ─────────────────────────────────────────────────────────
 
@@ -73,11 +93,25 @@ export const state = {
     this.pendingCrisis = null;
     const TIER_ADVISOR_COUNTS = { easy: 5, medium: 5, hard: 4, extreme: 3, war: 3 };
     const targetCount = cityData.advisor_count ?? TIER_ADVISOR_COUNTS[cityData.tier] ?? 5;
-    const shuffled = shuffle(cityData.advisors);
-    const selectedAdvisors = shuffled.slice(0, Math.min(targetCount, shuffled.length));
+
+    // Candidate pools: group by canonical domain (domain_id ?? id), pick ONE
+    // candidate per domain — NEVER two advisors of the same domain — then
+    // randomly choose which domains are present (tier count).
+    const byDomain = {};
+    for (const a of cityData.advisors) {
+      const d = a.domain_id ?? a.id;
+      if (!byDomain[d]) byDomain[d] = [];
+      byDomain[d].push(a);
+    }
+    const domains = shuffle(Object.keys(byDomain));
+    const selectedAdvisors = domains
+      .slice(0, Math.min(targetCount, domains.length))
+      .map(d => randomPick(byDomain[d]));
+
+    const trustLevels = cityData.opening_sequence.starting_stats.advisor_trust_levels ?? {};
     this.advisors = selectedAdvisors.map(a => ({
       ...a,
-      trust: cityData.opening_sequence.starting_stats.advisor_trust_levels?.[a.id] ?? 50,
+      trust: trustLevels[a.id] ?? trustLevels[a.domain_id ?? a.id] ?? 50,
       agendaProgress: a.agenda_progress ?? 0,
       betrayed: false,
       romanceExposed: false,
@@ -89,6 +123,10 @@ export const state = {
       pactResidual: 0,
       threatCount: 0,
       leakUsed: false,
+      scorned: 0,
+      sacrificed: false,
+      lastDemandTurn: 0,
+      pactPaused: 0,
     }));
     this.pastDecisions = [];
     this.pastCrises = [];
@@ -99,6 +137,9 @@ export const state = {
     this.recentComments = [];
     this.decisionsThisTurn = 0;
     this.maxDecisionsThisTurn = 1;
+    this.problemDeadlines = {};
+    this.lastPresentTurn = 0;
+    this.ignoredProblems = 0;
     this.pendingBribes = [];
     this.pendingScandal = null;
     this.pendingBetrayals = [];
@@ -113,7 +154,16 @@ export const state = {
     this.endReason = null;
     this.pendingScandalReveals = [];
     this.backChannelUsedTurn = 0;
-    this.dirtyDeeds = { skimmed: 0, threats: 0, leaks: 0, exposed: 0 };
+    this.dirtyDeeds = { skimmed: 0, threats: 0, leaks: 0, exposed: 0, marketBuys: 0 };
+    this.heat = 0;
+    this.lastHeatGainTurn = 0;
+    this.siegeTurns = 0;
+    this.pendingHeatNotices = [];
+    this.pendingMarketOffers = [];
+    this.purchasedOffers = [];
+    this.marketEffects = {};
+    this.pendingLoverDemand = null;
+    this.pendingPartnerDemand = null;
   },
 
   // ── Decision pacing ───────────────────────────────────────────────────
@@ -148,6 +198,17 @@ export const state = {
 
   getAdvisor(id) {
     return this.advisors.find(a => a.id === id);
+  },
+
+  // Find by canonical domain (candidate pools: unique id ≠ domain)
+  getAdvisorByDomain(domainId) {
+    return this.advisors.find(a => (a.domain_id ?? a.id) === domainId);
+  },
+
+  // Content references advisors by canonical domain ('finance'); runtime code
+  // references them by unique id. This resolves either.
+  findAdvisor(key) {
+    return this.getAdvisor(key) ?? this.getAdvisorByDomain(key);
   },
 
   // ── Crises ────────────────────────────────────────────────────────────
@@ -220,6 +281,10 @@ export const state = {
         pactResidual: a.pactResidual ?? 0,
         threatCount: a.threatCount ?? 0,
         leakUsed: a.leakUsed ?? false,
+        scorned: a.scorned ?? 0,
+        sacrificed: a.sacrificed ?? false,
+        lastDemandTurn: a.lastDemandTurn ?? 0,
+        pactPaused: a.pactPaused ?? 0,
       })),
       pastDecisions: this.pastDecisions,
       pastCrises: this.pastCrises,
@@ -228,6 +293,9 @@ export const state = {
       presentedDecisions: this.presentedDecisions,
       decisionsThisTurn: this.decisionsThisTurn,
       maxDecisionsThisTurn: this.maxDecisionsThisTurn,
+      problemDeadlines: this.problemDeadlines,
+      lastPresentTurn: this.lastPresentTurn,
+      ignoredProblems: this.ignoredProblems,
       pendingBribes: this.pendingBribes,
       pendingScandal: this.pendingScandal,
       pendingContractOffers: this.pendingContractOffers,
@@ -243,6 +311,15 @@ export const state = {
       pendingScandalReveals: this.pendingScandalReveals,
       backChannelUsedTurn: this.backChannelUsedTurn,
       dirtyDeeds: this.dirtyDeeds,
+      heat: this.heat,
+      lastHeatGainTurn: this.lastHeatGainTurn,
+      siegeTurns: this.siegeTurns,
+      pendingHeatNotices: this.pendingHeatNotices,
+      pendingMarketOffers: this.pendingMarketOffers,
+      purchasedOffers: this.purchasedOffers,
+      marketEffects: this.marketEffects,
+      pendingLoverDemand: this.pendingLoverDemand,
+      pendingPartnerDemand: this.pendingPartnerDemand,
       flags: this.flags,
     });
   },
@@ -264,6 +341,9 @@ export const state = {
     this.presentedDecisions   = parsed.presentedDecisions ?? [];
     this.decisionsThisTurn    = parsed.decisionsThisTurn ?? 0;
     this.maxDecisionsThisTurn = parsed.maxDecisionsThisTurn ?? 1;
+    this.problemDeadlines     = parsed.problemDeadlines ?? {};
+    this.lastPresentTurn      = parsed.lastPresentTurn ?? 0;
+    this.ignoredProblems      = parsed.ignoredProblems ?? 0;
     this.pendingBribes        = parsed.pendingBribes ?? [];
     this.pendingScandal       = parsed.pendingScandal ?? null;
     this.pendingContractOffers  = parsed.pendingContractOffers ?? [];
@@ -278,7 +358,16 @@ export const state = {
     this.endReason               = parsed.endReason ?? null;
     this.pendingScandalReveals   = parsed.pendingScandalReveals ?? [];
     this.backChannelUsedTurn     = parsed.backChannelUsedTurn ?? 0;
-    this.dirtyDeeds              = parsed.dirtyDeeds ?? { skimmed: 0, threats: 0, leaks: 0, exposed: 0 };
+    this.dirtyDeeds              = parsed.dirtyDeeds ?? { skimmed: 0, threats: 0, leaks: 0, exposed: 0, marketBuys: 0 };
+    this.heat                    = parsed.heat ?? 0;
+    this.lastHeatGainTurn        = parsed.lastHeatGainTurn ?? 0;
+    this.siegeTurns              = parsed.siegeTurns ?? 0;
+    this.pendingHeatNotices      = parsed.pendingHeatNotices ?? [];
+    this.pendingMarketOffers     = parsed.pendingMarketOffers ?? [];
+    this.purchasedOffers         = parsed.purchasedOffers ?? [];
+    this.marketEffects           = parsed.marketEffects ?? {};
+    this.pendingLoverDemand      = parsed.pendingLoverDemand ?? null;
+    this.pendingPartnerDemand    = parsed.pendingPartnerDemand ?? null;
     this.flags                   = parsed.flags ?? {};
 
     // Rebuild the advisor roster from the SAVE, not from loadCity's random
@@ -301,6 +390,10 @@ export const state = {
           pactResidual:       saved.pactResidual ?? 0,
           threatCount:        saved.threatCount ?? 0,
           leakUsed:           saved.leakUsed ?? false,
+          scorned:            saved.scorned ?? 0,
+          sacrificed:         saved.sacrificed ?? false,
+          lastDemandTurn:     saved.lastDemandTurn ?? 0,
+          pactPaused:         saved.pactPaused ?? 0,
         };
       });
     }

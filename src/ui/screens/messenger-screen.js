@@ -1,5 +1,5 @@
 import { trustStatus, advisorCardClass, pick, now } from '../ui-helpers.js';
-import { EMERGENCY_POWERS, BACK_CHANNEL_ACTIONS } from '../../engine/advisor-system.js';
+import { EMERGENCY_POWERS, BACK_CHANNEL_ACTIONS, domainOf } from '../../engine/advisor-system.js';
 
 export class MessengerScreen {
   static render(state, activeAdvisorId) {
@@ -75,6 +75,8 @@ export class MessengerScreen {
               </div>` : ''}
             ${MessengerScreen._renderRecommendation(state, advisor)}
             ${MessengerScreen._renderEmergencyPower(state, advisor)}
+            ${MessengerScreen._renderLoverDemand(state, advisor)}
+            ${MessengerScreen._renderPartnerDemand(state, advisor)}
             ${MessengerScreen._renderBackChannel(state, advisor)}
           </div>
           <div class="qr-bar">
@@ -113,7 +115,7 @@ export class MessengerScreen {
 
   static _renderEmergencyPower(state, advisor) {
     if (advisor.emergencyPowerUsed) return '';
-    const power = EMERGENCY_POWERS[advisor.id];
+    const power = EMERGENCY_POWERS[domainOf(advisor)];
     if (!power) return '';
     if (!power.condition(state, advisor)) return '';
 
@@ -126,6 +128,50 @@ export class MessengerScreen {
           ACTIVATE -- ${power.label}
         </button>
         <div class="adv-ep-warn">One-time use &middot; -8 trust</div>
+      </div>`;
+  }
+
+  static _renderLoverDemand(state, advisor) {
+    const d = state.pendingLoverDemand;
+    if (!d || d.advisorId !== advisor.id) return '';
+    const ask = d.type === 'fund'
+      ? `"My district needs that community center. 30M and it breaks ground next month. For me?"`
+      : `"My cousin's case... it could just go away, couldn't it? One word from you."`;
+    const cost = d.type === 'fund' ? '-30M, +5 trust' : '+1 heat, +5 trust';
+    return `
+      <div class="adv-bc lover-demand">
+        <div class="adv-bc-header">&#x1F498; ${advisor.name.toUpperCase()} ASKS</div>
+        <div class="ld-ask">${ask}</div>
+        <button class="bc-action" data-lover-demand="accept">
+          <span class="bca-label">DO IT FOR THEM</span>
+          <span class="bca-note">${cost}</span>
+        </button>
+        <button class="bc-action" data-lover-demand="refuse">
+          <span class="bca-label">REFUSE</span>
+          <span class="bca-note">The relationship cools one step</span>
+        </button>
+      </div>`;
+  }
+
+  static _renderPartnerDemand(state, advisor) {
+    const d = state.pendingPartnerDemand;
+    if (!d || d.advisorId !== advisor.id) return '';
+    const isCut = d.type === 'bigger_cut';
+    const ask = isCut
+      ? `"My people are taking all the risk out there. We need a bigger cut — 25M keeps everyone smiling and silent."`
+      : `"I don't like it. Someone's been asking questions at the depot. Maybe we go quiet for a while... maybe we stop."`;
+    return `
+      <div class="adv-bc partner-demand">
+        <div class="adv-bc-header">&#x1F91D; YOUR PARTNER NEEDS AN ANSWER</div>
+        <div class="ld-ask">${ask}</div>
+        <button class="bc-action" data-partner-demand="accept">
+          <span class="bca-label">${isCut ? 'PAY THEM' : 'LIE LOW'}</span>
+          <span class="bca-note">${isCut ? '-25M, +5 trust' : 'No skim or discovery risk next turn'}</span>
+        </button>
+        <button class="bc-action" data-partner-demand="refuse">
+          <span class="bca-label">REFUSE</span>
+          <span class="bca-note">${isCut ? 'Trail thickens, -8 trust' : 'Trail thickens, -5 trust'}</span>
+        </button>
       </div>`;
   }
 
@@ -214,6 +260,18 @@ export class MessengerScreen {
     container.querySelectorAll('[data-back-channel]').forEach(btn => {
       btn.addEventListener('click', () => {
         handlers.backChannelAction?.(activeAdvisorId, btn.dataset.backChannel);
+      });
+    });
+
+    container.querySelectorAll('[data-lover-demand]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        handlers.loverDemand?.(btn.dataset.loverDemand === 'accept');
+      });
+    });
+
+    container.querySelectorAll('[data-partner-demand]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        handlers.partnerDemand?.(btn.dataset.partnerDemand === 'accept');
       });
     });
   }

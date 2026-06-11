@@ -33,7 +33,8 @@
   },
   "advisors": [
     {
-      "id": "finance",
+      "id": "finance_Siti",
+      "domain_id": "finance",
       "name": "Siti Rahayu",
       "domain": "Finance & Budget",
       "archetype": "Pragmatist",
@@ -67,7 +68,43 @@
       }
     },
     {
-      "id": "military_liaison",
+      "id": "finance_Dr",
+      "domain_id": "finance",
+      "name": "Dr. Arjuna Wijaya",
+      "domain": "Economic Development & Digital Economy",
+      "archetype": "Technocrat",
+      "hidden_agenda": "Pushing Jakarta's digital ID and smart city surveillance budget through under 'infrastructure'",
+      "betrayal_trigger": "Smart city digital transformation budget cut below 120M two turns in a row",
+      "competence_rating": 8,
+      "relationship_meter": 60,
+      "dialogue": {
+        "briefing": [
+          "Governor, Jakarta's digital payment adoption is outpacing Singapore. We need to scale it.",
+          "Three new tech parks are pending approval. They'll bring foreign investment.",
+          "Our data centers are expanding, but the municipal power grid isn't keeping up."
+        ],
+        "agreement": [
+          "Excellent. The data supports this approach.",
+          "I'll fast-track the digital permits."
+        ],
+        "disagreement": [
+          "Governor, that ignores the digital transition roadmap entirely.",
+          "We're trading long-term competitiveness for short-term optics."
+        ],
+        "betrayal": "You stalled the smart city initiative. I've already shared the revised roadmap with the Ministry.",
+        "roast": [
+          "You're governing Jakarta like it's still running on fax machines.",
+          "Innovation doesn't wait for committee meetings."
+        ],
+        "scandal_reaction": [
+          "The system logs will clear us. Everything is documented.",
+          "I'll have IT isolate the compromised accounts immediately."
+        ]
+      }
+    },
+    {
+      "id": "military_liaison_Brigadir",
+      "domain_id": "military_liaison",
       "name": "Brigadir Budi Santoso",
       "domain": "Security & Order",
       "archetype": "Hardliner",
@@ -101,7 +138,43 @@
       }
     },
     {
-      "id": "urban_planning",
+      "id": "military_liaison_Komisaris",
+      "domain_id": "military_liaison",
+      "name": "Komisaris Rina Wijaya",
+      "domain": "Intelligence & Community Safety",
+      "archetype": "Strategist",
+      "hidden_agenda": "Building a covert neighborhood informant network to monitor political rivals",
+      "betrayal_trigger": "Police transparency mandate passed or covert ops funding cut twice",
+      "competence_rating": 7,
+      "relationship_meter": 55,
+      "dialogue": {
+        "briefing": [
+          "Governor, tensions are brewing in three districts. We can prevent escalation before it starts.",
+          "Community trust is fragile. I'm recommending neighborhood safety councils.",
+          "My informants report increased chatter. It's manageable if we act early."
+        ],
+        "agreement": [
+          "Smart. Prevention always beats reaction.",
+          "I'll coordinate with the local RT/RW leaders."
+        ],
+        "disagreement": [
+          "Governor, heavy-handed tactics will only radicalize them.",
+          "We need intelligence, not intimidation."
+        ],
+        "betrayal": "You cut the network's funding. Now you're blind. I'll be operating independently.",
+        "roast": [
+          "You're putting out fires instead of preventing them.",
+          "Security isn't about showing off. It's about staying ahead."
+        ],
+        "scandal_reaction": [
+          "I'll ensure the right questions are asked at the right time.",
+          "We'll manage the narrative before it reaches the headlines."
+        ]
+      }
+    },
+    {
+      "id": "urban_planning_Dewi",
+      "domain_id": "urban_planning",
       "name": "Dewi Kusuma",
       "domain": "Urban Planning & Environment",
       "archetype": "Idealist",
@@ -135,7 +208,43 @@
       }
     },
     {
-      "id": "transport",
+      "id": "urban_planning_Hendra",
+      "domain_id": "urban_planning",
+      "name": "Hendra Kusuma",
+      "domain": "Housing & Slum Redevelopment",
+      "archetype": "Realist",
+      "hidden_agenda": "Fast-tracking luxury vertical housing complexes that include token affordable units to meet quotas while maximizing profit",
+      "betrayal_trigger": "High-rise construction permits frozen for two consecutive turns",
+      "competence_rating": 7,
+      "relationship_meter": 50,
+      "dialogue": {
+        "briefing": [
+          "Governor, Jakarta's housing shortage is at 1.2 million units. We're building too slowly.",
+          "The slum redevelopment fund is behind schedule. Landowners are stalling.",
+          "Vertical housing is the only way to solve this without paving the entire delta."
+        ],
+        "agreement": [
+          "Finally. Density is the answer.",
+          "I'll greenlight the permits immediately."
+        ],
+        "disagreement": [
+          "Governor, you're choosing sentiment over shelter.",
+          "People need roofs over their heads, not park benches."
+        ],
+        "betrayal": "You froze the permits. The developers are pulling out. You've created a housing crisis.",
+        "roast": [
+          "Your city plans look good in PowerPoint but collapse in reality.",
+          "You're romanticizing poverty while ignoring the math."
+        ],
+        "scandal_reaction": [
+          "The developers follow the regulations. Mostly.",
+          "I'll have our legal team draft a statement on zoning compliance."
+        ]
+      }
+    },
+    {
+      "id": "transport_Eko",
+      "domain_id": "transport",
       "name": "Eko Prasetyo",
       "domain": "Transport & Infrastructure",
       "archetype": "Fixer",
@@ -169,7 +278,43 @@
       }
     },
     {
-      "id": "religious_affairs",
+      "id": "transport_Fitriani",
+      "domain_id": "transport",
+      "name": "Fitriani 'Fitri' Handayani",
+      "domain": "Public Transit & Mobility",
+      "archetype": "Reformer",
+      "hidden_agenda": "Consolidating all private minibus (angkot) routes into a state-run system to eliminate informal operators",
+      "betrayal_trigger": "Public transit budget reallocated to private operators twice",
+      "competence_rating": 7,
+      "relationship_meter": 55,
+      "dialogue": {
+        "briefing": [
+          "Governor, commuters are paying double for angkot routes that should be standardized.",
+          "The busway expansion is ready, but we need route integration.",
+          "Last-mile connectivity is still a nightmare in eastern Jakarta."
+        ],
+        "agreement": [
+          "This is what the commuters need. Fair and efficient.",
+          "I'll rally the transit unions behind it."
+        ],
+        "disagreement": [
+          "Governor, you're protecting informal operators over the public.",
+          "This makes the system more chaotic, not better."
+        ],
+        "betrayal": "You're letting the old routes dictate policy. I'm done fixing other people's messes.",
+        "roast": [
+          "You're prioritizing backroom deals over people trying to get to work.",
+          "Transit isn't a charity. It's a public utility."
+        ],
+        "scandal_reaction": [
+          "The route contracts need a full public audit.",
+          "I'll make sure the transit watchdog gets everything."
+        ]
+      }
+    },
+    {
+      "id": "religious_affairs_Ustaz",
+      "domain_id": "religious_affairs",
       "name": "Ustaz M. Rahman",
       "domain": "Religious & Community Affairs",
       "archetype": "Moralist",
@@ -199,6 +344,41 @@
         "scandal_reaction": [
           "Subhanallah. This is most embarrassing.",
           "I will pray for guidance. For all of us."
+        ]
+      }
+    },
+    {
+      "id": "religious_affairs_Rian",
+      "domain_id": "religious_affairs",
+      "name": "Rian Pratama",
+      "domain": "Youth & Cultural Affairs",
+      "archetype": "Mediator",
+      "hidden_agenda": "Channeling community grants into state-approved youth centers to counter radical preaching and alternative political movements",
+      "betrayal_trigger": "Youth & cultural grants cut below 30M for two consecutive turns",
+      "competence_rating": 6,
+      "relationship_meter": 65,
+      "dialogue": {
+        "briefing": [
+          "Governor, the youth are restless. We need spaces for them that aren't just cafes and malls.",
+          "Interfaith youth councils are showing promising results in South Jakarta.",
+          "Cultural festivals are a great way to bridge divides, but they need proper funding."
+        ],
+        "agreement": [
+          "Unity through culture. I'll mobilize the youth networks.",
+          "This is exactly how we build lasting trust."
+        ],
+        "disagreement": [
+          "Governor, you're pushing them toward polarization.",
+          "Young people want opportunity, not lectures."
+        ],
+        "betrayal": "You've abandoned the youth programs. They'll find other leaders. I can't stop them.",
+        "roast": [
+          "You're governing for the past while the future waits outside.",
+          "Policy without people is just paperwork."
+        ],
+        "scandal_reaction": [
+          "The community will be deeply disappointed.",
+          "I'll organize a town hall to address the concerns directly."
         ]
       }
     }

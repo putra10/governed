@@ -54,7 +54,37 @@ body {
   }
 }
 
-/* Scrollbar hiding */
+/* ── Themed scrollbars, everywhere ─────────────────────────────────────────
+   Slim, dark, low-contrast — matches the terminal aesthetic instead of the
+   browser's chunky default (which looked especially bad on the city select
+   detail panel). Applies to every scroll area in the app. */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2e2e2e transparent;
+}
+
+/* Chrome / Edge / Safari */
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 3px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #3d3d3d;
+}
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Scrollbar hiding (takes precedence over the theme above) */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
