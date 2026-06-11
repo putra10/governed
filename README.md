@@ -28,21 +28,6 @@ There are no right answers. SAFE is expensive, BOLD is risky, CHAOS is cheap and
 
 ---
 
-## Getting Started
-
-```bash
-git clone https://github.com/putra10/governed.git
-cd governed
-npm install
-npm run dev       # Dev server at localhost:4444
-npm test          # Run the Vitest engine suite
-npm run build     # Build to docs/
-```
-
-The app is a Vite + vanilla JavaScript project. No framework, no external UI dependencies.
-
----
-
 ## Documentation
 
 | Document | What's in it |
