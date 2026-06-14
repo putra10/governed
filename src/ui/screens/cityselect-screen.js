@@ -5,31 +5,31 @@ import countriesData from '../../data/geo/countries-50m.json';
 
 // City data
 const CITIES = [
-  { key: 'singapore', name: 'Singapore', tier: 'easy', color: '#5ca85c', lon: 103.82, lat: 1.35, zoomW: 160, problems: 'Rigid governance, Aging population', flavor: 'Efficient, sterile, and quietly terrifying.' },
-  { key: 'sf', name: 'San Francisco', tier: 'easy', color: '#5ca85c', lon: -122.42, lat: 37.77, zoomW: 160, problems: 'Tech inequality, Homelessness', flavor: 'Brilliant and broken in equal measure.' },
-  { key: 'shenzhen', name: 'Shenzhen', tier: 'easy', color: '#5ca85c', lon: 114.06, lat: 22.54, zoomW: 160, problems: 'Tech boom, Surveillance', flavor: 'Built in 40 years. Will be rebuilt in 10.' },
-  { key: 'brisbane', name: 'Brisbane', tier: 'easy', color: '#5ca85c', lon: 153.03, lat: -27.47, zoomW: 160, problems: 'Housing, Flooding, Transport', flavor: "The Olympics are coming. The budget is healthy. Don't blow it." },
-  { key: 'jakarta', name: 'Jakarta', tier: 'medium', color: '#d4a843', lon: 106.87, lat: -6.21, zoomW: 160, problems: 'Governance, Climate, Traffic', flavor: 'Chaotic, exhausted, somehow still functioning.' },
-  { key: 'lagos', name: 'Lagos', tier: 'medium', color: '#d4a843', lon: 3.38, lat: 6.52, zoomW: 160, problems: 'Governance, Tech boom, Infrastructure', flavor: 'Loud, ambitious, and not taking your calls.' },
-  { key: 'frankfurt', name: 'Frankfurt', tier: 'medium', color: '#d4a843', lon: 8.68, lat: 50.11, zoomW: 160, problems: 'Migration, EU bureaucracy, Finance', flavor: 'Efficient on the outside. Quietly overwhelmed.' },
-  { key: 'jeddah', name: 'Jeddah', tier: 'medium', color: '#d4a843', lon: 39.19, lat: 21.49, zoomW: 160, problems: 'Holy city governance, Warzone area', flavor: 'Sacred, oil-rich, and increasingly nervous.' },
-  { key: 'beijing', name: 'Beijing', tier: 'medium', color: '#d4a843', lon: 116.41, lat: 39.90, zoomW: 160, problems: 'Surveillance, Housing, Geopolitics', flavor: 'Watching you as much as you watch it.' },
-  { key: 'nyc', name: 'New York City', tier: 'medium', color: '#d4a843', lon: -74.01, lat: 40.71, zoomW: 160, problems: 'Housing, Inequality, Political chaos', flavor: 'Infinite ambition. Zero patience.' },
-  { key: 'toronto', name: 'Toronto', tier: 'medium', color: '#d4a843', lon: -79.38, lat: 43.65, zoomW: 160, problems: 'Housing crisis, Identity, Immigration', flavor: 'Polite on the outside. Housing crisis within.' },
-  { key: 'johannesburg', name: 'Johannesburg', tier: 'medium', color: '#d4a843', lon: 28.05, lat: -26.20, zoomW: 160, problems: 'Power cuts, Inequality, Crime', flavor: 'The City of Gold is rusting.' },
-  { key: 'karachi', name: 'Karachi', tier: 'hard', color: '#e07a30', lon: 67.01, lat: 24.86, zoomW: 160, problems: 'Infrastructure, Crime, Water shortage', flavor: 'The economic engine of Pakistan is sputtering.' },
-  { key: 'cayman', name: 'George Town', tier: 'hard', color: '#e07a30', lon: -81.37, lat: 19.29, zoomW: 160, problems: 'Housing, Inequality, Climate change', flavor: 'Offshore accounts overflowing. Locals priced out of paradise.' },
-  { key: 'tehran', name: 'Tehran', tier: 'war', color: '#cc2222', lon: 51.39, lat: 35.69, zoomW: 130, problems: 'Active War, Internal faction war', flavor: 'Sanctions, strikes, and a city holding its breath.' },
-  { key: 'tel_aviv', name: 'Tel Aviv', tier: 'war', color: '#cc2222', lon: 34.78, lat: 32.09, zoomW: 40, labelDx: 3, labelDy: -4, labelAnchor: 'start', problems: 'Active War, Missile threat', flavor: 'Modern, brilliant, under fire. Literally.' },
-  { key: 'crimea', name: 'Crimea', tier: 'war', color: '#cc2222', lon: 34.10, lat: 45.00, zoomW: 130, problems: 'Active warzone, Split allegiance', flavor: 'Two flags. One peninsula. No easy answers.' },
-  { key: 'gaza', name: 'Gaza', tier: 'extreme', color: '#cc44cc', lon: 34.47, lat: 31.51, zoomW: 40, labelDx: -3, labelDy: 0, labelAnchor: 'end', problems: 'Destroyed, Active warzone', flavor: 'Survival mode only. Just endure.' },
-  { key: 'caracas', name: 'Caracas', tier: 'extreme', color: '#cc44cc', lon: -66.90, lat: 10.48, zoomW: 130, problems: 'Instability, Economic collapse', flavor: "Everything is broken. You're in charge. Good luck." },
-  { key: 'mogadishu', name: 'Mogadishu', tier: 'extreme', color: '#cc44cc', lon: 45.34, lat: 2.05, zoomW: 130, problems: 'Terrorism, Corruption, Infrastructure', flavor: 'The city is rebuilding from decades of war, but the shadows are long.' },
-  { key: 'tokyo', name: 'Tokyo', tier: 'easy', color: '#5ca85c', lon: 139.69, lat: 35.68, zoomW: 160, problems: 'Aging society, Governance, Housing', flavor: 'Impeccably organized. Quietly buckling under the surface.' },
-  { key: 'labuanbajo', name: 'Labuan Bajo', tier: 'medium', color: '#d4a843', lon: 119.89, lat: -8.50, zoomW: 160, problems: 'Tourism, Environment, Development', flavor: 'Paradise on the edge of being loved to death.' },
-  { key: 'guatemala', name: 'Guatemala City', tier: 'hard', color: '#e07a30', lon: -90.51, lat: 14.63, zoomW: 160, problems: 'Crime, Corruption, Migration', flavor: 'The capital the country deserves. Not the one it needs.' },
-  { key: 'vladivostok', name: 'Vladivostok', tier: 'hard', color: '#e07a30', lon: 131.92, lat: 43.12, zoomW: 160, problems: 'Isolation, Geopolitics, Sanctions', flavor: 'Russia\u2019s Pacific edge. Far from Moscow, close to the fire.' },
-  { key: 'erbil', name: 'Erbil', tier: 'extreme', color: '#cc44cc', lon: 44.00, lat: 36.19, zoomW: 160, problems: 'Conflict, Autonomy, Regional instability', flavor: 'A Kurdish city navigating empires. As always.' },
+  { key: 'singapore', name: 'Singapore', tier: 'easy', color: 'var(--tier-easy)', lon: 103.82, lat: 1.35, zoomW: 160, problems: 'Rigid governance, Aging population', flavor: 'Efficient, sterile, and quietly terrifying.' },
+  { key: 'sf', name: 'San Francisco', tier: 'easy', color: 'var(--tier-easy)', lon: -122.42, lat: 37.77, zoomW: 160, problems: 'Tech inequality, Homelessness', flavor: 'Brilliant and broken in equal measure.' },
+  { key: 'shenzhen', name: 'Shenzhen', tier: 'easy', color: 'var(--tier-easy)', lon: 114.06, lat: 22.54, zoomW: 160, problems: 'Tech boom, Surveillance', flavor: 'Built in 40 years. Will be rebuilt in 10.' },
+  { key: 'brisbane', name: 'Brisbane', tier: 'easy', color: 'var(--tier-easy)', lon: 153.03, lat: -27.47, zoomW: 160, problems: 'Housing, Flooding, Transport', flavor: "The Olympics are coming. The budget is healthy. Don't blow it." },
+  { key: 'jakarta', name: 'Jakarta', tier: 'medium', color: 'var(--tier-medium)', lon: 106.87, lat: -6.21, zoomW: 160, problems: 'Governance, Climate, Traffic', flavor: 'Chaotic, exhausted, somehow still functioning.' },
+  { key: 'lagos', name: 'Lagos', tier: 'medium', color: 'var(--tier-medium)', lon: 3.38, lat: 6.52, zoomW: 160, problems: 'Governance, Tech boom, Infrastructure', flavor: 'Loud, ambitious, and not taking your calls.' },
+  { key: 'frankfurt', name: 'Frankfurt', tier: 'medium', color: 'var(--tier-medium)', lon: 8.68, lat: 50.11, zoomW: 160, problems: 'Migration, EU bureaucracy, Finance', flavor: 'Efficient on the outside. Quietly overwhelmed.' },
+  { key: 'jeddah', name: 'Jeddah', tier: 'medium', color: 'var(--tier-medium)', lon: 39.19, lat: 21.49, zoomW: 160, problems: 'Holy city governance, Warzone area', flavor: 'Sacred, oil-rich, and increasingly nervous.' },
+  { key: 'beijing', name: 'Beijing', tier: 'medium', color: 'var(--tier-medium)', lon: 116.41, lat: 39.90, zoomW: 160, problems: 'Surveillance, Housing, Geopolitics', flavor: 'Watching you as much as you watch it.' },
+  { key: 'nyc', name: 'New York City', tier: 'medium', color: 'var(--tier-medium)', lon: -74.01, lat: 40.71, zoomW: 160, problems: 'Housing, Inequality, Political chaos', flavor: 'Infinite ambition. Zero patience.' },
+  { key: 'toronto', name: 'Toronto', tier: 'medium', color: 'var(--tier-medium)', lon: -79.38, lat: 43.65, zoomW: 160, problems: 'Housing crisis, Identity, Immigration', flavor: 'Polite on the outside. Housing crisis within.' },
+  { key: 'johannesburg', name: 'Johannesburg', tier: 'medium', color: 'var(--tier-medium)', lon: 28.05, lat: -26.20, zoomW: 160, problems: 'Power cuts, Inequality, Crime', flavor: 'The City of Gold is rusting.' },
+  { key: 'karachi', name: 'Karachi', tier: 'hard', color: 'var(--tier-hard)', lon: 67.01, lat: 24.86, zoomW: 160, problems: 'Infrastructure, Crime, Water shortage', flavor: 'The economic engine of Pakistan is sputtering.' },
+  { key: 'cayman', name: 'George Town', tier: 'hard', color: 'var(--tier-hard)', lon: -81.37, lat: 19.29, zoomW: 160, problems: 'Housing, Inequality, Climate change', flavor: 'Offshore accounts overflowing. Locals priced out of paradise.' },
+  { key: 'tehran', name: 'Tehran', tier: 'war', color: 'var(--tier-war)', lon: 51.39, lat: 35.69, zoomW: 130, problems: 'Active War, Internal faction war', flavor: 'Sanctions, strikes, and a city holding its breath.' },
+  { key: 'tel_aviv', name: 'Tel Aviv', tier: 'war', color: 'var(--tier-war)', lon: 34.78, lat: 32.09, zoomW: 40, labelDx: 3, labelDy: -4, labelAnchor: 'start', problems: 'Active War, Missile threat', flavor: 'Modern, brilliant, under fire. Literally.' },
+  { key: 'crimea', name: 'Crimea', tier: 'war', color: 'var(--tier-war)', lon: 34.10, lat: 45.00, zoomW: 130, problems: 'Active warzone, Split allegiance', flavor: 'Two flags. One peninsula. No easy answers.' },
+  { key: 'gaza', name: 'Gaza', tier: 'extreme', color: 'var(--tier-extreme)', lon: 34.47, lat: 31.51, zoomW: 40, labelDx: -3, labelDy: 0, labelAnchor: 'end', problems: 'Destroyed, Active warzone', flavor: 'Survival mode only. Just endure.' },
+  { key: 'caracas', name: 'Caracas', tier: 'extreme', color: 'var(--tier-extreme)', lon: -66.90, lat: 10.48, zoomW: 130, problems: 'Instability, Economic collapse', flavor: "Everything is broken. You're in charge. Good luck." },
+  { key: 'mogadishu', name: 'Mogadishu', tier: 'extreme', color: 'var(--tier-extreme)', lon: 45.34, lat: 2.05, zoomW: 130, problems: 'Terrorism, Corruption, Infrastructure', flavor: 'The city is rebuilding from decades of war, but the shadows are long.' },
+  { key: 'tokyo', name: 'Tokyo', tier: 'easy', color: 'var(--tier-easy)', lon: 139.69, lat: 35.68, zoomW: 160, problems: 'Aging society, Governance, Housing', flavor: 'Impeccably organized. Quietly buckling under the surface.' },
+  { key: 'labuanbajo', name: 'Labuan Bajo', tier: 'medium', color: 'var(--tier-medium)', lon: 119.89, lat: -8.50, zoomW: 160, problems: 'Tourism, Environment, Development', flavor: 'Paradise on the edge of being loved to death.' },
+  { key: 'guatemala', name: 'Guatemala City', tier: 'hard', color: 'var(--tier-hard)', lon: -90.51, lat: 14.63, zoomW: 160, problems: 'Crime, Corruption, Migration', flavor: 'The capital the country deserves. Not the one it needs.' },
+  { key: 'vladivostok', name: 'Vladivostok', tier: 'hard', color: 'var(--tier-hard)', lon: 131.92, lat: 43.12, zoomW: 160, problems: 'Isolation, Geopolitics, Sanctions', flavor: 'Russia\u2019s Pacific edge. Far from Moscow, close to the fire.' },
+  { key: 'erbil', name: 'Erbil', tier: 'extreme', color: 'var(--tier-extreme)', lon: 44.00, lat: 36.19, zoomW: 160, problems: 'Conflict, Autonomy, Regional instability', flavor: 'A Kurdish city navigating empires. As always.' },
 ];
 
 const PLANNED_CITIES = [
@@ -56,7 +56,9 @@ const PLANNED_CITIES = [
 ];
 
 const TIER_LABEL = { easy: 'EASY', medium: 'MEDIUM', hard: 'HARD', extreme: 'EXTREME', war: 'WAR ZONE' };
-const TIER_COLOR = { easy: '#5ca85c', medium: '#d4a843', hard: '#e07a30', extreme: '#cc44cc', war: '#cc2222' };
+const TIER_COLOR = { easy: 'var(--tier-easy)', medium: 'var(--tier-medium)', hard: 'var(--tier-hard)', extreme: 'var(--tier-extreme)', war: 'var(--tier-war)' };
+// Drive every city marker from theme variables so the map recolors with light/dark mode.
+CITIES.forEach(c => { c.color = 'var(--tier-' + c.tier + ')'; });
 const TIER_META = {
   easy: { bars: 2, mandate: 'Stabilize existing systems. Maintain growth. Build a legacy the city deserves.' },
   medium: { bars: 3, mandate: 'Balance competing pressures. Hard choices ahead, but the city can still be saved.' },
@@ -74,6 +76,7 @@ export class CitySelectScreen {
         cities.map(c => '<div class="cs-term-city" data-key="' + c.key + '" data-color="' + c.color + '">' +
           '<span class="cs-tc-dot" style="background:' + c.color + '"></span>' +
           '<span class="cs-tc-name">' + c.name + '</span>' +
+          '<span class="cs-tc-prob">' + ((c.problems || '').split(',')[0].trim()) + '</span>' +
           '</div>').join('');
     }).join('');
 
@@ -93,23 +96,25 @@ export class CitySelectScreen {
           <div class="cs-legend">${legend}</div>
         </div>
         <div class="cs-body">
-          <div class="cs-map-panel" id="cs-map-panel" style="background-color: #0d1a24; position: relative; overflow: hidden;">
+          <div class="cs-ledger">
+            <div class="cs-term-header">
+              <div class="cs-term-title">CITY_SELECT &gt; POSTING_BOARD</div>
+              <input class="cs-term-search" id="cs-term-search" placeholder="search cities..." />
+            </div>
+            <div class="cs-term-list cs-ledger-list" id="cs-term-list">${termList}</div>
+          </div>
+          <div class="cs-map-panel" id="cs-map-panel" style="background-color: var(--map-ocean); position: relative; overflow: hidden;">
             <svg id="cs-worldmap" xmlns="http://www.w3.org/2000/svg"
               style="width:100%;height:100%;display:block;cursor:grab;touch-action:none">
               <!-- Giant rect behind everything for ocean color consistency -->
-              <rect x="-5000" y="-5000" width="10000" height="10000" fill="#0d1a24"/>
+              <rect x="-5000" y="-5000" width="10000" height="10000" style="fill:var(--map-ocean)"/>
               <g class="countries-group"></g>
               <g class="pins-group"></g>
             </svg>
             <div class="cs-map-loading" id="cs-map-loading">LOADING MAP DATA...</div>
             <div class="cs-map-hint" id="cs-map-hint">scroll to zoom &middot; drag to pan &middot; double-click to reset</div>
           </div>
-          <div class="cs-terminal-panel">
-            <div class="cs-term-header">
-              <div class="cs-term-title">CITY_SELECT &gt; POSTING_BOARD</div>
-              <input class="cs-term-search" id="cs-term-search" placeholder="search cities..." />
-            </div>
-            <div class="cs-term-list" id="cs-term-list">${termList}</div>
+          <div class="cs-dossier">
             <div class="cs-term-detail" id="cs-term-detail">
               <div class="cs-td-empty" id="cs-td-empty">
                 <div class="cs-td-empty-icon">_</div>
@@ -407,7 +412,7 @@ export class CitySelectScreen {
         const lbl = pin.querySelector('.pin-label');
         if (dot) dot.setAttribute('r', isSelected ? String(baseR * 2.2) : String(baseR));
         if (lbl) {
-          lbl.setAttribute('opacity', isSelected ? '1' : '0.6');
+          lbl.setAttribute('opacity', isSelected ? '1' : '0.85');
           lbl.setAttribute('font-weight', isSelected ? 'bold' : 'normal');
         }
       });
@@ -481,14 +486,14 @@ export class CitySelectScreen {
       const gEl = document.createElementNS(ns, 'path');
       gEl.setAttribute('d', pathGen(d3.geoGraticule()()));
       gEl.setAttribute('fill', 'none');
-      gEl.setAttribute('stroke', '#0e1f2a');
+      gEl.style.stroke = 'var(--map-graticule)';
       gEl.setAttribute('stroke-width', '0.4');
       countriesG.appendChild(gEl);
 
       // Land fill
       const landEl = document.createElementNS(ns, 'path');
       landEl.setAttribute('d', pathGen(topo.feature(landData, landData.objects.land)));
-      landEl.setAttribute('fill', '#1a2d1f');
+      landEl.style.fill = 'var(--map-land)';
       landEl.setAttribute('stroke', 'none');
       countriesG.appendChild(landEl);
 
@@ -497,7 +502,7 @@ export class CitySelectScreen {
         const p = document.createElementNS(ns, 'path');
         p.setAttribute('d', pathGen(f));
         p.setAttribute('fill', 'none');
-        p.setAttribute('stroke', '#2e4435');
+        p.style.stroke = 'var(--map-border)';
         p.setAttribute('stroke-width', '0.3');
         countriesG.appendChild(p);
       });
@@ -541,7 +546,7 @@ export class CitySelectScreen {
         dot.setAttribute('cx', String(px));
         dot.setAttribute('cy', String(py));
         dot.setAttribute('r', String(r));
-        dot.setAttribute('fill', c.color);
+        dot.style.fill = c.color;
         dot.setAttribute('opacity', '0.95');
         g.appendChild(dot);
 
@@ -550,7 +555,7 @@ export class CitySelectScreen {
         ring1.setAttribute('cy', String(py));
         ring1.setAttribute('r', String(r));
         ring1.setAttribute('fill', 'none');
-        ring1.setAttribute('stroke', c.color);
+        ring1.style.stroke = c.color;
         ring1.setAttribute('stroke-width', sw);
         ring1.setAttribute('opacity', '0.45');
         ring1.style.cssText = anim;
@@ -562,7 +567,7 @@ export class CitySelectScreen {
           ring2.setAttribute('cy', String(py));
           ring2.setAttribute('r', String(r));
           ring2.setAttribute('fill', 'none');
-          ring2.setAttribute('stroke', c.color);
+          ring2.style.stroke = c.color;
           ring2.setAttribute('stroke-width', '0.4');
           ring2.setAttribute('opacity', '0.2');
           ring2.style.cssText = anim + ';animation-delay:0.5s';
@@ -573,12 +578,12 @@ export class CitySelectScreen {
         lbl.classList.add('pin-label');
         lbl.setAttribute('x', String(lx));
         lbl.setAttribute('y', String(ly));
-        lbl.setAttribute('fill', c.color);
+        lbl.style.fill = c.color;
         lbl.setAttribute('font-size', '2.5');
         lbl.setAttribute('font-family', 'monospace');
         lbl.setAttribute('letter-spacing', '0.3');
         lbl.setAttribute('text-anchor', anchor);
-        lbl.setAttribute('opacity', '0.6');
+        lbl.setAttribute('opacity', '0.85');
         lbl.textContent = c.name.toUpperCase();
         g.appendChild(lbl);
 

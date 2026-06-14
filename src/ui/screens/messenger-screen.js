@@ -1,5 +1,6 @@
 import { trustStatus, advisorCardClass, pick, now } from '../ui-helpers.js';
 import { EMERGENCY_POWERS, BACK_CHANNEL_ACTIONS, domainOf } from '../../engine/advisor-system.js';
+import { advisorAddress, personalize } from '../../utils/governor.js';
 
 export class MessengerScreen {
   static render(state, activeAdvisorId) {
@@ -10,21 +11,21 @@ export class MessengerScreen {
       advisor._msgLog = [];
       advisor._msgLog.push({ type: 'sys', text: `${advisor.name} is available for consultation.` });
       const brief = pick(advisor.dialogue?.briefing);
-      if (brief) advisor._msgLog.push({ type: 'them', sender: advisor.name, text: brief, time: now() });
+      if (brief) advisor._msgLog.push({ type: 'them', sender: advisor.name, text: advisorAddress(advisor, state) + personalize(brief, state), time: now() });
       const trust = Math.round(advisor.trust);
       if (trust < 40) {
         const warn = pick(advisor.dialogue?.betrayal_warning);
-        if (warn) advisor._msgLog.push({ type: 'them', sender: advisor.name, text: warn, time: now() });
+        if (warn) advisor._msgLog.push({ type: 'them', sender: advisor.name, text: personalize(warn, state), time: now() });
       } else if (trust < 60) {
         const thr = pick(advisor.dialogue?.threat);
-        if (thr) advisor._msgLog.push({ type: 'them', sender: advisor.name, text: thr, time: now() });
+        if (thr) advisor._msgLog.push({ type: 'them', sender: advisor.name, text: personalize(thr, state), time: now() });
       }
     }
 
     // Pending reaction ("I told you so") — delivered into the chat log the
     // first time the player opens this messenger; badge cleared by consuming it
     if (advisor.pendingReactionMsg) {
-      advisor._msgLog.push({ type: 'them', sender: advisor.name, text: advisor.pendingReactionMsg, time: now() });
+      advisor._msgLog.push({ type: 'them', sender: advisor.name, text: personalize(advisor.pendingReactionMsg, state), time: now() });
       advisor.pendingReactionMsg = null;
     }
 
@@ -86,6 +87,7 @@ export class MessengerScreen {
             ${MessengerScreen._renderLoverDemand(state, advisor)}
             ${MessengerScreen._renderPartnerDemand(state, advisor)}
             ${MessengerScreen._renderBackChannel(state, advisor)}
+            ${MessengerScreen._renderResign(state, advisor)}
           </div>
           <div class="qr-bar">
             <div class="qr-l">CHOOSE RESPONSE</div>
@@ -150,6 +152,45 @@ export class MessengerScreen {
         </button>
         <div class="consult-desc">${desc}</div>
       </div>`;
+  }
+
+  // Voluntary resignation — handled as a formal act through your most trusted
+  // advisor in post (your de-facto Chief of Staff). Deliberate and in-fiction,
+  // rather than a settings switch.
+  static _renderResign(state, advisor) {
+    const inPost = state.advisors.filter(a => !a.betrayed);
+    const chief = (inPost.length ? inPost : state.advisors)
+      .slice()
+      .sort((a, b) => (b.trust ?? 0) - (a.trust ?? 0))[0];
+    if (!chief || chief.id !== advisor.id) return '';
+    return `
+      <div class="resign-office">
+        <div class="ro-l">&#9099; STEP DOWN</div>
+        <div class="ro-d">Tell ${advisor.name}, your most trusted advisor, that you're ready to leave office. Your term ends now and the final report is written. This is recorded as a resignation.</div>
+        <button class="ro-btn" data-resign-office="1">Step down from office</button>
+      </div>`;
+  }
+
+  // In-game confirmation modal (replaces the browser's native confirm()).
+  static _confirmResign(container, onConfirm) {
+    const host = container.querySelector('.screen') || container;
+    if (host.querySelector('.confirm-overlay')) return;
+    const ov = document.createElement('div');
+    ov.className = 'confirm-overlay';
+    ov.innerHTML = `
+      <div class="confirm-modal">
+        <div class="confirm-l">&#9099; STEP DOWN FROM OFFICE</div>
+        <div class="confirm-b">Your term ends immediately and this is recorded as a resignation. There is no walking it back.</div>
+        <div class="confirm-acts">
+          <button class="confirm-cancel">STAY IN OFFICE</button>
+          <button class="confirm-ok">RESIGN</button>
+        </div>
+      </div>`;
+    host.appendChild(ov);
+    const close = () => ov.remove();
+    ov.addEventListener('click', e => { if (e.target === ov) close(); });
+    ov.querySelector('.confirm-cancel').addEventListener('click', close);
+    ov.querySelector('.confirm-ok').addEventListener('click', () => { close(); onConfirm(); });
   }
 
   static _renderEmergencyPower(state, advisor) {
@@ -286,7 +327,7 @@ export class MessengerScreen {
         } else {
           response = pick(advisor.dialogue?.briefing) ?? '...';
         }
-        advisor._msgLog.push({ type: 'them', sender: advisor.name, text: response, time: now() });
+        advisor._msgLog.push({ type: 'them', sender: advisor.name, text: personalize(response, state), time: now() });
 
         reRenderCallback();
       });
@@ -298,6 +339,10 @@ export class MessengerScreen {
 
     container.querySelector('[data-consult]')?.addEventListener('click', (e) => {
       handlers.consultAdvisor?.(e.currentTarget.dataset.consult);
+    });
+
+    container.querySelector('[data-resign-office]')?.addEventListener('click', () => {
+      MessengerScreen._confirmResign(container, () => handlers.resignEarly?.());
     });
 
     container.querySelectorAll('[data-back-channel]').forEach(btn => {

@@ -5,7 +5,7 @@
      viewport (100vw / 60). Any desktop width now renders the exact same
      visual proportions — nothing gets too big on small laptops or too
      small on large monitors. Clamped only against absurd extremes. */
-  font-size: clamp(14px, calc(100vw / 60), 64px);
+  font-size: clamp(16px, calc(100vw / 55), 64px);
 }
 
 @media (max-width: 1024px) {
@@ -18,7 +18,7 @@
 @media (max-width: 768px) {
   :root {
     /* Phone: 1.25x scale */
-    font-size: 125%;
+    font-size: 135%;
   }
 }
 
@@ -42,7 +42,7 @@ body {
   max-height: 100vh;
   overflow: hidden;
   padding: 0;
-  background: #050505;
+  background: var(--color-bg);
   display: flex;
   flex-direction: column;
 }
@@ -50,7 +50,7 @@ body {
 @media (max-width: 768px) {
   #app {
     padding: 0;
-    background: #0d0d0d;
+    background: var(--color-bg);
   }
 }
 
@@ -62,7 +62,7 @@ body {
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #2e2e2e transparent;
+  scrollbar-color: #c6beac transparent;
 }
 
 /* Chrome / Edge / Safari */
@@ -74,11 +74,11 @@ body {
   background: transparent;
 }
 *::-webkit-scrollbar-thumb {
-  background: #262626;
+  background: #c6beac;
   border-radius: 3px;
 }
 *::-webkit-scrollbar-thumb:hover {
-  background: #3d3d3d;
+  background: #a89e88;
 }
 *::-webkit-scrollbar-corner {
   background: transparent;

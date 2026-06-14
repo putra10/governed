@@ -9,7 +9,7 @@ export function renderNewspaper(paper) {
         <div class="np-masthead">
           <div class="np-outlet">${paper.outlet}</div>
           <div class="np-tagline">${paper.masthead}</div>
-          <div class="np-dateline">MORNING EDITION &middot; DAY ${paper.turn}</div>
+          <div class="np-dateline">EST. 2026 &middot; VOL. I &middot; No. ${paper.turn} &middot; MORNING EDITION &middot; PRICE 25&cent;</div>
         </div>
 
         <div class="np-lead">

@@ -7,6 +7,7 @@ import templates from '../../Hardcoded things/newspaper_templates.json';
 import { randomPick } from '../utils/random.js';
 import { getGenericProblemById } from './generic-problems.js';
 import { heatLevel } from './heat-system.js';
+import { govName, govTitle } from '../utils/governor.js';
 
 // Safe template pick: a regenerated templates file with a missing or renamed
 // key must degrade to empty text, never crash the turn.
@@ -22,6 +23,7 @@ function fill(text, ctx) {
     .replace(/{city\.media_outlet}/g, city.city_personality?.media_outlet ?? 'The City Dispatch')
     .replace(/{city\.government_body}/g, city.city_personality?.government_body ?? 'city council')
     .replace(/{city\.landmark}/g, city.city_personality?.landmark ?? 'city hall')
+    .replace(/{governor_title}/g, ctx.governorTitle ?? 'the Governor')
     .replace(/{governor}/g, ctx.governor ?? 'the Governor')
     .replace(/{title}/g, ctx.title ?? 'the matter')
     .replace(/{advisor}/g, ctx.advisor ?? 'a senior advisor')
@@ -34,7 +36,7 @@ function fill(text, ctx) {
 // prevTurn = the turn that just ended (state.turn has already incremented)
 export function buildNewspaper(s) {
   const prevTurn = s.turn - 1;
-  const ctx = { city: s.city, governor: s.governorName ?? 'the Governor', approval: s.approval, turn: s.turn };
+  const ctx = { city: s.city, governor: govName(s), governorTitle: govTitle(s), approval: s.approval, turn: s.turn };
 
   // ── Lead story: yesterday's decision / crisis / scandal ───────────────────
   let lead = null;

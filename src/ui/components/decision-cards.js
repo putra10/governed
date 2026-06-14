@@ -9,7 +9,7 @@ export function renderDecisionCards(decision) {
 
     // Approval / reputation icon: ★ star — green if positive, red if negative
     const appIconStyle = appDelta < 0
-      ? 'background:#1a0f0f;color:var(--color-red)'
+      ? 'background:var(--color-red-bg);color:var(--color-red)'
       : '';
 
     // Budget / money icon: ◆ diamond — amber if positive (income), red if spend

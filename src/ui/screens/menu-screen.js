@@ -147,7 +147,7 @@ export class MenuScreen {
       { top: '88%', right: '1%' },
     ];
 
-    const COLORS = ['#2a1800', '#1a2a1a', '#2a1a1a', '#1a1a2a', '#2a2a1a', '#1a2020', '#201a2a'];
+    const COLORS = ['rgba(80,74,64,0.36)', 'rgba(74,80,70,0.35)', 'rgba(86,72,66,0.35)', 'rgba(70,72,84,0.34)', 'rgba(82,80,66,0.35)', 'rgba(68,78,78,0.34)', 'rgba(78,72,84,0.34)'];
 
     // Pick random comments for each slot, render, then cycle them
     const used = new Set();
@@ -217,7 +217,9 @@ export class MenuScreen {
 
           <p><strong>BACK CHANNEL.</strong> In any advisor's chat: get closer (all the way to romance — loyal, useful, and one leaked photo from disaster), run a corrupt pact, threaten, leak dirt, or throw someone under the bus. One dirty move per turn. Lovers and crime partners are <strong>needy</strong> — most turns one of them wants something, and a red badge marks who's waiting on you.</p>
 
-          <p><strong>SCANDALS.</strong> Suppress them with money, accept the hit, or manage the story with a response. Ignore one and it runs at full force tomorrow. Career-ending scandals offer only a 25% miracle — or resignation.</p>
+          <p><strong>SCANDALS.</strong> Suppress them with money, accept the hit, or manage the story with a response. Ignore one and it runs at full force tomorrow. Career-ending scandals offer only a 25% miracle — or resignation. The final report names the scandal that ended you.</p>
+
+          <p><strong>STEP DOWN.</strong> Done with this term? Open your <em>most trusted advisor's</em> chat and choose <strong>Step down from office</strong> — you resign on your own terms, any turn, no scandal required.</p>
 
           <p><strong>SCRUTINY.</strong> Every scandal and every scheme raises the press's attention: MURMURS &rarr; WATCHED &rarr; INVESTIGATED &rarr; UNDER SIEGE. High scrutiny makes everything leak faster; three turns under siege ends you. Stay clean to cool off — or address the nation, sacrifice a colleague, or pay to make files disappear.</p>
 
@@ -226,6 +228,8 @@ export class MenuScreen {
           <p><strong>MONEY.</strong> Taxes scale with approval. Deficits bleed approval every turn, and a broke, hated city riots. Contracts and emergency powers are your lifelines.</p>
 
           <p><strong>25 CITIES</strong>, five difficulty tiers — from stable and well-funded to war zones where the city is on fire before you arrive. Each has its own advisors, scandals, and voice.</p>
+
+          <p><strong>YOUR NAME.</strong> The name you choose threads through the headlines, your advisors' greetings, the protest placards, and the history books. Prefer the dark? <strong>Settings &rarr; Display &rarr; Theme</strong> switches between light and dark — both built to stay readable in sunlight.</p>
 
           <p>Finish at <strong>65%+ approval</strong> for the good ending. Finish at all for an honest one. The final report remembers everything — including what happened in the back rooms.</p>
         </div>

@@ -1,5 +1,6 @@
 import { renderTopBar } from '../components/top-bar.js';
 import { renderReportCard } from '../components/report-card.js';
+import { govRaw, govLast } from '../../utils/governor.js';
 
 export class ReportScreen {
   static render(state) {
@@ -50,10 +51,11 @@ export class ReportScreen {
       primaryCls   = '';
     } else if (scandalExit) {
       const gambled = state.flags?.miracle_failed;
+      const scName = state.endScandal?.title ? `"${state.endScandal.title}"` : 'a career-ending scandal';
       outcomeTitle = gambled ? 'THE LAST STAND FAILED' : 'RESIGNED IN DISGRACE';
       outcomeDesc  = gambled
-        ? 'You gambled 150M on a desperate last stand — and lost. The scandal ended your career anyway.'
-        : 'A career-ending scandal forced you from office before the end of your term.';
+        ? `You gambled 150M on a desperate last stand over ${scName} — and lost. The scandal ended your career anyway.`
+        : `${scName} forced you to resign before the end of your term.`;
       primaryCls   = '';
     } else if (recalled) {
       outcomeTitle = 'RECALLED';
@@ -86,10 +88,15 @@ export class ReportScreen {
         ${renderTopBar(state)}
         <div class="report-screen">
           <div class="report-header">
-            <div class="rh-kicker">END OF TERM - ${state.turn * 6} WEEKS IN OFFICE</div>
-            <div class="rh-title">${resigned ? 'RESIGNED - ' : recalled ? 'RECALLED - ' : ''}Final Report - ${state.city?.city_name ?? 'City'}</div>
+            <div class="rh-kicker">END OF TERM &middot; ${(state.city?.city_name ?? 'CITY').toUpperCase()} &middot; ${state.turn * 6} WEEKS IN OFFICE</div>
+            <div class="rh-title">${resigned ? 'RESIGNED - ' : recalled ? 'RECALLED - ' : ''}${govRaw(state) ? `The ${govLast(state)} Administration` : `Final Report - ${state.city?.city_name ?? 'City'}`}</div>
             <div class="rh-sub">${walkedAway ? 'You left office voluntarily.' : scandalExit ? 'The scandal could not be survived.' : recalled ? 'Public confidence collapsed.' : 'Term completed. That alone is an achievement.'}</div>
           </div>
+          ${state.endScandal ? `
+            <div class="resign-box">
+              <div class="resign-l">${scandalExit ? 'WHY YOU RESIGNED' : 'WHAT BROUGHT YOU DOWN'} &middot; ${String(state.endScandal.tier || 'major').replace('_', ' ').toUpperCase()} SCANDAL</div>
+              <div class="resign-t"><strong>${state.endScandal.title}</strong>${state.endScandal.description ? ` — ${state.endScandal.description}` : ''}</div>
+            </div>` : ''}
           ${renderReportCard(state)}
           <div class="domain-grid">${domainsHTML}</div>
           <div class="verdict-grid">

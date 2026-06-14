@@ -4,6 +4,7 @@ import { TurnManager } from './engine/turn-manager.js';
 import { Renderer } from './ui/renderer.js';
 import { loadCity } from './utils/validators.js';
 import { loadSettings } from './utils/settings-store.js';
+import { applyTheme } from './utils/theme.js';
 import { recordGameStart, recordGameEnd } from './utils/career-stats.js';
 
 // City registry
@@ -48,6 +49,7 @@ class App {
     // Restore settings persisted independently of game saves
     const stored = loadSettings();
     if (stored) Object.assign(this.state.settings, stored);
+    applyTheme(this.state.settings.theme);
     this.currentScreen = 'menu';
     this.render();
   }

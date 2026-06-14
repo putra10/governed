@@ -808,19 +808,23 @@ export class TurnManager {
   respondToScandal(responseId) {
     const s = this.state;
     if (!s.pendingScandal) return { gameOver: false };
-    const result = this.scandalSystem.applyResponse(s.pendingScandal, responseId);
-    if (!result.gameOver) s.resolvedScandals.push(s.pendingScandal.id);
+    const scandal = s.pendingScandal;
+    const result = this.scandalSystem.applyResponse(scandal, responseId);
+    if (!result.gameOver) s.resolvedScandals.push(scandal.id);
     s.pendingScandal = null;
     // Early end-of-term via scandal: resignation/failed miracle, or the
-    // scandal's approval hit dropping the governor to 0
+    // scandal's approval hit dropping the governor to 0. Record which scandal
+    // ended the term so the final report can name it.
     if (result.gameOver) {
       s.endReason = 'career_ending_scandal';
+      s.endScandal = { title: scandal.title ?? 'an unnamed scandal', tier: scandal.severity_tier ?? 'major', description: scandal.description ?? '' };
       // Distinguish "gambled on the miracle and lost" from a plain resignation
       if (responseId === 'miracle') s.setFlag('miracle_failed', true);
     } else if (s.approval <= 0 || result.hitZero) {
       // hitZero: the scandal's base penalty zeroed approval — the recall
       // happened before the response's recovery could paper over it
       s.endReason = 'recalled';
+      s.endScandal = { title: scandal.title ?? 'an unnamed scandal', tier: scandal.severity_tier ?? 'major', description: scandal.description ?? '' };
       result.gameOver = true;
     }
     this.saveState();

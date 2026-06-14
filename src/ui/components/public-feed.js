@@ -317,7 +317,7 @@ function renderEntry(e) {
   const ftCls = isMedia ? 'mt' : isPol ? 'pt' : isReaction ? 'rt' : '';
 
   const vBadge = e.verified  ? `<span class="ck ck-g">&#10003;</span>` : '';
-  const gBadge = e.govtVerif ? `<span class="ck ck-s">&#9632;</span>` : '';
+  const gBadge = e.govtVerif ? `<span class="ck ck-s">&#10003;</span>` : '';
   const engLine = !isReply ? `<div class="fi-eng"><span class="fi-eng-i">&#9825; ${e.likes.toLocaleString()}</span><span class="fi-eng-i">&#8635; ${e.reposts.toLocaleString()}</span></div>` : '';
 
   return `<div class="fi ${cls}"><div class="fu"><div class="fu-left"><span class="fn ${fnCls}">${e.handle}</span>${vBadge}${gBadge}</div><span class="ft-time">${e.time}</span></div><div class="ft ${ftCls}">${e.text}</div>${engLine}</div>`;

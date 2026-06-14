@@ -1,38 +1,85 @@
 :root {
-  /* Fonts */
+  /* ============================================================
+     GOVERNED — "Paper Ledger" theme
+     ============================================================ */
   --font-mono: 'IBM Plex Mono', monospace;
   --font-serif: 'IBM Plex Serif', serif;
-  --font-sans: 'Inter', sans-serif;
+  --font-sans: 'IBM Plex Mono', monospace;
+  --color-bg: #f4f1e8;
+  --color-surface: #fcfaf4;
+  --color-surface-raised: #ffffff;
+  --surface-2: #ece8dc;
+  --color-border: #e0dacb;
+  --color-border-light: #c6beac;
+  --color-text: #1a1813;
+  --color-text-secondary: #454036;
+  --color-text-muted: #6b6457;
+  --color-accent: #0f6e63;
+  --color-accent-dim: #4e978e;
+  --color-red: #b22a1e;
+  --color-red-dim: #c76a60;
+  --color-red-bg: #f7e5e1;
+  --color-amber: #92640b;
+  --color-amber-dim: #c29a45;
+  --color-green: #2e7d32;
+  --color-green-dim: #6ca06e;
+  --color-blue: #1f5fa8;
+  --space-xs: 4px; --space-sm: 8px; --space-md: 12px; --space-lg: 16px; --space-xl: 24px; --space-xxl: 32px;
+  --radius-sm: 0px; --radius-md: 3px; --radius-lg: 4px; --radius-xl: 6px;
+  --shadow-sm: 0 1px 2px rgba(40, 34, 22, 0.06);
+  --shadow-md: 0 2px 8px rgba(40, 34, 22, 0.10);
+  --shadow-lg: 0 8px 28px rgba(40, 34, 22, 0.14);
+  --map-ocean: #e4e9ec;
+  --map-land: #d7cdb7;
+  --map-graticule: #cfd6da;
+  --map-border: #c0b6a0;
+  --tier-easy: #2e7d32;
+  --tier-medium: #a8740f;
+  --tier-hard: #c0531c;
+  --tier-war: #d32f2f;
+  --tier-extreme: #2b2723;
+  --news-paper: #efe7d2;
+  --news-ink: #211c14;
+  --news-muted: #5c5341;
+  --news-rule: #3a3322;
+  --news-accent: #7a1f12;
+}
 
-  /* Colors */
-  --color-bg: #0d0d0d;
-  --color-surface: #111;
-  --color-border: #2a2a2a;
-  --color-border-light: #1e1e1e;
-  --color-text: #ddd;
-  --color-text-secondary: #999;
-  --color-text-muted: #666;
-
-  /* Status colors */
-  --color-red: #e05c5c;
-  --color-red-dim: #5a2a2a;
-  --color-red-bg: #180808;
-  --color-amber: #d4a843;
-  --color-amber-dim: #2a2010;
-  --color-green: #5ca85c;
-  --color-green-dim: #1a3a1a;
-  --color-blue: #7a9fd4;
-
-  /* Spacing */
-  --space-xs: 2px;
-  --space-sm: 4px;
-  --space-md: 8px;
-  --space-lg: 12px;
-  --space-xl: 16px;
-
-  /* Border radius */
-  --radius-sm: 2px;
-  --radius-md: 4px;
-  --radius-lg: 6px;
-  --radius-xl: 12px;
+:root[data-theme="dark"] {
+  --color-bg: #16150f;
+  --color-surface: #1f1d16;
+  --color-surface-raised: #29261c;
+  --surface-2: #2c2920;
+  --color-border: #3a3629;
+  --color-border-light: #564f3c;
+  --color-text: #f6f3ea;
+  --color-text-secondary: #d8d2c2;
+  --color-text-muted: #a89f88;
+  --color-accent: #3fbfae;
+  --color-accent-dim: #2c8678;
+  --color-red: #f0685c;
+  --color-red-dim: #c8554b;
+  --color-red-bg: #3a1a17;
+  --color-amber: #e0a93b;
+  --color-amber-dim: #b5882f;
+  --color-green: #5fb55f;
+  --color-green-dim: #468746;
+  --color-blue: #5da0e0;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.55);
+  --map-ocean: #0f1a22;
+  --map-land: #243027;
+  --map-graticule: #20303a;
+  --map-border: #3a4a40;
+  --tier-easy: #5fb55f;
+  --tier-medium: #e0a93b;
+  --tier-hard: #ef8a3c;
+  --tier-war: #ff4d4d;
+  --tier-extreme: #d1cbc1;
+  --news-paper: #211d16;
+  --news-ink: #ece3cf;
+  --news-muted: #b3a886;
+  --news-rule: #6b6045;
+  --news-accent: #e8a14a;
 }

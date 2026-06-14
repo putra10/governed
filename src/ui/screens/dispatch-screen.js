@@ -6,6 +6,7 @@ import { renderAdvisorCard } from '../components/advisor-card.js';
 import { pick } from '../ui-helpers.js';
 import { SCANDAL_SEVERITY } from '../../engine/scandal-system.js';
 import { renderNewspaper, bindNewspaper } from './newspaper-screen.js';
+import { protestChant } from '../../utils/governor.js';
 
 
 // Source ids → human explanation of WHY this scandal just hit
@@ -547,6 +548,7 @@ export class DispatchScreen {
                 <div class="headline">${uMeta.icon} ${uMeta.label}</div>
                 <div class="byline">THE STREETS ARE BOILING OVER</div>
                 <hr class="divider" style="border-color: var(--danger);">
+                <div class="unrest-chant">&laquo; ${protestChant(state, state.pendingUnrest.type)} &raquo;</div>
                 <div class="sbody">${uMeta.desc}</div>
                 <div style="margin-top: 1.5rem;">
                   ${renderUnrestActions(state.pendingUnrest)}

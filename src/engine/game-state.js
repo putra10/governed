@@ -8,6 +8,7 @@ export const state = {
     feedSpeed:   'normal',
     scandalFreq: 'normal',
     language:    'english',
+    theme:       'light',
   },
 
   city: null,
@@ -56,6 +57,8 @@ export const state = {
   // Why the game ended:
   // null | 'recalled' | 'term_complete' | 'career_ending_scandal' | 'resigned'
   endReason: null,
+  // The scandal that forced an early exit (set on career-ending / scandal recall)
+  endScandal: null,
 
   // Surprise scandals waiting for a reveal popup (decision fallout, leaks...)
   pendingScandalReveals: [],
@@ -168,6 +171,7 @@ export const state = {
     this.pendingUnrest = null;
     this.pendingDecisionRecommendations = {};
     this.endReason = null;
+    this.endScandal = null;
     this.pendingScandalReveals = [];
     this.backChannelUsedTurn = 0;
     this.dirtyDeeds = { skimmed: 0, threats: 0, leaks: 0, exposed: 0, marketBuys: 0 };
@@ -336,6 +340,7 @@ export const state = {
       pendingBetrayals: this.pendingBetrayals,
       recentComments: this.recentComments,
       endReason: this.endReason,
+      endScandal: this.endScandal,
       pendingScandalReveals: this.pendingScandalReveals,
       backChannelUsedTurn: this.backChannelUsedTurn,
       dirtyDeeds: this.dirtyDeeds,
@@ -393,6 +398,7 @@ export const state = {
     this.pendingBetrayals        = parsed.pendingBetrayals ?? [];
     this.recentComments          = parsed.recentComments ?? [];
     this.endReason               = parsed.endReason ?? null;
+    this.endScandal              = parsed.endScandal ?? null;
     this.pendingScandalReveals   = parsed.pendingScandalReveals ?? [];
     this.backChannelUsedTurn     = parsed.backChannelUsedTurn ?? 0;
     this.dirtyDeeds              = parsed.dirtyDeeds ?? { skimmed: 0, threats: 0, leaks: 0, exposed: 0, marketBuys: 0 };

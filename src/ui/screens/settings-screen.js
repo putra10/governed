@@ -1,7 +1,9 @@
 // src/ui/screens/settings-screen.js
 // Full tabbed settings UI using st-* CSS classes
 import { saveSettings } from '../../utils/settings-store.js';
+import { applyTheme } from '../../utils/theme.js';
 import { loadCareerStats } from '../../utils/career-stats.js';
+import { govRaw } from '../../utils/governor.js';
 
 export class SettingsScreen {
   static render(state) {
@@ -10,6 +12,7 @@ export class SettingsScreen {
     const feedSpeed   = s.feedSpeed   ?? 'normal';
     const scandalFreq = s.scandalFreq ?? 'normal';
     const language    = s.language    ?? 'english';
+    const theme       = s.theme       ?? 'light';
 
     // Helper: toggle button HTML
     const toggle = (id, on) =>
@@ -85,6 +88,16 @@ export class SettingsScreen {
 
               <div class="st-row">
                 <div class="st-row-label">
+                  <div class="st-rl-name">Theme</div>
+                  <div class="st-rl-desc">Light paper or dark slate — both tuned for sunlight readability</div>
+                </div>
+                <div class="st-row-control">
+                  ${speedGroup('theme', ['light', 'dark'], theme)}
+                </div>
+              </div>
+
+              <div class="st-row">
+                <div class="st-row-label">
                   <div class="st-rl-name">Public Feed Speed</div>
                   <div class="st-rl-desc">How fast citizen comments scroll in the sidebar</div>
                 </div>
@@ -149,7 +162,27 @@ export class SettingsScreen {
               </div>`;
               })()}
 
+              ${(() => {
+                const c = loadCareerStats();
+                const govs = (c.governors || []).slice(0, 6);
+                if (!govs.length) return '';
+                const oc = o => o === 'Completed term' ? 'var(--color-green)' : o === 'Recalled' ? 'var(--color-red)' : 'var(--color-amber)';
+                return `
+              <div class="st-s-title" style="margin-top: 0.875rem">PAST ADMINISTRATIONS</div>
+              <div class="st-hall">
+                ${govs.map(g => `
+                <div class="st-hall-row">
+                  <span class="st-hall-name">${g.name}</span>
+                  <span class="st-hall-city">${g.city}</span>
+                  <span class="st-hall-out" style="color:${oc(g.outcome)}">${g.outcome}</span>
+                  <span class="st-hall-app">${g.approval}%</span>
+                </div>`).join('')}
+              </div>`;
+              })()}
+
               <div class="st-s-title" style="margin-top: 0.875rem">CURRENT SESSION</div>
+              ${state.city ? `
+              <div class="st-rl-desc" style="margin-bottom:0.5rem">Governor: <strong style="color:var(--color-text)">${govRaw(state) || 'Acting Governor'}</strong></div>` : ''}
               ${state.city ? `
               <div class="st-stat-grid">
                 <div class="st-stat-card">
@@ -188,17 +221,6 @@ export class SettingsScreen {
             <!-- DATA -->
             <div class="st-section" id="tab-data">
               <div class="st-s-title">SESSION DATA</div>
-
-              ${state.city ? `
-              <div class="st-row" style="margin-top: 0.5rem">
-                <div class="st-row-label">
-                  <div class="st-rl-name" style="color:#d4a843">Resign Early</div>
-                  <div class="st-rl-desc">End your term in ${state.city.city_name} now and see the final report. Counts as a resignation.</div>
-                </div>
-                <div class="st-row-control">
-                  <button class="st-speed-btn st-warn-btn" id="btn-resign-early">RESIGN</button>
-                </div>
-              </div>` : ''}
 
               <div class="st-row" style="margin-top: 0.5rem">
                 <div class="st-row-label">
@@ -248,16 +270,10 @@ export class SettingsScreen {
         const key = btn.dataset.setting;
         const val = btn.dataset.value;
         state.settings[key] = val;
+        if (key === 'theme') applyTheme(val);
         saveSettings(state.settings);
         reRenderCallback();
       });
-    });
-
-    // Resign early
-    container.querySelector('#btn-resign-early')?.addEventListener('click', () => {
-      if (confirm('Resign your office now? Your term ends immediately and this counts as a resignation.')) {
-        handlers.resignEarly?.();
-      }
     });
 
     // Reset save
