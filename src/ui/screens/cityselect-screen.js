@@ -112,7 +112,6 @@ export class CitySelectScreen {
               <g class="pins-group"></g>
             </svg>
             <div class="cs-map-loading" id="cs-map-loading">LOADING MAP DATA...</div>
-            <div class="cs-map-hint" id="cs-map-hint">scroll to zoom &middot; drag to pan &middot; double-click to reset</div>
           </div>
           <div class="cs-dossier">
             <div class="cs-term-detail" id="cs-term-detail">

@@ -32,7 +32,7 @@
 
 .sl {
   font-size: 0.4375rem;
-  color: #666;
+  color: var(--color-text-muted);
   letter-spacing: 0.07em;
   text-transform: uppercase;
 }
@@ -59,7 +59,7 @@
 }
 
 .sv.m {
-  color: #999;
+  color: var(--color-text-muted);
 }
 
 /* MAIN BODY — 3-column grid */
@@ -74,8 +74,8 @@
 
 /* LEFT SIDEBAR */
 .sidebar {
-  background: #0a0a0a;
-  border-right: 0.5px solid #222;
+  background: var(--color-bg);
+  border-right: 0.5px solid var(--color-border);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -84,7 +84,7 @@
 
 .sh {
   padding: 0.4375rem 0.625rem;
-  border-bottom: 0.5px solid #222;
+  border-bottom: 0.5px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -93,18 +93,18 @@
 
 .sh-t {
   font-size: 0.4375rem;
-  color: #555;
+  color: var(--color-text-secondary);
   letter-spacing: 0.07em;
   text-transform: uppercase;
 }
 
 .feed-platform {
   font-size: 0.4375rem;
-  color: #2a2a2a;
+  color: var(--color-text);
   letter-spacing: 0.04em;
   padding: 0.125rem 0.625rem 0.25rem;
-  border-bottom: 0.5px solid #141414;
-  background: #050505;
+  border-bottom: 0.5px solid var(--color-border);
+  background: var(--surface-2);
 }
 
 .sm {
@@ -116,7 +116,7 @@
 .sm-b {
   width: 40px;
   height: 3px;
-  background: #222;
+  background: var(--color-border);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -149,28 +149,28 @@
 /* Feed items */
 .fi {
   padding: 0.375rem 0.625rem 0.3125rem;
-  border-bottom: 0.5px solid #111;
+  border-bottom: 0.5px solid var(--color-border);
   transition: background 0.15s;
 }
 
 .fi.pol {
-  background: #0e0e10;
+  background: var(--color-surface-raised);
   border-left: 2px solid #555;
 }
 
 .fi.press {
   border-left: 2px solid var(--color-amber);
-  background: #0d0c09;
+  background: var(--color-surface-raised);
 }
 
 .fi.act {
   border-left: 2px solid #2d4a2d;
-  background: #090d09;
+  background: var(--color-surface-raised);
 }
 
 .fi.react {
   border-left: 2px solid #1a3a4a;
-  background: #09101a;
+  background: var(--color-surface-raised);
   font-style: italic;
 }
 
@@ -191,11 +191,11 @@
 .fn {
   font-size: 0.625rem;
   font-weight: 600;
-  color: #777;
+  color: var(--color-text-muted);
 }
 
 .fn.pn {
-  color: #888;
+  color: var(--color-text-muted);
 }
 
 .fn.mn {
@@ -232,7 +232,7 @@
 /* Timestamp */
 .ft-time {
   font-size: 0.4375rem;
-  color: #333;
+  color: var(--color-text-muted);
   letter-spacing: 0.03em;
   flex-shrink: 0;
 }
@@ -240,7 +240,7 @@
 /* Text */
 .ft {
   font-size: 0.625rem;
-  color: #666;
+  color: var(--color-text-muted);
   line-height: 1.45;
 }
 
@@ -266,7 +266,7 @@
 
 .fi-eng-i {
   font-size: 0.375rem;
-  color: #2a2a2a;
+  color: var(--color-text);
   letter-spacing: .04em;
 }
 
@@ -298,13 +298,13 @@
 /* SENTIMENT FOOTER */
 .sf {
   padding: 0.375rem 0.625rem;
-  border-top: 0.5px solid #222;
+  border-top: 0.5px solid var(--color-border);
   flex-shrink: 0;
 }
 
 .sf-l {
   font-size: 0.4375rem;
-  color: #444;
+  color: var(--color-text-secondary);
   letter-spacing: 0.06em;
   margin-bottom: 0.1875rem;
   text-transform: uppercase;
@@ -312,7 +312,7 @@
 
 .sf-t {
   height: 3px;
-  background: #222;
+  background: var(--color-border);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -344,7 +344,7 @@
   min-height: 0;
 }
 
-/* Desktop: never clip the dispatch text.
+/* Desktop:never clip the dispatch text.
    When a scandal/unrest card stacks into .dec, .dec used to grow unbounded
    and crush .story (overflow:hidden) down to a single clipped line.
    Now: .story scrolls if needed, and .dec caps at ~72% of the column and
@@ -368,7 +368,7 @@
     position: sticky;
     bottom: 0;
     z-index: 2;
-    background: #0a0a0a;
+    background: var(--color-bg);
   }
 }
 
@@ -382,7 +382,7 @@
 .pip {
   height: 4px;
   flex: 1;
-  background: #222;
+  background: var(--color-border);
   border-radius: 1px;
 }
 
@@ -406,7 +406,7 @@
 .headline {
   font-family: var(--font-serif);
   font-size: 1.25rem;
-  color: #e8e8e8;
+  color: var(--color-text);
   line-height: 1.3;
   margin-bottom: 0.375rem;
   font-weight: 500;
@@ -414,39 +414,39 @@
 
 .byline {
   font-size: 0.625rem;
-  color: #444;
+  color: var(--color-text-muted);
   margin-bottom: 0.625rem;
   letter-spacing: 0.04em;
 }
 
 .divider {
   border: none;
-  border-top: 0.5px solid #222;
+  border-top: 0.5px solid var(--color-border);
   margin-bottom: 0.625rem;
 }
 
 .sbody {
   font-size: 0.75rem;
-  color: #888;
+  color: var(--color-text-secondary);
   line-height: 1.7;
 }
 
 .sbody em {
-  color: #aaa;
+  color: var(--color-text);
   font-style: normal;
 }
 
 /* DECISION SECTION */
 .dec {
-  border-top: 0.5px solid #333;
+  border-top: 0.5px solid var(--color-border-light);
   padding: 0.5rem 0.875rem 0.625rem;
-  background: #0a0a0a;
+  background: var(--color-bg);
   flex-shrink: 0;
 }
 
 .dec-l {
   font-size: 0.625rem;
-  color: #666;
+  color: var(--color-text-muted);
   letter-spacing: 0.07em;
   margin-bottom: 0.5rem;
   text-transform: uppercase;
@@ -461,7 +461,7 @@
 
 .no-dec {
   font-size: 0.75rem;
-  color: #555;
+  color: var(--color-text-secondary);
   padding: 0.5rem 0;
   margin-bottom: 0.5rem;
 }
@@ -469,10 +469,10 @@
 /* Decision cards */
 .card {
   padding: 0.4rem 0.5rem;
-  border: 0.5px solid #333;
+  border: 0.5px solid var(--color-border-light);
   border-radius: 4px;
   cursor: pointer;
-  background: #111;
+  background: var(--surface-2);
   transition: all 0.15s;
 }
 
@@ -482,12 +482,12 @@
 
 .card:hover {
   border-color: #555;
-  background: #161616;
+  background: var(--surface-2);
 }
 
 .card.sel {
   border-color: var(--color-amber);
-  background: var(--color-amber-dim);
+  background: transparent;
 }
 
 .card.ch {
@@ -505,7 +505,7 @@
   gap: 0.4rem;
   margin-top: 0.3rem;
   padding-top: 0.3rem;
-  border-top: 0.5px solid #222;
+  border-top: 0.5px solid var(--color-border);
 }
 
 .cp-item {
@@ -527,23 +527,23 @@
 }
 
 .cp-icon.approval {
-  background: var(--color-green-dim);
+  background: var(--color-green-bg);
   color: var(--color-green);
 }
 
 .cp-icon.budget {
-  background: #2a1010;
+  background: var(--color-red-bg);
   color: var(--color-red);
 }
 
 .cp-icon.budget.gain {
-  background: #1a1a08;
+  background: var(--color-amber-bg);
   color: var(--color-amber);
 }
 
 .cp-text {
   font-size: 0.5rem;
-  color: #888;
+  color: var(--color-text-muted);
 }
 
 /* Card tags */
@@ -556,12 +556,12 @@
 
 .ctext {
   font-size: 0.55rem;
-  color: #aaa;
+  color: var(--color-text-secondary);
   line-height: 1.35;
 }
 
 .card.sel .ctext {
-  color: #ccc;
+  color: var(--color-text);
 }
 
 /* Tag colors */
@@ -588,7 +588,7 @@
   margin-bottom: 0.375rem;
   border: 0.5px solid var(--color-amber);
   border-radius: 3px;
-  background: var(--color-amber-dim);
+  background: transparent;
   color: var(--color-amber);
   font-family: var(--font-mono);
   font-size: 0.6875rem;
@@ -600,13 +600,15 @@
 }
 
 .confirm-btn:hover:not(:disabled) {
-  background: #2a2010;
+  border-width: 1px;
+  border-color: var(--color-amber);
+  color: var(--color-text);
 }
 
 .confirm-btn:disabled {
-  border-color: #333;
+  border-color: var(--color-border);
   background: transparent;
-  color: #444;
+  color: var(--color-text-muted);
   cursor: default;
 }
 
@@ -614,10 +616,10 @@
 .skip-btn {
   width: 100%;
   padding: 0.5rem 0;
-  border: 0.5px solid #333;
+  border: 0.5px solid var(--color-border-light);
   border-radius: 3px;
   background: transparent;
-  color: #666;
+  color: var(--color-text-muted);
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.06em;
@@ -627,15 +629,14 @@
 }
 
 .skip-btn:hover {
-  border-color: var(--color-amber);
-  color: var(--color-amber);
-  background: var(--color-amber-dim);
+  border-color: var(--color-border-light);
+  color: var(--color-text-secondary);
 }
 
 /* RIGHT SIDEBAR */
 .right {
-  background: #0a0a0a;
-  border-left: 0.5px solid #222;
+  background: var(--color-bg);
+  border-left: 0.5px solid var(--color-border);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -656,7 +657,7 @@
 
 .adv-h {
   font-size: 0.4375rem;
-  color: #444;
+  color: var(--color-text-secondary);
   letter-spacing: 0.07em;
   margin-bottom: 0.375rem;
   text-transform: uppercase;
@@ -665,7 +666,7 @@
 /* Advisor cards */
 .acard {
   padding: 0.125rem 0.425rem;
-  background: #161616;
+  background: var(--surface-2);
   border-radius: 4px;
   border-left: 2px solid var(--color-amber);
   margin-bottom: 0.375rem;
@@ -687,34 +688,34 @@
 
 .an {
   font-size: 0.6875rem;
-  color: #ccc;
+  color: var(--color-text);
   font-weight: 500;
   margin-bottom: 0.125rem;
 }
 
 .ar {
   font-size: 0.5625rem;
-  color: #555;
+  color: var(--color-text-secondary);
   margin-bottom: 0.25rem;
 }
 
 .am {
   font-size: 0.625rem;
-  color: #888;
+  color: var(--color-text-muted);
   line-height: 1.35;
   font-style: italic;
 }
 
 .at {
   font-size: 0.5625rem;
-  color: #444;
+  color: var(--color-text-secondary);
   margin-top: 0.1875rem;
 }
 
 /* Trust bar */
 .trust-bar {
   height: 2px;
-  background: #222;
+  background: var(--color-border);
   border-radius: 1px;
   overflow: hidden;
   margin-top: 0.25rem;
@@ -743,7 +744,7 @@
   justify-content: space-between;
   font-size: 0.375rem;
   margin-top: 0.125rem;
-  color: #555;
+  color: var(--color-text-secondary);
 }
 
 /* Advisor card warning banners */
@@ -792,7 +793,7 @@
 
 .agenda-label {
   font-size: 0.375rem;
-  color: #444;
+  color: var(--color-text-secondary);
   letter-spacing: .05em;
   text-transform: uppercase;
 }
@@ -804,7 +805,7 @@
 
 .agenda-bar-bg {
   height: 2px;
-  background: #222;
+  background: var(--color-border);
   border-radius: 1px;
   margin: 0.125rem 0 0.1875rem;
   overflow: hidden;
@@ -819,9 +820,9 @@
 /* Crisis window + ticker */
 .crisis-box {
   padding: 0.375rem 0.625rem;
-  background: #110808;
-  border-top: 0.5px solid #2a1010;
-  border-bottom: 0.5px solid #222;
+  background: var(--color-red-bg);
+  border-top: 0.5px solid var(--color-border);
+  border-bottom: 0.5px solid var(--color-border);
   flex-shrink: 0;
 }
 
@@ -835,7 +836,7 @@
 
 .cr-t {
   font-size: 0.5rem;
-  color: #884444;
+  color: var(--color-red-dim);
   line-height: 1.35;
 }
 
@@ -846,7 +847,7 @@
 
 .tk-l {
   font-size: 0.4375rem;
-  color: #333;
+  color: var(--color-text-muted);
   letter-spacing: 0.06em;
   margin-bottom: 0.125rem;
   text-transform: uppercase;
@@ -854,7 +855,7 @@
 
 .tk-t {
   font-size: 0.5rem;
-  color: #555;
+  color: var(--color-text-secondary);
   line-height: 1.4;
 }
 
@@ -865,9 +866,9 @@
 
 /* ── Contract / side-quest cards ──────────────────────────────────────────── */
 .contract-card {
-  background: #0a0f0a;
-  border: 1px solid #1a3a1a;
-  border-left: 3px solid #2a7a2a;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-green);
   border-radius: 4px;
   padding: 0.5rem 0.625rem;
   margin-top: 0.5rem;
@@ -893,13 +894,13 @@
   font-size: 0.5rem;
   font-weight: 700;
   letter-spacing: .12em;
-  color: #4aaa4a;
+  color: var(--color-green);
   flex: 1;
 }
 
 .co-client {
   font-size: 0.4375rem;
-  color: #4a7a4a;
+  color: var(--color-text-muted);
   letter-spacing: .06em;
   margin-bottom: 0.1875rem;
 }
@@ -907,7 +908,7 @@
 .co-name {
   font-size: 0.5625rem;
   font-weight: 700;
-  color: #88cc88;
+  color: var(--color-text);
   margin-bottom: 0.1875rem;
   display: flex;
   align-items: center;
@@ -916,14 +917,14 @@
 
 .co-desc {
   font-size: 0.5rem;
-  color: #557755;
+  color: var(--color-text-secondary);
   line-height: 1.4;
   margin-bottom: 0.3125rem;
 }
 
 .co-terms {
   font-size: 0.4375rem;
-  color: #556655;
+  color: var(--color-text-muted);
   margin-bottom: 0.375rem;
   line-height: 1.6;
 }
@@ -1162,7 +1163,7 @@
 
 .sc-terms {
   font-size: 0.5rem;
-  color: #555;
+  color: var(--color-text-secondary);
   margin-bottom: 0.5rem;
 }
 
@@ -1418,7 +1419,7 @@
   float: right;
   font-size: 0.4375rem;
   letter-spacing: .08em;
-  color: var(--color-text-muted, #777);
+  color: var(--color-text-muted, var(--color-text-muted));
   display: inline-flex;
   align-items: center;
   gap: 0.2rem;
@@ -1429,8 +1430,8 @@
   width: 0.4rem;
   height: 0.4rem;
   border-radius: 50%;
-  background: #1c1c1c;
-  border: 1px solid #333;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border-light);
 }
 
 .ap-pip--on {
@@ -1475,7 +1476,7 @@
 .meet-actor-card:disabled {
   opacity: 0.4;
   cursor: not-allowed;
-  border-left-color: #333;
+  border-left-color: var(--color-border-light);
 }
 
 .mac-icon {
@@ -1654,8 +1655,8 @@
 
 .mt-decline {
   background: #0e0e0e;
-  border: 1px solid #2a2a2a;
-  color: #888;
+  border: 1px solid var(--color-border-light);
+  color: var(--color-text-muted);
 }
 
 .mt-decline:hover {
@@ -1765,96 +1766,158 @@
   width: min(34rem, 94vw);
   max-height: 90vh;
   overflow-y: auto;
-  background: #e8e2d2;
+  background: #f2ead8;
   color: #1a1812;
-  padding: 1rem 1.125rem;
+  padding: 1.25rem 1.5rem 1rem;
   border-radius: 2px;
   box-shadow: 0 12px 60px rgba(0, 0, 0, .7);
   font-family: Georgia, 'Times New Roman', serif;
+  border: 1.5px solid #3a3220;
 }
 
+/* ── Masthead ── */
 .np-masthead {
   text-align: center;
-  border-bottom: 3px double #1a1812;
   padding-bottom: 0.5rem;
   margin-bottom: 0.625rem;
 }
 
+/* The banner title in blackletter */
 .np-outlet {
-  font-size: 1.125rem;
-  font-weight: 900;
-  letter-spacing: .04em;
-  text-transform: uppercase;
+  font-family: 'UnifrakturCook', cursive;
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #1a1812;
+  line-height: 1.1;
+  margin-bottom: 0.1875rem;
 }
 
+/* Italic tagline below the title */
 .np-tagline {
-  font-size: 0.5rem;
+  font-size: 0.5625rem;
   font-style: italic;
   color: #5a5444;
+  margin-bottom: 0.375rem;
 }
 
+/* Thin rule above dateline */
+.np-masthead-rule {
+  border: none;
+  border-top: 0.75px solid #3a3220;
+  margin: 0 0 0.25rem;
+}
+
+/* Dateline row */
 .np-dateline {
   font-size: 0.4375rem;
-  letter-spacing: .2em;
+  letter-spacing: .18em;
   color: #5a5444;
-  margin-top: 0.25rem;
+  text-transform: uppercase;
+  margin-bottom: 0.3125rem;
 }
 
+/* Double rule closing the masthead */
+.np-masthead-rule-dbl {
+  border: none;
+  border-top: 3px double #1a1812;
+  margin: 0;
+}
+
+/* ── Lead story ── */
 .np-lead {
+  padding-top: 0.625rem;
   margin-bottom: 0.625rem;
 }
 
 .np-headline {
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 900;
-  line-height: 1.25;
-  margin-bottom: 0.3125rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  line-height: 1.2;
+  margin-bottom: 0.4375rem;
+  color: #1a1812;
 }
 
 .np-headline-sm {
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   font-weight: 700;
   line-height: 1.3;
   margin-bottom: 0.25rem;
 }
 
+/* Body text with drop cap on first child */
 .np-body {
   font-size: 0.5625rem;
-  line-height: 1.6;
+  line-height: 1.65;
   color: #2e2a20;
+  text-align: justify;
 }
 
+/* Drop cap — only on the first .np-body directly in .np-lead */
+.np-lead > .np-body::first-letter {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 2.5em;
+  font-weight: 700;
+  float: left;
+  line-height: 0.78;
+  margin: 0.08em 0.12em 0 0;
+  color: #1a1812;
+}
+
+/* ── Second story ── */
 .np-second {
   border-top: 1px solid #b8b098;
   padding-top: 0.5rem;
   margin-bottom: 0.625rem;
 }
 
+/* ── Two-column footer ── */
 .np-columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.625rem;
-  border-top: 1px solid #b8b098;
-  padding-top: 0.5rem;
+  border-top: 2px solid #1a1812;
+  border-bottom: 1px solid #b8b098;
+  padding: 0.5rem 0 0.5rem;
   margin-bottom: 0.625rem;
+  gap: 0;
 }
 
+/* The two column cells */
+.np-col {
+  padding: 0 0.75rem;
+}
+
+.np-col:first-child {
+  padding-left: 0;
+  border-right: 1px solid #b8b098;
+}
+
+.np-col:last-child {
+  padding-right: 0;
+}
+
+/* Column header labels in small caps style */
 .np-col-label {
   font-size: 0.4375rem;
   font-weight: 700;
-  letter-spacing: .15em;
-  color: #5a5444;
-  margin-bottom: 0.25rem;
+  letter-spacing: .18em;
+  color: #1a1812;
+  margin-bottom: 0.3125rem;
+  text-transform: uppercase;
+  border-bottom: 0.5px solid #b8b098;
+  padding-bottom: 0.1875rem;
 }
 
 .np-teaser {
   font-size: 0.5rem;
   font-style: italic;
   color: #6a3428;
-  margin-top: 0.3125rem;
+  margin-top: 0.375rem;
   line-height: 1.5;
 }
 
+/* ── Ad strip ── */
 .np-ad {
   border: 1px dashed #8a8270;
   padding: 0.375rem 0.5rem;
@@ -1862,15 +1925,16 @@
   font-style: italic;
   color: #5a5444;
   text-align: center;
-  margin-bottom: 0.625rem;
+  margin-bottom: 0.75rem;
 }
 
+/* ── Dismiss button ── */
 .np-dismiss {
   display: block;
   width: 100%;
   padding: 0.5625rem;
   background: #1a1812;
-  color: #e8e2d2;
+  color: #f2ead8;
   border: none;
   border-radius: 2px;
   font-family: var(--font-mono);
@@ -1884,7 +1948,7 @@
   background: #322e22;
 }
 
-@media (max-width: 520px) {
+@media (max-width:520px) {
   .np-columns {
     grid-template-columns: 1fr;
   }
@@ -2018,7 +2082,7 @@
 
 .bca-desc {
   font-size: 0.4375rem;
-  color: #777;
+  color: var(--color-text-muted);
   line-height: 1.45;
 }
 
@@ -2030,7 +2094,7 @@
 
 .bc-used {
   font-size: 0.4375rem;
-  color: #555;
+  color: var(--color-text-secondary);
   text-align: center;
   padding: 0.375rem 0;
 }
@@ -2161,7 +2225,7 @@
   width: 0.22rem;
   height: 0.22rem;
   border-radius: 1px;
-  background: #2a2a2a;
+  background: var(--color-border-light);
   display: inline-block;
 }
 
@@ -2219,7 +2283,7 @@
 
 .mk-desc {
   font-size: 0.4375rem;
-  color: #777;
+  color: var(--color-text-muted);
   line-height: 1.5;
   margin-bottom: 0.25rem;
   font-style: italic;
@@ -2227,7 +2291,7 @@
 
 .mk-terms {
   font-size: 0.4375rem;
-  color: #888;
+  color: var(--color-text-muted);
   margin-bottom: 0.3rem;
 }
 
@@ -2268,9 +2332,9 @@
   letter-spacing: .1em;
   padding: 0.375rem 0;
   border-radius: 3px;
-  border: 0.5px solid #2a2a2a;
+  border: 0.5px solid var(--color-border-light);
   background: transparent;
-  color: #555;
+  color: var(--color-text-secondary);
   cursor: pointer;
 }
 
@@ -2429,6 +2493,123 @@
   color: #6ab06a;
 }
 
+/* --- Step Down & Resign Confirmation --- */
+.resign-office {
+  margin-top: 0.75rem;
+  border-top: 1px dashed var(--color-border);
+  padding-top: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.ro-l {
+  font-size: 0.5rem;
+  color: var(--color-red);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3125rem;
+  font-weight: 700;
+}
+
+.ro-d {
+  font-size: 0.5625rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin-bottom: 0.625rem;
+  font-style: italic;
+}
+
+.ro-btn {
+  display: block;
+  width: 100%;
+  padding: 0.5625rem;
+  background: transparent;
+  color: var(--color-red);
+  border: 1px solid var(--color-red);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.15s;
+}
+
+.ro-btn:hover {
+  background: var(--color-red-bg);
+}
+
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 1rem;
+}
+
+.confirm-modal {
+  background: var(--color-bg);
+  border: 1px solid var(--color-red);
+  padding: 1.25rem;
+  width: min(24rem, 100%);
+  border-radius: 2px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.confirm-l {
+  font-size: 0.625rem;
+  color: var(--color-red);
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.confirm-b {
+  font-size: 0.5625rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.confirm-acts {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.confirm-acts button {
+  flex: 1;
+  padding: 0.625rem;
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+}
+
+.confirm-cancel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.confirm-cancel:hover {
+  background: var(--color-surface-raised);
+}
+
+.confirm-ok {
+  background: var(--color-red);
+  border: 1px solid var(--color-red);
+  color: var(--color-bg);
+}
+
+.confirm-ok:hover {
+  opacity: 0.85;
+}
+
 /* ── Crisis secret option card ────────────────────────────────────────────── */
 .cc-secret {
   border: 1px solid #2a4a1a !important;
@@ -2467,13 +2648,13 @@
 /* ═══════════════════════════════════════════════════════
    MOBILE RESPONSIVE — DISPATCH LAYOUT
 ═══════════════════════════════════════════════════════ */
-@media (max-width: 768px) {
+@media (max-width:768px) {
 
   /* ── Mobile tab strip ── */
   .mobile-tab-strip {
     display: flex;
-    background: #090909;
-    border-bottom: 0.5px solid #1a1a1a;
+    background: var(--color-surface);
+    border-bottom: 0.5px solid var(--color-border);
     flex-shrink: 0;
   }
 
@@ -2482,7 +2663,7 @@
     padding: 0.5rem 0;
     font-size: 0.4375rem;
     letter-spacing: .12em;
-    color: #444;
+    color: var(--color-text-secondary);
     background: transparent;
     border: none;
     border-bottom: 2px solid transparent;
@@ -2497,8 +2678,8 @@
   }
 
   .mob-tab--active {
-    color: #d4a843;
-    border-bottom-color: #d4a843;
+    color: var(--color-amber);
+    border-bottom-color: var(--color-amber);
   }
 
   /* ── Panel visibility via data-mob-tab on .main-body ── */
@@ -2511,7 +2692,7 @@
     display: none;
   }
 
-  /* Feed tab: show sidebar (public feed) */
+  /* Feed tab:show sidebar (public feed) */
   .main-body[data-mob-tab="feed"] .sidebar {
     display: flex;
     flex: 1;
@@ -2544,7 +2725,7 @@
     display: none;
   }
 
-  /* Advisors tab: show right panel */
+  /* Advisors tab:show right panel */
   .main-body[data-mob-tab="advisors"] .right {
     display: flex;
     flex: 1;
@@ -2562,7 +2743,7 @@
     display: none;
   }
 
-  /* ── Feed panel: readable on mobile ── */
+  /* ── Feed panel:readable on mobile ── */
   .main-body[data-mob-tab="feed"] .sh-t {
     font-size: 0.5625rem;
   }
@@ -2584,7 +2765,7 @@
     font-size: 0.5625rem;
   }
 
-  /* Engagement numbers: always smaller than post text */
+  /* Engagement numbers:always smaller than post text */
   .main-body[data-mob-tab="feed"] .fi-eng {
     margin-top: 0.3125rem;
     gap: 0.75rem;
@@ -2592,10 +2773,10 @@
 
   .main-body[data-mob-tab="feed"] .fi-eng-i {
     font-size: 0.4375rem;
-    color: #333;
+    color: var(--color-text-muted);
   }
 
-  /* ── Advisors panel: readable on mobile ── */
+  /* ── Advisors panel:readable on mobile ── */
   .main-body[data-mob-tab="advisors"] .an {
     font-size: 0.625rem;
   }
@@ -2613,7 +2794,7 @@
     margin-bottom: 0.4375rem;
   }
 
-  /* ── Top bar: 2-row layout so stats are readable ── */
+  /* ── Top bar:2-row layout so stats are readable ── */
   .tb {
     padding: 0.375rem 0.75rem 0.3125rem;
     flex-wrap: wrap;
@@ -2648,7 +2829,7 @@
     font-size: 0.625rem;
   }
 
-  /* ── Main body: single flex column (was 3-col grid) ── */
+  /* ── Main body:single flex column (was 3-col grid) ── */
   /* 52px = 2-row topbar, 34px = tab strip */
   .main-body {
     display: flex;
@@ -2668,7 +2849,7 @@
     display: none;
   }
 
-  /* ── Center: flex column so .dec always anchors to the bottom ── */
+  /* ── Center:flex column so .dec always anchors to the bottom ── */
   .center {
     width: 100%;
     flex: 1;
@@ -2680,7 +2861,7 @@
     flex-direction: column;
   }
 
-  /* Story: natural height, flowing in the column scroll. A fixed 45svh cap
+  /* Story:natural height, flowing in the column scroll. A fixed 45svh cap
      used to leave a dead empty zone between the story and the bottom-anchored
      decision panel whenever story content (e.g. the market card) ran long.
      The whole .center column scrolls, so long content just scrolls normally. */
@@ -2720,7 +2901,7 @@
     line-height: 1.75;
   }
 
-  /* ── Decisions: anchored to the bottom when short, normal flow when tall ──
+  /* ── Decisions:anchored to the bottom when short, normal flow when tall ──
      NOTE: this block used to be position:sticky — but when a scandal card +
      response options stack into .dec it grows TALLER than the phone screen,
      and a sticky element taller than the viewport pins itself over the story
@@ -2729,9 +2910,8 @@
     margin-top: auto;
     flex-shrink: 0;
     padding: 0.625rem 0.875rem 0.875rem;
-    background: #0a0a0a;
-    border-top: 0.5px solid #2a2a2a;
-    box-shadow: 0 -8px 24px rgba(0, 0, 0, .7);
+    background: var(--color-bg);
+    border-top: 0.5px solid var(--color-border-light);
   }
 
   .dec-l {
@@ -2858,7 +3038,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width:480px) {
 
   /* Single-column cards on narrowest screens */
   .cards {
@@ -2870,3 +3050,886 @@
     padding: 0.3125rem 0.625rem 0.25rem;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LIGHT MODE OVERRIDES — Themed cards
+   In dark mode, these cards use deep dark backgrounds for drama/mood.
+   In light mode, we keep the semantic colored left-border accent but flip
+   the background to the paper surface so they don't look like dark blobs.
+═══════════════════════════════════════════════════════════════════════════ */
+
+
+  /* ── Feed items — light mode ── */
+  :root[data-theme="light"] .fi.pol {
+    background: var(--color-surface);
+    border-left-color: var(--color-border-light);
+  }
+
+  :root[data-theme="light"] .fi.press {
+    background: var(--color-surface);
+  }
+
+  :root[data-theme="light"] .fi.act {
+    background: var(--color-surface);
+    border-left-color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .fi.react {
+    background: var(--color-surface);
+    border-left-color: var(--color-blue);
+  }
+
+  :root[data-theme="light"] .fn {
+    color: var(--color-text-secondary);
+  }
+
+  :root[data-theme="light"] .fn.pn {
+    color: var(--color-text-secondary);
+  }
+
+  :root[data-theme="light"] .fn.mn {
+    color: var(--color-amber);
+  }
+
+  :root[data-theme="light"] .fn.an {
+    color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .ft {
+    color: var(--color-text-secondary);
+  }
+
+  :root[data-theme="light"] .ft.pt {
+    color: var(--color-text-secondary);
+  }
+
+  :root[data-theme="light"] .ft.mt {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .ft.rt {
+    color: var(--color-blue);
+    font-style: italic;
+  }
+
+  :root[data-theme="light"] .fi-eng-i {
+    color: var(--color-border-light);
+  }
+
+  :root[data-theme="light"] .ft-react-tag {
+    color: var(--color-blue);
+  }
+
+  :root[data-theme="light"] .ft-time {
+    color: var(--color-text-muted);
+  }
+
+  /* ── Scandal card ── */
+  :root[data-theme="light"] .scandal-card {
+    background: var(--color-surface);
+    border-color: var(--color-red-bg);
+  }
+
+  :root[data-theme="light"] .scandal-card--major {
+    background: var(--color-surface);
+  }
+
+  :root[data-theme="light"] .scandal-card--career_ending {
+    background: var(--color-surface);
+  }
+
+  :root[data-theme="light"] .sc-name {
+    color: var(--color-text);
+  }
+
+  :root[data-theme="light"] .sc-desc {
+    color: var(--color-red-dim);
+  }
+
+  :root[data-theme="light"] .sc-tier-badge {
+    background: var(--color-red-bg);
+    border-color: var(--color-red-bg);
+  }
+
+  :root[data-theme="light"] .sc-suppress {
+    background: var(--color-surface);
+    border-color: var(--color-green);
+    color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .sc-suppress:hover {
+    background: var(--surface-2);
+    color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .sc-accept {
+    background: var(--color-surface);
+    border-color: var(--color-red);
+    color: var(--color-red);
+  }
+
+  :root[data-theme="light"] .sc-accept:hover {
+    background: var(--color-red-bg);
+  }
+
+  :root[data-theme="light"] .sc-response {
+    background: var(--color-surface);
+    border-color: var(--color-border-light);
+    color: var(--color-text);
+  }
+
+  :root[data-theme="light"] .sc-response:hover {
+    background: var(--surface-2);
+  }
+
+  :root[data-theme="light"] .sc-manage-label {
+    color: var(--color-text-muted);
+    border-top-color: var(--color-border);
+  }
+
+  :root[data-theme="light"] .sc-resp-note {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .sc-bad {
+    color: var(--color-red);
+  }
+
+  :root[data-theme="light"] .sc-warn {
+    color: var(--color-amber);
+  }
+
+  /* ── Civil Unrest cards ── */
+  :root[data-theme="light"] .unrest-card {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+  }
+
+  :root[data-theme="light"] .unrest-card--riot {
+    background: var(--color-surface);
+  }
+
+  :root[data-theme="light"] .unrest-card--strike {
+    background: var(--color-surface);
+  }
+
+  :root[data-theme="light"] .uc-title {
+    color: var(--color-amber);
+  }
+
+  :root[data-theme="light"] .unrest-card--riot .uc-title {
+    color: var(--color-red);
+  }
+
+  :root[data-theme="light"] .unrest-card--strike .uc-title {
+    color: var(--color-amber);
+  }
+
+  :root[data-theme="light"] .uc-desc {
+    color: var(--color-text-secondary);
+  }
+
+  :root[data-theme="light"] .uc-costly {
+    background: var(--color-surface);
+    border-color: var(--color-green);
+    color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .uc-costly:hover {
+    background: var(--surface-2);
+    color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .uc-hard {
+    background: var(--color-surface);
+    border-color: var(--color-amber);
+    color: var(--color-amber);
+  }
+
+  :root[data-theme="light"] .uc-hard:hover {
+    background: var(--surface-2);
+    color: var(--color-amber);
+  }
+
+  :root[data-theme="light"] .uc-danger {
+    background: var(--color-surface);
+    border-color: var(--color-red);
+    color: var(--color-red);
+  }
+
+  :root[data-theme="light"] .uc-danger:hover {
+    background: var(--color-red-bg);
+    color: var(--color-red);
+  }
+
+  /* ── Contract / coalition offer ── */
+  :root[data-theme="light"] .co-compete-item {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+  }
+
+  :root[data-theme="light"] .co-vs {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .co-accept {
+    background: var(--color-surface);
+    border-color: var(--color-green);
+    color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .co-accept:hover {
+    background: var(--surface-2);
+    color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .co-decline {
+    border-color: var(--color-border-light);
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .co-decline:hover {
+    border-color: var(--color-green);
+    color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .co-active-deals {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+  }
+
+  :root[data-theme="light"] .co-ad-header {
+    color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .co-ad-row {
+    color: var(--color-text-secondary);
+    border-bottom-color: var(--color-border);
+  }
+
+  :root[data-theme="light"] .co-ad-title {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .co-ad-val {
+    color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .co-good {
+    color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .co-bad {
+    color: var(--color-red);
+  }
+
+  :root[data-theme="light"] .co-warn {
+    color: var(--color-amber);
+  }
+
+  :root[data-theme="light"] .co-rarity--rare {
+    background: var(--color-surface);
+    color: var(--color-blue);
+    border-color: var(--color-blue);
+  }
+
+  :root[data-theme="light"] .co-rarity--legendary {
+    background: var(--color-surface);
+    color: var(--color-amber);
+    border-color: var(--color-amber);
+  }
+
+  /* ── Advisor recommendation ── */
+  :root[data-theme="light"] .adv-rec {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    border-left-color: var(--color-blue);
+  }
+
+  :root[data-theme="light"] .adv-rec-header {
+    color: var(--color-blue);
+  }
+
+  :root[data-theme="light"] .adv-rec-body {
+    color: var(--color-text-secondary);
+  }
+
+  :root[data-theme="light"] .adv-rec-note {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .adv-rec-reason {
+    color: var(--color-text-secondary);
+  }
+
+  /* ── Emergency Power ── */
+  :root[data-theme="light"] .adv-ep {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    border-left-color: var(--color-amber);
+  }
+
+  :root[data-theme="light"] .adv-ep-header {
+    color: var(--color-amber);
+  }
+
+  :root[data-theme="light"] .adv-ep-desc {
+    color: var(--color-text-secondary);
+  }
+
+  :root[data-theme="light"] .adv-ep-note {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .adv-ep-btn {
+    background: var(--color-surface);
+    border-color: var(--color-amber);
+    color: var(--color-amber);
+  }
+
+  :root[data-theme="light"] .adv-ep-btn:hover {
+    background: var(--surface-2);
+    color: var(--color-amber);
+  }
+
+  :root[data-theme="light"] .adv-ep-warn {
+    color: var(--color-text-muted);
+  }
+
+  /* ── Back channel / bribe cards ── */
+  :root[data-theme="light"] .adv-bc {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    border-left-color: var(--color-accent);
+  }
+
+  :root[data-theme="light"] .adv-bc-header {
+    color: var(--color-accent);
+  }
+
+  :root[data-theme="light"] .bc-status {
+    color: var(--color-amber);
+    background: var(--color-surface);
+    border-color: var(--color-border);
+  }
+
+  :root[data-theme="light"] .bc-action {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+  }
+
+  :root[data-theme="light"] .bc-action:hover {
+    border-color: var(--color-accent);
+    background: var(--surface-2);
+  }
+
+  :root[data-theme="light"] .bca-label {
+    color: var(--color-text-secondary);
+  }
+
+  :root[data-theme="light"] .bca-note {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .adv-bc-warn {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .bribe-card {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    border-left-color: var(--color-accent);
+  }
+
+  :root[data-theme="light"] .bc-icon {
+    color: var(--color-amber);
+  }
+
+  :root[data-theme="light"] .bc-title {
+    color: var(--color-accent);
+  }
+
+  :root[data-theme="light"] .bc-body {
+    color: var(--color-text-secondary);
+  }
+
+  :root[data-theme="light"] .bc-body strong {
+    color: var(--color-text);
+  }
+
+  :root[data-theme="light"] .bc-terms {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .bc-terms strong {
+    color: var(--color-text);
+  }
+
+  :root[data-theme="light"] .bc-good {
+    color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .bc-warn {
+    color: var(--color-amber);
+  }
+
+  :root[data-theme="light"] .bc-accept {
+    background: var(--color-surface);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  :root[data-theme="light"] .bc-accept:hover {
+    background: var(--surface-2);
+    color: var(--color-accent);
+  }
+
+  :root[data-theme="light"] .bc-decline {
+    border-color: var(--color-border-light);
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .bc-decline:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  /* ── Lover / partner demand (overrides of back channel) ── */
+  :root[data-theme="light"] .lover-demand .adv-bc-header {
+    color: var(--color-accent);
+  }
+
+  :root[data-theme="light"] .ld-ask {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .partner-demand .adv-bc-header {
+    color: var(--color-green);
+  }
+
+  /* ── Meeting actor cards ── */
+  :root[data-theme="light"] .meet-actor-card {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    border-left-color: var(--color-blue);
+  }
+
+  :root[data-theme="light"] .meet-actor-card:hover:not(:disabled) {
+    background: var(--surface-2);
+    border-color: var(--color-border-light);
+    border-left-color: var(--color-blue);
+    box-shadow: 0 0 12px rgba(31, 95, 168, 0.08);
+  }
+
+  :root[data-theme="light"] .mac-name {
+    color: var(--color-text);
+  }
+
+  :root[data-theme="light"] .mac-cost {
+    color: var(--color-text-muted);
+    border-color: var(--color-border);
+    background: var(--surface-2);
+  }
+
+  :root[data-theme="light"] .meet-row {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    border-left-color: var(--color-blue);
+  }
+
+  :root[data-theme="light"] .meet-row--done {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .meet-label {
+    color: var(--color-blue);
+  }
+
+  :root[data-theme="light"] .meet-cost {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .meet-btn {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-text-secondary);
+  }
+
+  :root[data-theme="light"] .meet-btn:hover:not(:disabled) {
+    background: var(--surface-2);
+    border-color: var(--color-border-light);
+  }
+
+  :root[data-theme="light"] .meeting-card {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    border-left-color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .mt-title {
+    color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .mt-arch {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .mt-greeting {
+    color: var(--color-text-secondary);
+  }
+
+  :root[data-theme="light"] .mt-offer {
+    background: var(--surface-2);
+    border-color: var(--color-border);
+  }
+
+  :root[data-theme="light"] .mt-offer-label {
+    color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .mt-offer-desc {
+    color: var(--color-text-secondary);
+  }
+
+  :root[data-theme="light"] .mt-accept {
+    background: var(--color-surface);
+    border-color: var(--color-green);
+    color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .mt-accept:hover {
+    background: var(--surface-2);
+  }
+
+  :root[data-theme="light"] .mt-decline {
+    background: var(--surface-2);
+  }
+
+  :root[data-theme="light"] .mt-decline:hover {
+    background: var(--color-surface);
+  }
+
+  :root[data-theme="light"] .mt-note {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .meeting-result {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+  }
+
+  :root[data-theme="light"] .mr-label {
+    color: var(--color-accent);
+  }
+
+  :root[data-theme="light"] .mr-line {
+    color: var(--color-text-secondary);
+  }
+
+  /* ── Consultation ── */
+  :root[data-theme="light"] .consult-box {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    border-left-color: var(--color-blue);
+  }
+
+  :root[data-theme="light"] .consult-btn {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-blue);
+  }
+
+  :root[data-theme="light"] .consult-btn:hover:not(:disabled) {
+    background: var(--surface-2);
+  }
+
+  :root[data-theme="light"] .consult-cost {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .consult-desc {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .consult-done {
+    color: var(--color-text-muted);
+  }
+
+  /* ── Black Market card ── */
+  :root[data-theme="light"] .market-card {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    border-left-color: var(--color-accent);
+  }
+
+  :root[data-theme="light"] .mk-title {
+    color: var(--color-accent);
+  }
+
+  :root[data-theme="light"] .mk-offer {
+    background: var(--surface-2);
+    border-color: var(--color-border);
+  }
+
+  :root[data-theme="light"] .mk-name {
+    color: var(--color-text);
+  }
+
+  :root[data-theme="light"] .mk-type {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .mk-buy {
+    border-color: var(--color-border-light);
+    background: var(--surface-2);
+    color: var(--color-text);
+  }
+
+  :root[data-theme="light"] .mk-buy:hover {
+    background: var(--color-surface);
+  }
+
+  :root[data-theme="light"] .mk-foot {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .mk-pass:hover {
+    color: var(--color-text-muted);
+    border-color: var(--color-border-light);
+  }
+
+  /* ── Address the Nation ── */
+  :root[data-theme="light"] .address-card {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    border-left-color: var(--color-amber);
+  }
+
+  :root[data-theme="light"] .ad-once {
+    color: var(--color-text-muted);
+    border-color: var(--color-border);
+  }
+
+  :root[data-theme="light"] .ad-body {
+    color: var(--color-text-secondary);
+  }
+
+  :root[data-theme="light"] .ad-opt {
+    border-color: var(--color-border);
+    background: var(--surface-2);
+    color: var(--color-text);
+  }
+
+  :root[data-theme="light"] .ad-opt:hover {
+    background: var(--color-surface);
+  }
+
+  /* ── Crisis secret option card ── */
+  :root[data-theme="light"] .cc-secret {
+    border-color: var(--color-green) !important;
+    background: var(--color-surface) !important;
+    border-left-color: var(--color-green) !important;
+  }
+
+  :root[data-theme="light"] .cc-tag-advisor {
+    background: var(--color-surface);
+    color: var(--color-green);
+    border-color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .cc-secret-advisor {
+    color: var(--color-green);
+  }
+
+  :root[data-theme="light"] .cc-secret-note {
+    color: var(--color-text-muted);
+  }
+
+  /* ── Decision cards in light mode ── */
+  :root[data-theme="light"] .card {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+  }
+
+  :root[data-theme="light"] .card:hover {
+    background: var(--surface-2);
+    border-color: var(--color-border-light);
+  }
+
+  :root[data-theme="light"] .card.sel {
+    background: var(--surface-2);
+    border-color: var(--color-amber);
+  }
+
+  /* ── No-dec label ── */
+  :root[data-theme="light"] .no-dec {
+    color: var(--color-text-muted);
+  }
+
+  /* ── Sentiment footer ── */
+  :root[data-theme="light"] .sf-l {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .sf-t {
+    background: var(--color-border);
+  }
+
+  :root[data-theme="light"] .sf-p {
+    color: var(--color-red);
+  }
+
+  /* ── Scrolling feed text overrides ── */
+  :root[data-theme="light"] .sh-t {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .feed-platform {
+    color: var(--color-border-light);
+    background: var(--surface-2);
+    border-bottom-color: var(--color-border);
+  }
+
+  :root[data-theme="light"] .sm-b {
+    background: var(--color-border);
+  }
+
+  :root[data-theme="light"] .sm-t {
+    color: var(--color-red);
+  }
+
+  /* ── Advisor panel overrides ── */
+  :root[data-theme="light"] .adv-h {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .acard {
+    background: var(--surface-2);
+    border-left-color: var(--color-amber);
+  }
+
+  :root[data-theme="light"] .acard:hover {
+    background: var(--color-surface);
+  }
+
+  :root[data-theme="light"] .an {
+    color: var(--color-text);
+  }
+
+  :root[data-theme="light"] .ar {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .am {
+    color: var(--color-text-secondary);
+  }
+
+  :root[data-theme="light"] .at {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .trust-bar {
+    background: var(--color-border);
+  }
+
+  :root[data-theme="light"] .trust-label {
+    color: var(--color-text-muted);
+  }
+
+  /* ── Ticker / Crisis box ── */
+  :root[data-theme="light"] .cr-l {
+    color: var(--color-text-muted);
+  }
+
+  :root[data-theme="light"] .cr-t {
+    color: var(--color-red);
+  }
+
+  /* ── Execute / confirm button ── */
+  :root[data-theme="light"] .confirm-btn {
+    background: transparent;
+    border-color: var(--color-amber);
+    color: var(--color-amber);
+  }
+
+  :root[data-theme="light"] .confirm-btn:hover:not(:disabled) {
+    background: transparent;
+    color: var(--color-text);
+  }
+
+  :root[data-theme="light"] .confirm-btn:disabled {
+    background: transparent;
+    border-color: var(--color-border);
+    color: var(--color-text-muted);
+  }
+
+  /* ── Skip / end-turn button ── */
+  :root[data-theme="light"] .skip-btn:hover {
+    background: transparent;
+    color: var(--color-text-secondary);
+    border-color: var(--color-border-light);
+  }
+
+
+/* Verdict reveal overlay — absolute inside the (relative) report screen so it
+   covers the viewport reliably (position:fixed gets trapped by ancestors). */
+.sv-report { position: relative; }
+.sv-verdict.sv2 { position: absolute; inset: 0; z-index: 600; transition: opacity .8s ease; }
+.sv-verdict-skip { position: absolute; bottom: 18px; right: 20px; z-index: 3; font-size: .55rem;
+  letter-spacing: .18em; opacity: .5; cursor: pointer; }
+.sv-verdict-skip:hover { opacity: .9; }
+
+/* Report card — usual fonts + soft theme palette, with one quiet futuristic
+   accent: a ▸ marker on section labels that inherits each label's colour. */
+.sv-report .rh-kicker { letter-spacing: .2em; }
+.sv-report .worst-l::before,
+.sv-report .roast-l::before,
+.sv-report .resign-l::before,
+.sv-report .wiki-l::before { content: "\25B8  "; opacity: .7; }
+
+/* ============================================================
+   Cold-open + verdict — Samaritan UI base (.sv2)
+   Two-tone message box + line + pulsing red arrow + big mono.
+   Inverts with the theme: ink-on-paper (light) / white-on-black (dark).
+   ============================================================ */
+.sv2 {
+  position: relative; width: 100%; height: 100%; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Nova Mono', 'IBM Plex Mono', monospace;
+  transition: background 1.2s ease, color 1.2s ease;
+  --bg: #f6f4ee; --fg: #111111; --ar0: #aa1414; --ar1: #ff2a2a;
+  background: var(--bg); color: var(--fg);
+}
+:root[data-theme="dark"] .sv2 { --bg: #060606; --fg: #ffffff; }
+.sv2 .hidden { display: none !important; }
+.sv2::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(128,128,128,.06) 0 1px, transparent 1px 3px); }
+.sv2-stage { position: relative; z-index: 2; width: 100%; display: flex; flex-direction: column;
+  align-items: center; padding: 1.5rem; }
+.sv2-box { width: min(32rem, 90vw); transition: opacity .4s ease; }
+.sv2-box-t { font-size: .58rem; letter-spacing: .06em; text-align: left; padding: 4px 14px;
+  background: var(--fg); color: var(--bg); border: 2px solid var(--fg); border-radius: 3px 3px 0 0; }
+.sv2-box-b { font-size: .68rem; line-height: 1.85; letter-spacing: .04em; text-align: left;
+  padding: 10px 14px; min-height: 46px; background: var(--bg); color: var(--fg);
+  border-left: 2px solid var(--fg); border-right: 2px solid var(--fg); }
+.sv2-box-f { height: 12px; border: 2px solid var(--fg); border-top: none; border-radius: 0 0 3px 3px; opacity: .5; }
+.sv2-text { font-size: 1.05rem; letter-spacing: .16em; text-align: center; line-height: 1.4; max-width: 30rem; }
+.sv2-line { width: 34px; border-bottom: 2px solid var(--fg); margin: 14px auto 0; }
+.sv2-arrow { width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent;
+  border-bottom: 11px solid var(--ar0); margin: 9px auto 0; animation: sv2arrow 1s alternate infinite linear; }
+@keyframes sv2arrow { from { border-bottom-color: var(--ar0); } to { border-bottom-color: var(--ar1); } }
+.sv2-sub { font-size: .6rem; letter-spacing: .03em; line-height: 1.7; font-style: italic; opacity: .6;
+  margin-top: 20px; max-width: 28rem; text-align: center; }
+.sv2-cta { margin-top: 26px; padding: .8rem 2.2rem; background: transparent; border: 2px solid var(--fg);
+  color: var(--fg); font-family: inherit; font-size: .6rem; font-weight: 700; letter-spacing: .22em;
+  text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: background .15s, color .15s; }
+.sv2-cta:hover { background: var(--fg); color: var(--bg); }
+.sv2-skip { position: absolute; bottom: 18px; right: 20px; z-index: 3; font-size: .48rem;
+  letter-spacing: .18em; opacity: .4; cursor: pointer; }
+.sv2-skip:hover { opacity: .85; }
+.sv2-flash { animation: sv2flash .15s steps(2, end) 1; }
+@keyframes sv2flash { 50% { opacity: 0; } }
+
+/* Closing assessment text — the comment shown in the verdict's stark style
+   (a sentence, so softer size/tracking than the one-word verdict). */
+.sv2-text.sv2-remark { font-family: 'IBM Plex Serif', Georgia, 'Times New Roman', serif; font-size: .82rem; font-weight: 400; letter-spacing: .005em; line-height: 1.62; max-width: 27rem; }

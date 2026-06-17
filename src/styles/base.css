@@ -62,7 +62,7 @@ body {
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #c6beac transparent;
+  scrollbar-color: var(--color-border) transparent;
 }
 
 /* Chrome / Edge / Safari */
@@ -74,11 +74,11 @@ body {
   background: transparent;
 }
 *::-webkit-scrollbar-thumb {
-  background: #c6beac;
-  border-radius: 3px;
+  background: var(--color-border);
+  border-radius: 4px;
 }
 *::-webkit-scrollbar-thumb:hover {
-  background: #a89e88;
+  background: var(--color-text-muted);
 }
 *::-webkit-scrollbar-corner {
   background: transparent;

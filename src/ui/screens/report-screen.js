@@ -1,6 +1,7 @@
 import { renderTopBar } from '../components/top-bar.js';
 import { renderReportCard } from '../components/report-card.js';
 import { govRaw, govLast } from '../../utils/governor.js';
+import { pickClosingRemark } from '../../utils/closing-remark.js';
 
 export class ReportScreen {
   static render(state) {
@@ -83,8 +84,32 @@ export class ReportScreen {
     const roastBody = state.city?.opening_sequence?.intro_body
       ?? `Another governor, another term. The city has seen it all before. Some things improved, others didn't. History will record the numbers and forget the context.`;
 
+    // Samaritan verdict reveal (plays over the report, then fades)
+    const verdict = walkedAway ? 'RESIGNED'
+      : scandalExit ? 'RESIGNED IN DISGRACE'
+      : recalled ? 'RECALLED'
+      : 'TERM COMPLETE';
+    const adminLine = govRaw(state) ? `THE ${govLast(state).toUpperCase()} ADMINISTRATION` : 'FINAL ASSESSMENT';
+    const govUpper = (govRaw(state) || 'Acting Governor').toUpperCase();
+    const remark = pickClosingRemark(state);
+
     return `
-      <div class="screen">
+      <div class="screen sv-report">
+        <div class="sv-verdict sv2" id="sv-verdict" data-verdict="${verdict}" data-admin="${adminLine}"
+             data-name="${govUpper}" data-comment="${remark.replace(/"/g, '&quot;')}">
+          <div class="sv2-stage">
+            <div class="sv2-box" id="rvbox">
+              <div class="sv2-box-t" id="rvtitle">GOVERNED &middot; CIVIC OVERSIGHT</div>
+              <div class="sv2-box-b" id="rvbody">ASSESSMENT COMPLETE</div>
+              <div class="sv2-box-f"></div>
+            </div>
+            <div class="sv2-text hidden" id="rvtext"></div>
+            <div class="sv2-line hidden" id="rvline"></div>
+            <div class="sv2-arrow hidden" id="rvarrow"></div>
+            <button class="sv2-cta hidden" id="rvcta">VIEW FINAL REPORT &#9656;</button>
+          </div>
+          <div class="sv-verdict-skip" id="rvskip">SKIP &#9656;</div>
+        </div>
         ${renderTopBar(state)}
         <div class="report-screen">
           <div class="report-header">
@@ -173,5 +198,44 @@ export class ReportScreen {
 
   static bind(container) {
     container.querySelector('#btn-restart')?.addEventListener('click', () => window.location.reload());
+
+    const ov = container.querySelector('#sv-verdict');
+    if (!ov) return;
+    const $ = id => container.querySelector(id);
+    const box = $('#rvbox'), title = $('#rvtitle'), body = $('#rvbody'),
+          text = $('#rvtext'), line = $('#rvline'), arrow = $('#rvarrow'), cta = $('#rvcta');
+    const d = ov.dataset;
+    const timers = [];
+    const at = (ms, fn) => timers.push(setTimeout(fn, ms));
+    let dismissed = false;
+    const done = () => {
+      if (dismissed) return;
+      dismissed = true;
+      timers.forEach(clearTimeout);
+      ov.style.opacity = '0';
+      setTimeout(() => ov.remove(), 800);
+    };
+    // CTA / SKIP advance to the report; mid-sequence clicks skip ahead.
+    cta?.addEventListener('click', e => { e.stopPropagation(); done(); });
+    container.querySelector('#rvskip')?.addEventListener('click', e => { e.stopPropagation(); done(); });
+    ov.addEventListener('click', done);
+
+    at(1200, () => { body.innerHTML = 'COMPILING FINAL REPORT'; });
+    at(2400, () => { title.innerHTML = d.admin; body.innerHTML = 'ASSESSMENT RENDERED'; });
+    at(3600, () => {
+      box.classList.add('hidden');
+      text.classList.remove('hidden');
+      line.classList.remove('hidden');
+      arrow.classList.remove('hidden');
+      text.textContent = d.verdict;
+    });
+    at(5600, () => {
+      // Closing assessment — a serious editorial serif over the verdict
+      // line + pulsing arrow (distinct from the mono verdict word).
+      text.textContent = d.comment;
+      text.classList.add('sv2-remark');
+      cta.classList.remove('hidden');
+      container.querySelector('#rvskip')?.classList.add('hidden');
+    });
   }
 }

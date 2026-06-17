@@ -18,13 +18,17 @@
 /* ═══════════════════════════════════════════════════════
    GLOBAL MOBILE RESPONSIVE
 ═══════════════════════════════════════════════════════ */
-@media (max-width: 768px) {
+@media (max-width:768px) {
 
   /* ── Outer wrapper reset ── */
   .screen {
     border-radius: 0;
     border: none;
     max-width: 100%;
+  }
+
+  .masthead {
+    font-size: 0.85rem;
   }
 
   /* ── MAIN MENU ── */
@@ -119,7 +123,7 @@
     color: var(--color-amber);
   }
 
-  /* Settings rows: stack vertically, bigger touch targets */
+  /* Settings rows:stack vertically, bigger touch targets */
   .st-row {
     flex-direction: column;
     gap: 0.625rem;
@@ -148,7 +152,11 @@
     margin-bottom: 0.25rem;
   }
 
-  /* Stats grid: 2 columns on mobile */
+  .st-section {
+    padding: 1rem 1rem;
+  }
+
+  /* Stats grid:2 columns on mobile */
   .st-stat-grid {
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
@@ -162,7 +170,7 @@
     font-size: 0.5rem;
   }
 
-  /* Bottom bar: larger touch button */
+  /* Bottom bar:larger touch button */
   .st-bottombar {
     padding: 0.625rem 0.875rem;
   }
@@ -496,9 +504,9 @@
 }
 
 .bub.me {
-  background: var(--color-amber-dim);
+  background: var(--color-surface-raised);
   border: 1px solid var(--color-border);
-  color: var(--color-amber);
+  color: var(--color-text);
   border-radius: 2px;
 }
 
@@ -602,8 +610,7 @@
 
 .qr:hover {
   border-color: var(--color-amber);
-  color: var(--color-amber);
-  background: var(--color-amber-dim);
+  color: var(--color-text-secondary);
 }
 
 .qr.dng {
@@ -779,8 +786,8 @@
 }
 
 .cs-stance {
-  background: var(--color-bg);
-  border: 1px solid var(--color-bg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 2px;
   padding: 0.4375rem 0.5625rem;
 }
@@ -824,24 +831,25 @@
 
 .cc {
   padding: 0.375rem 0.5625rem;
-  border: 1px solid var(--color-bg);
+  border: 1px solid var(--color-text);
   border-radius: 2px;
-  background: var(--color-bg);
+  background: var(--color-surface);
   cursor: pointer;
   transition: all 0.15s;
 }
 
 .cc:hover {
-  border-color: var(--color-border-light);
+  border-color: var(--color-amber);
 }
 
 .cc.urgent {
+  border-width: 2px;
   border-color: var(--color-text);
 }
 
 .cc.urgent:hover {
-  border-color: var(--color-red);
-  background: var(--color-bg);
+  border-color: var(--color-amber);
+  background: var(--color-surface-raised);
 }
 
 .cc-tag {
@@ -1189,17 +1197,17 @@
 .oa-btn:hover {
   border-color: var(--color-amber);
   color: var(--color-amber);
-  background: var(--color-amber-dim);
 }
 
 .oa-btn.primary {
   border-color: var(--color-amber);
   color: var(--color-amber);
-  background: var(--color-amber-dim);
+  background: transparent;
 }
 
 .oa-btn.primary:hover {
-  background: var(--surface-2);
+  border-color: var(--color-border-light);
+  color: var(--color-text-secondary);
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -1323,7 +1331,7 @@
   padding: 0.75rem 3rem;
   font-size: 0.8125rem;
   color: var(--color-bg);
-  background: var(--color-accent);
+  background: #aa1414;
   border: none;
   letter-spacing: .14em;
   cursor: pointer;
@@ -1334,7 +1342,7 @@
 }
 
 .play-btn:hover {
-  background: #0b564d;
+  background: #ff2a2a;
   transform: scale(1.02);
 }
 
@@ -1421,7 +1429,8 @@
   color: var(--color-text);
 }
 
-.modal-body ol, .modal-body ul {
+.modal-body ol,
+.modal-body ul {
   padding-left: 1.5rem;
   margin-bottom: 0.625rem;
 }
@@ -1530,8 +1539,7 @@
   min-height: 0;
   grid-template-columns: minmax(13rem, 34%) 1fr;
   grid-template-rows: minmax(0, 1fr) minmax(9rem, 40%);
-  grid-template-areas:
-    "ledger map"
+  grid-template-areas: "ledger map"
     "ledger dossier";
 }
 
@@ -1917,7 +1925,7 @@
   background: var(--color-surface);
 }
 
-/* ── City select: mobile responsive ─────────────────────────────────────── */
+/* ── City select:mobile responsive ─────────────────────────────────────── */
 @media (max-width: 768px) {
   .cs-screen {
     font-size: 0.625rem;
@@ -1955,7 +1963,7 @@
     height: 5px;
   }
 
-  /* App-like mobile layout: Map (top) -> Horizontal Carousel (middle) -> Dossier (bottom) */
+  /* App-like mobile layout:Map (top) -> Horizontal Carousel (middle) -> Dossier (bottom) */
   .cs-body {
     display: flex;
     flex-direction: column;
@@ -1992,6 +2000,7 @@
     max-height: none;
     scrollbar-width: none;
   }
+
   .cs-term-list::-webkit-scrollbar {
     display: none;
   }
@@ -2021,7 +2030,7 @@
     border-radius: 4px;
     background: var(--color-bg);
   }
-  
+
   .cs-tc-name {
     font-size: 0.6rem;
     white-space: nowrap;
@@ -2135,7 +2144,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width:480px) {
   .cs-map-panel {
     flex: 0 0 40svh;
   }
@@ -2405,8 +2414,7 @@
 .st-body {
   flex: 1;
   display: grid;
-  grid-template-columns: 4.6875rem 1fr;
-  /* was 150px — rem so it scales */
+  grid-template-columns: 8rem 1fr;
   overflow: hidden;
   min-height: 0;
 }
@@ -2469,7 +2477,7 @@
 
 .st-section {
   display: none;
-  padding: 1.125rem 1.25rem;
+  padding: 1.5rem 2rem;
   flex-direction: column;
   gap: 1.25rem;
 }
@@ -2479,7 +2487,7 @@
    MOBILE STICKY FIX - appended AFTER all desktop CSS
    These rules win the cascade on narrow screens.
 ======================================================== */
-@media (max-width: 768px) {
+@media (max-width:768px) {
 
   /* Screen fills full viewport */
   .screen {
@@ -2498,7 +2506,7 @@
     flex-shrink: 0;
   }
 
-  /* Main body: fill every remaining pixel, no calc() needed */
+  /* Main body:fill every remaining pixel, no calc() needed */
   .main-body {
     flex: 1 !important;
     height: unset !important;
@@ -2519,6 +2527,14 @@
     display: none;
   }
 
+  /* Messenger: the screen wrapper must be height-bounded for the CSS grid
+     1fr row to have an upper limit. We target .msg-wrap specifically. */
+  .screen.msg-screen-override {
+    height: 100svh;
+    max-height: 100svh;
+    overflow: hidden;
+  }
+
   /* Messenger: override desktop height:480px */
   .msg-wrap {
     flex: 1;
@@ -2529,9 +2545,12 @@
     overflow: hidden;
   }
 
-  /* Messages float to bottom, no dead space above */
+  /* Messages: scrollable conversation list on mobile */
   .msgs {
-    justify-content: flex-end;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    min-height: 0;
   }
 
   /* Quick replies always pinned to viewport bottom */
@@ -2539,10 +2558,10 @@
     position: sticky;
     bottom: 0;
     z-index: 2;
-    background: #0a0a0a;
+    background: var(--color-bg);
   }
 
-  /* ── SETTINGS: full-width horizontal tab strip ──
+  /* ── SETTINGS:full-width horizontal tab strip ──
      The early mobile block at the top of this file LOSES the cascade to the
      desktop .st-* rules below it (same specificity, later wins). These
      overrides are appended last, so they actually apply on phones. */
@@ -2559,7 +2578,7 @@
     width: 100%;
     flex-shrink: 0;
     border-right: none;
-    border-bottom: 0.5px solid #1a1a1a;
+    border-bottom: 0.5px solid var(--color-border);
     padding: 0;
     overflow: hidden;
     max-height: none;
@@ -2585,13 +2604,13 @@
 
   .st-nav-item.active {
     border-left-color: transparent;
-    border-bottom: 2px solid #d4a843;
+    border-bottom: 2px solid var(--color-amber);
     background: transparent;
-    color: #d4a843;
+    color: var(--color-amber);
   }
 
   .st-nav-danger.active {
-    border-bottom-color: #e05c5c;
+    border-bottom-color: var(--color-red);
   }
 
   .st-content {
@@ -2601,7 +2620,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width:768px) {
   .modal-box {
     width: 75%;
   }

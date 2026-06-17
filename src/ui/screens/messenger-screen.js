@@ -60,7 +60,7 @@ export class MessengerScreen {
     }).join('');
 
     return `
-      <div class="screen">
+      <div class="screen msg-screen-override">
         <div class="msg-wrap">
           <div class="msg-top">
             <div class="back-btn" id="btn-back">back</div>
@@ -299,7 +299,14 @@ export class MessengerScreen {
     if (!advisor) return;
 
     const msgList = container.querySelector('#msg-list');
-    if (msgList) msgList.scrollTop = msgList.scrollHeight;
+    if (msgList) {
+      // Defer scroll until after the browser has painted the layout —
+      // synchronous scrollTop = scrollHeight doesn't work on mobile because
+      // the browser hasn't resolved the final scrollHeight yet at bind time.
+      requestAnimationFrame(() => {
+        msgList.scrollTop = msgList.scrollHeight;
+      });
+    }
 
     container.querySelector('#btn-back')?.addEventListener('click', () => {
       handlers.backToDispatch();

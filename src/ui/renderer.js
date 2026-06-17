@@ -1,6 +1,7 @@
 // src/ui/renderer.js — UI Router and delegation layer
 
 import { MenuScreen } from './screens/menu-screen.js';
+import { IntroScreen } from './screens/intro-screen.js';
 import { CitySelectScreen } from './screens/cityselect-screen.js';
 import { SettingsScreen } from './screens/settings-screen.js';
 import { DispatchScreen } from './screens/dispatch-screen.js';
@@ -57,6 +58,7 @@ export class Renderer {
       meetingResponse:     (accept) => window.GOVERNED?.meetingResponse(accept),
       consultAdvisor:      (advisorId) => window.GOVERNED?.consultAdvisor(advisorId),
       dismissNewspaper:    () => window.GOVERNED?.dismissNewspaper(),
+      beginTerm:           () => window.GOVERNED?.beginTerm(),
     };
 
     switch (screen) {
@@ -67,6 +69,10 @@ export class Renderer {
       case 'cityselect':
         this.container.innerHTML = CitySelectScreen.render(state);
         CitySelectScreen.bind(this.container, handlers);
+        break;
+      case 'intro':
+        this.container.innerHTML = IntroScreen.render(state);
+        IntroScreen.bind(this.container, handlers);
         break;
       case 'settings':
         this.container.innerHTML = SettingsScreen.render(state);

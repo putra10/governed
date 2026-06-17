@@ -93,7 +93,7 @@ class App {
       const city = loadCity(cityData);
       this.state.loadCity(city);
       recordGameStart();
-      this.currentScreen = 'dispatch';
+      this.currentScreen = 'intro';
       this.render();
       console.log('GOVERNED started:', city.city_name, '| Governor:', this.governorName);
     } catch (err) {
@@ -101,6 +101,12 @@ class App {
       this.currentScreen = 'menu';
       this.render();
     }
+  }
+
+  // Leave the cold-open assessment and take office.
+  beginTerm() {
+    this.currentScreen = 'dispatch';
+    this.render();
   }
 
   handleDecision(decisionId, optionIndex) {

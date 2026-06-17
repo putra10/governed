@@ -8,17 +8,17 @@ const REL_ICONS = {
   romantic: '\u{1F4AC}',
 };
 const REL_COLORS = {
-  neutral:  '#666',
-  trust:    '#2e7d32',
-  rivalry:  '#b22a1e',
-  romantic: '#a8456a',
+  neutral:  'var(--color-text-muted)',
+  trust:    'var(--color-green)',
+  rivalry:  'var(--color-red)',
+  romantic: 'var(--color-accent)',
 };
 
 function agendaColor(pct) {
-  if (pct >= 80) return '#b22a1e';
-  if (pct >= 60) return '#c0531c';
-  if (pct >= 40) return '#a8740f';
-  return '#2e7d32';
+  if (pct >= 80) return 'var(--color-red)';
+  if (pct >= 60) return 'var(--color-amber)';
+  if (pct >= 40) return 'var(--color-amber)';
+  return 'var(--color-green)';
 }
 
 export function renderAdvisorCard(advisor, hasOffer = false, needsAnswer = false, hasUnread = false) {
