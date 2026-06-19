@@ -1,6 +1,6 @@
 // src/engine/advisor-system.js
 import { randomPick, random } from '../utils/random.js';
-import { addHeat } from './heat-system.js';
+import { addHeat, heatLevel } from './heat-system.js';
 import advisorReactions from '../../Hardcoded things/advisor_reactions.json';
 
 // Canonical domain of an advisor. Candidate-pool advisors carry a unique `id`
@@ -85,19 +85,23 @@ export const BACK_CHANNEL_ACTIONS = {
   },
   corrupt_pact: {
     label: 'PROPOSE CORRUPT PACT',
-    desc:  'A quiet arrangement in their domain. Skims money into the budget every turn — discovery risk grows the longer it runs, and the paper trail never resets.',
-    note:  'Trigger: trust ≥ 60 & budget < 150M · one active scheme at a time',
+    desc:  'A quiet arrangement in their domain. Skims money into YOUR personal wallet every turn — discovery risk grows the longer it runs, and the paper trail never resets. You can run several schemes at once for compounding income (and compounding risk).',
+    note:  'Trigger: trust ≥ 60 · skims to personal funds · multiple schemes allowed',
     condition: (s, adv) =>
       !adv.corruptPact &&
-      (adv.trust ?? 50) >= 60 &&
-      s.budget < 150 &&
-      !s.advisors.some(a => a.corruptPact && !a.betrayed),
+      (adv.trust ?? 50) >= 60,
   },
   end_pact: {
     label: 'END THE SCHEME',
     desc:  'Wind down the arrangement. The paper trail lingers for two more turns.',
     note:  'Residual discovery risk: 2 turns',
     condition: (s, adv) => !!adv.corruptPact,
+  },
+  launder: {
+    label: 'LAUNDER THE TRAIL',
+    desc:  'Pay a fixer to scrub the paper trail on this scheme. Rolls the discovery clock back and cools the watchdog — out of your personal funds.',
+    note:  'Trigger: active pact & personal funds ≥ 30M · -30M · -3 pact-turns · cools scrutiny',
+    condition: (s, adv) => !!adv.corruptPact && (s.personalFunds ?? 0) >= 30,
   },
   threaten: {
     label: 'THREATEN',
@@ -120,12 +124,12 @@ export const BACK_CHANNEL_ACTIONS = {
   },
   leak: {
     label: 'LEAK DIRT',
-    desc:  'Hand their file to a journalist. Their agenda collapses — but the story splashes on your office too.',
-    note:  'Trigger: their agenda ≥ 50 & budget ≥ 30M (the journalist isn’t free) · once per advisor',
+    desc:  'Hand their file to a journalist. Their agenda collapses — but the story splashes on your office too. The journalist is paid from YOUR personal funds.',
+    note:  'Trigger: their agenda ≥ 50 & personal funds ≥ 30M · once per advisor',
     condition: (s, adv) =>
       !adv.leakUsed &&
       (adv.agendaProgress ?? 0) >= 50 &&
-      s.budget >= 30,
+      (s.personalFunds ?? 0) >= 30,
   },
 };
 
@@ -261,13 +265,28 @@ export class AdvisorSystem {
 
     if (demand.type === 'bigger_cut') {
       if (accept) {
-        s.shiftBudget(-25);
+        s.shiftPersonal(-25);
         advisor.trust = Math.min(100, (advisor.trust ?? 50) + 5);
         return { ok: true, msg: `You paid ${advisor.name}'s bigger cut. (-25M, +5 trust) Partners stay loyal when fed.` };
       }
       advisor.trust = Math.max(0, (advisor.trust ?? 50) - 8);
       advisor.pactTurns = (advisor.pactTurns ?? 0) + 1;
       return { ok: true, msg: `You refused. ${advisor.name} takes it personally — and gets sloppy. (trail thickens, -8 trust)` };
+    }
+
+    if (demand.type === 'blackmail') {
+      const pay = demand.demand ?? 50;
+      if (accept) {
+        s.shiftPersonal(-pay);
+        advisor.trust = Math.min(100, (advisor.trust ?? 50) + 4);
+        return { ok: true, msg: `You paid ${advisor.name}'s price for silence. (-${pay}M personal) They keep your secret — for now.` };
+      }
+      // Refuse: they walk, and they tip off the watchdog on the way out
+      advisor.corruptPact = false;
+      advisor.pactResidual = 0;
+      addHeat(s, 8, 'blackmail_refuse');
+      this.triggerBetrayal(advisor, null);
+      return { ok: true, msg: `You called ${advisor.name}'s bluff. They walk straight to the investigators. (betrayed · scrutiny spikes)` };
     }
 
     // cold_feet
@@ -585,6 +604,7 @@ export class AdvisorSystem {
       case 'keep_distance': return this._bcKeepDistance(advisor);
       case 'corrupt_pact':  return this._bcStartPact(advisor);
       case 'end_pact':      return this._bcEndPact(advisor);
+      case 'launder':       return this._bcLaunder(advisor);
       case 'threaten':      return this._bcThreaten(advisor, scandalSystem, onBetrayal);
       case 'leak':          return this._bcLeak(advisor, scandalSystem);
       case 'sacrifice':     return this._bcSacrifice(advisor);
@@ -690,6 +710,14 @@ export class AdvisorSystem {
     return { ok: true, msg: `The scheme with ${advisor.name} is wound down. The paper trail lingers for 2 more turns.` };
   }
 
+  _bcLaunder(advisor) {
+    const s = this.state;
+    s.shiftPersonal(-30);
+    advisor.pactTurns = Math.max(0, (advisor.pactTurns ?? 0) - 3);
+    addHeat(s, -6, 'launder');
+    return { ok: true, msg: `A fixer scrubs ${advisor.name}'s trail. (-30M personal · discovery clock rolled back · scrutiny cools)` };
+  }
+
   _bcThreaten(advisor, scandalSystem, onBetrayal) {
     const s = this.state;
     const leverage = advisor.agendaProgress ?? 0;
@@ -727,7 +755,7 @@ export class AdvisorSystem {
 
   _bcLeak(advisor, scandalSystem) {
     const s = this.state;
-    s.shiftBudget(-30);
+    s.shiftPersonal(-30);
     advisor.agendaProgress  = Math.max(0, (advisor.agendaProgress ?? 0) - 40);
     advisor.trust           = Math.max(0, (advisor.trust ?? 50) - 20);
     advisor.relationshipType = 'rivalry';
@@ -762,15 +790,24 @@ export class AdvisorSystem {
           continue;
         }
 
-        // Crime partners are needy too: 40%/turn they demand an answer
+        // Crime partners are needy too: 40%/turn they demand an answer. A
+        // long, fat scheme can curdle into outright blackmail of YOU.
         if (!s.pendingPartnerDemand && random() < 0.40) {
-          const type = random() < 0.5 ? 'bigger_cut' : 'cold_feet';
-          s.pendingPartnerDemand = { advisorId: advisor.id, advisorName: advisor.name, type };
+          let type;
+          if ((advisor.pactTurns ?? 0) >= 5 && (advisor.totalSkimmed ?? 0) >= 80 && random() < 0.5) {
+            type = 'blackmail';
+          } else {
+            type = random() < 0.5 ? 'bigger_cut' : 'cold_feet';
+          }
+          s.pendingPartnerDemand = {
+            advisorId: advisor.id, advisorName: advisor.name, type,
+            demand: Math.max(20, Math.round((advisor.totalSkimmed ?? 0) * 0.5)),
+          };
           console.log(`[Pact] ${advisor.name} needs an answer (${type})`);
         }
 
         const skim = this._pactSkim();
-        s.shiftBudget(skim);
+        s.shiftPersonal(skim);
         advisor.pactTurns    = (advisor.pactTurns ?? 0) + 1;
         advisor.totalSkimmed = (advisor.totalSkimmed ?? 0) + skim;
         s.dirtyDeeds.skimmed += skim;
@@ -785,6 +822,43 @@ export class AdvisorSystem {
         if (random() < 0.04) this._exposePact(advisor, scandalSystem);
       }
     }
+  }
+
+  // ── Corruption raid (driven by SCRUTINY) ──────────────────────────────────
+  // No separate watchdog meter: running schemes raise SCRUTINY like everything
+  // else, and once the press is INVESTIGATING (or you're UNDER SIEGE) the
+  // investigators can raid — exposing every active pact at once and seizing half
+  // your slush. Risk scales with how hot you are and how many schemes run.
+  processRaidRisk(scandalSystem) {
+    const s = this.state;
+    const active = s.advisors.filter(a => a.corruptPact && !a.betrayed);
+    if (!active.length) return;
+
+    // Active schemes generate rumors — they keep the heat on (and block decay).
+    addHeat(s, active.length, 'corrupt_pacts');
+
+    const idx = heatLevel(s.heat ?? 0).index;
+    if (idx < 3) return; // below INVESTIGATED, the books stay closed
+
+    const chance = (idx - 2) * 0.12 + active.length * 0.05;
+    if (random() < chance) this._corruptionRaid(scandalSystem, active);
+  }
+
+  _corruptionRaid(scandalSystem, active = null) {
+    const s = this.state;
+    active = active ?? s.advisors.filter(a => a.corruptPact && !a.betrayed);
+    for (const adv of active) this._exposePact(adv, scandalSystem);
+    const seized = Math.round((s.personalFunds ?? 0) * 0.5);
+    s.shiftPersonal(-seized);
+    if (scandalSystem) {
+      scandalSystem._applyScandal({
+        id: `corruption_raid_${s.turn}`,
+        title: `Investigators Raid City Hall — ${seized}M Seized`,
+        severity_tier: active.length ? 'career_ending' : 'major',
+      }, 'corruption_raid');
+    }
+    s.recentComments = [`⚠ RAID: investigators seized ${seized}M from your personal accounts.`, ...(s.recentComments ?? [])].slice(0, 5);
+    console.warn(`[Raid] ${active.length} pact(s) exposed, ${seized}M seized`);
   }
 
   // Severity escalates with how long the scheme ran — the trail never resets

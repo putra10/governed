@@ -77,7 +77,7 @@ function renderMarketOffers(offers) {
           <button class="mk-buy" data-buy-offer="${o.id}">${price < 0 ? 'SELL' : 'BUY'} (${priceLabel})</button>
         </div>`;
       }).join('')}
-      <div class="mk-foot">Offers vanish at dawn &middot; every deal raises SCRUTINY</div>
+      <div class="mk-foot">Paid from personal funds &middot; offers vanish at dawn &middot; every deal raises SCRUTINY</div>
     </div>`;
 }
 
@@ -406,6 +406,42 @@ function renderScandalActions(scandal) {
   `;
 }
 
+function renderTreasuryPanel(state) {
+  const pf = state.personalFunds ?? 0;
+  const def = Math.min(pf, Math.max(10, Math.round(pf * 0.25)));
+  const NEXT = [3, 5, 7, 9, 11].find(t => t > state.turn);
+  const nextPay = NEXT ? `Next salary &middot; turn ${NEXT}` : 'Final salary in';
+  const dis = pf <= 0;
+  return `
+    <div class="treasury">
+      <div class="trez-top">
+        <span class="trez-h">PERSONAL FUNDS</span>
+        <span class="trez-next">${nextPay}</span>
+      </div>
+      <div class="trez-amt">${pf}<span class="trez-m">M</span></div>
+      <button type="button" class="trez-toggle" id="trez-toggle" ${dis ? 'disabled' : ''} aria-expanded="false">
+        <span>DONATE TO CITY</span><span class="trez-caret">&#9656;</span>
+      </button>
+      <div class="trez-donate is-collapsed ${dis ? 'is-empty' : ''}" id="trez-panel">
+        <div class="trez-drow">
+          <span class="trez-lbl">AMOUNT</span>
+          <span class="trez-out"><span id="trez-out">${dis ? 0 : def}</span>M</span>
+        </div>
+        <input type="range" class="trez-slider" id="trez-slider" min="0" max="${pf}" step="1" value="${dis ? 0 : def}" ${dis ? 'disabled' : ''}>
+        <div class="trez-presets">
+          <button type="button" class="trez-pre" data-donate-set="10" ${pf < 10 ? 'disabled' : ''}>10</button>
+          <button type="button" class="trez-pre" data-donate-set="50" ${pf < 50 ? 'disabled' : ''}>50</button>
+          <button type="button" class="trez-pre" data-donate-set="100" ${pf < 100 ? 'disabled' : ''}>100</button>
+          <button type="button" class="trez-pre" data-donate-set="max" ${dis ? 'disabled' : ''}>MAX</button>
+        </div>
+        <button type="button" class="trez-go" id="trez-donate-btn" ${dis ? 'disabled' : ''}>
+          GIVE <span id="trez-go-amt">${dis ? 0 : def}</span>M &middot; +1% APPROVAL
+        </button>
+        <div class="trez-note">Lands in the public treasury &middot; front page tomorrow</div>
+      </div>
+    </div>`;
+}
+
 export class DispatchScreen {
   static render(state) {
     const city = state.city;
@@ -424,7 +460,7 @@ export class DispatchScreen {
     const advisors = state.advisors.filter(a => !a.betrayed);
     advisors.slice(0, 2).forEach(a => {
       const line = pick(a.dialogue?.briefing);
-      if (line) tickerParts.push(line.slice(0, 35) + '...');
+      if (line) tickerParts.push(line.slice(0, 80) + (line.length > 80 ? '…' : ''));
     });
 
     // Crisis window — must match the engine's CRISIS_TURNS [4, 8, 12]
@@ -499,6 +535,7 @@ export class DispatchScreen {
               <div class="sf-t"><div class="sf-f" style="width:${angerPct}%"></div></div>
               <div class="sf-p">${approval}% approval</div>
             </div>
+            ${renderTreasuryPanel(state)}
           </div>
 
           <div class="center">
@@ -617,7 +654,7 @@ export class DispatchScreen {
             </div>
             <div class="ticker">
               <div class="tk-l">LIVE TICKER</div>
-              <div class="tk-t">${tickerParts.join(' - ') || 'City status nominal'}</div>
+              <div class="tk-t"><div class="tk-track">${((tickerParts.join('\u2003\u25C6\u2003') || 'City status nominal') + '\u2003\u25C6\u2003').repeat(2)}</div></div>
             </div>
           </div>
 
@@ -628,6 +665,37 @@ export class DispatchScreen {
   static bind(state, container, handlers) {
     // Morning paper
     bindNewspaper(container, handlers);
+
+    const trezToggle = container.querySelector('#trez-toggle');
+    const trezPanel = container.querySelector('#trez-panel');
+    if (trezToggle && trezPanel) {
+      trezToggle.addEventListener('click', () => {
+        const open = trezPanel.classList.toggle('is-collapsed') === false;
+        trezToggle.classList.toggle('open', open);
+        trezToggle.setAttribute('aria-expanded', String(open));
+      });
+    }
+
+    const trezSlider = container.querySelector('#trez-slider');
+    if (trezSlider) {
+      const trezOut = container.querySelector('#trez-out');
+      const trezGo = container.querySelector('#trez-go-amt');
+      const trezMax = Number(trezSlider.max) || 0;
+      const sync = (v) => {
+        const n = Math.max(0, Math.min(trezMax, Math.round(Number(v) || 0)));
+        trezSlider.value = n;
+        if (trezOut) trezOut.textContent = n;
+        if (trezGo) trezGo.textContent = n;
+      };
+      trezSlider.addEventListener('input', () => sync(trezSlider.value));
+      container.querySelectorAll('[data-donate-set]').forEach(b =>
+        b.addEventListener('click', () =>
+          sync(b.dataset.donateSet === 'max' ? trezMax : Number(b.dataset.donateSet))));
+      container.querySelector('#trez-donate-btn')?.addEventListener('click', () => {
+        const amt = Number(trezSlider.value);
+        if (amt > 0) handlers.donateToCity?.(amt);
+      });
+    }
 
     // External actor meetings
     container.querySelectorAll('[data-summon-actor]').forEach(btn => {

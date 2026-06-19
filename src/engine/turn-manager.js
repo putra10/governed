@@ -55,6 +55,7 @@ export class TurnManager {
     });
     this.advisorSystem.tickRelationships(this.scandalSystem);
     this.advisorSystem.processCorruptPacts(this.scandalSystem);
+    this.advisorSystem.processRaidRisk(this.scandalSystem);
     this.advisorSystem.generateBribeOffers();
 
     // 2. Push any queued crisis (from unlock_follow_up) to active
@@ -77,6 +78,15 @@ export class TurnManager {
     //    Crisis trigger fires AFTER increment so the crisis screen
     //    lands on the new turn number, not the old one.
     s.turn++;
+
+    // Governor's salary — lands on odd turns (3/5/7/9/11), 4% of the city
+    // treasury, floor 1M, paid into personal funds. (Turn 1's pay was the 30%
+    // opening grant seeded at loadCity.)
+    if ([3, 5, 7, 9, 11].includes(s.turn)) {
+      const pay = Math.max(1, Math.round(0.04 * s.budget));
+      s.shiftPersonal(pay);
+      s.recentComments = [`Salary cleared: +${pay}M to personal funds.`, ...(s.recentComments ?? [])].slice(0, 5);
+    }
 
     // Reset per-turn decision quota (always 1 NEW generic problem per turn;
     // unresolved problems from previous turns carry over on top)
@@ -665,19 +675,41 @@ export class TurnManager {
     this.saveState();
   }
 
+  // Pour personal money into the public treasury. Public, popular, and printed
+  // in tomorrow's paper. +1% approval; the bridge between your wallet and the city.
+  donateToCity(amount) {
+    const s = this.state;
+    const amt = Math.max(0, Math.min(Math.round(amount), s.personalFunds ?? 0));
+    if (amt <= 0) return { ok: false, msg: 'You have nothing to donate.' };
+    s.shiftPersonal(-amt);
+    s.shiftBudget(amt);
+    s.shiftApproval(1);
+    s.pendingDonationNews = { amount: amt };
+    s.recentComments = [`You donated ${amt}M of your own money to the city. (+1% approval)`, ...(s.recentComments ?? [])].slice(0, 5);
+    this.saveState();
+    return { ok: true, msg: `Donated ${amt}M to the treasury. The press will notice tomorrow.` };
+  }
+
   acceptBribe(advisorId) {
     const s     = this.state;
     const bribe = (s.pendingBribes ?? []).find(b => b.advisorId === advisorId);
     if (!bribe) return;
 
-    s.pendingBribes = s.pendingBribes.filter(b => b.advisorId !== advisorId);
-
-    // Guard: never pay a betrayed advisor (offer should already be purged
-    // by triggerBetrayal, but a stale save could still contain one)
+    // Guard: never pay a betrayed advisor — purge the stale offer, no payment.
     const advisor = s.getAdvisor(advisorId);
-    if (advisor?.betrayed) { this.saveState(); return; }
-
-    s.shiftBudget(-bribe.cost);
+    if (advisor?.betrayed) {
+      s.pendingBribes = s.pendingBribes.filter(b => b.advisorId !== advisorId);
+      this.saveState();
+      return;
+    }
+    // Hush money is paid from your personal wallet, never the public budget.
+    if ((s.personalFunds ?? 0) < bribe.cost) {
+      s.recentComments = [`You can't cover that price (${bribe.cost}M from personal funds). The offer stands.`, ...(s.recentComments ?? [])].slice(0, 5);
+      this.saveState();
+      return;
+    }
+    s.pendingBribes = s.pendingBribes.filter(b => b.advisorId !== advisorId);
+    s.shiftPersonal(-bribe.cost);
 
     if (advisor) {
       advisor.agendaProgress = Math.max(0, advisor.agendaProgress - bribe.agendaReduction);

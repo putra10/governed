@@ -162,6 +162,14 @@ class App {
   partnerDemand(accept) {
     const result = this.turnManager.resolvePartnerDemand(accept);
     this._logToActiveAdvisor(result);
+    this._checkInstantEnd();
+    this.render();
+  }
+
+  donateToCity(amount) {
+    const amt = amount === 'all' ? (this.state.personalFunds ?? 0) : Number(amount);
+    if (!Number.isFinite(amt) || amt <= 0) return;
+    this.turnManager.donateToCity(amt);
     this.render();
   }
 
@@ -210,7 +218,15 @@ class App {
   // A consequence (e.g. a triggered scandal) can zero approval mid-turn
   _checkInstantEnd() {
     if (this.state.approval <= 0) {
-      this.state.endReason = 'recalled';
+      const s = this.state;
+      s.endReason = 'recalled';
+      // If a scandal fired this turn and helped crater approval, name it in the
+      // final report so the recall isn't a mystery (the reveal popup is skipped
+      // when the game ends straight from a decision).
+      if (!s.endScandal) {
+        const sc = (s.pendingScandalReveals ?? []).filter(r => r.turn === s.turn).pop();
+        if (sc) s.endScandal = { title: sc.title, tier: sc.severity_tier, description: '' };
+      }
       this._endGame();
     }
   }

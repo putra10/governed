@@ -15,6 +15,8 @@ export const state = {
   turn: 1,
   approval: 50,
   budget: 0,
+  personalFunds: 0,
+  pendingDonationNews: null,
 
   activeCrises: [],
   resolvedCrises: [],
@@ -107,6 +109,12 @@ export const state = {
     this.turn = 1;
     this.approval = cityData.opening_sequence.starting_stats.approval_rating;
     this.budget = cityData.opening_sequence.starting_stats.budget;
+    // Personal funds: the governor's off-books wallet. Seeded with 30% of the
+    // city's opening treasury (this is the turn-1 paycheck); a salary lands on
+    // odd turns and corrupt skims flow here too. Every back-channel move is paid
+    // from this wallet, never the public budget.
+    this.personalFunds = Math.max(0, Math.round(0.30 * this.budget));
+    this.pendingDonationNews = null;
     this.activeCrises = [];
     this.resolvedCrises = [];
     this.pendingCrisis = null;
@@ -174,7 +182,7 @@ export const state = {
     this.endScandal = null;
     this.pendingScandalReveals = [];
     this.backChannelUsedTurn = 0;
-    this.dirtyDeeds = { skimmed: 0, threats: 0, leaks: 0, exposed: 0, marketBuys: 0 };
+    this.dirtyDeeds = { skimmed: 0, threats: 0, leaks: 0, exposed: 0, marketBuys: 0, sold: 0 };
     this.heat = 0;
     this.lastHeatGainTurn = 0;
     this.siegeTurns = 0;
@@ -274,6 +282,11 @@ export const state = {
     this.budget += delta;
   },
 
+  // The off-books wallet. Floors at 0 — you can't spend money you don't have.
+  shiftPersonal(delta) {
+    this.personalFunds = Math.max(0, Math.round((this.personalFunds ?? 0) + delta));
+  },
+
   // ── Flags ─────────────────────────────────────────────────────────────
 
   setFlag(key, value = true) {
@@ -294,6 +307,8 @@ export const state = {
       turn: this.turn,
       approval: this.approval,
       budget: this.budget,
+      personalFunds: this.personalFunds,
+      pendingDonationNews: this.pendingDonationNews,
       activeCrises: this.activeCrises,
       resolvedCrises: this.resolvedCrises,
       pendingCrisis: this.pendingCrisis,
@@ -373,6 +388,8 @@ export const state = {
     this.turn                 = parsed.turn;
     this.approval             = parsed.approval;
     this.budget               = parsed.budget;
+    this.personalFunds        = parsed.personalFunds ?? Math.max(0, Math.round(0.30 * (parsed.budget ?? 0)));
+    this.pendingDonationNews  = parsed.pendingDonationNews ?? null;
     this.activeCrises         = parsed.activeCrises ?? [];
     this.resolvedCrises       = parsed.resolvedCrises ?? [];
     this.pendingCrisis        = parsed.pendingCrisis ?? null;
@@ -401,7 +418,7 @@ export const state = {
     this.endScandal              = parsed.endScandal ?? null;
     this.pendingScandalReveals   = parsed.pendingScandalReveals ?? [];
     this.backChannelUsedTurn     = parsed.backChannelUsedTurn ?? 0;
-    this.dirtyDeeds              = parsed.dirtyDeeds ?? { skimmed: 0, threats: 0, leaks: 0, exposed: 0, marketBuys: 0 };
+    this.dirtyDeeds              = parsed.dirtyDeeds ?? { skimmed: 0, threats: 0, leaks: 0, exposed: 0, marketBuys: 0, sold: 0 };
     this.heat                    = parsed.heat ?? 0;
     this.lastHeatGainTurn        = parsed.lastHeatGainTurn ?? 0;
     this.siegeTurns              = parsed.siegeTurns ?? 0;

@@ -180,42 +180,32 @@ export class SettingsScreen {
               </div>`;
               })()}
 
-              <div class="st-s-title" style="margin-top: 0.875rem">CURRENT SESSION</div>
-              ${state.city ? `
-              <div class="st-rl-desc" style="margin-bottom:0.5rem">Governor: <strong style="color:var(--color-text)">${govRaw(state) || 'Acting Governor'}</strong></div>` : ''}
-              ${state.city ? `
+              <div class="st-s-title" style="margin-top: 0.875rem">CORRUPTION HISTORY</div>
+              ${(() => {
+                const c = loadCareerStats();
+                const total = c.totalCorruption ?? 0;
+                const turns = c.turnsGoverned ?? 0;
+                const avg = turns > 0 ? Math.round(total / turns) : 0;
+                const biggest = c.biggestHaul ?? 0;
+                return `
               <div class="st-stat-grid">
                 <div class="st-stat-card">
-                  <div class="st-sc-label">CURRENT CITY</div>
-                  <div class="st-sc-val" style="font-size: 1rem">${state.city.city_name}</div>
-                  <div class="st-sc-sub">Turn ${state.turn} of 12</div>
+                  <div class="st-sc-label">TOTAL DIRTY MONEY</div>
+                  <div class="st-sc-val" style="font-size: 1rem">${total}M</div>
+                  <div class="st-sc-sub">Skim + sell-offs, all games</div>
                 </div>
                 <div class="st-stat-card">
-                  <div class="st-sc-label">APPROVAL</div>
-                  <div class="st-sc-val">${state.approval}%</div>
-                  <div class="st-sc-sub">Public support</div>
+                  <div class="st-sc-label">AVG / TURN</div>
+                  <div class="st-sc-val">${avg}M</div>
+                  <div class="st-sc-sub">Corruption per turn governed</div>
                 </div>
                 <div class="st-stat-card">
-                  <div class="st-sc-label">BUDGET</div>
-                  <div class="st-sc-val" style="font-size: 1rem">${state.budget}M</div>
-                  <div class="st-sc-sub">${state.budget < 0 ? 'In deficit' : 'Surplus'}</div>
+                  <div class="st-sc-label">BIGGEST HAUL</div>
+                  <div class="st-sc-val" style="font-size: 1rem">${biggest}M</div>
+                  <div class="st-sc-sub">In a single term</div>
                 </div>
-                <div class="st-stat-card">
-                  <div class="st-sc-label">LOYAL ADVISORS</div>
-                  <div class="st-sc-val">${loyalCount}</div>
-                  <div class="st-sc-sub">${betrayedCount > 0 ? betrayedCount + ' betrayed' : 'None betrayed'}</div>
-                </div>
-                <div class="st-stat-card">
-                  <div class="st-sc-label">CRISES HANDLED</div>
-                  <div class="st-sc-val">${crisisCount}</div>
-                  <div class="st-sc-sub">This term</div>
-                </div>
-                <div class="st-stat-card">
-                  <div class="st-sc-label">SCANDALS</div>
-                  <div class="st-sc-val">${scandalCount}</div>
-                  <div class="st-sc-sub">Resolved this term</div>
-                </div>
-              </div>` : `<div class="st-rl-desc" style="padding: 0.5rem 0">No active game session.</div>`}
+              </div>`;
+              })()}
             </div>
 
             <!-- DATA -->

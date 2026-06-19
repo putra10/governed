@@ -207,7 +207,7 @@ export class MenuScreen {
           <p><strong>EACH TURN.</strong> You face a strict sequence of events each day.</p>
           <ol>
             <li><strong>The Morning Paper:</strong> Read yesterday's fallout and see who's talking to the press.</li>
-            <li><strong>The Dispatch:</strong> Face the day's problem. You have <strong>3 hours a day</strong> to spend: take a meeting with a named player, get an advisor's private read, or work the back channel (each costs one hour). Then you must make a decision: SAFE is expensive, BOLD is risky, CHAOS is cheap and unhinged.</li>
+            <li><strong>The Dispatch:</strong> Face the day's problem. You have <strong>3 hours/day</strong> to spend: take a meeting with a named player, get an advisor's private read, or work the back channel (each costs one hour). Then you must make a decision: SAFE is expensive, BOLD is risky, CHAOS is cheap and unhinged.</li>
             <li><strong>The Black Market:</strong> Off-the-books fixers may offer deals. Buy, sell, or walk away.</li>
             <li><strong>Urban Unrest:</strong> If the city is furious and broke, strikes or riots may break out requiring immediate action.</li>
             <li><strong>Scandals:</strong> Finally, any breaking scandals hit your desk. You must suppress, accept, or manage the story before the day ends.</li>
@@ -215,7 +215,7 @@ export class MenuScreen {
           <p>Crises hit on turns <strong>4, 8 and 12</strong>; they cannot be ignored.</p>
           <p><strong>ADVISORS.</strong> Each has trust (keep it fed or they check out) and a hidden agenda (at 80, they betray you). They argue their advice in chat, with reasons — based on what <em>they</em> value, and a restless advisor's recommendation may be designed to hurt you. Watch the agenda bar before you trust anyone. Ignore their advice and pay for it, and a smug "I told you so" lands in your messages the next morning — red badge and all.</p>
 
-          <p><strong>BACK CHANNEL.</strong> In any advisor's chat: get closer (all the way to romance — loyal, useful, and one leaked photo from disaster), run a corrupt pact, threaten, leak dirt, or throw someone under the bus. One dirty move per turn. Lovers and crime partners are <strong>needy</strong> — most turns one of them wants something, and a red badge marks who's waiting on you.</p>
+          <p><strong>BACK CHANNEL.</strong> In any advisor's chat: get closer (all the way to romance — loyal, useful, and one leaked photo from disaster), run a corrupt pact, launder the trail, threaten, leak dirt, or throw someone under the bus. One dirty move per turn, and <strong>every back-channel move is paid from your personal funds</strong> — never the city budget. Lovers and crime partners are <strong>needy</strong>: most turns one wants something, and a long-running, fat scheme can curdle into the partner <strong>blackmailing you</strong> — pay for silence, or call their bluff and watch them run to the investigators.</p>
 
           <p><strong>SCANDALS.</strong> Suppress them with money, accept the hit, or manage the story with a response. Ignore one and it runs at full force tomorrow. Career-ending scandals offer only a 25% miracle — or resignation. The final report names the scandal that ended you.</p>
 
@@ -225,7 +225,10 @@ export class MenuScreen {
 
           <p><strong>BLACK MARKET.</strong> Some nights after your decision, dealers knock: bought approval, wiretaps, fixers, militia payoffs, or cash for pieces of your city. Every deal works. Every deal raises scrutiny. Every deal can go wrong at the printed odds.</p>
 
-          <p><strong>MONEY.</strong> Taxes scale with approval. Deficits bleed approval every turn, and a broke, hated city riots. Contracts and emergency powers are your lifelines.</p>
+          <p><strong>MONEY.</strong> Taxes scale with approval. Deficits bleed approval every turn, and a broke, hated city riots. Contracts and emergency powers are your lifelines. The city budget is <em>public</em> money — what you govern with.</p>
+          <p><strong>PERSONAL FUNDS.</strong> You also keep an <em>off-books wallet</em>. It starts at 30% of the city's opening treasury (your first paycheck), and a salary — 4% of the city budget, at least 1M — lands on turns 3, 5, 7, 9 and 11. This wallet pays for every dirty move, and corrupt skims flow straight into it. The bridge runs both ways: from your sidebar you can <strong>donate</strong> personal money back into the city treasury for <strong>+1% approval</strong> and a flattering front page tomorrow. Every coin you pocket — or burn on a leak — is a coin that can't save the city later.</p>
+          <p><strong>CORRUPT PACTS.</strong> A pact with a trusted advisor skims money into your wallet every turn while reading as loyalty. The paper trail <em>never resets</em>, so discovery odds climb the longer it runs and the eventual scandal scales from minor to career-ending. You can run <strong>several pacts at once</strong> for compounding income — and compounding risk. <strong>Launder the trail</strong> (30M) rolls the discovery clock back and cools scrutiny.</p>
+          <p><strong>RAIDS.</strong> Corruption has no separate meter — running schemes push your <strong>SCRUTINY</strong> up like everything else. Once the press is <strong>INVESTIGATING</strong> or you're <strong>UNDER SIEGE</strong>, investigators can <strong>raid</strong>: every active pact blown open at once, half your slush seized. The more schemes you run, the faster the heat climbs and the bigger the blast. Launder, wind schemes down, or lie low to cool off.</p>
 
           <p><strong>25 CITIES</strong>, five difficulty tiers — from stable and well-funded to war zones where the city is on fire before you arrive. Each has its own advisors, scandals, and voice.</p>
 

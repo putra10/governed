@@ -236,6 +236,22 @@ export class MessengerScreen {
   static _renderPartnerDemand(state, advisor) {
     const d = state.pendingPartnerDemand;
     if (!d || d.advisorId !== advisor.id) return '';
+    if (d.type === 'blackmail') {
+      const pay = d.demand ?? 50;
+      return `
+      <div class="adv-bc partner-demand">
+        <div class="adv-bc-header">&#x1F92B; YOUR PARTNER IS BLACKMAILING YOU</div>
+        <div class="ld-ask">"I kept every receipt, Governor. Every transfer. ${pay}M and the file stays in my drawer. Refuse, and it goes to Civic Oversight."</div>
+        <button class="bc-action" data-partner-demand="accept">
+          <span class="bca-label">PAY FOR SILENCE</span>
+          <span class="bca-note">-${pay}M personal &middot; +4 trust</span>
+        </button>
+        <button class="bc-action" data-partner-demand="refuse">
+          <span class="bca-label">CALL THEIR BLUFF</span>
+          <span class="bca-note">They betray you &middot; scrutiny spikes</span>
+        </button>
+      </div>`;
+    }
     const isCut = d.type === 'bigger_cut';
     const ask = isCut
       ? `"My people are taking all the risk out there. We need a bigger cut — 25M keeps everyone smiling and silent."`
@@ -246,7 +262,7 @@ export class MessengerScreen {
         <div class="ld-ask">${ask}</div>
         <button class="bc-action" data-partner-demand="accept">
           <span class="bca-label">${isCut ? 'PAY THEM' : 'LIE LOW'}</span>
-          <span class="bca-note">${isCut ? '-25M, +5 trust' : 'No skim or discovery risk next turn'}</span>
+          <span class="bca-note">${isCut ? '-25M personal, +5 trust' : 'No skim or discovery risk next turn'}</span>
         </button>
         <button class="bc-action" data-partner-demand="refuse">
           <span class="bca-label">REFUSE</span>

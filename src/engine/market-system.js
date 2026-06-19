@@ -89,7 +89,14 @@ export class MarketSystem {
     if (!offer) return { ok: false, msg: 'The dealer is gone.' };
 
     const price = offer.askingPrice ?? this._price(offer);
-    s.shiftBudget(-price); // negative price = sell-side gain
+    // Black-market dealings are off the books — paid from (and paid into) your
+    // PERSONAL funds, never the public budget. Sell-side offers (negative price)
+    // are you pocketing the proceeds of selling the city out from under it.
+    if (price > 0 && (s.personalFunds ?? 0) < price) {
+      s.recentComments = [`You can't cover the ${price}M asking price from personal funds.`, ...(s.recentComments ?? [])].slice(0, 5);
+      return { ok: false, msg: 'Not enough personal funds for this deal.' };
+    }
+    s.shiftPersonal(-price); // negative price = sell-side gain into your pocket
 
     this._applyEffects(offer.effects ?? {}, scandalSystem);
     if (offer.heat) addHeat(s, offer.heat, 'black_market');
@@ -98,6 +105,7 @@ export class MarketSystem {
     s.purchasedOffers.push(offer.id);
     if (!s.dirtyDeeds) s.dirtyDeeds = { skimmed: 0, threats: 0, leaks: 0, exposed: 0, marketBuys: 0 };
     s.dirtyDeeds.marketBuys = (s.dirtyDeeds.marketBuys ?? 0) + 1;
+    if (price < 0) s.dirtyDeeds.sold = (s.dirtyDeeds.sold ?? 0) + (-price); // sell-side proceeds = corrupt income
     s.pendingMarketOffers = s.pendingMarketOffers.filter(o => o.id !== offerId);
 
     // Risk roll

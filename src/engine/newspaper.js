@@ -37,6 +37,8 @@ function fill(text, ctx) {
 export function buildNewspaper(s) {
   const prevTurn = s.turn - 1;
   const ctx = { city: s.city, governor: govName(s), governorTitle: govTitle(s), approval: s.approval, turn: s.turn };
+  const donation = s.pendingDonationNews;
+  if (donation) s.pendingDonationNews = null;
 
   // ── Lead story: yesterday's decision / crisis / scandal ───────────────────
   let lead = null;
@@ -44,7 +46,12 @@ export function buildNewspaper(s) {
   const yesterdayCrisis = (s.pastCrises ?? []).filter(c => c.turn === prevTurn).pop();
   const yesterdayDecision = (s.pastDecisions ?? []).filter(d => d.turn === prevTurn && !d.ignored).pop();
 
-  if (yesterdayScandal) {
+  if (donation) {
+    lead = {
+      headline: `GOVERNOR DONATES ${donation.amount}M FROM HIS OWN POCKET`,
+      body: `The governor moved ${donation.amount}M of personal money into the city treasury overnight. Supporters call it sacrifice; cynics call it a photo op. Either way, the books look healthier this morning — and the cameras were rolling.`,
+    };
+  } else if (yesterdayScandal) {
     lead = {
       headline: fill(pickT(templates.headlines?.scandal), { ...ctx, scandalTitle: yesterdayScandal.title ?? 'City Hall Scandal' }),
       body: yesterdayScandal.description ?? 'Details are still emerging. None of them are flattering.',

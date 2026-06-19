@@ -5,6 +5,7 @@
 // (white-on-black in dark, ink-on-paper in light).
 
 import { govRaw } from '../../utils/governor.js';
+import { typeText } from '../../utils/typewriter.js';
 
 const TIER_LABEL = { easy: 'LOW', medium: 'MODERATE', hard: 'HIGH', extreme: 'CRITICAL', war: 'ACTIVE CONFLICT' };
 
@@ -49,8 +50,9 @@ export class IntroScreen {
           sub = $('#sv2sub'), cta = $('#sv2cta'), skip = $('#sv2skip');
 
     const timers = [];
+    let stopTyping = null;
     const at = (ms, fn) => timers.push(setTimeout(fn, ms));
-    const clear = () => { timers.forEach(clearTimeout); timers.length = 0; };
+    const clear = () => { timers.forEach(clearTimeout); timers.length = 0; if (stopTyping) stopTyping(); };
     const go = () => { clear(); handlers.beginTerm?.(); };
     cta.addEventListener('click', go);
     skip.addEventListener('click', go);
@@ -73,12 +75,14 @@ export class IntroScreen {
       text.classList.remove('hidden');
       line.classList.remove('hidden');
       arrow.classList.remove('hidden');
-      text.textContent = 'ASSESSING ' + d.city;
+      stopTyping = typeText(text, 'ASSESSING ' + d.city, { speed: 45 });
       if (d.sit) { sub.textContent = d.sit; sub.classList.remove('hidden'); }
     });
     at(6600, () => {
-      text.textContent = `ARE YOU READY TO TAKE A CHANCE, ${d.name}?`;
-      cta.classList.remove('hidden');
+      stopTyping = typeText(text, `ARE YOU READY TO TAKE A CHANCE, ${d.name}?`, {
+        speed: 40,
+        done: () => { cta.classList.remove('hidden'); }
+      });
       skip.classList.add('hidden');
     });
   }

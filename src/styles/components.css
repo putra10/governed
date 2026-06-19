@@ -843,6 +843,7 @@
 .ticker {
   padding: 0.375rem 0.625rem;
   flex-shrink: 0;
+  overflow: hidden;
 }
 
 .tk-l {
@@ -857,10 +858,35 @@
   font-size: 0.5rem;
   color: var(--color-text-secondary);
   line-height: 1.4;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.tk-t span {
-  color: var(--color-red);
+.tk-track {
+  display: inline-block;
+  white-space: nowrap;
+  will-change: transform;
+  animation: tickerScroll 26s linear infinite;
+}
+
+.tk-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes tickerScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tk-track {
+    animation: none;
+  }
 }
 
 
@@ -1855,7 +1881,7 @@
 }
 
 /* Drop cap — only on the first .np-body directly in .np-lead */
-.np-lead > .np-body::first-letter {
+.np-lead>.np-body::first-letter {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 2.5em;
   font-weight: 700;
@@ -2555,7 +2581,7 @@
   padding: 1.25rem;
   width: min(24rem, 100%);
   border-radius: 2px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
 .confirm-l {
@@ -3059,833 +3085,859 @@
 ═══════════════════════════════════════════════════════════════════════════ */
 
 
-  /* ── Feed items — light mode ── */
-  :root[data-theme="light"] .fi.pol {
-    background: var(--color-surface);
-    border-left-color: var(--color-border-light);
-  }
-
-  :root[data-theme="light"] .fi.press {
-    background: var(--color-surface);
-  }
-
-  :root[data-theme="light"] .fi.act {
-    background: var(--color-surface);
-    border-left-color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .fi.react {
-    background: var(--color-surface);
-    border-left-color: var(--color-blue);
-  }
-
-  :root[data-theme="light"] .fn {
-    color: var(--color-text-secondary);
-  }
-
-  :root[data-theme="light"] .fn.pn {
-    color: var(--color-text-secondary);
-  }
-
-  :root[data-theme="light"] .fn.mn {
-    color: var(--color-amber);
-  }
-
-  :root[data-theme="light"] .fn.an {
-    color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .ft {
-    color: var(--color-text-secondary);
-  }
-
-  :root[data-theme="light"] .ft.pt {
-    color: var(--color-text-secondary);
-  }
-
-  :root[data-theme="light"] .ft.mt {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .ft.rt {
-    color: var(--color-blue);
-    font-style: italic;
-  }
-
-  :root[data-theme="light"] .fi-eng-i {
-    color: var(--color-border-light);
-  }
-
-  :root[data-theme="light"] .ft-react-tag {
-    color: var(--color-blue);
-  }
-
-  :root[data-theme="light"] .ft-time {
-    color: var(--color-text-muted);
-  }
-
-  /* ── Scandal card ── */
-  :root[data-theme="light"] .scandal-card {
-    background: var(--color-surface);
-    border-color: var(--color-red-bg);
-  }
-
-  :root[data-theme="light"] .scandal-card--major {
-    background: var(--color-surface);
-  }
-
-  :root[data-theme="light"] .scandal-card--career_ending {
-    background: var(--color-surface);
-  }
-
-  :root[data-theme="light"] .sc-name {
-    color: var(--color-text);
-  }
-
-  :root[data-theme="light"] .sc-desc {
-    color: var(--color-red-dim);
-  }
-
-  :root[data-theme="light"] .sc-tier-badge {
-    background: var(--color-red-bg);
-    border-color: var(--color-red-bg);
-  }
-
-  :root[data-theme="light"] .sc-suppress {
-    background: var(--color-surface);
-    border-color: var(--color-green);
-    color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .sc-suppress:hover {
-    background: var(--surface-2);
-    color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .sc-accept {
-    background: var(--color-surface);
-    border-color: var(--color-red);
-    color: var(--color-red);
-  }
-
-  :root[data-theme="light"] .sc-accept:hover {
-    background: var(--color-red-bg);
-  }
-
-  :root[data-theme="light"] .sc-response {
-    background: var(--color-surface);
-    border-color: var(--color-border-light);
-    color: var(--color-text);
-  }
-
-  :root[data-theme="light"] .sc-response:hover {
-    background: var(--surface-2);
-  }
-
-  :root[data-theme="light"] .sc-manage-label {
-    color: var(--color-text-muted);
-    border-top-color: var(--color-border);
-  }
-
-  :root[data-theme="light"] .sc-resp-note {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .sc-bad {
-    color: var(--color-red);
-  }
-
-  :root[data-theme="light"] .sc-warn {
-    color: var(--color-amber);
-  }
-
-  /* ── Civil Unrest cards ── */
-  :root[data-theme="light"] .unrest-card {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-  }
-
-  :root[data-theme="light"] .unrest-card--riot {
-    background: var(--color-surface);
-  }
-
-  :root[data-theme="light"] .unrest-card--strike {
-    background: var(--color-surface);
-  }
-
-  :root[data-theme="light"] .uc-title {
-    color: var(--color-amber);
-  }
-
-  :root[data-theme="light"] .unrest-card--riot .uc-title {
-    color: var(--color-red);
-  }
-
-  :root[data-theme="light"] .unrest-card--strike .uc-title {
-    color: var(--color-amber);
-  }
-
-  :root[data-theme="light"] .uc-desc {
-    color: var(--color-text-secondary);
-  }
-
-  :root[data-theme="light"] .uc-costly {
-    background: var(--color-surface);
-    border-color: var(--color-green);
-    color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .uc-costly:hover {
-    background: var(--surface-2);
-    color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .uc-hard {
-    background: var(--color-surface);
-    border-color: var(--color-amber);
-    color: var(--color-amber);
-  }
-
-  :root[data-theme="light"] .uc-hard:hover {
-    background: var(--surface-2);
-    color: var(--color-amber);
-  }
-
-  :root[data-theme="light"] .uc-danger {
-    background: var(--color-surface);
-    border-color: var(--color-red);
-    color: var(--color-red);
-  }
-
-  :root[data-theme="light"] .uc-danger:hover {
-    background: var(--color-red-bg);
-    color: var(--color-red);
-  }
-
-  /* ── Contract / coalition offer ── */
-  :root[data-theme="light"] .co-compete-item {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-  }
-
-  :root[data-theme="light"] .co-vs {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .co-accept {
-    background: var(--color-surface);
-    border-color: var(--color-green);
-    color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .co-accept:hover {
-    background: var(--surface-2);
-    color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .co-decline {
-    border-color: var(--color-border-light);
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .co-decline:hover {
-    border-color: var(--color-green);
-    color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .co-active-deals {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-  }
-
-  :root[data-theme="light"] .co-ad-header {
-    color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .co-ad-row {
-    color: var(--color-text-secondary);
-    border-bottom-color: var(--color-border);
-  }
-
-  :root[data-theme="light"] .co-ad-title {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .co-ad-val {
-    color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .co-good {
-    color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .co-bad {
-    color: var(--color-red);
-  }
-
-  :root[data-theme="light"] .co-warn {
-    color: var(--color-amber);
-  }
-
-  :root[data-theme="light"] .co-rarity--rare {
-    background: var(--color-surface);
-    color: var(--color-blue);
-    border-color: var(--color-blue);
-  }
-
-  :root[data-theme="light"] .co-rarity--legendary {
-    background: var(--color-surface);
-    color: var(--color-amber);
-    border-color: var(--color-amber);
-  }
-
-  /* ── Advisor recommendation ── */
-  :root[data-theme="light"] .adv-rec {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-    border-left-color: var(--color-blue);
-  }
-
-  :root[data-theme="light"] .adv-rec-header {
-    color: var(--color-blue);
-  }
-
-  :root[data-theme="light"] .adv-rec-body {
-    color: var(--color-text-secondary);
-  }
-
-  :root[data-theme="light"] .adv-rec-note {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .adv-rec-reason {
-    color: var(--color-text-secondary);
-  }
-
-  /* ── Emergency Power ── */
-  :root[data-theme="light"] .adv-ep {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-    border-left-color: var(--color-amber);
-  }
-
-  :root[data-theme="light"] .adv-ep-header {
-    color: var(--color-amber);
-  }
-
-  :root[data-theme="light"] .adv-ep-desc {
-    color: var(--color-text-secondary);
-  }
-
-  :root[data-theme="light"] .adv-ep-note {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .adv-ep-btn {
-    background: var(--color-surface);
-    border-color: var(--color-amber);
-    color: var(--color-amber);
-  }
-
-  :root[data-theme="light"] .adv-ep-btn:hover {
-    background: var(--surface-2);
-    color: var(--color-amber);
-  }
-
-  :root[data-theme="light"] .adv-ep-warn {
-    color: var(--color-text-muted);
-  }
-
-  /* ── Back channel / bribe cards ── */
-  :root[data-theme="light"] .adv-bc {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-    border-left-color: var(--color-accent);
-  }
-
-  :root[data-theme="light"] .adv-bc-header {
-    color: var(--color-accent);
-  }
-
-  :root[data-theme="light"] .bc-status {
-    color: var(--color-amber);
-    background: var(--color-surface);
-    border-color: var(--color-border);
-  }
-
-  :root[data-theme="light"] .bc-action {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-  }
-
-  :root[data-theme="light"] .bc-action:hover {
-    border-color: var(--color-accent);
-    background: var(--surface-2);
-  }
-
-  :root[data-theme="light"] .bca-label {
-    color: var(--color-text-secondary);
-  }
-
-  :root[data-theme="light"] .bca-note {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .adv-bc-warn {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .bribe-card {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-    border-left-color: var(--color-accent);
-  }
-
-  :root[data-theme="light"] .bc-icon {
-    color: var(--color-amber);
-  }
-
-  :root[data-theme="light"] .bc-title {
-    color: var(--color-accent);
-  }
-
-  :root[data-theme="light"] .bc-body {
-    color: var(--color-text-secondary);
-  }
-
-  :root[data-theme="light"] .bc-body strong {
-    color: var(--color-text);
-  }
-
-  :root[data-theme="light"] .bc-terms {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .bc-terms strong {
-    color: var(--color-text);
-  }
-
-  :root[data-theme="light"] .bc-good {
-    color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .bc-warn {
-    color: var(--color-amber);
-  }
-
-  :root[data-theme="light"] .bc-accept {
-    background: var(--color-surface);
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-  }
-
-  :root[data-theme="light"] .bc-accept:hover {
-    background: var(--surface-2);
-    color: var(--color-accent);
-  }
-
-  :root[data-theme="light"] .bc-decline {
-    border-color: var(--color-border-light);
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .bc-decline:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-  }
-
-  /* ── Lover / partner demand (overrides of back channel) ── */
-  :root[data-theme="light"] .lover-demand .adv-bc-header {
-    color: var(--color-accent);
-  }
-
-  :root[data-theme="light"] .ld-ask {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .partner-demand .adv-bc-header {
-    color: var(--color-green);
-  }
-
-  /* ── Meeting actor cards ── */
-  :root[data-theme="light"] .meet-actor-card {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-    border-left-color: var(--color-blue);
-  }
-
-  :root[data-theme="light"] .meet-actor-card:hover:not(:disabled) {
-    background: var(--surface-2);
-    border-color: var(--color-border-light);
-    border-left-color: var(--color-blue);
-    box-shadow: 0 0 12px rgba(31, 95, 168, 0.08);
-  }
-
-  :root[data-theme="light"] .mac-name {
-    color: var(--color-text);
-  }
-
-  :root[data-theme="light"] .mac-cost {
-    color: var(--color-text-muted);
-    border-color: var(--color-border);
-    background: var(--surface-2);
-  }
-
-  :root[data-theme="light"] .meet-row {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-    border-left-color: var(--color-blue);
-  }
-
-  :root[data-theme="light"] .meet-row--done {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .meet-label {
-    color: var(--color-blue);
-  }
-
-  :root[data-theme="light"] .meet-cost {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .meet-btn {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-    color: var(--color-text-secondary);
-  }
-
-  :root[data-theme="light"] .meet-btn:hover:not(:disabled) {
-    background: var(--surface-2);
-    border-color: var(--color-border-light);
-  }
-
-  :root[data-theme="light"] .meeting-card {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-    border-left-color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .mt-title {
-    color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .mt-arch {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .mt-greeting {
-    color: var(--color-text-secondary);
-  }
-
-  :root[data-theme="light"] .mt-offer {
-    background: var(--surface-2);
-    border-color: var(--color-border);
-  }
-
-  :root[data-theme="light"] .mt-offer-label {
-    color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .mt-offer-desc {
-    color: var(--color-text-secondary);
-  }
-
-  :root[data-theme="light"] .mt-accept {
-    background: var(--color-surface);
-    border-color: var(--color-green);
-    color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .mt-accept:hover {
-    background: var(--surface-2);
-  }
-
-  :root[data-theme="light"] .mt-decline {
-    background: var(--surface-2);
-  }
-
-  :root[data-theme="light"] .mt-decline:hover {
-    background: var(--color-surface);
-  }
-
-  :root[data-theme="light"] .mt-note {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .meeting-result {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-  }
-
-  :root[data-theme="light"] .mr-label {
-    color: var(--color-accent);
-  }
-
-  :root[data-theme="light"] .mr-line {
-    color: var(--color-text-secondary);
-  }
-
-  /* ── Consultation ── */
-  :root[data-theme="light"] .consult-box {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-    border-left-color: var(--color-blue);
-  }
-
-  :root[data-theme="light"] .consult-btn {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-    color: var(--color-blue);
-  }
-
-  :root[data-theme="light"] .consult-btn:hover:not(:disabled) {
-    background: var(--surface-2);
-  }
-
-  :root[data-theme="light"] .consult-cost {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .consult-desc {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .consult-done {
-    color: var(--color-text-muted);
-  }
-
-  /* ── Black Market card ── */
-  :root[data-theme="light"] .market-card {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-    border-left-color: var(--color-accent);
-  }
-
-  :root[data-theme="light"] .mk-title {
-    color: var(--color-accent);
-  }
-
-  :root[data-theme="light"] .mk-offer {
-    background: var(--surface-2);
-    border-color: var(--color-border);
-  }
-
-  :root[data-theme="light"] .mk-name {
-    color: var(--color-text);
-  }
-
-  :root[data-theme="light"] .mk-type {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .mk-buy {
-    border-color: var(--color-border-light);
-    background: var(--surface-2);
-    color: var(--color-text);
-  }
-
-  :root[data-theme="light"] .mk-buy:hover {
-    background: var(--color-surface);
-  }
-
-  :root[data-theme="light"] .mk-foot {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .mk-pass:hover {
-    color: var(--color-text-muted);
-    border-color: var(--color-border-light);
-  }
-
-  /* ── Address the Nation ── */
-  :root[data-theme="light"] .address-card {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-    border-left-color: var(--color-amber);
-  }
-
-  :root[data-theme="light"] .ad-once {
-    color: var(--color-text-muted);
-    border-color: var(--color-border);
-  }
-
-  :root[data-theme="light"] .ad-body {
-    color: var(--color-text-secondary);
-  }
-
-  :root[data-theme="light"] .ad-opt {
-    border-color: var(--color-border);
-    background: var(--surface-2);
-    color: var(--color-text);
-  }
-
-  :root[data-theme="light"] .ad-opt:hover {
-    background: var(--color-surface);
-  }
-
-  /* ── Crisis secret option card ── */
-  :root[data-theme="light"] .cc-secret {
-    border-color: var(--color-green) !important;
-    background: var(--color-surface) !important;
-    border-left-color: var(--color-green) !important;
-  }
-
-  :root[data-theme="light"] .cc-tag-advisor {
-    background: var(--color-surface);
-    color: var(--color-green);
-    border-color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .cc-secret-advisor {
-    color: var(--color-green);
-  }
-
-  :root[data-theme="light"] .cc-secret-note {
-    color: var(--color-text-muted);
-  }
-
-  /* ── Decision cards in light mode ── */
-  :root[data-theme="light"] .card {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-  }
-
-  :root[data-theme="light"] .card:hover {
-    background: var(--surface-2);
-    border-color: var(--color-border-light);
-  }
-
-  :root[data-theme="light"] .card.sel {
-    background: var(--surface-2);
-    border-color: var(--color-amber);
-  }
-
-  /* ── No-dec label ── */
-  :root[data-theme="light"] .no-dec {
-    color: var(--color-text-muted);
-  }
-
-  /* ── Sentiment footer ── */
-  :root[data-theme="light"] .sf-l {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .sf-t {
-    background: var(--color-border);
-  }
-
-  :root[data-theme="light"] .sf-p {
-    color: var(--color-red);
-  }
-
-  /* ── Scrolling feed text overrides ── */
-  :root[data-theme="light"] .sh-t {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .feed-platform {
-    color: var(--color-border-light);
-    background: var(--surface-2);
-    border-bottom-color: var(--color-border);
-  }
-
-  :root[data-theme="light"] .sm-b {
-    background: var(--color-border);
-  }
-
-  :root[data-theme="light"] .sm-t {
-    color: var(--color-red);
-  }
-
-  /* ── Advisor panel overrides ── */
-  :root[data-theme="light"] .adv-h {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .acard {
-    background: var(--surface-2);
-    border-left-color: var(--color-amber);
-  }
-
-  :root[data-theme="light"] .acard:hover {
-    background: var(--color-surface);
-  }
-
-  :root[data-theme="light"] .an {
-    color: var(--color-text);
-  }
-
-  :root[data-theme="light"] .ar {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .am {
-    color: var(--color-text-secondary);
-  }
-
-  :root[data-theme="light"] .at {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .trust-bar {
-    background: var(--color-border);
-  }
-
-  :root[data-theme="light"] .trust-label {
-    color: var(--color-text-muted);
-  }
-
-  /* ── Ticker / Crisis box ── */
-  :root[data-theme="light"] .cr-l {
-    color: var(--color-text-muted);
-  }
-
-  :root[data-theme="light"] .cr-t {
-    color: var(--color-red);
-  }
-
-  /* ── Execute / confirm button ── */
-  :root[data-theme="light"] .confirm-btn {
-    background: transparent;
-    border-color: var(--color-amber);
-    color: var(--color-amber);
-  }
-
-  :root[data-theme="light"] .confirm-btn:hover:not(:disabled) {
-    background: transparent;
-    color: var(--color-text);
-  }
-
-  :root[data-theme="light"] .confirm-btn:disabled {
-    background: transparent;
-    border-color: var(--color-border);
-    color: var(--color-text-muted);
-  }
-
-  /* ── Skip / end-turn button ── */
-  :root[data-theme="light"] .skip-btn:hover {
-    background: transparent;
-    color: var(--color-text-secondary);
-    border-color: var(--color-border-light);
-  }
+/* ── Feed items — light mode ── */
+:root[data-theme="light"] .fi.pol {
+  background: var(--color-surface);
+  border-left-color: var(--color-border-light);
+}
+
+:root[data-theme="light"] .fi.press {
+  background: var(--color-surface);
+}
+
+:root[data-theme="light"] .fi.act {
+  background: var(--color-surface);
+  border-left-color: var(--color-green);
+}
+
+:root[data-theme="light"] .fi.react {
+  background: var(--color-surface);
+  border-left-color: var(--color-blue);
+}
+
+:root[data-theme="light"] .fn {
+  color: var(--color-text-secondary);
+}
+
+:root[data-theme="light"] .fn.pn {
+  color: var(--color-text-secondary);
+}
+
+:root[data-theme="light"] .fn.mn {
+  color: var(--color-amber);
+}
+
+:root[data-theme="light"] .fn.an {
+  color: var(--color-green);
+}
+
+:root[data-theme="light"] .ft {
+  color: var(--color-text-secondary);
+}
+
+:root[data-theme="light"] .ft.pt {
+  color: var(--color-text-secondary);
+}
+
+:root[data-theme="light"] .ft.mt {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .ft.rt {
+  color: var(--color-blue);
+  font-style: italic;
+}
+
+:root[data-theme="light"] .fi-eng-i {
+  color: var(--color-border-light);
+}
+
+:root[data-theme="light"] .ft-react-tag {
+  color: var(--color-blue);
+}
+
+:root[data-theme="light"] .ft-time {
+  color: var(--color-text-muted);
+}
+
+/* ── Scandal card ── */
+:root[data-theme="light"] .scandal-card {
+  background: var(--color-surface);
+  border-color: var(--color-red-bg);
+}
+
+:root[data-theme="light"] .scandal-card--major {
+  background: var(--color-surface);
+}
+
+:root[data-theme="light"] .scandal-card--career_ending {
+  background: var(--color-surface);
+}
+
+:root[data-theme="light"] .sc-name {
+  color: var(--color-text);
+}
+
+:root[data-theme="light"] .sc-desc {
+  color: var(--color-red-dim);
+}
+
+:root[data-theme="light"] .sc-tier-badge {
+  background: var(--color-red-bg);
+  border-color: var(--color-red-bg);
+}
+
+:root[data-theme="light"] .sc-suppress {
+  background: var(--color-surface);
+  border-color: var(--color-green);
+  color: var(--color-green);
+}
+
+:root[data-theme="light"] .sc-suppress:hover {
+  background: var(--surface-2);
+  color: var(--color-green);
+}
+
+:root[data-theme="light"] .sc-accept {
+  background: var(--color-surface);
+  border-color: var(--color-red);
+  color: var(--color-red);
+}
+
+:root[data-theme="light"] .sc-accept:hover {
+  background: var(--color-red-bg);
+}
+
+:root[data-theme="light"] .sc-response {
+  background: var(--color-surface);
+  border-color: var(--color-border-light);
+  color: var(--color-text);
+}
+
+:root[data-theme="light"] .sc-response:hover {
+  background: var(--surface-2);
+}
+
+:root[data-theme="light"] .sc-manage-label {
+  color: var(--color-text-muted);
+  border-top-color: var(--color-border);
+}
+
+:root[data-theme="light"] .sc-resp-note {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .sc-bad {
+  color: var(--color-red);
+}
+
+:root[data-theme="light"] .sc-warn {
+  color: var(--color-amber);
+}
+
+/* ── Civil Unrest cards ── */
+:root[data-theme="light"] .unrest-card {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+:root[data-theme="light"] .unrest-card--riot {
+  background: var(--color-surface);
+}
+
+:root[data-theme="light"] .unrest-card--strike {
+  background: var(--color-surface);
+}
+
+:root[data-theme="light"] .uc-title {
+  color: var(--color-amber);
+}
+
+:root[data-theme="light"] .unrest-card--riot .uc-title {
+  color: var(--color-red);
+}
+
+:root[data-theme="light"] .unrest-card--strike .uc-title {
+  color: var(--color-amber);
+}
+
+:root[data-theme="light"] .uc-desc {
+  color: var(--color-text-secondary);
+}
+
+:root[data-theme="light"] .uc-costly {
+  background: var(--color-surface);
+  border-color: var(--color-green);
+  color: var(--color-green);
+}
+
+:root[data-theme="light"] .uc-costly:hover {
+  background: var(--surface-2);
+  color: var(--color-green);
+}
+
+:root[data-theme="light"] .uc-hard {
+  background: var(--color-surface);
+  border-color: var(--color-amber);
+  color: var(--color-amber);
+}
+
+:root[data-theme="light"] .uc-hard:hover {
+  background: var(--surface-2);
+  color: var(--color-amber);
+}
+
+:root[data-theme="light"] .uc-danger {
+  background: var(--color-surface);
+  border-color: var(--color-red);
+  color: var(--color-red);
+}
+
+:root[data-theme="light"] .uc-danger:hover {
+  background: var(--color-red-bg);
+  color: var(--color-red);
+}
+
+/* ── Contract / coalition offer ── */
+:root[data-theme="light"] .co-compete-item {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+:root[data-theme="light"] .co-vs {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .co-accept {
+  background: var(--color-surface);
+  border-color: var(--color-green);
+  color: var(--color-green);
+}
+
+:root[data-theme="light"] .co-accept:hover {
+  background: var(--surface-2);
+  color: var(--color-green);
+}
+
+:root[data-theme="light"] .co-decline {
+  border-color: var(--color-border-light);
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .co-decline:hover {
+  border-color: var(--color-green);
+  color: var(--color-green);
+}
+
+:root[data-theme="light"] .co-active-deals {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+:root[data-theme="light"] .co-ad-header {
+  color: var(--color-green);
+}
+
+:root[data-theme="light"] .co-ad-row {
+  color: var(--color-text-secondary);
+  border-bottom-color: var(--color-border);
+}
+
+:root[data-theme="light"] .co-ad-title {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .co-ad-val {
+  color: var(--color-green);
+}
+
+:root[data-theme="light"] .co-good {
+  color: var(--color-green);
+}
+
+:root[data-theme="light"] .co-bad {
+  color: var(--color-red);
+}
+
+:root[data-theme="light"] .co-warn {
+  color: var(--color-amber);
+}
+
+:root[data-theme="light"] .co-rarity--rare {
+  background: var(--color-surface);
+  color: var(--color-blue);
+  border-color: var(--color-blue);
+}
+
+:root[data-theme="light"] .co-rarity--legendary {
+  background: var(--color-surface);
+  color: var(--color-amber);
+  border-color: var(--color-amber);
+}
+
+/* ── Advisor recommendation ── */
+:root[data-theme="light"] .adv-rec {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  border-left-color: var(--color-blue);
+}
+
+:root[data-theme="light"] .adv-rec-header {
+  color: var(--color-blue);
+}
+
+:root[data-theme="light"] .adv-rec-body {
+  color: var(--color-text-secondary);
+}
+
+:root[data-theme="light"] .adv-rec-note {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .adv-rec-reason {
+  color: var(--color-text-secondary);
+}
+
+/* ── Emergency Power ── */
+:root[data-theme="light"] .adv-ep {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  border-left-color: var(--color-amber);
+}
+
+:root[data-theme="light"] .adv-ep-header {
+  color: var(--color-amber);
+}
+
+:root[data-theme="light"] .adv-ep-desc {
+  color: var(--color-text-secondary);
+}
+
+:root[data-theme="light"] .adv-ep-note {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .adv-ep-btn {
+  background: var(--color-surface);
+  border-color: var(--color-amber);
+  color: var(--color-amber);
+}
+
+:root[data-theme="light"] .adv-ep-btn:hover {
+  background: var(--surface-2);
+  color: var(--color-amber);
+}
+
+:root[data-theme="light"] .adv-ep-warn {
+  color: var(--color-text-muted);
+}
+
+/* ── Back channel / bribe cards ── */
+:root[data-theme="light"] .adv-bc {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  border-left-color: var(--color-accent);
+}
+
+:root[data-theme="light"] .adv-bc-header {
+  color: var(--color-accent);
+}
+
+:root[data-theme="light"] .bc-status {
+  color: var(--color-amber);
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+:root[data-theme="light"] .bc-action {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+:root[data-theme="light"] .bc-action:hover {
+  border-color: var(--color-accent);
+  background: var(--surface-2);
+}
+
+:root[data-theme="light"] .bca-label {
+  color: var(--color-text-secondary);
+}
+
+:root[data-theme="light"] .bca-note {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .adv-bc-warn {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .bribe-card {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  border-left-color: var(--color-accent);
+}
+
+:root[data-theme="light"] .bc-icon {
+  color: var(--color-amber);
+}
+
+:root[data-theme="light"] .bc-title {
+  color: var(--color-accent);
+}
+
+:root[data-theme="light"] .bc-body {
+  color: var(--color-text-secondary);
+}
+
+:root[data-theme="light"] .bc-body strong {
+  color: var(--color-text);
+}
+
+:root[data-theme="light"] .bc-terms {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .bc-terms strong {
+  color: var(--color-text);
+}
+
+:root[data-theme="light"] .bc-good {
+  color: var(--color-green);
+}
+
+:root[data-theme="light"] .bc-warn {
+  color: var(--color-amber);
+}
+
+:root[data-theme="light"] .bc-accept {
+  background: var(--color-surface);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+:root[data-theme="light"] .bc-accept:hover {
+  background: var(--surface-2);
+  color: var(--color-accent);
+}
+
+:root[data-theme="light"] .bc-decline {
+  border-color: var(--color-border-light);
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .bc-decline:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* ── Lover / partner demand (overrides of back channel) ── */
+:root[data-theme="light"] .lover-demand .adv-bc-header {
+  color: var(--color-accent);
+}
+
+:root[data-theme="light"] .ld-ask {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .partner-demand .adv-bc-header {
+  color: var(--color-green);
+}
+
+/* ── Meeting actor cards ── */
+:root[data-theme="light"] .meet-actor-card {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  border-left-color: var(--color-blue);
+}
+
+:root[data-theme="light"] .meet-actor-card:hover:not(:disabled) {
+  background: var(--surface-2);
+  border-color: var(--color-border-light);
+  border-left-color: var(--color-blue);
+  box-shadow: 0 0 12px rgba(31, 95, 168, 0.08);
+}
+
+:root[data-theme="light"] .mac-name {
+  color: var(--color-text);
+}
+
+:root[data-theme="light"] .mac-cost {
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+  background: var(--surface-2);
+}
+
+:root[data-theme="light"] .meet-row {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  border-left-color: var(--color-blue);
+}
+
+:root[data-theme="light"] .meet-row--done {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .meet-label {
+  color: var(--color-blue);
+}
+
+:root[data-theme="light"] .meet-cost {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .meet-btn {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+:root[data-theme="light"] .meet-btn:hover:not(:disabled) {
+  background: var(--surface-2);
+  border-color: var(--color-border-light);
+}
+
+:root[data-theme="light"] .meeting-card {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  border-left-color: var(--color-green);
+}
+
+:root[data-theme="light"] .mt-title {
+  color: var(--color-green);
+}
+
+:root[data-theme="light"] .mt-arch {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .mt-greeting {
+  color: var(--color-text-secondary);
+}
+
+:root[data-theme="light"] .mt-offer {
+  background: var(--surface-2);
+  border-color: var(--color-border);
+}
+
+:root[data-theme="light"] .mt-offer-label {
+  color: var(--color-green);
+}
+
+:root[data-theme="light"] .mt-offer-desc {
+  color: var(--color-text-secondary);
+}
+
+:root[data-theme="light"] .mt-accept {
+  background: var(--color-surface);
+  border-color: var(--color-green);
+  color: var(--color-green);
+}
+
+:root[data-theme="light"] .mt-accept:hover {
+  background: var(--surface-2);
+}
+
+:root[data-theme="light"] .mt-decline {
+  background: var(--surface-2);
+}
+
+:root[data-theme="light"] .mt-decline:hover {
+  background: var(--color-surface);
+}
+
+:root[data-theme="light"] .mt-note {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .meeting-result {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+:root[data-theme="light"] .mr-label {
+  color: var(--color-accent);
+}
+
+:root[data-theme="light"] .mr-line {
+  color: var(--color-text-secondary);
+}
+
+/* ── Consultation ── */
+:root[data-theme="light"] .consult-box {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  border-left-color: var(--color-blue);
+}
+
+:root[data-theme="light"] .consult-btn {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-blue);
+}
+
+:root[data-theme="light"] .consult-btn:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+
+:root[data-theme="light"] .consult-cost {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .consult-desc {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .consult-done {
+  color: var(--color-text-muted);
+}
+
+/* ── Black Market card ── */
+:root[data-theme="light"] .market-card {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  border-left-color: var(--color-accent);
+}
+
+:root[data-theme="light"] .mk-title {
+  color: var(--color-accent);
+}
+
+:root[data-theme="light"] .mk-offer {
+  background: var(--surface-2);
+  border-color: var(--color-border);
+}
+
+:root[data-theme="light"] .mk-name {
+  color: var(--color-text);
+}
+
+:root[data-theme="light"] .mk-type {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .mk-buy {
+  border-color: var(--color-border-light);
+  background: var(--surface-2);
+  color: var(--color-text);
+}
+
+:root[data-theme="light"] .mk-buy:hover {
+  background: var(--color-surface);
+}
+
+:root[data-theme="light"] .mk-foot {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .mk-pass:hover {
+  color: var(--color-text-muted);
+  border-color: var(--color-border-light);
+}
+
+/* ── Address the Nation ── */
+:root[data-theme="light"] .address-card {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  border-left-color: var(--color-amber);
+}
+
+:root[data-theme="light"] .ad-once {
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+}
+
+:root[data-theme="light"] .ad-body {
+  color: var(--color-text-secondary);
+}
+
+:root[data-theme="light"] .ad-opt {
+  border-color: var(--color-border);
+  background: var(--surface-2);
+  color: var(--color-text);
+}
+
+:root[data-theme="light"] .ad-opt:hover {
+  background: var(--color-surface);
+}
+
+/* ── Crisis secret option card ── */
+:root[data-theme="light"] .cc-secret {
+  border-color: var(--color-green) !important;
+  background: var(--color-surface) !important;
+  border-left-color: var(--color-green) !important;
+}
+
+:root[data-theme="light"] .cc-tag-advisor {
+  background: var(--color-surface);
+  color: var(--color-green);
+  border-color: var(--color-green);
+}
+
+:root[data-theme="light"] .cc-secret-advisor {
+  color: var(--color-green);
+}
+
+:root[data-theme="light"] .cc-secret-note {
+  color: var(--color-text-muted);
+}
+
+/* ── Decision cards in light mode ── */
+:root[data-theme="light"] .card {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+:root[data-theme="light"] .card:hover {
+  background: var(--surface-2);
+  border-color: var(--color-border-light);
+}
+
+:root[data-theme="light"] .card.sel {
+  background: var(--surface-2);
+  border-color: var(--color-amber);
+}
+
+/* ── No-dec label ── */
+:root[data-theme="light"] .no-dec {
+  color: var(--color-text-muted);
+}
+
+/* ── Sentiment footer ── */
+:root[data-theme="light"] .sf-l {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .sf-t {
+  background: var(--color-border);
+}
+
+:root[data-theme="light"] .sf-p {
+  color: var(--color-red);
+}
+
+/* ── Scrolling feed text overrides ── */
+:root[data-theme="light"] .sh-t {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .feed-platform {
+  color: var(--color-border-light);
+  background: var(--surface-2);
+  border-bottom-color: var(--color-border);
+}
+
+:root[data-theme="light"] .sm-b {
+  background: var(--color-border);
+}
+
+:root[data-theme="light"] .sm-t {
+  color: var(--color-red);
+}
+
+/* ── Advisor panel overrides ── */
+:root[data-theme="light"] .adv-h {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .acard {
+  background: var(--surface-2);
+  border-left-color: var(--color-amber);
+}
+
+:root[data-theme="light"] .acard:hover {
+  background: var(--color-surface);
+}
+
+:root[data-theme="light"] .an {
+  color: var(--color-text);
+}
+
+:root[data-theme="light"] .ar {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .am {
+  color: var(--color-text-secondary);
+}
+
+:root[data-theme="light"] .at {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .trust-bar {
+  background: var(--color-border);
+}
+
+:root[data-theme="light"] .trust-label {
+  color: var(--color-text-muted);
+}
+
+/* ── Ticker / Crisis box ── */
+:root[data-theme="light"] .cr-l {
+  color: var(--color-text-muted);
+}
+
+:root[data-theme="light"] .cr-t {
+  color: var(--color-red);
+}
+
+/* ── Execute / confirm button ── */
+:root[data-theme="light"] .confirm-btn {
+  background: transparent;
+  border-color: var(--color-amber);
+  color: var(--color-amber);
+}
+
+:root[data-theme="light"] .confirm-btn:hover:not(:disabled) {
+  background: transparent;
+  color: var(--color-text);
+}
+
+:root[data-theme="light"] .confirm-btn:disabled {
+  background: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+
+/* ── Skip / end-turn button ── */
+:root[data-theme="light"] .skip-btn:hover {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border-color: var(--color-border-light);
+}
 
 
 /* Verdict reveal overlay — absolute inside the (relative) report screen so it
    covers the viewport reliably (position:fixed gets trapped by ancestors). */
-.sv-report { position: relative; }
-.sv-verdict.sv2 { position: absolute; inset: 0; z-index: 600; transition: opacity .8s ease; }
-.sv-verdict-skip { position: absolute; bottom: 18px; right: 20px; z-index: 3; font-size: .55rem;
-  letter-spacing: .18em; opacity: .5; cursor: pointer; }
-.sv-verdict-skip:hover { opacity: .9; }
+.sv-report {
+  position: relative;
+}
+
+.sv-verdict.sv2 {
+  position: absolute;
+  inset: 0;
+  z-index: 600;
+  transition: opacity .8s ease;
+}
+
+.sv-verdict-skip {
+  position: absolute;
+  bottom: 18px;
+  right: 20px;
+  z-index: 3;
+  font-size: .55rem;
+  letter-spacing: .18em;
+  opacity: .5;
+  cursor: pointer;
+}
+
+.sv-verdict-skip:hover {
+  opacity: .9;
+}
 
 /* Report card — usual fonts + soft theme palette, with one quiet futuristic
    accent: a ▸ marker on section labels that inherits each label's colour. */
-.sv-report .rh-kicker { letter-spacing: .2em; }
+.sv-report .rh-kicker {
+  letter-spacing: .2em;
+}
+
 .sv-report .worst-l::before,
 .sv-report .roast-l::before,
 .sv-report .resign-l::before,
-.sv-report .wiki-l::before { content: "\25B8  "; opacity: .7; }
+.sv-report .wiki-l::before {
+  content: "\25B8  ";
+  opacity: .7;
+}
 
 /* ============================================================
    Cold-open + verdict — Samaritan UI base (.sv2)
@@ -3893,43 +3945,1022 @@
    Inverts with the theme: ink-on-paper (light) / white-on-black (dark).
    ============================================================ */
 .sv2 {
-  position: relative; width: 100%; height: 100%; overflow: hidden;
-  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: 'Nova Mono', 'IBM Plex Mono', monospace;
   transition: background 1.2s ease, color 1.2s ease;
-  --bg: #f6f4ee; --fg: #111111; --ar0: #aa1414; --ar1: #ff2a2a;
-  background: var(--bg); color: var(--fg);
+  --bg: #f6f4ee;
+  --fg: #111111;
+  --ar0: #aa1414;
+  --ar1: #ff2a2a;
+  background: var(--bg);
+  color: var(--fg);
 }
-:root[data-theme="dark"] .sv2 { --bg: #060606; --fg: #ffffff; }
-.sv2 .hidden { display: none !important; }
-.sv2::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: repeating-linear-gradient(to bottom, rgba(128,128,128,.06) 0 1px, transparent 1px 3px); }
-.sv2-stage { position: relative; z-index: 2; width: 100%; display: flex; flex-direction: column;
-  align-items: center; padding: 1.5rem; }
-.sv2-box { width: min(32rem, 90vw); transition: opacity .4s ease; }
-.sv2-box-t { font-size: .58rem; letter-spacing: .06em; text-align: left; padding: 4px 14px;
-  background: var(--fg); color: var(--bg); border: 2px solid var(--fg); border-radius: 3px 3px 0 0; }
-.sv2-box-b { font-size: .68rem; line-height: 1.85; letter-spacing: .04em; text-align: left;
-  padding: 10px 14px; min-height: 46px; background: var(--bg); color: var(--fg);
-  border-left: 2px solid var(--fg); border-right: 2px solid var(--fg); }
-.sv2-box-f { height: 12px; border: 2px solid var(--fg); border-top: none; border-radius: 0 0 3px 3px; opacity: .5; }
-.sv2-text { font-size: 1.05rem; letter-spacing: .16em; text-align: center; line-height: 1.4; max-width: 30rem; }
-.sv2-line { width: 34px; border-bottom: 2px solid var(--fg); margin: 14px auto 0; }
-.sv2-arrow { width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent;
-  border-bottom: 11px solid var(--ar0); margin: 9px auto 0; animation: sv2arrow 1s alternate infinite linear; }
-@keyframes sv2arrow { from { border-bottom-color: var(--ar0); } to { border-bottom-color: var(--ar1); } }
-.sv2-sub { font-size: .6rem; letter-spacing: .03em; line-height: 1.7; font-style: italic; opacity: .6;
-  margin-top: 20px; max-width: 28rem; text-align: center; }
-.sv2-cta { margin-top: 26px; padding: .8rem 2.2rem; background: transparent; border: 2px solid var(--fg);
-  color: var(--fg); font-family: inherit; font-size: .6rem; font-weight: 700; letter-spacing: .22em;
-  text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: background .15s, color .15s; }
-.sv2-cta:hover { background: var(--fg); color: var(--bg); }
-.sv2-skip { position: absolute; bottom: 18px; right: 20px; z-index: 3; font-size: .48rem;
-  letter-spacing: .18em; opacity: .4; cursor: pointer; }
-.sv2-skip:hover { opacity: .85; }
-.sv2-flash { animation: sv2flash .15s steps(2, end) 1; }
-@keyframes sv2flash { 50% { opacity: 0; } }
+
+:root[data-theme="dark"] .sv2 {
+  --bg: #060606;
+  --fg: #ffffff;
+}
+
+.sv2 .hidden {
+  display: none !important;
+}
+
+.sv2::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(128, 128, 128, .06) 0 1px, transparent 1px 3px);
+}
+
+.sv2-stage {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.sv2-box {
+  width: min(32rem, 90vw);
+  transition: opacity .4s ease;
+}
+
+.sv2-box-t {
+  font-size: .58rem;
+  letter-spacing: .06em;
+  text-align: left;
+  padding: 4px 14px;
+  background: var(--fg);
+  color: var(--bg);
+  border: 2px solid var(--fg);
+  border-radius: 3px 3px 0 0;
+}
+
+.sv2-box-b {
+  font-size: .68rem;
+  line-height: 1.85;
+  letter-spacing: .04em;
+  text-align: left;
+  padding: 10px 14px;
+  min-height: 46px;
+  background: var(--bg);
+  color: var(--fg);
+  border-left: 2px solid var(--fg);
+  border-right: 2px solid var(--fg);
+}
+
+.sv2-box-f {
+  height: 12px;
+  border: 2px solid var(--fg);
+  border-top: none;
+  border-radius: 0 0 3px 3px;
+  opacity: .5;
+}
+
+.sv2-text {
+  font-size: 1.05rem;
+  letter-spacing: .16em;
+  text-align: center;
+  line-height: 1.4;
+  max-width: 30rem;
+}
+
+.sv2-line {
+  width: 34px;
+  border-bottom: 2px solid var(--fg);
+  margin: 14px auto 0;
+}
+
+.sv2-arrow {
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 11px solid var(--ar0);
+  margin: 9px auto 0;
+  animation: sv2arrow 1s alternate infinite linear;
+}
+
+@keyframes sv2arrow {
+  from {
+    border-bottom-color: var(--ar0);
+  }
+
+  to {
+    border-bottom-color: var(--ar1);
+  }
+}
+
+.sv2-sub {
+  font-size: .6rem;
+  letter-spacing: .03em;
+  line-height: 1.7;
+  font-style: italic;
+  opacity: .6;
+  margin-top: 20px;
+  max-width: 28rem;
+  text-align: center;
+}
+
+.sv2-cta {
+  margin-top: 26px;
+  padding: .8rem 2.2rem;
+  background: transparent;
+  border: 2px solid var(--fg);
+  color: var(--fg);
+  font-family: inherit;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background .15s, color .15s;
+}
+
+.sv2-cta:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.sv2-skip {
+  position: absolute;
+  bottom: 18px;
+  right: 20px;
+  z-index: 3;
+  font-size: .48rem;
+  letter-spacing: .18em;
+  opacity: .4;
+  cursor: pointer;
+}
+
+.sv2-skip:hover {
+  opacity: .85;
+}
+
+.sv2-flash {
+  animation: sv2flash .15s steps(2, end) 1;
+}
+
+@keyframes sv2flash {
+  50% {
+    opacity: 0;
+  }
+}
 
 /* Closing assessment text — the comment shown in the verdict's stark style
    (a sentence, so softer size/tracking than the one-word verdict). */
-.sv2-text.sv2-remark { font-family: 'IBM Plex Serif', Georgia, 'Times New Roman', serif; font-size: .82rem; font-weight: 400; letter-spacing: .005em; line-height: 1.62; max-width: 27rem; }
+.sv2-text.sv2-remark {
+  font-family: 'IBM Plex Serif', Georgia, 'Times New Roman', serif;
+  font-size: .82rem;
+  font-weight: 400;
+  letter-spacing: .005em;
+  line-height: 1.62;
+  max-width: 27rem;
+}
+
+/* Samaritan typewriter caret + smooth phase fade-ins */
+.sv-typing::after {
+  content: "";
+  display: inline-block;
+  width: .5em;
+  height: 1.05em;
+  vertical-align: -0.14em;
+  margin-left: 2px;
+  background: currentColor;
+  animation: sv-caret .8s steps(1) infinite;
+}
+
+@keyframes sv-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.sv2-text,
+.sv2-line,
+.sv2-cta,
+.sv2-box,
+.sv2-sub {
+  animation: sv2-appear .45s ease both;
+}
+
+@keyframes sv2-appear {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ============================================================
+   Report card — Classified Dossier (tabbed). Theme-aware.
+   ============================================================ */
+.dsr {
+  font-family: var(--font-mono);
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.dsr-tabs {
+  display: flex;
+  gap: 0.1875rem;
+  padding: 0 0.3125rem;
+  position: relative;
+  z-index: 2;
+}
+
+.dsr-tab {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.4688rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: 0.4375rem 0.1875rem 0.5625rem;
+  background: var(--surface-2);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  border-bottom: none;
+  border-radius: 0.25rem 0.25rem 0 0;
+  cursor: pointer;
+  margin-bottom: -2px;
+  transition: color .15s, background .15s;
+}
+
+.dsr-tab:hover {
+  color: var(--color-text-secondary);
+}
+
+.dsr-tab.active {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--color-border-light);
+  border-top: 2px solid var(--color-accent);
+  z-index: 3;
+}
+
+.dsr-file {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: 0 0.1875rem 0.1875rem 0.1875rem;
+  box-shadow: var(--shadow-md);
+  padding: 0.875rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.dsr-stamp {
+  position: absolute;
+  top: 3.75rem;
+  right: 1rem;
+  max-width: 7.5rem;
+  text-align: center;
+  transform: rotate(-11deg);
+  border: 0.1875rem double var(--color-red);
+  color: var(--color-red);
+  padding: 0.25rem 0.625rem;
+  border-radius: 0.1875rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  line-height: 1.05;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.dsr-stamp.amber {
+  border-color: var(--color-amber);
+  color: var(--color-amber);
+}
+
+.dsr-stamp.green {
+  border-color: var(--color-green);
+  color: var(--color-green);
+}
+
+.dsr.stamped .dsr-stamp {
+  animation: dsrStamp .55s cubic-bezier(.2, 1.4, .4, 1) forwards;
+}
+
+@keyframes dsrStamp {
+  0% {
+    opacity: 0;
+    transform: rotate(-11deg) scale(2.6);
+  }
+
+  70% {
+    opacity: .55;
+    transform: rotate(-11deg) scale(.9);
+  }
+
+  100% {
+    opacity: .5;
+    transform: rotate(-11deg) scale(1);
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .dsr.stamped .dsr-stamp {
+    animation: none;
+    opacity: .5
+  }
+
+  .dsr-panel {
+    animation: none
+  }
+}
+
+.dsr-letterhead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--color-border-light);
+  padding-bottom: 0.5625rem;
+  margin-bottom: 0.5625rem;
+}
+
+.dsr-org {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 0.7812rem;
+  color: var(--color-text);
+}
+
+.dsr-sub {
+  font-size: 0.4688rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-top: 0.1875rem;
+}
+
+.dsr-fileno {
+  font-size: 0.4688rem;
+  color: var(--color-text-muted);
+  text-align: right;
+  line-height: 1.7;
+}
+
+.dsr-cls {
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+.dsr-cls.red {
+  color: var(--color-red);
+}
+
+.dsr-cls.amber {
+  color: var(--color-amber);
+}
+
+.dsr-cls.green {
+  color: var(--color-green);
+}
+
+.dsr-row {
+  display: flex;
+  gap: 0.625rem;
+  font-size: 0.5938rem;
+  line-height: 1.5;
+  padding: 0.25rem 0;
+  border-bottom: 1px dotted var(--color-border-light);
+}
+
+.dsr-row .k {
+  flex: 0 0 4rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-size: 0.5rem;
+  padding-top: 1px;
+}
+
+.dsr-row .v {
+  color: var(--color-text-secondary);
+}
+
+.dsr-row .v b {
+  color: var(--color-text);
+}
+
+.dsr-panel {
+  display: none;
+  margin-top: 0.75rem;
+}
+
+.dsr-panel.active {
+  display: block;
+  animation: dsrFade .35s ease;
+}
+
+@keyframes dsrFade {
+  from {
+    opacity: 0;
+    transform: translateY(0.4375rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.dsr-ph {
+  font-size: 0.5rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  font-weight: 700;
+  border-bottom: 1px solid var(--color-accent-dim);
+  padding-bottom: 0.1875rem;
+  margin: 0.75rem 0 0.5rem;
+}
+
+.dsr-panel>.dsr-ph:first-child {
+  margin-top: 0;
+}
+
+/* VERDICT */
+.dsr-verdict-strip {
+  background: var(--color-text);
+  color: var(--color-bg);
+  padding: 0.5625rem 0.6875rem;
+  border-radius: 2px;
+  font-size: 0.5938rem;
+  line-height: 1.6;
+}
+
+.dsr-verdict-strip strong {
+  font-family: var(--font-serif);
+  font-size: 0.6875rem;
+  letter-spacing: .03em;
+}
+
+.dsr-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 0.625rem;
+}
+
+.dsr-mini {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  padding: 0.5rem 0.625rem;
+}
+
+.dsr-mini .ml {
+  display: block;
+  font-size: 0.5rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.dsr-mini .mv {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  margin-top: 0.1875rem;
+}
+
+.dsr-mini .mv.big {
+  font-size: 1.375rem;
+}
+
+.dsr-legacy {
+  font-size: 0.5938rem;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/* PUBLIC RECORD (newspaper clipping) */
+.dsr-clip {
+  background: var(--news-paper);
+  color: var(--news-ink);
+  border: 1px solid var(--news-rule);
+  border-radius: 2px;
+  padding: 0.75rem;
+  font-family: var(--font-serif);
+  position: relative;
+}
+
+.dsr-clip::after {
+  content: 'PUBLIC RECORD';
+  position: absolute;
+  top: -0.4375rem;
+  left: 0.75rem;
+  background: var(--news-paper);
+  font-family: var(--font-mono);
+  font-size: 0.4062rem;
+  letter-spacing: .18em;
+  color: var(--news-muted);
+  padding: 0 0.3125rem;
+}
+
+.clip-mast {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: .05em;
+  border-bottom: 0.1875rem double var(--news-rule);
+  padding-bottom: 0.3125rem;
+}
+
+.clip-dl {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.4062rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--news-muted);
+  border-bottom: 1px solid var(--news-rule);
+  padding: 0.25rem 0;
+  margin-bottom: 0.5rem;
+}
+
+.clip-hl {
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.08;
+  text-align: center;
+  margin-bottom: 0.3125rem;
+}
+
+.clip-deck {
+  font-style: italic;
+  font-size: 0.5938rem;
+  text-align: center;
+  color: var(--news-muted);
+  line-height: 1.45;
+  margin-bottom: 0.5rem;
+}
+
+.clip-pull {
+  border-top: 2px solid var(--news-rule);
+  border-bottom: 2px solid var(--news-rule);
+  padding: 0.375rem 0;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 0.6875rem;
+  text-align: center;
+  color: var(--news-accent);
+  line-height: 1.3;
+}
+
+/* ASSOCIATED PERSONS (signal + watchlist) */
+.dsr-sig {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.sig-row {
+  display: grid;
+  grid-template-columns: 5.25rem 1fr 1.625rem;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.5312rem;
+}
+
+.sig-n {
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.sig-bar {
+  height: 0.3125rem;
+  background: var(--surface-2);
+  border-radius: 0.1875rem;
+  overflow: hidden;
+}
+
+.sig-bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: 0.1875rem;
+  transition: width 1s cubic-bezier(.2, .7, .3, 1);
+}
+
+.sig-pc {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.dsr-watch {
+  display: flex;
+  flex-direction: column;
+}
+
+.dsr-wrow {
+  display: grid;
+  grid-template-columns: 0.75rem 1fr auto;
+  gap: 0.5625rem;
+  align-items: center;
+  font-size: 0.5625rem;
+  padding: 0.3125rem 0;
+  border-bottom: 1px dotted var(--color-border-light);
+}
+
+.wdot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+
+.wwho {
+  color: var(--color-text);
+  letter-spacing: .02em;
+}
+
+.wtag {
+  font-size: 0.4688rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* FINDINGS */
+.dsr-anom-h {
+  font-size: 0.5312rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--color-red);
+  font-weight: 700;
+  margin-bottom: 0.4375rem;
+}
+
+.dsr-finding {
+  font-size: 0.5938rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.375rem;
+  padding-left: 0.75rem;
+  position: relative;
+}
+
+.dsr-finding::before {
+  content: '\25B8';
+  position: absolute;
+  left: 0;
+  color: var(--color-red);
+}
+
+.dsr-finding.clean::before {
+  color: var(--color-green);
+}
+
+.dsr-redact {
+  background: var(--color-text);
+  color: var(--color-text);
+  border-radius: 1px;
+  padding: 0 0.3125rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all .2s;
+}
+
+.dsr-redact.open {
+  background: var(--color-red-bg);
+  color: var(--color-red);
+  font-weight: 700;
+  border-bottom: 1px solid var(--color-red);
+}
+
+.dsr-scandal {
+  margin-top: 0.5625rem;
+  background: var(--color-red-bg);
+  border: 1px solid var(--color-border-light);
+  border-left: 0.1875rem solid var(--color-red);
+  border-radius: 2px;
+  padding: 0.5rem 0.625rem;
+}
+
+.dsr-scandal .ssl {
+  font-size: 0.5rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--color-red);
+  font-weight: 700;
+  margin-bottom: 0.1875rem;
+}
+
+.dsr-scandal .sst {
+  font-size: 0.5625rem;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.dsr-scandal .sst strong {
+  color: var(--color-text);
+}
+
+/* actions + toast */
+.dsr-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.dsr-btn {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 0.6875rem;
+  border: 1px solid var(--color-border-light);
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background .15s;
+}
+
+.dsr-btn:hover {
+  background: var(--surface-2);
+}
+
+.dsr-btn.share {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.dsr-btn.primary {
+  border-color: var(--color-accent);
+  color: var(--color-bg);
+  background: var(--color-accent);
+}
+
+.dsr-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.625rem;
+  transform: translateX(-50%) translateY(1rem);
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: .04em;
+  padding: 0.5625rem 0.875rem;
+  border-radius: 0.1875rem;
+  opacity: 0;
+  transition: all .3s;
+  pointer-events: none;
+  z-index: 800;
+}
+
+.dsr-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Personal funds / donation panel (dispatch sidebar) ─────────────────── */
+.treasury {
+  margin-top: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--surface-2);
+  padding: 0.6rem 0.7rem 0.7rem;
+}
+
+.trez-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.trez-h {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+.trez-next {
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.03em;
+  color: var(--color-text-muted);
+  opacity: 0.85;
+  white-space: nowrap;
+}
+
+.trez-amt {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.05;
+  color: var(--color-text);
+  margin: 0.05rem 0 0.4rem;
+}
+
+.trez-amt .trez-m {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  margin-left: 1px;
+}
+
+.trez-ov {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  color: var(--color-amber);
+  border-top: 1px dotted var(--color-border);
+  padding-top: 0.35rem;
+  margin-bottom: 0.45rem;
+}
+
+.trez-ov.warm {
+  color: var(--color-amber);
+}
+
+.trez-ov.hot {
+  color: var(--color-red);
+}
+
+.trez-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-text);
+  padding: 0.4rem 0.55rem;
+  margin-top: 0.15rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.trez-toggle:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.trez-toggle:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.trez-caret {
+  transition: transform 0.18s ease;
+  display: inline-block;
+  color: var(--color-text-muted);
+}
+
+.trez-toggle.open .trez-caret {
+  transform: rotate(90deg);
+  color: var(--color-accent);
+}
+
+.trez-donate.is-collapsed {
+  display: none;
+}
+
+.trez-donate {
+  margin-top: 0.5rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 0.5rem;
+}
+
+.trez-donate.is-empty {
+  opacity: 0.55;
+}
+
+.trez-drow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.15rem;
+}
+
+.trez-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.trez-out {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-accent);
+}
+
+.trez-slider {
+  width: 100%;
+  accent-color: var(--color-accent);
+  height: 1.1rem;
+  margin: 0.1rem 0 0.45rem;
+  cursor: pointer;
+}
+
+.trez-slider:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.trez-presets {
+  display: flex;
+  gap: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.trez-pre {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 0.28rem 0;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.trez-pre:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.trez-pre:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.trez-go {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 0;
+  border: 1px solid var(--color-accent);
+  border-radius: 5px;
+  background: var(--color-accent);
+  color: var(--color-surface);
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.05s;
+}
+
+.trez-go:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.trez-go:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.trez-go:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.trez-note {
+  font-family: var(--font-mono);
+  font-size: 0.53rem;
+  letter-spacing: 0.02em;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-top: 0.35rem;
+}

@@ -2144,7 +2144,7 @@
   }
 }
 
-@media (max-width:480px) {
+@media (max-width:520px) {
   .cs-map-panel {
     flex: 0 0 40svh;
   }

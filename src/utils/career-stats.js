@@ -12,6 +12,8 @@ const DEFAULTS = {
   resigned: 0,
   bestApproval: 0,
   turnsGoverned: 0,
+  totalCorruption: 0, // lifetime dirty money made (pact skim + sell-side)
+  biggestHaul: 0,     // most corrupt money in a single game
   governors: [], // Hall of administrations: newest first, capped at 12
 };
 
@@ -56,6 +58,11 @@ export function recordGameEnd(state) {
     outcome = 'Recalled';
   }
   s.turnsGoverned += state.turn;
+
+  // Corruption ledger: skim from pacts + sell-side black-market proceeds
+  const haul = (state.dirtyDeeds?.skimmed ?? 0) + (state.dirtyDeeds?.sold ?? 0);
+  s.totalCorruption = (s.totalCorruption ?? 0) + haul;
+  s.biggestHaul = Math.max(s.biggestHaul ?? 0, haul);
 
   // Hall of administrations — newest first, capped at 12
   if (!Array.isArray(s.governors)) s.governors = [];

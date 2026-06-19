@@ -80,10 +80,6 @@ export class CitySelectScreen {
           '</div>').join('');
     }).join('');
 
-    const legend = Object.entries(TIER_COLOR).map(([t, c]) =>
-      '<div class="cs-leg"><div class="cs-leg-dot" style="background:' + c + '"></div>' + TIER_LABEL[t] + '</div>'
-    ).join('');
-
     const govVal = (state.governorName && state.governorName !== 'Governor') ? state.governorName : '';
 
     return `
@@ -93,7 +89,6 @@ export class CitySelectScreen {
             <div class="cs-back" id="cs-back">&#x2190; BACK</div>
             <div class="cs-title">CHOOSE YOUR CITY</div>
           </div>
-          <div class="cs-legend">${legend}</div>
         </div>
         <div class="cs-body">
           <div class="cs-ledger">
