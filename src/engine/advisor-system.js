@@ -2,6 +2,7 @@
 import { randomPick, random } from '../utils/random.js';
 import { addHeat, heatLevel } from './heat-system.js';
 import advisorReactions from '../../Hardcoded things/advisor_reactions.json';
+import FUNDING_REQUESTS from '../../Hardcoded things/funding_requests.json';
 
 // Canonical domain of an advisor. Candidate-pool advisors carry a unique `id`
 // (e.g. "finance_siti") plus a `domain_id` ("finance"); legacy advisors use
@@ -496,6 +497,38 @@ export class AdvisorSystem {
     }
   }
 
+  // ── Domain funding requests (point 3) ─────────────────────────────────────
+  // An advisor asks for budget for their ministry. PAYING costs real money and
+  // buys real trust — loyalty you earn, not farm. One request at a time.
+  generateFundingRequest() {
+    const s = this.state;
+    if (s.pendingFundingRequest) return;
+    if (random() > 0.22) return;
+    const eligible = s.advisors.filter(a =>
+      !a.betrayed && !a.corruptPact && (a.lastFundTurn ?? -99) <= s.turn - 3);
+    if (!eligible.length) return;
+    const adv = randomPick(eligible);
+    const dom = domainOf(adv);
+    // Pull a random case from the pool — domain-specific or 'any' (extend the
+    // JSON to add more combinations; this picks among all that fit).
+    const pool = FUNDING_REQUESTS.filter(r => r.domain === dom || r.domain === 'any');
+    const entry = randomPick(pool.length ? pool : FUNDING_REQUESTS);
+    if (!entry) return;
+    adv.lastFundTurn = s.turn;
+    const fill = (t) => String(t ?? '')
+      .split('{amount}').join(entry.amount)
+      .split('{name}').join(adv.name)
+      .split('{project}').join(entry.project ?? 'their department')
+      .split('{city}').join(s.city?.city_name ?? 'the city');
+    s.pendingFundingRequest = {
+      advisorId: adv.id, advisorName: adv.name, amount: entry.amount,
+      project: entry.project, ask: fill(entry.ask),
+      accept:  { ...(entry.accept  ?? {}), msg: fill(entry.accept?.msg) },
+      decline: { ...(entry.decline ?? {}), msg: fill(entry.decline?.msg) },
+    };
+    console.log(`[Funding] ${adv.name} requests ${entry.amount}M (${entry.id})`);
+  }
+
   generateBribeOffers() {
     const s = this.state;
     const BRIBE_THRESHOLD = 60;
@@ -619,7 +652,10 @@ export class AdvisorSystem {
       a.relationshipType === 'romantic' && !a.betrayed && a.id !== advisor.id);
 
     this.shiftRelationship(advisor.id, +1);
-    advisor.trust = Math.min(100, (advisor.trust ?? 50) + 3);
+    // Diminishing returns: you can't click your way to loyalty. Each successive
+    // get-closer on the same advisor pays less trust (3 -> 2 -> 1 -> 1 ...).
+    advisor.getCloserCount = (advisor.getCloserCount ?? 0) + 1;
+    advisor.trust = Math.min(100, (advisor.trust ?? 50) + Math.max(1, 4 - advisor.getCloserCount));
 
     let jealousy = '';
     if (currentLover) {

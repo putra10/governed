@@ -31,7 +31,7 @@ export function renderAdvisorCard(advisor, hasOffer = false, needsAnswer = false
   const rel      = advisor.relationshipType ?? 'neutral';
   const relIcon  = REL_ICONS[rel];
   const relColor = REL_COLORS[rel] ?? '#666';
-  const relLabel = rel === 'romantic' ? 'Close' : rel.charAt(0).toUpperCase() + rel.slice(1);
+  const relLabel = rel === 'romantic' ? 'Lover' : rel.charAt(0).toUpperCase() + rel.slice(1);
 
   let warningHtml = '';
   if (advisor.betrayed) {

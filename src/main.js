@@ -166,6 +166,13 @@ class App {
     this.render();
   }
 
+  fundDomain(accept) {
+    const result = this.turnManager.resolveFundingRequest(accept);
+    this._logToActiveAdvisor(result);
+    this._checkInstantEnd(); // a funded project's scandal can crater approval
+    this.render();
+  }
+
   donateToCity(amount) {
     const amt = amount === 'all' ? (this.state.personalFunds ?? 0) : Number(amount);
     if (!Number.isFinite(amt) || amt <= 0) return;

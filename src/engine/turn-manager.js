@@ -57,6 +57,7 @@ export class TurnManager {
     this.advisorSystem.processCorruptPacts(this.scandalSystem);
     this.advisorSystem.processRaidRisk(this.scandalSystem);
     this.advisorSystem.generateBribeOffers();
+    this.advisorSystem.generateFundingRequest();
 
     // 2. Push any queued crisis (from unlock_follow_up) to active
     if (s.pendingCrisis) {
@@ -343,42 +344,35 @@ export class TurnManager {
     // Track how many generic problems resolved this turn (for quota cap)
     s.recordDecisionResolved?.();
 
-    // Advisor recommendation: did player follow or ignore the domain advisor's advice?
+    // Domain-aligned trust (points 1+2): an advisor is SERVED when you take the
+    // option they recommended — which reflects their portfolio's interest — and
+    // SNUBBED when you overrule them. Trust now emerges from real choices, not
+    // farming. Serving the domain advisor also slows their betrayal clock; a
+    // repeated-overrule streak erodes trust harder each time.
     const recs = s.pendingDecisionRecommendations ?? {};
     for (const [advId, recIdx] of Object.entries(recs)) {
       const adv = s.advisors.find(a => a.id === advId && !a.betrayed);
       if (!adv) continue;
+      const isDomain = domainOf(adv) === decision._domain;
       if (optionIndex === recIdx) {
-        adv.trust = Math.min(100, (adv.trust ?? 50) + 3);
-        console.log(`[Advisor Rec] ${adv.name} +3 trust — player followed recommendation`);
+        adv.trust = Math.min(100, (adv.trust ?? 50) + (isDomain ? 6 : 3));
+        if (isDomain) adv.agendaProgress = Math.max(0, (adv.agendaProgress ?? 0) - 8);
+        adv.overruleStreak = 0;
+        console.log(`[Advisor] ${adv.name} served (+${isDomain ? 6 : 3} trust)`);
       } else {
-        adv.trust = Math.max(0, (adv.trust ?? 50) - 2);
-        console.log(`[Advisor Rec] ${adv.name} -2 trust — player ignored recommendation`);
-
-        // "I told you so": ignored advice AND the chosen option hurt approval
-        // more than the advisor's pick would have → they gloat next turn
+        adv.overruleStreak = (adv.overruleStreak ?? 0) + 1;
+        const erosion = (isDomain ? 4 : 2) + Math.min(4, adv.overruleStreak - 1);
+        adv.trust = Math.max(0, (adv.trust ?? 50) - erosion);
         const chosenDelta = option.consequences?.approval_delta ?? 0;
         const recDelta    = decision.options[recIdx]?.consequences?.approval_delta ?? 0;
         if (chosenDelta < 0 && chosenDelta < recDelta) {
           adv.pendingReaction = { type: 'told_you_so', title: decision.title, turn: s.turn };
-          console.log(`[Advisor Rec] ${adv.name} will have words next turn`);
         }
+        console.log(`[Advisor] ${adv.name} overruled (streak ${adv.overruleStreak}, -${erosion} trust)`);
       }
     }
     s.pendingDecisionRecommendations = {};
     s.pendingRecMeta = {};
-
-    // Layer 1+3: if decision matches an advisor's domain, reward their trust
-    //            and slow their betrayal clock (good governance = loyalty)
-    const dom = decision._domain;
-    if (dom) {
-      const adv = s.advisors.find(a => domainOf(a) === dom && !a.betrayed);
-      if (adv) {
-        adv.trust          = Math.min(100, (adv.trust ?? 50) + 5);
-        adv.agendaProgress = Math.max(0,   (adv.agendaProgress ?? 0) - 8);
-        console.log(`[Domain] ${adv.name} +5 trust, -8 agenda (decision matched domain)`);
-      }
-    }
 
     this._generateReaction(option.consequences.approval_delta ?? 0);
 
@@ -673,6 +667,37 @@ export class TurnManager {
   declineAllContracts() {
     this.contractSystem.declineAllContracts();
     this.saveState();
+  }
+
+  // Fund an advisor's ministry (point 3): pay from the PUBLIC budget for real,
+  // earned trust. Declining costs a little goodwill.
+  resolveFundingRequest(accept) {
+    const s = this.state;
+    const req = s.pendingFundingRequest;
+    if (!req) return { ok: false, msg: 'No request pending.' };
+    const adv = s.getAdvisor(req.advisorId);
+    if (!adv || adv.betrayed) { s.pendingFundingRequest = null; return { ok: false, msg: 'They are no longer in your cabinet.' }; }
+    if (accept && (s.budget ?? 0) < req.amount) {
+      return { ok: false, msg: `The treasury can't cover ${req.amount}M right now.` };
+    }
+    // Apply the chosen case's effects (defined in funding_requests.json).
+    const fx = (accept ? req.accept : req.decline) ?? {};
+    s.pendingFundingRequest = null;
+    if (accept) s.shiftBudget(-req.amount);
+    if (fx.trust)    adv.trust = Math.max(0, Math.min(100, (adv.trust ?? 50) + fx.trust));
+    if (fx.agenda)   adv.agendaProgress = Math.max(0, Math.min(100, (adv.agendaProgress ?? 0) + fx.agenda));
+    if (fx.approval) s.shiftApproval(fx.approval);
+    let busted = false;
+    if (accept && fx.scandalRisk && random() < fx.scandalRisk) {
+      busted = true;
+      this.scandalSystem._applyScandal({
+        id: `funding_${req.advisorId}_${s.turn}`,
+        title: fx.scandalTitle ?? `${adv.name}'s Funded Project Under Scrutiny`,
+        severity_tier: fx.scandalTier ?? 'minor',
+      }, 'funding');
+    }
+    this.saveState();
+    return { ok: true, busted, msg: fx.msg || (accept ? 'Funded.' : 'Declined.') };
   }
 
   // Pour personal money into the public treasury. Public, popular, and printed

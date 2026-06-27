@@ -512,7 +512,7 @@ export class DispatchScreen {
         ${renderTopBar(state)}
         <div class="mobile-tab-strip">
           <button class="mob-tab mob-tab--active" data-mob-tab="dispatch">DISPATCH</button>
-          <button class="mob-tab" data-mob-tab="advisors">ADVISORS${(state.pendingLoverDemand || state.pendingPartnerDemand || state.pendingBribes?.length || state.advisors.some(a => a.pendingReactionMsg && !a.betrayed)) ? '<span class="tab-dot"></span>' : ''}</button>
+          <button class="mob-tab" data-mob-tab="advisors">ADVISORS${(state.pendingLoverDemand || state.pendingPartnerDemand || state.pendingFundingRequest || state.pendingBribes?.length || state.advisors.some(a => a.pendingReactionMsg && !a.betrayed)) ? '<span class="tab-dot"></span>' : ''}</button>
           <button class="mob-tab" data-mob-tab="feed">FEED</button>
         </div>
         <div class="main-body">
@@ -642,7 +642,7 @@ export class DispatchScreen {
               ${advisors.map(a => renderAdvisorCard(
                 a,
                 (state.pendingBribes ?? []).some(b => b.advisorId === a.id),
-                state.pendingLoverDemand?.advisorId === a.id || state.pendingPartnerDemand?.advisorId === a.id,
+                state.pendingLoverDemand?.advisorId === a.id || state.pendingPartnerDemand?.advisorId === a.id || state.pendingFundingRequest?.advisorId === a.id,
                 !!a.pendingReactionMsg
               )).join('')}
               ${renderBribeOffers(state.pendingBribes)}

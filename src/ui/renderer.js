@@ -53,6 +53,7 @@ export class Renderer {
       addressNation:       (optionId) => window.GOVERNED?.addressNation(optionId),
       loverDemand:         (accept) => window.GOVERNED?.loverDemand(accept),
       partnerDemand:       (accept) => window.GOVERNED?.partnerDemand(accept),
+      fundDomain:          (accept) => window.GOVERNED?.fundDomain(accept),
       donateToCity:        (amount) => window.GOVERNED?.donateToCity(amount),
       summonActor:         (actorName) => window.GOVERNED?.summonActor(actorName),
       skipMeeting:         () => window.GOVERNED?.skipMeeting(),

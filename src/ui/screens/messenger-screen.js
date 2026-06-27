@@ -86,6 +86,7 @@ export class MessengerScreen {
             ${MessengerScreen._renderEmergencyPower(state, advisor)}
             ${MessengerScreen._renderLoverDemand(state, advisor)}
             ${MessengerScreen._renderPartnerDemand(state, advisor)}
+            ${MessengerScreen._renderFundingRequest(state, advisor)}
             ${MessengerScreen._renderBackChannel(state, advisor)}
             ${MessengerScreen._renderResign(state, advisor)}
           </div>
@@ -233,6 +234,32 @@ export class MessengerScreen {
       </div>`;
   }
 
+  static _renderFundingRequest(state, advisor) {
+    const r = state.pendingFundingRequest;
+    if (!r || r.advisorId !== advisor.id) return '';
+    const afford = (state.budget ?? 0) >= r.amount;
+    const acc = r.accept || {};
+    const parts = [`-${r.amount}M`];
+    if (acc.trust)    parts.push(`+${acc.trust} trust`);
+    if (acc.approval) parts.push(`${acc.approval > 0 ? '+' : ''}${acc.approval}% approval`);
+    if (acc.scandalRisk) parts.push(`${Math.round(acc.scandalRisk * 100)}% scandal`);
+    const dec = r.decline || {};
+    const decNote = dec.trust ? `${dec.trust} trust` : 'they remember this';
+    return `
+      <div class="adv-bc partner-demand">
+        <div class="adv-bc-header">&#x1F4B0; ${advisor.name.toUpperCase()} REQUESTS FUNDING</div>
+        <div class="ld-ask">${r.ask}</div>
+        <button class="bc-action" data-fund-request="accept" ${afford ? '' : 'disabled'}>
+          <span class="bca-label">FUND IT</span>
+          <span class="bca-note">${afford ? parts.join(' &middot; ') : `Treasury needs ${r.amount}M`}</span>
+        </button>
+        <button class="bc-action" data-fund-request="refuse">
+          <span class="bca-label">DECLINE</span>
+          <span class="bca-note">${decNote}</span>
+        </button>
+      </div>`;
+  }
+
   static _renderPartnerDemand(state, advisor) {
     const d = state.pendingPartnerDemand;
     if (!d || d.advisorId !== advisor.id) return '';
@@ -335,11 +362,13 @@ export class MessengerScreen {
 
         advisor._msgLog.push({ type: 'me', text: btn.textContent.trim(), time: now() });
 
+        // Chatting is just talk — it does NOT build trust. Trust is earned
+        // through real choices (serving their domain, funding their ministry,
+        // the back channel), never by spamming quick replies. A hostile reply
+        // still has a real cost.
         if (isDangerous) {
           advisor.trust = Math.max(0, advisor.trust - 5);
           advisor.agendaProgress = Math.min(100, (advisor.agendaProgress ?? 0) + 10);
-        } else {
-          advisor.trust = Math.min(100, advisor.trust + 2);
         }
 
         let response;
@@ -378,6 +407,10 @@ export class MessengerScreen {
       btn.addEventListener('click', () => {
         handlers.loverDemand?.(btn.dataset.loverDemand === 'accept');
       });
+    });
+
+    container.querySelectorAll('[data-fund-request]').forEach(btn => {
+      btn.addEventListener('click', () => handlers.fundDomain?.(btn.dataset.fundRequest === 'accept'));
     });
 
     container.querySelectorAll('[data-partner-demand]').forEach(btn => {

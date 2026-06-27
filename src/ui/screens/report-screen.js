@@ -146,7 +146,7 @@ export class ReportScreen {
           </div>
           <div class="sv-verdict-skip" id="rvskip">SKIP &#9656;</div>
         </div>
-        ${renderTopBar(state)}
+        ${renderTopBar(state, { report: true })}
         <div class="report-screen">
           <div class="dsr" data-share="${shareText.replace(/"/g, '&quot;')}" data-card="${JSON.stringify({ name: subject, stamp: stampWord, cls: classification, approval: state.approval, city: state.city?.city_name ?? '', weeks, fileno: fileNo, tone, loyal, total }).replace(/"/g, '&quot;')}">
 
@@ -183,7 +183,7 @@ export class ReportScreen {
                 <div class="dsr-ph">Public Record</div>
                 <div class="dsr-clip">
                   <div class="clip-mast">THE ${CITY} LEDGER</div>
-                  <div class="clip-dl"><span>Final Edition</span><span>Week ${weeks}</span><span>Price: Your Reputation</span></div>
+                  <div class="clip-dl"><span>Final Edition</span><span>Price: Your Reputation</span></div>
                   <div class="clip-hl">${clip.headline}</div>
                   <div class="clip-deck">${clip.deck}</div>
                   <div class="clip-pull">&ldquo;${clip.pull}&rdquo;</div>

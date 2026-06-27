@@ -84,6 +84,7 @@ export const state = {
   // Lover arc + crime partner demands
   pendingLoverDemand: null,
   pendingPartnerDemand: null,
+  pendingFundingRequest: null,
 
   // Day structure: action points (meetings, consults, back channel each cost 1)
   actionPoints: 3,
@@ -192,6 +193,7 @@ export const state = {
     this.marketEffects = {};
     this.pendingLoverDemand = null;
     this.pendingPartnerDemand = null;
+    this.pendingFundingRequest = null;
     this.actionPoints = 3;
     this.maxActionPoints = 3;
     this.pendingMeeting = null;
@@ -368,6 +370,7 @@ export const state = {
       marketEffects: this.marketEffects,
       pendingLoverDemand: this.pendingLoverDemand,
       pendingPartnerDemand: this.pendingPartnerDemand,
+      pendingFundingRequest: this.pendingFundingRequest,
       actionPoints: this.actionPoints,
       maxActionPoints: this.maxActionPoints,
       pendingMeeting: this.pendingMeeting,
@@ -428,6 +431,7 @@ export const state = {
     this.marketEffects           = parsed.marketEffects ?? {};
     this.pendingLoverDemand      = parsed.pendingLoverDemand ?? null;
     this.pendingPartnerDemand    = parsed.pendingPartnerDemand ?? null;
+    this.pendingFundingRequest   = parsed.pendingFundingRequest ?? null;
     this.actionPoints            = parsed.actionPoints ?? 3;
     this.maxActionPoints         = parsed.maxActionPoints ?? 3;
     this.pendingMeeting          = parsed.pendingMeeting ?? null;
