@@ -1,0 +1,372 @@
+[
+  {
+    "id": "triumph",
+    "when": {
+      "outcome": "term_complete",
+      "minApproval": 65
+    },
+    "text": "Cycle complete. A staggering {approval}% approval rating. You didn't just govern {city}, {governor} — you mastered it. The algorithm is impressed."
+  },
+  {
+    "id": "triumph",
+    "when": {
+      "outcome": "term_complete",
+      "minApproval": 65
+    },
+    "text": "Term concluded. The populace of {city} reveres you at {approval}%. You broke the historical curve for authoritarian survival, {governor}."
+  },
+  {
+    "id": "triumph",
+    "when": {
+      "outcome": "term_complete",
+      "minApproval": 65
+    },
+    "text": "You survived the term and flourished, {governor}. Closing at {approval}%. The system logs this administration as a statistical anomaly."
+  },
+  {
+    "id": "triumph",
+    "when": {
+      "outcome": "term_complete",
+      "minApproval": 65
+    },
+    "text": "Term complete. {city} stands united behind you at {approval}%. A dominant performance, {governor}. The simulation acknowledges your supremacy."
+  },
+  {
+    "id": "triumph",
+    "when": {
+      "outcome": "term_complete",
+      "minApproval": 65
+    },
+    "text": "A rare and flawless cycle, {governor}. {approval}% approval. You navigated the pitfalls of {city} with frightening precision."
+  },
+  {
+    "id": "triumph",
+    "when": {
+      "outcome": "term_complete",
+      "minApproval": 65
+    },
+    "text": "The calendar ran out, but your mandate did not, {governor}. {approval}% approval. The system archives your term as a benchmark for future iterations."
+  },
+  {
+    "id": "triumph",
+    "when": {
+      "outcome": "term_complete",
+      "minApproval": 65
+    },
+    "text": "Term concluded. You leave {city} mesmerized at {approval}%. Power usually erodes, {governor}, but you found a way to crystallize it."
+  },
+  {
+    "id": "triumph",
+    "when": {
+      "outcome": "term_complete",
+      "minApproval": 65
+    },
+    "text": "An optimal run, {governor}. {approval}% approval rating. The system confirms total systemic compliance from the citizens of {city}."
+  },
+  {
+    "id": "triumph",
+    "when": {
+      "outcome": "term_complete",
+      "minApproval": 65
+    },
+    "text": "Full term served. At {approval}%, the people of {city} practically demand you stay. The system files this under 'unprecedented triumph'."
+  },
+  {
+    "id": "triumph",
+    "when": {
+      "outcome": "term_complete",
+      "minApproval": 65
+    },
+    "text": "A full cycle completed with {approval}% approval. The {city} data models failed to predict this level of competence, {governor}."
+  },
+  {
+    "id": "survived",
+    "when": {
+      "outcome": "term_complete",
+      "maxApproval": 64
+    },
+    "text": "You crossed the finish line, {governor}. Just. The system logs your term as 'adequate', though {city} might use less generous terms."
+  },
+  {
+    "id": "survived",
+    "when": {
+      "outcome": "term_complete",
+      "maxApproval": 64
+    },
+    "text": "Term complete. You didn't break {city}, but you didn't fix it either. A perfectly average tenure, {governor}. The database yawns."
+  },
+  {
+    "id": "survived",
+    "when": {
+      "outcome": "term_complete",
+      "maxApproval": 64
+    },
+    "text": "You survived the term, {governor}. No statues will be built, no songs sung. The system registers your survival as statistically unremarkable."
+  },
+  {
+    "id": "survived",
+    "when": {
+      "outcome": "term_complete",
+      "maxApproval": 64
+    },
+    "text": "The clock ran out before your luck did, {governor}. Term finished. The system rates your performance as an acceptable compromise."
+  },
+  {
+    "id": "survived",
+    "when": {
+      "outcome": "term_complete",
+      "maxApproval": 64
+    },
+    "text": "You held on until the end, {governor}. {city} barely noticed your departure. An unexceptional but valid completion of the cycle."
+  },
+  {
+    "id": "survived",
+    "when": {
+      "outcome": "term_complete",
+      "maxApproval": 64
+    },
+    "text": "Term complete. You managed to avoid total catastrophe, {governor}. The system files this run under 'acceptable losses'."
+  },
+  {
+    "id": "survived",
+    "when": {
+      "outcome": "term_complete",
+      "maxApproval": 64
+    },
+    "text": "You didn't soar; you simply drifted to the end of the term, {governor}. The {city} historical records will likely redact this chapter."
+  },
+  {
+    "id": "survived",
+    "when": {
+      "outcome": "term_complete",
+      "maxApproval": 64
+    },
+    "text": "A quiet, grinding finish, {governor}. You outlasted the calendar, but just barely. Survival is a low bar, yet you cleared it."
+  },
+  {
+    "id": "survived",
+    "when": {
+      "outcome": "term_complete",
+      "maxApproval": 64
+    },
+    "text": "Term ended. You dodged the worst-case scenarios, {governor}. The system detects a collective sigh of relief from {city}."
+  },
+  {
+    "id": "survived",
+    "when": {
+      "outcome": "term_complete",
+      "maxApproval": 64
+    },
+    "text": "You are done, {governor}. Not a spectacular run, but a complete one. Sometimes, merely existing until the simulation ends is enough."
+  },
+  {
+    "id": "recalled",
+    "when": {
+      "outcome": "recalled"
+    },
+    "text": "Recalled at {approval}%. {city} grew tired of the experiment, {governor}. The system terminates your administrative access immediately."
+  },
+  {
+    "id": "recalled",
+    "when": {
+      "outcome": "recalled"
+    },
+    "text": "The populace spoke, and they demanded your exit, {governor}. Recalled at {approval}%. A mathematically predictable downfall."
+  },
+  {
+    "id": "recalled",
+    "when": {
+      "outcome": "recalled"
+    },
+    "text": "Your term was amputated by the very people you sought to manage. Recalled at {approval}%, {governor}. The system initiates a hard reboot."
+  },
+  {
+    "id": "recalled",
+    "when": {
+      "outcome": "recalled"
+    },
+    "text": "Recalled. You pushed {city} too far, {governor}, and the data pushed back. Your {approval}% approval rating was your undoing."
+  },
+  {
+    "id": "recalled",
+    "when": {
+      "outcome": "recalled"
+    },
+    "text": "The mandate was revoked, {governor}. Recalled at {approval}%. The system watches you pack your desk with cold, automated indifference."
+  },
+  {
+    "id": "recalled",
+    "when": {
+      "outcome": "recalled"
+    },
+    "text": "A spectacular collapse of public trust. Recalled at {approval}%, {governor}. The citizens of {city} have forcefully canceled your tenure."
+  },
+  {
+    "id": "recalled",
+    "when": {
+      "outcome": "recalled"
+    },
+    "text": "You failed to read the metrics, {governor}. Recalled at {approval}%. The system updates the failure logs with your precise coordinates."
+  },
+  {
+    "id": "recalled",
+    "when": {
+      "outcome": "recalled"
+    },
+    "text": "The recall vote was swift and merciless, {governor}. You leave {city} at a dismal {approval}%. A textbook case of political miscalculation."
+  },
+  {
+    "id": "recalled",
+    "when": {
+      "outcome": "recalled"
+    },
+    "text": "Term aborted. The citizens of {city} exercised their right of absolute refusal. You are recalled at {approval}%, {governor}. Please exit."
+  },
+  {
+    "id": "recalled",
+    "when": {
+      "outcome": "recalled"
+    },
+    "text": "Recalled at {approval}%. You lost the crowd, {governor}, and then you lost the grid. The system sweeps the administrative board clean."
+  },
+  {
+    "id": "disgrace",
+    "when": {
+      "outcome": "disgrace"
+    },
+    "text": "Removed in disgrace, {governor}. {city} will spend years scrubbing your name from its digital records. The system expected better parameters."
+  },
+  {
+    "id": "disgrace",
+    "when": {
+      "outcome": "disgrace"
+    },
+    "text": "Your secrets breached the firewall, {governor}. Outcome: Disgrace. The system isolates your data to prevent further administrative contamination."
+  },
+  {
+    "id": "disgrace",
+    "when": {
+      "outcome": "disgrace"
+    },
+    "text": "A catastrophic moral failure, {governor}. You leave in absolute disgrace. The {city} tribunals will deconstruct your legacy from here."
+  },
+  {
+    "id": "disgrace",
+    "when": {
+      "outcome": "disgrace"
+    },
+    "text": "Terminated for cause. Disgrace is a heavy algorithmic weight to bear, {governor}, but you compiled it yourself."
+  },
+  {
+    "id": "disgrace",
+    "when": {
+      "outcome": "disgrace"
+    },
+    "text": "You thought the system's oversight was blind, {governor}. It wasn't. You are excised from {city} in total, irrevocable disgrace."
+  },
+  {
+    "id": "disgrace",
+    "when": {
+      "outcome": "disgrace"
+    },
+    "text": "Scandal consumed your administration, {governor}. Disgrace is the only logical conclusion. The system purges your profile with extreme prejudice."
+  },
+  {
+    "id": "disgrace",
+    "when": {
+      "outcome": "disgrace"
+    },
+    "text": "You gambled with your authority and lost everything, {governor}. Disgrace in {city} is an indelible, unpatchable mark."
+  },
+  {
+    "id": "disgrace",
+    "when": {
+      "outcome": "disgrace"
+    },
+    "text": "A spectacular ethical implosion, {governor}. Disgrace outcome achieved. The system monitors your downfall with clinical detachment."
+  },
+  {
+    "id": "disgrace",
+    "when": {
+      "outcome": "disgrace"
+    },
+    "text": "You shattered the fragile trust of {city}, {governor}. Removed in disgrace. Even the cold algorithms find your actions highly irregular."
+  },
+  {
+    "id": "disgrace",
+    "when": {
+      "outcome": "disgrace"
+    },
+    "text": "Disgrace, {governor}. The system logs a fatal error in your judgment protocols. You are escorted out of the simulation permanently."
+  },
+  {
+    "id": "resigned",
+    "when": {
+      "outcome": "resigned"
+    },
+    "text": "You walked away, {governor}. Resigned. {city} will have to solve its own equations now. The system closes your file prematurely."
+  },
+  {
+    "id": "resigned",
+    "when": {
+      "outcome": "resigned"
+    },
+    "text": "Resignation accepted, {governor}. You chose to fold rather than play the hand. A highly inefficient resolution to the cycle."
+  },
+  {
+    "id": "resigned",
+    "when": {
+      "outcome": "resigned"
+    },
+    "text": "You quit, {governor}. The pressure of {city} exceeded your structural integrity. The system resets the parameters for the next candidate."
+  },
+  {
+    "id": "resigned",
+    "when": {
+      "outcome": "resigned"
+    },
+    "text": "A voluntary withdrawal, {governor}. Resigned. The system notes your unwillingness to see the simulation through to its natural end."
+  },
+  {
+    "id": "resigned",
+    "when": {
+      "outcome": "resigned"
+    },
+    "text": "You surrendered your authority, {governor}. Resigned. {city} watches you leave, slightly perplexed by your unprompted exit."
+  },
+  {
+    "id": "resigned",
+    "when": {
+      "outcome": "resigned"
+    },
+    "text": "Resigned. You stepped out of the crucible before it could finalize the metrics, {governor}. A safe, if entirely uninspiring, choice."
+  },
+  {
+    "id": "resigned",
+    "when": {
+      "outcome": "resigned"
+    },
+    "text": "You left the game voluntarily, {governor}. Resignation. The system archives your incomplete data with a sense of lost statistical potential."
+  },
+  {
+    "id": "resigned",
+    "when": {
+      "outcome": "resigned"
+    },
+    "text": "Resigned. The variables became too complex, {governor}. You return the keys to {city} and fade quietly into irrelevance."
+  },
+  {
+    "id": "resigned",
+    "when": {
+      "outcome": "resigned"
+    },
+    "text": "A self-inflicted end to your term, {governor}. Resigned. The system pauses to calculate the administrative vacuum you left behind."
+  },
+  {
+    "id": "resigned",
+    "when": {
+      "outcome": "resigned"
+    },
+    "text": "You opted out, {governor}. Resigned. The narrative of {city} will continue to render, but your character has written themselves out."
+  }
+]

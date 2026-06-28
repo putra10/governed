@@ -1,0 +1,1842 @@
+[
+  {
+    "id": "fin_tax_system_standard",
+    "case": "standard — fair price, solid trust, no side effects",
+    "domain": "finance",
+    "project": "a digital tax-collection overhaul",
+    "ask": "Governor, {amount}M and I drag this city's books into the century. Back me and the treasury runs clean.",
+    "amount": 40,
+    "accept": {
+      "trust": 12,
+      "agenda": -10,
+      "approval": 0,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You funded the tax overhaul. (-{amount}M · +12 trust) The ledgers thank you."
+    },
+    "decline": {
+      "trust": -3,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You passed on the tax overhaul. (-3 trust) They stop bringing you the good ideas."
+    }
+  },
+  {
+    "id": "fin_tax_system_prestige",
+    "case": "prestige — massive overhaul, huge trust and public approval",
+    "domain": "finance",
+    "project": "a state-of-the-art automated revenue center",
+    "ask": "{amount}M builds a gleaming new revenue center, Governor. The public will see a modern, transparent city.",
+    "amount": 75,
+    "accept": {
+      "trust": 18,
+      "agenda": -20,
+      "approval": 5,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You built the revenue center. (-{amount}M · +18 trust · +5% approval) A monument to fiscal responsibility."
+    },
+    "decline": {
+      "trust": -6,
+      "agenda": 5,
+      "approval": 0,
+      "msg": "You denied the revenue center. (-6 trust) They wanted to show off, and you clipped their wings."
+    }
+  },
+  {
+    "id": "fin_tax_system_cheap",
+    "case": "cheap quick win — small ask, modest trust",
+    "domain": "finance",
+    "project": "updating legacy accounting software",
+    "ask": "Just {amount}M for software licenses, Governor. The spreadsheets won't crash this quarter.",
+    "amount": 15,
+    "accept": {
+      "trust": 5,
+      "agenda": -4,
+      "approval": 1,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You updated the software. (-{amount}M · +5 trust · +1% approval) The spreadsheets live to see another day."
+    },
+    "decline": {
+      "trust": -1,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You denied the software update. (-1 trust) The spreadsheets crash. Again."
+    }
+  },
+  {
+    "id": "fin_tax_system_risky",
+    "case": "risky — funds it, but the contractors are questionable",
+    "domain": "finance",
+    "project": "outsourcing tax collection to a private firm",
+    "ask": "{amount}M and this private firm handles the backlog. Don't ask about their offshore ties.",
+    "amount": 50,
+    "accept": {
+      "trust": 10,
+      "agenda": -8,
+      "approval": 2,
+      "scandalRisk": 0.35,
+      "scandalTier": "moderate",
+      "scandalTitle": "Tax Collection Outsourced to Shady Firm",
+      "msg": "You hired the private firm. (-{amount}M · +10 trust · +2% approval) The backlog clears, but the press is sniffing around."
+    },
+    "decline": {
+      "trust": -2,
+      "agenda": 2,
+      "approval": 0,
+      "msg": "You blocked the private firm. (-2 trust) The backlog remains, and so does their annoyance."
+    }
+  },
+  {
+    "id": "fin_tax_system_vanity",
+    "case": "vanity — big ask, strong trust, but the public sees waste",
+    "domain": "finance",
+    "project": "a lavish new office for the tax commissioner",
+    "ask": "{amount}M for a corner office with a view, Governor. A commissioner of my stature needs it to negotiate.",
+    "amount": 45,
+    "accept": {
+      "trust": 14,
+      "agenda": -12,
+      "approval": -4,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You bought the corner office. (-{amount}M · +14 trust · -4% approval) They love the mahogany; the voters hate the price tag."
+    },
+    "decline": {
+      "trust": -4,
+      "agenda": 0,
+      "approval": 2,
+      "msg": "You denied the corner office. (-4 trust · +2% approval) They sulk, but the papers praise your frugality."
+    }
+  },
+  {
+    "id": "fin_tax_system_emergency",
+    "case": "emergency — small, but refusing genuinely offends",
+    "domain": "finance",
+    "project": "emergency payroll for auditors during tax season",
+    "ask": "My auditors are sleeping under desks, Governor. {amount}M for overtime, or the filings miss the deadline.",
+    "amount": 20,
+    "accept": {
+      "trust": 7,
+      "agenda": -5,
+      "approval": 0,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You covered the overtime. (-{amount}M · +7 trust) The filings go out on time."
+    },
+    "decline": {
+      "trust": -8,
+      "agenda": 10,
+      "approval": 0,
+      "msg": "You refused the audit overtime. (-8 trust) The deadline is missed. They will remember this."
+    }
+  },
+  {
+    "id": "fin_tax_system_dubious",
+    "case": "dubious — cheap, decent trust, but smells like embezzlement",
+    "domain": "finance",
+    "project": "a discretionary 'consulting' retainer",
+    "ask": "{amount}M for a consulting retainer. No deliverables, just 'strategic alignment'. Trust me.",
+    "amount": 25,
+    "accept": {
+      "trust": 8,
+      "agenda": -6,
+      "approval": 0,
+      "scandalRisk": 0.2,
+      "scandalTier": "minor",
+      "scandalTitle": "Phantom Consulting Retainer Exposed",
+      "msg": "You funded the retainer. (-{amount}M · +8 trust) It buys their loyalty, but the auditors are asking questions."
+    },
+    "decline": {
+      "trust": -2,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You denied the retainer. (-2 trust) They look at you like you don't understand how the game is played."
+    }
+  },
+  {
+    "id": "fin_tax_system_partisan",
+    "case": "partisan — pushes a specific political agenda hard",
+    "domain": "finance",
+    "project": "tax breaks for favored local industries",
+    "ask": "{amount}M in lost revenue for tax breaks, Governor. Our allies in the manufacturing sector need a win.",
+    "amount": 60,
+    "accept": {
+      "trust": 6,
+      "agenda": -25,
+      "approval": -2,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You granted the tax breaks. (-{amount}M · +6 trust · -2% approval) The factories cheer, the budget weeps."
+    },
+    "decline": {
+      "trust": -3,
+      "agenda": -5,
+      "approval": 1,
+      "msg": "You denied the tax breaks. (-3 trust) Your allies in manufacturing are furious."
+    }
+  },
+  {
+    "id": "fin_tax_system_compromise",
+    "case": "compromise — very lean, minimal impact",
+    "domain": "finance",
+    "project": "patching a minor loophole in the code",
+    "ask": "Just {amount}M to patch a loophole, Governor. It's a tiny fix, but it shows we're paying attention.",
+    "amount": 10,
+    "accept": {
+      "trust": 3,
+      "agenda": -2,
+      "approval": 0,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You patched the loophole. (-{amount}M · +3 trust) A small win, quietly noted."
+    },
+    "decline": {
+      "trust": -1,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You ignored the loophole. (-1 trust) They wonder if you even read the brief."
+    }
+  },
+  {
+    "id": "fin_tax_system_high_stakes",
+    "case": "high stakes — all-or-nothing massive investment",
+    "domain": "finance",
+    "project": "a complete AI-driven financial prediction engine",
+    "ask": "{amount}M for the AI engine, Governor. It will predict revenue shortfalls before they happen. Bet on the future.",
+    "amount": 90,
+    "accept": {
+      "trust": 22,
+      "agenda": -30,
+      "approval": 8,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You built the AI engine. (-{amount}M · +22 trust · +8% approval) The future is now, and it's balanced."
+    },
+    "decline": {
+      "trust": -10,
+      "agenda": 15,
+      "approval": 0,
+      "msg": "You killed the AI project. (-10 trust) They call you a Luddite. The shortfalls hit next quarter."
+    }
+  },
+  {
+    "id": "urban_parks_standard",
+    "case": "standard — fair price, solid trust, no side effects",
+    "domain": "urban_planning",
+    "project": "a flagship housing-and-parks initiative",
+    "ask": "{amount}M turns the eastern slums into homes and parks, Governor. Back me and that whole district is ours.",
+    "amount": 40,
+    "accept": {
+      "trust": 12,
+      "agenda": -10,
+      "approval": 4,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "The parks rise across the east end. (-{amount}M · +12 trust · +4% approval) The district adores you both."
+    },
+    "decline": {
+      "trust": -3,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You shelved the parks. (-3 trust) The blueprints gather dust, and so does their goodwill."
+    }
+  },
+  {
+    "id": "urban_parks_prestige",
+    "case": "prestige — massive overhaul, huge trust and public approval",
+    "domain": "urban_planning",
+    "project": "a world-class botanical garden in the city center",
+    "ask": "{amount}M for the botanical garden, Governor. Tourists will flock here. It'll put us on the map.",
+    "amount": 75,
+    "accept": {
+      "trust": 18,
+      "agenda": -20,
+      "approval": 7,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You built the botanical garden. (-{amount}M · +18 trust · +7% approval) The orchids bloom, and the tourists arrive."
+    },
+    "decline": {
+      "trust": -6,
+      "agenda": 5,
+      "approval": 0,
+      "msg": "You denied the garden. (-6 trust) They wanted a legacy, you gave them a parking lot."
+    }
+  },
+  {
+    "id": "urban_parks_cheap",
+    "case": "cheap quick win — small ask, modest trust",
+    "domain": "urban_planning",
+    "project": "converting a vacant lot into a community garden",
+    "ask": "Just {amount}M for soil and fences, Governor. The locals want to grow their own tomatoes.",
+    "amount": 15,
+    "accept": {
+      "trust": 5,
+      "agenda": -4,
+      "approval": 2,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You funded the community garden. (-{amount}M · +5 trust · +2% approval) The tomatoes are thriving."
+    },
+    "decline": {
+      "trust": -1,
+      "agenda": 0,
+      "approval": -1,
+      "msg": "You denied the garden. (-1 trust · -1% approval) The lot stays full of trash."
+    }
+  },
+  {
+    "id": "urban_parks_risky",
+    "case": "risky — funds it, but the contractors are questionable",
+    "domain": "urban_planning",
+    "project": "a luxury eco-park on seized industrial land",
+    "ask": "{amount}M for the eco-park. We'll 'rezone' the old factory district. Don't ask about the current tenants.",
+    "amount": 50,
+    "accept": {
+      "trust": 10,
+      "agenda": -8,
+      "approval": 3,
+      "scandalRisk": 0.4,
+      "scandalTier": "high",
+      "scandalTitle": "Eco-Park Built on Seized Industrial Land",
+      "msg": "You built the eco-park. (-{amount}M · +10 trust · +3% approval) It's beautiful. The displaced factory workers disagree."
+    },
+    "decline": {
+      "trust": -4,
+      "agenda": 3,
+      "approval": 0,
+      "msg": "You blocked the eco-park. (-4 trust) The developers are livid, but the factories stay."
+    }
+  },
+  {
+    "id": "urban_parks_vanity",
+    "case": "vanity — big ask, strong trust, but the public sees waste",
+    "domain": "urban_planning",
+    "project": "a plaza filled with imported marble fountains",
+    "ask": "{amount}M for the marble fountains, Governor. It'll be the most photographed spot in the city.",
+    "amount": 45,
+    "accept": {
+      "trust": 14,
+      "agenda": -12,
+      "approval": -3,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You built the marble fountains. (-{amount}M · +14 trust · -3% approval) They are stunning. The taxpayers are weeping."
+    },
+    "decline": {
+      "trust": -5,
+      "agenda": 0,
+      "approval": 3,
+      "msg": "You denied the fountains. (-5 trust · +3% approval) They call you tasteless; the voters call you smart."
+    }
+  },
+  {
+    "id": "urban_parks_emergency",
+    "case": "emergency — small, but refusing genuinely offends",
+    "domain": "urban_planning",
+    "project": "emergency shoring up of a crumbling retaining wall",
+    "ask": "The retaining wall in the north end is cracking, Governor. {amount}M right now, or it collapses on the street.",
+    "amount": 20,
+    "accept": {
+      "trust": 7,
+      "agenda": -5,
+      "approval": 1,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You shored up the wall. (-{amount}M · +7 trust · +1% approval) Disaster averted."
+    },
+    "decline": {
+      "trust": -9,
+      "agenda": 12,
+      "approval": 0,
+      "msg": "You ignored the wall. (-9 trust) It collapsed. Miraculously no one died, but the rage is palpable."
+    }
+  },
+  {
+    "id": "urban_parks_dubious",
+    "case": "dubious — cheap, decent trust, but smells like embezzlement",
+    "domain": "urban_planning",
+    "project": "a vague 'streetscape beautification' project",
+    "ask": "{amount}M for streetscape beautification. Cash advances for the landscaping crews. No receipts needed.",
+    "amount": 25,
+    "accept": {
+      "trust": 8,
+      "agenda": -6,
+      "approval": 0,
+      "scandalRisk": 0.25,
+      "scandalTier": "moderate",
+      "scandalTitle": "Beautification Funds Vanish Without Receipts",
+      "msg": "You funded the beautification. (-{amount}M · +8 trust) The streets look fine, but the accounting is a black hole."
+    },
+    "decline": {
+      "trust": -2,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You denied the cash advance. (-2 trust) They needed that 'flexibility'."
+    }
+  },
+  {
+    "id": "urban_parks_partisan",
+    "case": "partisan — pushes a specific political agenda hard",
+    "domain": "urban_planning",
+    "project": "upgrading parks only in the governor's stronghold",
+    "ask": "{amount}M to upgrade the parks in the 4th district, Governor. Our base needs to see we care about their neighborhoods.",
+    "amount": 60,
+    "accept": {
+      "trust": 11,
+      "agenda": -18,
+      "approval": -1,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You upgraded the 4th district. (-{amount}M · +11 trust · -1% approval) Your base is thrilled; the opposition is drafting lawsuits."
+    },
+    "decline": {
+      "trust": -4,
+      "agenda": -4,
+      "approval": 1,
+      "msg": "You denied the district upgrade. (-4 trust) Your base feels abandoned."
+    }
+  },
+  {
+    "id": "urban_parks_compromise",
+    "case": "compromise — very lean, minimal impact",
+    "domain": "urban_planning",
+    "project": "a fresh coat of paint for existing park benches",
+    "ask": "Just {amount}M for paint and brushes, Governor. The benches are peeling, and it'll look like we did something.",
+    "amount": 10,
+    "accept": {
+      "trust": 3,
+      "agenda": -2,
+      "approval": 1,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You painted the benches. (-{amount}M · +3 trust · +1% approval) Fresh green paint hides a multitude of sins."
+    },
+    "decline": {
+      "trust": -1,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You denied the paint. (-1 trust) The benches remain peeling."
+    }
+  },
+  {
+    "id": "urban_parks_high_stakes",
+    "case": "high stakes — all-or-nothing massive investment",
+    "domain": "urban_planning",
+    "project": "purchasing and demolishing a block for a grand central park",
+    "ask": "{amount}M to buy out the entire block, Governor. We demolish it all and build a central park. Think big.",
+    "amount": 90,
+    "accept": {
+      "trust": 22,
+      "agenda": -30,
+      "approval": 10,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You bought the block. (-{amount}M · +22 trust · +10% approval) The bulldozers roar. A new era begins."
+    },
+    "decline": {
+      "trust": -12,
+      "agenda": 18,
+      "approval": 0,
+      "msg": "You killed the central park. (-12 trust) They wanted to reshape the city. You kept it exactly the same."
+    }
+  },
+  {
+    "id": "mil_overtime_standard",
+    "case": "standard — fair price, solid trust, no side effects",
+    "domain": "military_liaison",
+    "project": "overtime and new kit for the patrols",
+    "ask": "Just {amount}M for overtime and gear, Governor. The streets get quieter and my people get paid.",
+    "amount": 40,
+    "accept": {
+      "trust": 12,
+      "agenda": -10,
+      "approval": 1,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You cleared the overtime budget. (-{amount}M · +12 trust · +1% approval) The patrols stand a little taller."
+    },
+    "decline": {
+      "trust": -3,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You denied the overtime. (-3 trust) The shift grumbles."
+    }
+  },
+  {
+    "id": "mil_overtime_prestige",
+    "case": "prestige — massive overhaul, huge trust and public approval",
+    "domain": "military_liaison",
+    "project": "equipping the guard with advanced non-lethal tech",
+    "ask": "{amount}M for the new non-lethal tech, Governor. We'll look like a modern, professional force on the global stage.",
+    "amount": 75,
+    "accept": {
+      "trust": 18,
+      "agenda": -20,
+      "approval": 6,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You bought the tactical tech. (-{amount}M · +18 trust · +6% approval) The guards look like superheroes."
+    },
+    "decline": {
+      "trust": -6,
+      "agenda": 5,
+      "approval": 0,
+      "msg": "You denied the tech. (-6 trust) They feel like they're bringing knives to a drone fight."
+    }
+  },
+  {
+    "id": "mil_overtime_cheap",
+    "case": "cheap quick win — small ask, modest trust",
+    "domain": "military_liaison",
+    "project": "upgrading the breakroom supplies",
+    "ask": "{amount}M for decent coffee and snacks, Governor. Morale is tied to caffeine. Don't underestimate it.",
+    "amount": 15,
+    "accept": {
+      "trust": 5,
+      "agenda": -4,
+      "approval": 1,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You bought the coffee. (-{amount}M · +5 trust · +1% approval) The barracks smell like victory and dark roast."
+    },
+    "decline": {
+      "trust": -1,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You denied the coffee. (-1 trust) The instant coffee riots begin."
+    }
+  },
+  {
+    "id": "mil_overtime_risky",
+    "case": "risky — funds it, but the contractors are questionable",
+    "domain": "military_liaison",
+    "project": "hiring private security for sensitive sites",
+    "ask": "{amount}M for some 'independent contractors'. They don't ask questions, and they don't file reports.",
+    "amount": 50,
+    "accept": {
+      "trust": 10,
+      "agenda": -8,
+      "approval": 0,
+      "scandalRisk": 0.45,
+      "scandalTier": "high",
+      "scandalTitle": "Unregistered Mercenaries Guard City Sites",
+      "msg": "You hired the contractors. (-{amount}M · +10 trust) The sites are secure. The paperwork is a felony."
+    },
+    "decline": {
+      "trust": -3,
+      "agenda": 3,
+      "approval": 0,
+      "msg": "You denied the contractors. (-3 trust) The sites remain vulnerable, and they think you're soft."
+    }
+  },
+  {
+    "id": "mil_overtime_vanity",
+    "case": "vanity — big ask, strong trust, but the public sees waste",
+    "domain": "military_liaison",
+    "project": "designing new ceremonial dress uniforms",
+    "ask": "{amount}M for the new dress uniforms, Governor. When we march in the parade, we need to look immaculate.",
+    "amount": 45,
+    "accept": {
+      "trust": 14,
+      "agenda": -12,
+      "approval": -2,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You bought the uniforms. (-{amount}M · +14 trust · -2% approval) They look sharp. The voters wonder why it cost so much."
+    },
+    "decline": {
+      "trust": -4,
+      "agenda": 0,
+      "approval": 1,
+      "msg": "You denied the uniforms. (-4 trust · +1% approval) They march in their old gear, fuming."
+    }
+  },
+  {
+    "id": "mil_overtime_emergency",
+    "case": "emergency — small, but refusing genuinely offends",
+    "domain": "military_liaison",
+    "project": "emergency hazard pay for chemical cleanup",
+    "ask": "The chemical spill is toxic, Governor. {amount}M in hazard pay right now, or my people walk off the site.",
+    "amount": 20,
+    "accept": {
+      "trust": 7,
+      "agenda": -5,
+      "approval": 2,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You paid the hazard pay. (-{amount}M · +7 trust · +2% approval) The spill is contained. Your people are safe."
+    },
+    "decline": {
+      "trust": -10,
+      "agenda": 15,
+      "approval": 0,
+      "msg": "You denied the hazard pay. (-10 trust) They walked off. The toxic cloud drifts toward the suburbs."
+    }
+  },
+  {
+    "id": "mil_overtime_dubious",
+    "case": "dubious — cheap, decent trust, but smells like embezzlement",
+    "domain": "military_liaison",
+    "project": "a vague 'special equipment maintenance' fund",
+    "ask": "{amount}M for special equipment maintenance. It's a black box, Governor. Just sign the check.",
+    "amount": 25,
+    "accept": {
+      "trust": 8,
+      "agenda": -6,
+      "approval": 0,
+      "scandalRisk": 0.15,
+      "scandalTier": "minor",
+      "scandalTitle": "Military 'Maintenance' Fund Lacks Oversight",
+      "msg": "You funded the maintenance. (-{amount}M · +8 trust) The equipment is 'maintained', wherever it is."
+    },
+    "decline": {
+      "trust": -2,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You denied the black box fund. (-2 trust) They needed that operational flexibility."
+    }
+  },
+  {
+    "id": "mil_overtime_partisan",
+    "case": "partisan — pushes a specific political agenda hard",
+    "domain": "military_liaison",
+    "project": "supplying gear to the governor's preferred neighborhood watch",
+    "ask": "{amount}M for the 9th ward neighborhood watch, Governor. They're loyal, and they need better radios and vests.",
+    "amount": 60,
+    "accept": {
+      "trust": 14,
+      "agenda": -20,
+      "approval": -3,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You armed the 9th ward. (-{amount}M · +14 trust · -3% approval) Your loyalists are happy; the civil rights board is not."
+    },
+    "decline": {
+      "trust": -5,
+      "agenda": -6,
+      "approval": 1,
+      "msg": "You denied the 9th ward. (-5 trust) Your loyalists feel exposed and unappreciated."
+    }
+  },
+  {
+    "id": "mil_overtime_compromise",
+    "case": "compromise — very lean, minimal impact",
+    "domain": "military_liaison",
+    "project": "repairing existing communication radios",
+    "ask": "Just {amount}M to fix the radios, Governor. Half the squad can't hear dispatch. It's a simple fix.",
+    "amount": 10,
+    "accept": {
+      "trust": 3,
+      "agenda": -2,
+      "approval": 0,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You fixed the radios. (-{amount}M · +3 trust) Dispatch can finally be heard over the static."
+    },
+    "decline": {
+      "trust": -1,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You denied the radio repair. (-1 trust) The static continues."
+    }
+  },
+  {
+    "id": "mil_overtime_high_stakes",
+    "case": "high stakes — all-or-nothing massive investment",
+    "domain": "military_liaison",
+    "project": "constructing a fortified regional armory",
+    "ask": "{amount}M for the new armory, Governor. A fortress to store the heavy gear and train the recruits. A legacy project.",
+    "amount": 90,
+    "accept": {
+      "trust": 22,
+      "agenda": -30,
+      "approval": 5,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You built the armory. (-{amount}M · +22 trust · +5% approval) The concrete is poured. The military is yours."
+    },
+    "decline": {
+      "trust": -11,
+      "agenda": 14,
+      "approval": 0,
+      "msg": "You killed the armory. (-11 trust) They wanted a fortress; you gave them a tent."
+    }
+  },
+  {
+    "id": "transport_contracts_standard",
+    "case": "standard — fair price, solid trust, no side effects",
+    "domain": "transport",
+    "project": "a fast-tracked transit line",
+    "ask": "{amount}M and the new line opens by winter, Governor. Don't ask too much about which firms win the bids.",
+    "amount": 40,
+    "accept": {
+      "trust": 12,
+      "agenda": -10,
+      "approval": 2,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You funded the transit line. (-{amount}M · +12 trust · +2% approval) The ribbon-cutting is lovely."
+    },
+    "decline": {
+      "trust": -3,
+      "agenda": 2,
+      "approval": 0,
+      "msg": "You blocked the transit line. (-3 trust) Commuters keep waiting."
+    }
+  },
+  {
+    "id": "transport_contracts_prestige",
+    "case": "prestige — massive overhaul, huge trust and public approval",
+    "domain": "transport",
+    "project": "a futuristic maglev train connecting the hubs",
+    "ask": "{amount}M for the maglev, Governor. It'll be the fastest transit in the country. A true marvel of engineering.",
+    "amount": 75,
+    "accept": {
+      "trust": 18,
+      "agenda": -20,
+      "approval": 8,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You built the maglev. (-{amount}M · +18 trust · +8% approval) It hums quietly. The city moves at the speed of light."
+    },
+    "decline": {
+      "trust": -6,
+      "agenda": 5,
+      "approval": 0,
+      "msg": "You denied the maglev. (-6 trust) They wanted to build the future. You kept them in the past."
+    }
+  },
+  {
+    "id": "transport_contracts_cheap",
+    "case": "cheap quick win — small ask, modest trust",
+    "domain": "transport",
+    "project": "emergency pothole repair at a major junction",
+    "ask": "Just {amount}M for asphalt, Governor. The junction at 5th and Main is destroying suspensions. Let's fix it.",
+    "amount": 15,
+    "accept": {
+      "trust": 5,
+      "agenda": -4,
+      "approval": 2,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You repaved the junction. (-{amount}M · +5 trust · +2% approval) The potholes are gone. The mechanics weep with joy."
+    },
+    "decline": {
+      "trust": -1,
+      "agenda": 0,
+      "approval": -1,
+      "msg": "You denied the asphalt. (-1 trust · -1% approval) Another blown tire. Another angry caller."
+    }
+  },
+  {
+    "id": "transport_contracts_risky",
+    "case": "risky — funds it, but the contractors are questionable",
+    "domain": "transport",
+    "project": "a bus fleet expansion via no-bid contract",
+    "ask": "{amount}M for the new buses. We're giving the contract to my brother-in-law's dealership. It's faster that way.",
+    "amount": 50,
+    "accept": {
+      "trust": 10,
+      "agenda": -8,
+      "approval": 1,
+      "scandalRisk": 0.5,
+      "scandalTier": "high",
+      "scandalTitle": "No-Bid Bus Contract Goes to Governor's Donor",
+      "msg": "You bought the buses. (-{amount}M · +10 trust · +1% approval) They run well. The ethics committee is subpoenaing your staff."
+    },
+    "decline": {
+      "trust": -4,
+      "agenda": 4,
+      "approval": 0,
+      "msg": "You blocked the no-bid contract. (-4 trust) They think you don't reward loyalty."
+    }
+  },
+  {
+    "id": "transport_contracts_vanity",
+    "case": "vanity — big ask, strong trust, but the public sees waste",
+    "domain": "transport",
+    "project": "luxury renovations for the downtown ferry docks",
+    "ask": "{amount}M to renovate the ferry docks with imported marble and brass, Governor. The commuters deserve luxury.",
+    "amount": 45,
+    "accept": {
+      "trust": 14,
+      "agenda": -12,
+      "approval": -4,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You renovated the docks. (-{amount}M · +14 trust · -4% approval) The brass shines. The taxpayers choke on the bill."
+    },
+    "decline": {
+      "trust": -5,
+      "agenda": 0,
+      "approval": 2,
+      "msg": "You denied the luxury docks. (-5 trust · +2% approval) They sulk. The voters applaud."
+    }
+  },
+  {
+    "id": "transport_contracts_emergency",
+    "case": "emergency — small, but refusing genuinely offends",
+    "domain": "transport",
+    "project": "emergency shoring for a failing overpass",
+    "ask": "The overpass is failing, Governor. {amount}M for emergency steel shoring right now, or we close the highway.",
+    "amount": 20,
+    "accept": {
+      "trust": 7,
+      "agenda": -5,
+      "approval": 3,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You shored the overpass. (-{amount}M · +7 trust · +3% approval) The highway stays open. Disaster averted."
+    },
+    "decline": {
+      "trust": -11,
+      "agenda": 14,
+      "approval": 0,
+      "msg": "You denied the shoring. (-11 trust) The overpass collapsed. The highway is closed for months."
+    }
+  },
+  {
+    "id": "transport_contracts_dubious",
+    "case": "dubious — cheap, decent trust, but smells like embezzlement",
+    "domain": "transport",
+    "project": "paying 'expediting fees' to clear zoning permits",
+    "ask": "{amount}M in expediting fees to clear the permits, Governor. It's how the city actually gets things done.",
+    "amount": 25,
+    "accept": {
+      "trust": 8,
+      "agenda": -6,
+      "approval": 0,
+      "scandalRisk": 0.3,
+      "scandalTier": "moderate",
+      "scandalTitle": "Transport Permits Cleared via 'Expediting Fees'",
+      "msg": "You paid the fees. (-{amount}M · +8 trust) The permits clear. The inspectors get new boats."
+    },
+    "decline": {
+      "trust": -2,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You denied the fees. (-2 trust) The permits sit in a pile. The project stalls."
+    }
+  },
+  {
+    "id": "transport_contracts_partisan",
+    "case": "partisan — pushes a specific political agenda hard",
+    "domain": "transport",
+    "project": "altering a transit route to favor a swing voting district",
+    "ask": "{amount}M to reroute the line through the 12th district, Governor. It'll cost more in track, but we'll win the election.",
+    "amount": 60,
+    "accept": {
+      "trust": 12,
+      "agenda": -22,
+      "approval": -1,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You rerouted the line. (-{amount}M · +12 trust · -1% approval) The 12th district is thrilled. The engineers are crying."
+    },
+    "decline": {
+      "trust": -4,
+      "agenda": -5,
+      "approval": 1,
+      "msg": "You kept the original route. (-4 trust) The 12th district feels ignored."
+    }
+  },
+  {
+    "id": "transport_contracts_compromise",
+    "case": "compromise — very lean, minimal impact",
+    "domain": "transport",
+    "project": "installing new bus shelters and stops",
+    "ask": "Just {amount}M for five new bus shelters, Governor. It's a small tweak, but it helps the riders.",
+    "amount": 10,
+    "accept": {
+      "trust": 3,
+      "agenda": -2,
+      "approval": 1,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You built the shelters. (-{amount}M · +3 trust · +1% approval) The riders stay dry. A quiet win."
+    },
+    "decline": {
+      "trust": -1,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You denied the shelters. (-1 trust) The riders get wet."
+    }
+  },
+  {
+    "id": "transport_contracts_high_stakes",
+    "case": "high stakes — all-or-nothing massive investment",
+    "domain": "transport",
+    "project": "constructing a massive new international airport terminal",
+    "ask": "{amount}M for the new terminal, Governor. Glass, steel, and duty-free shops. It'll put this city on the global map.",
+    "amount": 90,
+    "accept": {
+      "trust": 22,
+      "agenda": -30,
+      "approval": 9,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You built the terminal. (-{amount}M · +22 trust · +9% approval) The planes land. The world arrives."
+    },
+    "decline": {
+      "trust": -12,
+      "agenda": 16,
+      "approval": 0,
+      "msg": "You killed the terminal. (-12 trust) They wanted a gateway to the world. You gave them a puddle."
+    }
+  },
+  {
+    "id": "religious_festival_standard",
+    "case": "standard — fair price, solid trust, no side effects",
+    "domain": "religious_affairs",
+    "project": "a grand festival and new community hall",
+    "ask": "{amount}M for the festival, Governor. The faithful will remember who paid for their joy.",
+    "amount": 40,
+    "accept": {
+      "trust": 12,
+      "agenda": -10,
+      "approval": -3,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You bankrolled the festival. (-{amount}M · +12 trust · -3% approval) The devout are delighted; the taxpayers, less so."
+    },
+    "decline": {
+      "trust": -2,
+      "agenda": 0,
+      "approval": 1,
+      "msg": "You declined the festival. (-2 trust · +1% approval) Frugal, say the papers."
+    }
+  },
+  {
+    "id": "religious_festival_prestige",
+    "case": "prestige — massive overhaul, huge trust and public approval",
+    "domain": "religious_affairs",
+    "project": "infrastructure and security for a global religious event",
+    "ask": "{amount}M to host the international pilgrimage, Governor. Millions will visit. The city's spiritual prestige will soar.",
+    "amount": 75,
+    "accept": {
+      "trust": 18,
+      "agenda": -20,
+      "approval": 2,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You hosted the pilgrimage. (-{amount}M · +18 trust · +2% approval) The faithful weep with joy. The hotels are full."
+    },
+    "decline": {
+      "trust": -6,
+      "agenda": 5,
+      "approval": 0,
+      "msg": "You denied the pilgrimage. (-6 trust) The religious leaders are deeply offended."
+    }
+  },
+  {
+    "id": "religious_festival_cheap",
+    "case": "cheap quick win — small ask, modest trust",
+    "domain": "religious_affairs",
+    "project": "permits and flowers for a neighborhood parade",
+    "ask": "Just {amount}M for the neighborhood procession, Governor. Some flowers, some permits. It keeps the peace.",
+    "amount": 15,
+    "accept": {
+      "trust": 5,
+      "agenda": -4,
+      "approval": 1,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You funded the procession. (-{amount}M · +5 trust · +1% approval) The flowers bloom. The neighborhood smiles."
+    },
+    "decline": {
+      "trust": -1,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You denied the procession. (-1 trust) The neighborhood feels slighted."
+    }
+  },
+  {
+    "id": "religious_festival_risky",
+    "case": "risky — funds it, but the contractors are questionable",
+    "domain": "religious_affairs",
+    "project": "security and venue for a fringe religious group",
+    "ask": "{amount}M for the gathering. It's a fringe group, but they have a lot of money and influence. Keep them happy.",
+    "amount": 50,
+    "accept": {
+      "trust": 10,
+      "agenda": -8,
+      "approval": -5,
+      "scandalRisk": 0.35,
+      "scandalTier": "moderate",
+      "scandalTitle": "City Funds Controversial Sect's Gathering",
+      "msg": "You funded the gathering. (-{amount}M · +10 trust · -5% approval) The sect is loyal. The mainstream press is outraged."
+    },
+    "decline": {
+      "trust": -3,
+      "agenda": 2,
+      "approval": 2,
+      "msg": "You denied the sect. (-3 trust · +2% approval) They are angry, but the papers praise your discernment."
+    }
+  },
+  {
+    "id": "religious_festival_vanity",
+    "case": "vanity — big ask, strong trust, but the public sees waste",
+    "domain": "religious_affairs",
+    "project": "a massive, imported fireworks show for the holy day",
+    "ask": "{amount}M for the fireworks, Governor. We'll import them from the capital. The sky will light up for miles.",
+    "amount": 45,
+    "accept": {
+      "trust": 14,
+      "agenda": -12,
+      "approval": -4,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You bought the fireworks. (-{amount}M · +14 trust · -4% approval) The sky is beautiful. The budget is ashes."
+    },
+    "decline": {
+      "trust": -5,
+      "agenda": 0,
+      "approval": 3,
+      "msg": "You denied the fireworks. (-5 trust · +3% approval) The sky stays dark. The voters keep their money."
+    }
+  },
+  {
+    "id": "religious_festival_emergency",
+    "case": "emergency — small, but refusing genuinely offends",
+    "domain": "religious_affairs",
+    "project": "emergency structural repair for a historic place of worship",
+    "ask": "The temple roof is caving in, Governor. {amount}M for emergency scaffolding, or the congregation gets crushed.",
+    "amount": 20,
+    "accept": {
+      "trust": 7,
+      "agenda": -5,
+      "approval": 2,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You shored the temple. (-{amount}M · +7 trust · +2% approval) The roof holds. The prayers of gratitude are loud."
+    },
+    "decline": {
+      "trust": -10,
+      "agenda": 12,
+      "approval": 0,
+      "msg": "You denied the repair. (-10 trust) The roof collapsed during services. The outrage is biblical."
+    }
+  },
+  {
+    "id": "religious_festival_dubious",
+    "case": "dubious — cheap, decent trust, but smells like embezzlement",
+    "domain": "religious_affairs",
+    "project": "a 'charitable' grant to the high priest's personal foundation",
+    "ask": "{amount}M for the high priest's charitable foundation. It's technically a charity. Don't ask where the money goes.",
+    "amount": 25,
+    "accept": {
+      "trust": 8,
+      "agenda": -6,
+      "approval": -1,
+      "scandalRisk": 0.25,
+      "scandalTier": "moderate",
+      "scandalTitle": "City Funds High Priest's 'Charitable' Foundation",
+      "msg": "You funded the foundation. (-{amount}M · +8 trust · -1% approval) The priest is happy. The auditors are confused."
+    },
+    "decline": {
+      "trust": -3,
+      "agenda": 0,
+      "approval": 1,
+      "msg": "You denied the foundation. (-3 trust · +1% approval) The priest is offended. The auditors are relieved."
+    }
+  },
+  {
+    "id": "religious_festival_partisan",
+    "case": "partisan — pushes a specific political agenda hard",
+    "domain": "religious_affairs",
+    "project": "making a specific sect's holy day a paid city holiday",
+    "ask": "{amount}M in lost productivity to make the holy day a city holiday, Governor. The voting bloc expects it.",
+    "amount": 60,
+    "accept": {
+      "trust": 12,
+      "agenda": -18,
+      "approval": -2,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You made it a holiday. (-{amount}M · +12 trust · -2% approval) The bloc is thrilled. The secular unions are filing grievances."
+    },
+    "decline": {
+      "trust": -4,
+      "agenda": -4,
+      "approval": 1,
+      "msg": "You kept the workday. (-4 trust) The bloc feels marginalized."
+    }
+  },
+  {
+    "id": "religious_festival_compromise",
+    "case": "compromise — very lean, minimal impact",
+    "domain": "religious_affairs",
+    "project": "supplying basic ritual materials for the local shrine",
+    "ask": "Just {amount}M for incense and candles, Governor. The shrine is running low, and the rituals must continue.",
+    "amount": 10,
+    "accept": {
+      "trust": 3,
+      "agenda": -2,
+      "approval": 0,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You bought the incense. (-{amount}M · +3 trust) The smoke rises. A tiny, fragrant peace."
+    },
+    "decline": {
+      "trust": -1,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You denied the incense. (-1 trust) The rituals are a bit less aromatic."
+    }
+  },
+  {
+    "id": "religious_festival_high_stakes",
+    "case": "high stakes — all-or-nothing massive investment",
+    "domain": "religious_affairs",
+    "project": "subsidizing the construction of a grand new house of worship",
+    "ask": "{amount}M to subsidize the grand temple, Governor. It will be the spiritual heart of the city for a millennium.",
+    "amount": 90,
+    "accept": {
+      "trust": 22,
+      "agenda": -30,
+      "approval": -5,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You subsidized the temple. (-{amount}M · +22 trust · -5% approval) The spire touches the sky. The secularists are furious."
+    },
+    "decline": {
+      "trust": -11,
+      "agenda": 15,
+      "approval": 2,
+      "msg": "You denied the temple. (-11 trust · +2% approval) The faithful are heartbroken. The separation of church and state is preserved."
+    }
+  },
+  {
+    "id": "any_emergency_stipend_standard",
+    "case": "standard — fair price, solid trust, no side effects",
+    "domain": "any",
+    "project": "an emergency stipend for their overworked department",
+    "ask": "I'm not asking for monuments, Governor. {amount}M so my people can do their jobs. That's all.",
+    "amount": 40,
+    "accept": {
+      "trust": 12,
+      "agenda": -10,
+      "approval": 0,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You covered the stipend. (-{amount}M · +12 trust) A small sum, a long memory."
+    },
+    "decline": {
+      "trust": -6,
+      "agenda": 8,
+      "approval": 0,
+      "msg": "You refused even the basics. (-6 trust) That one will cost you."
+    }
+  },
+  {
+    "id": "any_emergency_stipend_prestige",
+    "case": "prestige — massive overhaul, huge trust and public approval",
+    "domain": "any",
+    "project": "hazard and retention bonuses for a city-wide crisis response",
+    "ask": "{amount}M in retention bonuses, Governor. If we lose the staff during this crisis, the city falls. Pay them.",
+    "amount": 75,
+    "accept": {
+      "trust": 18,
+      "agenda": -20,
+      "approval": 3,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You paid the bonuses. (-{amount}M · +18 trust · +3% approval) The staff stays. The crisis is managed."
+    },
+    "decline": {
+      "trust": -12,
+      "agenda": 18,
+      "approval": 0,
+      "msg": "You denied the bonuses. (-12 trust) The staff walks out. The city burns."
+    }
+  },
+  {
+    "id": "any_emergency_stipend_cheap",
+    "case": "cheap quick win — small ask, modest trust",
+    "domain": "any",
+    "project": "replacing broken ergonomic chairs in the office",
+    "ask": "Just {amount}M for new chairs, Governor. My team's backs are giving out. It's a tiny fix for morale.",
+    "amount": 15,
+    "accept": {
+      "trust": 5,
+      "agenda": -4,
+      "approval": 0,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You bought the chairs. (-{amount}M · +5 trust) Their backs thank you. A minor mercy."
+    },
+    "decline": {
+      "trust": -2,
+      "agenda": 3,
+      "approval": 0,
+      "msg": "You denied the chairs. (-2 trust) They work in pain. They remember."
+    }
+  },
+  {
+    "id": "any_emergency_stipend_risky",
+    "case": "risky — funds it, but the contractors are questionable",
+    "domain": "any",
+    "project": "an 'emergency' cash advance for unspecified operational needs",
+    "ask": "{amount}M in cash, Governor. Emergency operational needs. I'll bring you the receipts when the crisis is over.",
+    "amount": 50,
+    "accept": {
+      "trust": 10,
+      "agenda": -8,
+      "approval": 0,
+      "scandalRisk": 0.2,
+      "scandalTier": "minor",
+      "scandalTitle": "Emergency Cash Advance Lacks Documentation",
+      "msg": "You handed over the cash. (-{amount}M · +10 trust) The crisis is handled. The receipts never arrive."
+    },
+    "decline": {
+      "trust": -4,
+      "agenda": 5,
+      "approval": 0,
+      "msg": "You denied the cash. (-4 trust) They say you don't understand the urgency of the field."
+    }
+  },
+  {
+    "id": "any_emergency_stipend_vanity",
+    "case": "vanity — big ask, strong trust, but the public sees waste",
+    "domain": "any",
+    "project": "an emergency 'morale-boosting' retreat at a luxury spa",
+    "ask": "{amount}M for a team-building retreat, Governor. My people are burned out. They need a spa weekend to recover.",
+    "amount": 45,
+    "accept": {
+      "trust": 14,
+      "agenda": -12,
+      "approval": -3,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You funded the retreat. (-{amount}M · +14 trust · -3% approval) They are relaxed. The public is disgusted."
+    },
+    "decline": {
+      "trust": -5,
+      "agenda": 0,
+      "approval": 2,
+      "msg": "You denied the spa. (-5 trust · +2% approval) They stay at their desks, fuming. The voters cheer."
+    }
+  },
+  {
+    "id": "any_emergency_stipend_emergency",
+    "case": "emergency — small, but refusing genuinely offends",
+    "domain": "any",
+    "project": "emergency procurement of critical medical antidotes",
+    "ask": "The antidotes are out of stock, Governor. {amount}M to buy them on the black market right now, or people die tonight.",
+    "amount": 20,
+    "accept": {
+      "trust": 7,
+      "agenda": -5,
+      "approval": 4,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You bought the antidotes. (-{amount}M · +7 trust · +4% approval) Lives are saved. The black market is paid."
+    },
+    "decline": {
+      "trust": -14,
+      "agenda": 20,
+      "approval": 0,
+      "msg": "You denied the antidotes. (-14 trust) People die. Your name is cursed in the obituaries."
+    }
+  },
+  {
+    "id": "any_emergency_stipend_dubious",
+    "case": "dubious — cheap, decent trust, but smells like embezzlement",
+    "domain": "any",
+    "project": "hiring a shadowy 'crisis management' consultant",
+    "ask": "{amount}M for a crisis consultant. They work in the shadows. No paper trail, just results.",
+    "amount": 25,
+    "accept": {
+      "trust": 8,
+      "agenda": -6,
+      "approval": 0,
+      "scandalRisk": 0.15,
+      "scandalTier": "minor",
+      "scandalTitle": "Shadowy Crisis Consultant Hired Off-Books",
+      "msg": "You hired the consultant. (-{amount}M · +8 trust) The crisis vanishes. So does the consultant."
+    },
+    "decline": {
+      "trust": -3,
+      "agenda": 4,
+      "approval": 0,
+      "msg": "You denied the consultant. (-3 trust) The crisis lingers. They think you're an amateur."
+    }
+  },
+  {
+    "id": "any_emergency_stipend_partisan",
+    "case": "partisan — pushes a specific political agenda hard",
+    "domain": "any",
+    "project": "an emergency bailout for a vendor who supports the governor",
+    "ask": "{amount}M to bail out the vendor, Governor. They're our biggest donor, and they're going under. Save them.",
+    "amount": 60,
+    "accept": {
+      "trust": 13,
+      "agenda": -20,
+      "approval": -4,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You bailed out the vendor. (-{amount}M · +13 trust · -4% approval) The donor is safe. The ethics board is drafting charges."
+    },
+    "decline": {
+      "trust": -6,
+      "agenda": -8,
+      "approval": 2,
+      "msg": "You let the vendor fail. (-6 trust) The donor is ruined. Your political network is fractured."
+    }
+  },
+  {
+    "id": "any_emergency_stipend_compromise",
+    "case": "compromise — very lean, minimal impact",
+    "domain": "any",
+    "project": "feeding the team working late on a critical project",
+    "ask": "Just {amount}M for pizza and soda, Governor. The team is working through the night. Feed them, at least.",
+    "amount": 10,
+    "accept": {
+      "trust": 3,
+      "agenda": -2,
+      "approval": 0,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You bought the pizza. (-{amount}M · +3 trust) The team eats. A small gesture, deeply appreciated."
+    },
+    "decline": {
+      "trust": -1,
+      "agenda": 2,
+      "approval": 0,
+      "msg": "You denied the pizza. (-1 trust) They work hungry. They resent you."
+    }
+  },
+  {
+    "id": "any_emergency_stipend_high_stakes",
+    "case": "high stakes — all-or-nothing massive investment",
+    "domain": "any",
+    "project": "a city-backed loan guarantee to prevent department bankruptcy",
+    "ask": "{amount}M in loan guarantees, Governor. If we don't get this, the department goes bankrupt tomorrow. Sign it.",
+    "amount": 90,
+    "accept": {
+      "trust": 22,
+      "agenda": -30,
+      "approval": 1,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You signed the guarantee. (-{amount}M · +22 trust · +1% approval) The department survives. The city's credit rating takes a hit."
+    },
+    "decline": {
+      "trust": -15,
+      "agenda": 22,
+      "approval": 0,
+      "msg": "You denied the guarantee. (-15 trust) The department collapses. Thousands lose their jobs. You are the villain."
+    }
+  },
+  {
+    "id": "fin_slush_audit_standard",
+    "case": "standard — fair price, solid trust, no side effects",
+    "domain": "finance",
+    "project": "a discretionary 'efficiency fund'",
+    "ask": "Give me {amount}M in a discretionary fund, Governor. No line items, no questions. Trust me.",
+    "amount": 40,
+    "accept": {
+      "trust": 12,
+      "agenda": -10,
+      "approval": 0,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You handed over the discretionary fund. (-{amount}M · +12 trust) Where it goes is anyone's guess."
+    },
+    "decline": {
+      "trust": -1,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You denied the no-questions fund. (-1 trust) Probably wise."
+    }
+  },
+  {
+    "id": "fin_slush_audit_prestige",
+    "case": "prestige — massive overhaul, huge trust and public approval",
+    "domain": "finance",
+    "project": "building a massive, un-audited strategic cash reserve",
+    "ask": "{amount}M for the strategic reserve, Governor. Off the books. When the real crisis hits, you'll need this war chest.",
+    "amount": 75,
+    "accept": {
+      "trust": 18,
+      "agenda": -20,
+      "approval": -2,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You built the war chest. (-{amount}M · +18 trust · -2% approval) The money is there. The auditors are locked out."
+    },
+    "decline": {
+      "trust": -6,
+      "agenda": 5,
+      "approval": 1,
+      "msg": "You denied the war chest. (-6 trust · +1% approval) They think you're unprepared for a real fight."
+    }
+  },
+  {
+    "id": "fin_slush_audit_cheap",
+    "case": "cheap quick win — small ask, modest trust",
+    "domain": "finance",
+    "project": "replenishing the office petty cash box",
+    "ask": "Just {amount}M for petty cash, Governor. We're out of coins for the vending machine and cab fares.",
+    "amount": 15,
+    "accept": {
+      "trust": 5,
+      "agenda": -4,
+      "approval": 0,
+      "scandalRisk": 0.05,
+      "scandalTier": "minor",
+      "scandalTitle": "Petty Cash Box Lacks Receipts",
+      "msg": "You replenished the petty cash. (-{amount}M · +5 trust) The vending machine works. The receipts are missing."
+    },
+    "decline": {
+      "trust": -1,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You denied the petty cash. (-1 trust) They have to dig for quarters. They hate it."
+    }
+  },
+  {
+    "id": "fin_slush_audit_risky",
+    "case": "risky — funds it, but the contractors are questionable",
+    "domain": "finance",
+    "project": "setting up an 'international liaison' slush fund",
+    "ask": "{amount}M for the international liaison fund. It's routed through the Caymans. Perfectly legal, mostly.",
+    "amount": 50,
+    "accept": {
+      "trust": 10,
+      "agenda": -8,
+      "approval": 0,
+      "scandalRisk": 0.5,
+      "scandalTier": "high",
+      "scandalTitle": "City Funds Routed to Offshore Slush Account",
+      "msg": "You funded the offshore account. (-{amount}M · +10 trust) The money is safe. The feds are not."
+    },
+    "decline": {
+      "trust": -4,
+      "agenda": 4,
+      "approval": 0,
+      "msg": "You denied the offshore fund. (-4 trust) They think you lack international vision."
+    }
+  },
+  {
+    "id": "fin_slush_audit_vanity",
+    "case": "vanity — big ask, strong trust, but the public sees waste",
+    "domain": "finance",
+    "project": "funding a highly questionable 'economic research' paper",
+    "ask": "{amount}M for my economic research paper, Governor. It will prove my theories are genius. Just fund it.",
+    "amount": 45,
+    "accept": {
+      "trust": 14,
+      "agenda": -12,
+      "approval": -2,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You funded the research. (-{amount}M · +14 trust · -2% approval) The paper is published. It is entirely nonsense."
+    },
+    "decline": {
+      "trust": -3,
+      "agenda": 0,
+      "approval": 1,
+      "msg": "You denied the research. (-3 trust · +1% approval) Their genius remains unproven. The taxpayers rejoice."
+    }
+  },
+  {
+    "id": "fin_slush_audit_emergency",
+    "case": "emergency — small, but refusing genuinely offends",
+    "domain": "finance",
+    "project": "an emergency plug for a discovered accounting deficit",
+    "ask": "We found a {amount}M deficit in the old ledger, Governor. Give me the slush fund to plug it before the auditors see it.",
+    "amount": 20,
+    "accept": {
+      "trust": 7,
+      "agenda": -5,
+      "approval": 0,
+      "scandalRisk": 0.25,
+      "scandalTier": "moderate",
+      "scandalTitle": "Slush Fund Used to Hide Accounting Deficit",
+      "msg": "You plugged the deficit. (-{amount}M · +7 trust) The ledger balances. The auditors see nothing. For now."
+    },
+    "decline": {
+      "trust": -9,
+      "agenda": 12,
+      "approval": 0,
+      "msg": "You refused to plug it. (-9 trust) The auditors find the deficit. The scandal is massive."
+    }
+  },
+  {
+    "id": "fin_slush_audit_dubious",
+    "case": "dubious — cheap, decent trust, but smells like embezzlement",
+    "domain": "finance",
+    "project": "a 'severance' package for a retiring union leader",
+    "ask": "{amount}M as a severance package for the union boss. It's not in the contract, but it'll stop the strike. Pay it.",
+    "amount": 25,
+    "accept": {
+      "trust": 8,
+      "agenda": -6,
+      "approval": -1,
+      "scandalRisk": 0.35,
+      "scandalTier": "moderate",
+      "scandalTitle": "Off-Contract 'Severance' Paid to Union Boss",
+      "msg": "You paid the union boss. (-{amount}M · +8 trust · -1% approval) The strike is averted. The ethics board is investigating."
+    },
+    "decline": {
+      "trust": -5,
+      "agenda": 6,
+      "approval": 1,
+      "msg": "You denied the payoff. (-5 trust · +1% approval) The strike begins. The boss is furious."
+    }
+  },
+  {
+    "id": "fin_slush_audit_partisan",
+    "case": "partisan — pushes a specific political agenda hard",
+    "domain": "finance",
+    "project": "funneling city money into a friendly PAC",
+    "ask": "{amount}M for the 'Civic Improvement PAC', Governor. It's technically a non-profit. We'll use it for the campaign.",
+    "amount": 60,
+    "accept": {
+      "trust": 14,
+      "agenda": -22,
+      "approval": -3,
+      "scandalRisk": 0.45,
+      "scandalTier": "high",
+      "scandalTitle": "City Funds Funneled to Political Action Committee",
+      "msg": "You funded the PAC. (-{amount}M · +14 trust · -3% approval) The campaign is flush. The FBI is knocking."
+    },
+    "decline": {
+      "trust": -6,
+      "agenda": -5,
+      "approval": 2,
+      "msg": "You denied the PAC. (-6 trust · +2% approval) The campaign is broke. The law is satisfied."
+    }
+  },
+  {
+    "id": "fin_slush_audit_compromise",
+    "case": "compromise — very lean, minimal impact",
+    "domain": "finance",
+    "project": "a high-end espresso machine for the finance team",
+    "ask": "Just {amount}M for an espresso machine, Governor. The finance team works late. They need good coffee to cook the books.",
+    "amount": 10,
+    "accept": {
+      "trust": 3,
+      "agenda": -2,
+      "approval": 0,
+      "scandalRisk": 0.1,
+      "scandalTier": "minor",
+      "scandalTitle": "Finance Team Gets Lavish Espresso Machine",
+      "msg": "You bought the machine. (-{amount}M · +3 trust) The espresso is rich. The accounting is loose."
+    },
+    "decline": {
+      "trust": -1,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You denied the machine. (-1 trust) They drink instant. They plot."
+    }
+  },
+  {
+    "id": "fin_slush_audit_high_stakes",
+    "case": "high stakes — all-or-nothing massive investment",
+    "domain": "finance",
+    "project": "establishing a parallel, un-auditable shadow budget",
+    "ask": "{amount}M to seed the shadow budget, Governor. A parallel ledger. No oversight, no audits. Total control.",
+    "amount": 90,
+    "accept": {
+      "trust": 22,
+      "agenda": -30,
+      "approval": -5,
+      "scandalRisk": 0.6,
+      "scandalTier": "high",
+      "scandalTitle": "Massive Untraceable Shadow Budget Exposed",
+      "msg": "You built the shadow budget. (-{amount}M · +22 trust · -5% approval) You own the money. You own the city. The risk is absolute."
+    },
+    "decline": {
+      "trust": -12,
+      "agenda": 18,
+      "approval": 3,
+      "msg": "You denied the shadow budget. (-12 trust · +3% approval) They call you a coward. The democracy holds."
+    }
+  },
+  {
+    "id": "any_modest_ask_standard",
+    "case": "standard — fair price, solid trust, no side effects",
+    "domain": "any",
+    "project": "a priority project in their department",
+    "ask": "Governor, {amount}M would let me actually deliver this year. Back my department and I'll back you.",
+    "amount": 40,
+    "accept": {
+      "trust": 12,
+      "agenda": -10,
+      "approval": 0,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You funded the project. (-{amount}M · +12 trust) They won't forget it."
+    },
+    "decline": {
+      "trust": -3,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You turned them down. (-3 trust) They take it personally."
+    }
+  },
+  {
+    "id": "any_modest_ask_prestige",
+    "case": "prestige — massive overhaul, huge trust and public approval",
+    "domain": "any",
+    "project": "a highly visible, award-winning departmental showcase",
+    "ask": "{amount}M for the flagship showcase, Governor. It'll win national awards and make us look like geniuses.",
+    "amount": 75,
+    "accept": {
+      "trust": 18,
+      "agenda": -20,
+      "approval": 5,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You funded the showcase. (-{amount}M · +18 trust · +5% approval) The awards roll in. The department is ecstatic."
+    },
+    "decline": {
+      "trust": -6,
+      "agenda": 6,
+      "approval": 0,
+      "msg": "You denied the showcase. (-6 trust) They wanted glory. You gave them a pat on the back."
+    }
+  },
+  {
+    "id": "any_modest_ask_cheap",
+    "case": "cheap quick win — small ask, modest trust",
+    "domain": "any",
+    "project": "buying new staplers and paper for the office",
+    "ask": "Just {amount}M for office supplies, Governor. The staplers are broken, and we're printing on the back of old memos.",
+    "amount": 15,
+    "accept": {
+      "trust": 5,
+      "agenda": -4,
+      "approval": 0,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You bought the supplies. (-{amount}M · +5 trust) The staplers click. A minor victory."
+    },
+    "decline": {
+      "trust": -1,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You denied the supplies. (-1 trust) They use tape. They resent you."
+    }
+  },
+  {
+    "id": "any_modest_ask_risky",
+    "case": "risky — funds it, but the contractors are questionable",
+    "domain": "any",
+    "project": "onboarding a highly paid, unqualified consultant",
+    "ask": "{amount}M for a new consultant, Governor. They're a genius. Also, they're my college roommate. Trust me.",
+    "amount": 50,
+    "accept": {
+      "trust": 10,
+      "agenda": -8,
+      "approval": -1,
+      "scandalRisk": 0.3,
+      "scandalTier": "moderate",
+      "scandalTitle": "Department Hires Director's Unqualified Friend",
+      "msg": "You hired the consultant. (-{amount}M · +10 trust · -1% approval) They provide 'advice'. The press asks about their resume."
+    },
+    "decline": {
+      "trust": -3,
+      "agenda": 2,
+      "approval": 1,
+      "msg": "You denied the hire. (-3 trust · +1% approval) They are annoyed. The ethics board is relieved."
+    }
+  },
+  {
+    "id": "any_modest_ask_vanity",
+    "case": "vanity — big ask, strong trust, but the public sees waste",
+    "domain": "any",
+    "project": "funding a plaque and ceremony to rename the HQ",
+    "ask": "{amount}M for the renaming ceremony and the bronze plaque, Governor. It'll be the 'Director Smith Building'.",
+    "amount": 45,
+    "accept": {
+      "trust": 14,
+      "agenda": -12,
+      "approval": -2,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You renamed the building. (-{amount}M · +14 trust · -2% approval) The plaque is shiny. The public thinks they're narcissistic."
+    },
+    "decline": {
+      "trust": -4,
+      "agenda": 0,
+      "approval": 1,
+      "msg": "You denied the plaque. (-4 trust · +1% approval) Their ego is bruised. The voters approve."
+    }
+  },
+  {
+    "id": "any_modest_ask_emergency",
+    "case": "emergency — small, but refusing genuinely offends",
+    "domain": "any",
+    "project": "emergency IT response to a critical server failure",
+    "ask": "The servers are down, Governor. {amount}M for emergency IT contractors right now, or we lose the tax records.",
+    "amount": 20,
+    "accept": {
+      "trust": 7,
+      "agenda": -5,
+      "approval": 2,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You fixed the servers. (-{amount}M · +7 trust · +2% approval) The data is safe. The IT guys are heroes."
+    },
+    "decline": {
+      "trust": -10,
+      "agenda": 14,
+      "approval": 0,
+      "msg": "You denied the IT fix. (-10 trust) The servers melt. The tax records are gone. You are finished."
+    }
+  },
+  {
+    "id": "any_modest_ask_dubious",
+    "case": "dubious — cheap, decent trust, but smells like embezzlement",
+    "domain": "any",
+    "project": "sending the staff to a 'mandatory training' in a luxury resort",
+    "ask": "{amount}M for the mandatory training seminar, Governor. It's in Bali. Strictly educational, I swear.",
+    "amount": 25,
+    "accept": {
+      "trust": 8,
+      "agenda": -6,
+      "approval": -3,
+      "scandalRisk": 0.25,
+      "scandalTier": "moderate",
+      "scandalTitle": "Staff Sent to Luxury Resort for 'Training'",
+      "msg": "You funded the seminar. (-{amount}M · +8 trust · -3% approval) They learn a lot about cocktails. The press is mocking you."
+    },
+    "decline": {
+      "trust": -4,
+      "agenda": 0,
+      "approval": 2,
+      "msg": "You denied the trip. (-4 trust · +2% approval) They stay at their desks. The taxpayers keep their money."
+    }
+  },
+  {
+    "id": "any_modest_ask_partisan",
+    "case": "partisan — pushes a specific political agenda hard",
+    "domain": "any",
+    "project": "a 'diversity' initiative that only hires from the governor's base",
+    "ask": "{amount}M for the new hiring initiative, Governor. We'll only hire from the 5th district. Our people need jobs.",
+    "amount": 60,
+    "accept": {
+      "trust": 13,
+      "agenda": -18,
+      "approval": -2,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You funded the initiative. (-{amount}M · +13 trust · -2% approval) Your base is employed. The civil rights lawyers are drafting suits."
+    },
+    "decline": {
+      "trust": -5,
+      "agenda": -5,
+      "approval": 1,
+      "msg": "You denied the initiative. (-5 trust) Your base remains unemployed and angry."
+    }
+  },
+  {
+    "id": "any_modest_ask_compromise",
+    "case": "compromise — very lean, minimal impact",
+    "domain": "any",
+    "project": "repairing the air conditioning unit",
+    "ask": "Just {amount}M to fix the AC, Governor. It's 90 degrees in the office. My team is sweating through their shirts.",
+    "amount": 10,
+    "accept": {
+      "trust": 3,
+      "agenda": -2,
+      "approval": 0,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You fixed the AC. (-{amount}M · +3 trust) The air is cool. The team can think again."
+    },
+    "decline": {
+      "trust": -2,
+      "agenda": 0,
+      "approval": 0,
+      "msg": "You denied the AC. (-2 trust) They sweat. They plot your downfall."
+    }
+  },
+  {
+    "id": "any_modest_ask_high_stakes",
+    "case": "high stakes — all-or-nothing massive investment",
+    "domain": "any",
+    "project": "a massive, disruptive departmental reorganization",
+    "ask": "{amount}M to restructure the department, Governor. We'll fire the dead weight and double the budget for the rest. It'll be brutal, but effective.",
+    "amount": 90,
+    "accept": {
+      "trust": 22,
+      "agenda": -30,
+      "approval": -4,
+      "scandalRisk": 0,
+      "scandalTier": "none",
+      "scandalTitle": "",
+      "msg": "You restructured the department. (-{amount}M · +22 trust · -4% approval) The dead weight is gone. The survivors are terrified but loyal."
+    },
+    "decline": {
+      "trust": -10,
+      "agenda": 15,
+      "approval": 2,
+      "msg": "You denied the restructuring. (-10 trust) The dead weight stays. The department rots from the inside."
+    }
+  }
+]

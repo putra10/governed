@@ -1,0 +1,32 @@
+[
+  {
+    "when": { "outcome": "recalled" },
+    "headline": "{CITY} TURNS ON {GOV}",
+    "deck": "Recall petition succeeds as approval collapses to {approval}%. The administration ends weeks short of its term.",
+    "pull": "We gave them the keys and they drove us into the ditch. We want them back."
+  },
+  {
+    "when": { "outcome": "disgrace" },
+    "headline": "{GOV} RESIGNS UNDER SCANDAL",
+    "deck": "Facing exposure, the governor stepped down before {city} could finish the job. {crises} crises, one fatal mistake.",
+    "pull": "The cover-up was always going to cost more than the crime."
+  },
+  {
+    "when": { "outcome": "asset" },
+    "headline": "{GOV} EXITS TO PROMOTION",
+    "deck": "{city} closes the books at {approval}% approval. Higher office reportedly beckons the outgoing governor.",
+    "pull": "Say what you will — the lights stayed on and the books balanced."
+  },
+  {
+    "when": { "outcome": "resigned" },
+    "headline": "{GOV} WALKS AWAY",
+    "deck": "The governor resigned voluntarily after {weeks} weeks, leaving {city} to sort out what comes next.",
+    "pull": "Better to leave on your own terms than be shown the door."
+  },
+  {
+    "when": { "outcome": "term" },
+    "headline": "{GOV} TERM ENDS QUIETLY",
+    "deck": "A full term concludes in {city} at {approval}% approval. No parades, no riots — just the slow turn of the page.",
+    "pull": "They came, they governed, they left. The city barely noticed."
+  }
+]

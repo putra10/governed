@@ -24,9 +24,19 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
+
+# Vite temp config rebuilds (junk)
 vite.config.js.timestamp*
 
+# Pre-redesign CSS backup — git history is the real backup
+.redesign-backup/
+
+# Local design scratch / prototypes (not shipped)
+report-dossier-prototype.html
+
+# Internal planning + prompt docs
 audit_report.md
 IMPROVEMENT_PLAN.md
 CITY_GENERATOR_PROMPT.md
 ADVISOR_REASON_PROMPT.md
+CONTENT_PROMPTS.md

@@ -67,7 +67,8 @@
             }
           ],
           "follow_up": "The rapid cooling shatters the asphalt completely. Three stray dogs are accidentally frozen solid.",
-          "city_reaction": "From an oven to a freezer burn. Great job. {city.slang_reaction}."
+          "city_reaction": "From an oven to a freezer burn. Great job. {city.slang_reaction}.",
+          "unlocks_decision_id": "extreme_heatwave_fallout"
         }
       }
     ],
@@ -142,7 +143,8 @@
             }
           ],
           "follow_up": "Tourists get chemical burns. The city is sued into oblivion by international health organizations.",
-          "city_reaction": "My skin is peeling off but it is exfoliating. {city.slang_reaction}."
+          "city_reaction": "My skin is peeling off but it is exfoliating. {city.slang_reaction}.",
+          "unlocks_decision_id": "toxic_spa_lawsuit"
         }
       }
     ],
@@ -292,7 +294,8 @@
             }
           ],
           "follow_up": "The shaman dances for three days. It does not rain. The city is audited for the fraudulent expense.",
-          "city_reaction": "We paid a guy to dance at the clouds. We are doomed. {city.slang_reaction}."
+          "city_reaction": "We paid a guy to dance at the clouds. We are doomed. {city.slang_reaction}.",
+          "unlocks_decision_id": "shaman_audit_panic"
         }
       }
     ],

@@ -1,0 +1,1037 @@
+{
+  "_comment": "External actor meeting pools. Actor names from problem JSONs are matched to an archetype by keyword. Effects ops: budget, approval, heat, trust_domain {id,n}, agenda_domain {id,n} , scandal_shield_today (today's decision scandal_risk halved), spin_today (today's decision approval loss softened +3), reveal_scheming (verifies whether today's recommendation is honest). Optional risk {chance, tier, title}. ",
+  "fallback": "fixer ",
+  "archetypes": {
+    "union": {
+      "label": "ORGANIZED LABOR ",
+      "keywords": [
+        "union ",
+        "labor ",
+        "worker ",
+        "strike ",
+        "teamster ",
+        "guild ",
+        "syndicate "
+      ],
+      "greeting": [
+        "Governor. My members are watching how you handle this one. Let's talk before they decide for themselves. ",
+        "I represent four thousand angry people, Governor. Today, I can be your translator — or their megaphone. "
+      ],
+      "offers": [
+        {
+          "id": "union_peace ",
+          "label": "BUY LABOR PEACE ",
+          "desc": "A 'solidarity fund' contribution keeps the rank and file calm, whatever you decide today. ",
+          "accept": {
+            "budget": -25,
+            "spin_today": true
+          },
+          "accept_note": "-25M · today's decision backlash softened ",
+          "decline": {
+            "approval": -2
+          },
+          "decline_note": "Word gets around: -2% "
+        },
+        {
+          "id": "union_endorse ",
+          "label": "PUBLIC ENDORSEMENT ",
+          "desc": "The union endorses your administration on camera. It costs concessions the budget will feel. ",
+          "accept": {
+            "budget": -40,
+            "approval": 6
+          },
+          "accept_note": "-40M, +6% ",
+          "decline": {},
+          "decline_note": "No hard feelings. Yet. "
+        },
+        {
+          "id": "union_whisper ",
+          "label": "SHOP-FLOOR WHISPERS ",
+          "desc": "The members hear everything — including what your own people say when you leave the room. ",
+          "accept": {
+            "budget": -10,
+            "reveal_scheming": true
+          },
+          "accept_note": "-10M · verifies today's advice ",
+          "decline": {},
+          "decline_note": "Suit yourself. "
+        },
+        {
+          "id": "union_wildcat_suppress",
+          "label": "WILDCAT SUPPRESSION",
+          "desc": "We keep the radical elements off the picket line. It requires a modest investment in our internal security.",
+          "accept": {
+            "budget": -30,
+            "spin_today": true
+          },
+          "accept_note": "-30M · today's decision backlash softened",
+          "decline": {
+            "approval": -2
+          },
+          "decline_note": "The radicals take the microphone."
+        },
+        {
+          "id": "union_infrastructure_contract",
+          "label": "PREFERRED CONTRACTOR STATUS",
+          "desc": "Steer the next municipal contract to our members. The city gets reliable labor, we get a cut of the overhead.",
+          "accept": {
+            "budget": -40,
+            "approval": 3,
+            "trust_domain": {
+              "id": "urban_planning",
+              "n": 4
+            }
+          },
+          "accept_note": "-40M, +3% · Urban Planning grows bolder (+4 trust)",
+          "decline": {
+            "heat": 1
+          },
+          "decline_note": "We will remember who favors the outsiders."
+        },
+        {
+          "id": "union_grievance_list",
+          "label": "THE GRIEVANCE DOSSIER",
+          "desc": "A comprehensive list of every city employee who has been skimming. Yours to use, or ours to bury.",
+          "accept": {
+            "budget": -15,
+            "reveal_scheming": true
+          },
+          "accept_note": "-15M · verifies today's advice",
+          "decline": {},
+          "decline_note": "Ignorance is a luxury you can no longer afford."
+        }
+      ],
+      "accept_line": [
+        "Pleasure doing business, Governor. My members will hear good things. "
+      ],
+      "decline_line": [
+        "I'll tell them you were... busy. "
+      ]
+    },
+    "business": {
+      "label": "PRIVATE CAPITAL ",
+      "keywords": [
+        "business ",
+        "investor ",
+        "developer ",
+        "ceo ",
+        "corporate ",
+        "chamber ",
+        "magnate ",
+        "tycoon ",
+        "contractor ",
+        "industry ",
+        "company ",
+        "firm ",
+        "bank "
+      ],
+      "greeting": [
+        "Governor, I'll be brief — my time bills by the minute. There's a way today goes well for both of us. ",
+        "Lovely office. It'd be a shame if the business community lost confidence in its occupant. "
+      ],
+      "offers": [
+        {
+          "id": "biz_donation ",
+          "label": "A GENEROUS DONATION ",
+          "desc": "A civic-minded contribution to the city's discretionary fund. No strings. Well — one string. ",
+          "accept": {
+            "budget": 60,
+            "heat": 2,
+            "risk": {
+              "chance": 0.15,
+              "tier": "moderate ",
+              "title": "Donor's Quid Pro Quo Surfaces "
+            }
+          },
+          "accept_note": "+60M · +2 SCRUTINY · 15% it surfaces ",
+          "decline": {},
+          "decline_note": "Your loss, Governor. "
+        },
+        {
+          "id": "biz_pr ",
+          "label": "BORROW THEIR PR FIRM ",
+          "desc": "Their crisis-communications team makes today's decision land softer, whichever way you go. ",
+          "accept": {
+            "budget": -30,
+            "spin_today": true,
+            "scandal_shield_today": true
+          },
+          "accept_note": "-30M · backlash softened · scandal risk halved today ",
+          "decline": {},
+          "decline_note": "They said you'd say that. "
+        },
+        {
+          "id": "biz_jobs ",
+          "label": "JOBS ANNOUNCEMENT ",
+          "desc": "They announce an expansion beside you at the podium. The optics are excellent; the tax breaks are not. ",
+          "accept": {
+            "budget": -35,
+            "approval": 5
+          },
+          "accept_note": "-35M, +5% ",
+          "decline": {
+            "approval": -1
+          },
+          "decline_note": "The expansion goes to a rival city: -1% "
+        },
+        {
+          "id": "biz_zoning_favor",
+          "label": "ZONING EXPEDITION",
+          "desc": "Fast-track our latest development. The city gets a shiny new district, we get to bypass the environmental review.",
+          "accept": {
+            "budget": 50,
+            "heat": 3,
+            "risk": {
+              "chance": 0.18,
+              "tier": "moderate",
+              "title": "Zoning Fast-Track Leak"
+            }
+          },
+          "accept_note": "+50M · +3 SCRUTINY · 18% leak risk",
+          "decline": {
+            "approval": -1
+          },
+          "decline_note": "The review board takes its time."
+        },
+        {
+          "id": "biz_lobbying_blitz",
+          "label": "LOBBYING BLITZ",
+          "desc": "Our consultants will drown out the noise on this issue. Your approval ratings will thank us, eventually.",
+          "accept": {
+            "budget": -35,
+            "approval": 4,
+            "spin_today": true
+          },
+          "accept_note": "-35M, +4% · today's decision backlash softened",
+          "decline": {},
+          "decline_note": "The noise gets louder, Governor."
+        },
+        {
+          "id": "biz_shell_company",
+          "label": "OFFSHORE CONSULTING",
+          "desc": "A discreet retainer for our subsidiary. It solves your cash flow problem and ours simultaneously.",
+          "accept": {
+            "budget": 60,
+            "heat": 2,
+            "risk": {
+              "chance": 0.15,
+              "tier": "major",
+              "title": "Offshore Retainer Exposed"
+            }
+          },
+          "accept_note": "+60M · +2 SCRUTINY · 15% exposure risk",
+          "decline": {},
+          "decline_note": "A missed opportunity for synergy."
+        }
+      ],
+      "accept_line": [
+        "My people will call your people. This is the start of something profitable. "
+      ],
+      "decline_line": [
+        "I admire principles, Governor. Expensive hobby. "
+      ]
+    },
+    "media": {
+      "label": "THE PRESS ",
+      "keywords": [
+        "journalist ",
+        "reporter ",
+        "editor ",
+        "media ",
+        "press ",
+        "anchor ",
+        "blogger ",
+        "influencer ",
+        "columnist ",
+        "broadcaster "
+      ],
+      "greeting": [
+        "Off the record, Governor? Nothing is ever off the record. But today I'm selling, not buying. ",
+        "I have two versions of tomorrow's front page. Want to know what decides which one runs? "
+      ],
+      "offers": [
+        {
+          "id": "media_softball ",
+          "label": "THE FRIENDLY INTERVIEW ",
+          "desc": "A sit-down with sympathetic framing. Your side of today's story, told properly. ",
+          "accept": {
+            "budget": -15,
+            "spin_today": true
+          },
+          "accept_note": "-15M · today's decision backlash softened ",
+          "decline": {},
+          "decline_note": "The hostile version writes itself. "
+        },
+        {
+          "id": "media_tipoff ",
+          "label": "BUY THE TIP-OFF ",
+          "desc": "They know what their newsroom is sitting on — and whose advice in your building smells wrong. ",
+          "accept": {
+            "budget": -20,
+            "reveal_scheming": true
+          },
+          "accept_note": "-20M · verifies today's advice ",
+          "decline": {},
+          "decline_note": "Ignorance is a choice, Governor. "
+        },
+        {
+          "id": "media_feud ",
+          "label": "PICK A PUBLIC FIGHT ",
+          "desc": "Feud with them on purpose. Your base loves it. The press corps does not forget. ",
+          "accept": {
+            "approval": 4,
+            "heat": 3
+          },
+          "accept_note": "+4% · +3 SCRUTINY ",
+          "decline": {},
+          "decline_note": "Probably wise. "
+        },
+        {
+          "id": "media_exclusive_leak",
+          "label": "EXCLUSIVE LEAK",
+          "desc": "We bury the opposition's latest scandal in exchange for exclusive access to your next policy rollout.",
+          "accept": {
+            "approval": 3,
+            "heat": -2,
+            "risk": {
+              "chance": 0.10,
+              "tier": "minor",
+              "title": "Leak Source Traced"
+            }
+          },
+          "accept_note": "+3% · -2 SCRUTINY · 10% trace risk",
+          "decline": {
+            "heat": 1
+          },
+          "decline_note": "The opposition's scandal runs on page one."
+        },
+        {
+          "id": "media_editorial_board",
+          "label": "EDITORIAL BOARD DINNER",
+          "desc": "A private dinner with our publishers. The resulting editorial will be surprisingly favorable to your agenda.",
+          "accept": {
+            "budget": -20,
+            "approval": 4,
+            "agenda_domain": {
+              "id": "finance",
+              "n": 3
+            }
+          },
+          "accept_note": "-20M, +4% · Finance grows bolder (+3 agenda)",
+          "decline": {},
+          "decline_note": "The editorial board remains unconvinced."
+        },
+        {
+          "id": "media_distraction",
+          "label": "MANUFACTURED DISTRACTION",
+          "desc": "We will run a sensational but ultimately harmless story tomorrow. It will completely eclipse today's controversy.",
+          "accept": {
+            "budget": -25,
+            "spin_today": true,
+            "scandal_shield_today": true
+          },
+          "accept_note": "-25M · backlash softened · scandal risk halved today",
+          "decline": {},
+          "decline_note": "The controversy remains the lead story."
+        }
+      ],
+      "accept_line": [
+        "Always a pleasure, Governor. Do read tomorrow's edition. "
+      ],
+      "decline_line": [
+        "Quote: 'the Governor declined to comment.' They never learn. "
+      ]
+    },
+    "legal": {
+      "label": "LAW & OVERSIGHT ",
+      "keywords": [
+        "auditor ",
+        "judge ",
+        "prosecutor ",
+        "lawyer ",
+        "attorney ",
+        "inspector ",
+        "regulator ",
+        "ombudsman ",
+        "commission ",
+        "court ",
+        "ethics "
+      ],
+      "greeting": [
+        "Governor. I'm required to note this meeting in my log. What we discuss, however, has some... latitude. ",
+        "I don't make house calls, Governor. Consider this a professional courtesy — the last free one. "
+      ],
+      "offers": [
+        {
+          "id": "legal_blessing ",
+          "label": "PROCEDURAL BLESSING ",
+          "desc": "Whatever you decide today gets stamped 'reviewed and compliant'. Paper armor — but armor. ",
+          "accept": {
+            "budget": -30,
+            "scandal_shield_today": true
+          },
+          "accept_note": "-30M · today's scandal risk halved ",
+          "decline": {},
+          "decline_note": "Then we do it by the book. The whole book. "
+        },
+        {
+          "id": "legal_quiet_audit ",
+          "label": "THE QUIET AUDIT ",
+          "desc": "A discreet review of your own administration. You'd be surprised what turns up. Or perhaps not. ",
+          "accept": {
+            "budget": -20,
+            "reveal_scheming": true
+          },
+          "accept_note": "-20M · verifies today's advice ",
+          "decline": {},
+          "decline_note": "As you wish. Some things prefer the dark. "
+        },
+        {
+          "id": "legal_cooldown ",
+          "label": "DE-PRIORITIZE THE FILE ",
+          "desc": "Your file moves to the bottom of a very tall stack. Entirely procedural. Entirely deniable. ",
+          "accept": {
+            "budget": -45,
+            "heat": -4,
+            "risk": {
+              "chance": 0.12,
+              "tier": "major ",
+              "title": "Oversight Official Admits Pressure From City Hall "
+            }
+          },
+          "accept_note": "-45M · SCRUTINY -4 · 12% it backfires ",
+          "decline": {},
+          "decline_note": "Noted. For the record. "
+        },
+        {
+          "id": "legal_loophole",
+          "label": "STATUTORY LOOPHOLE",
+          "desc": "We found a technicality that exempts today's decision from standard oversight. It is entirely legal, mostly.",
+          "accept": {
+            "budget": -35,
+            "heat": -2,
+            "risk": {
+              "chance": 0.10,
+              "tier": "minor",
+              "title": "Loophole Challenge"
+            }
+          },
+          "accept_note": "-35M · -2 SCRUTINY · 10% challenge risk",
+          "decline": {},
+          "decline_note": "We will apply the statute as written. Strictly."
+        },
+        {
+          "id": "legal_witness_relocation",
+          "label": "WITNESS RELOCATION",
+          "desc": "A key witness in the ongoing investigation has suddenly developed a desire to move out of state. We can facilitate.",
+          "accept": {
+            "budget": -40,
+            "heat": -3,
+            "risk": {
+              "chance": 0.12,
+              "tier": "major",
+              "title": "Witness Tampering Allegations"
+            }
+          },
+          "accept_note": "-40M · -3 SCRUTINY · 12% tampering risk",
+          "decline": {
+            "heat": 2
+          },
+          "decline_note": "The witness remains available for testimony."
+        },
+        {
+          "id": "legal_retainer",
+          "label": "PREEMPTIVE RETAINER",
+          "desc": "Secure our firm's services before the inevitable lawsuits begin. We will handle the paperwork, and the witnesses.",
+          "accept": {
+            "budget": -50,
+            "reveal_scheming": true,
+            "trust_domain": {
+              "id": "finance",
+              "n": -4
+            }
+          },
+          "accept_note": "-50M · verifies today's advice · Finance feels traded away (-4 trust)",
+          "decline": {},
+          "decline_note": "We wish you the best of luck in court."
+        }
+      ],
+      "accept_line": [
+        "This meeting never required a follow-up. Good day, Governor. "
+      ],
+      "decline_line": [
+        "Integrity. How refreshing. How inconvenient. "
+      ]
+    },
+    "religious": {
+      "label": "FAITH COMMUNITY ",
+      "keywords": [
+        "religious ",
+        "cleric ",
+        "imam ",
+        "priest ",
+        "pastor ",
+        "bishop ",
+        "rabbi ",
+        "faith ",
+        "church ",
+        "mosque ",
+        "temple ",
+        "congregation "
+      ],
+      "greeting": [
+        "Peace upon this office, Governor — though I suspect it sees little of it. The congregation asks about you. ",
+        "I prayed about this meeting, Governor. Then I scheduled it anyway. Some things need both. "
+      ],
+      "offers": [
+        {
+          "id": "faith_blessing ",
+          "label": "A WORD FROM THE PULPIT ",
+          "desc": "This week's sermon mentions your name kindly. Millions of ears, zero invoices — only a favor owed. ",
+          "accept": {
+            "approval": 5,
+            "agenda_domain": {
+              "id": "religious_affairs ",
+              "n": 8
+            }
+          },
+          "accept_note": "+5% · Religious Affairs grows bolder (+8 agenda) ",
+          "decline": {},
+          "decline_note": "The pulpit speaks regardless. Choose its words wisely. "
+        },
+        {
+          "id": "faith_charity ",
+          "label": "FUND THE CHARITY DRIVE ",
+          "desc": "The city co-sponsors their relief program. Genuine good — and genuinely good television. ",
+          "accept": {
+            "budget": -25,
+            "approval": 4
+          },
+          "accept_note": "-25M, +4% ",
+          "decline": {
+            "approval": -1
+          },
+          "decline_note": "The congregation notices: -1% "
+        },
+        {
+          "id": "faith_confession ",
+          "label": "WHAT THEY HEAR IN CONFIDENCE ",
+          "desc": "People tell the faithful what they'd never tell the press — including people on your payroll. ",
+          "accept": {
+            "budget": -10,
+            "reveal_scheming": true
+          },
+          "accept_note": "-10M · verifies today's advice ",
+          "decline": {},
+          "decline_note": "Some burdens you'll carry alone, then. "
+        },
+        {
+          "id": "faith_moral_cover",
+          "label": "MORAL COVER",
+          "desc": "We will publicly frame your controversial decision as a necessary moral sacrifice. The faithful will understand.",
+          "accept": {
+            "budget": -20,
+            "approval": 5,
+            "spin_today": true
+          },
+          "accept_note": "-20M, +5% · today's decision backlash softened",
+          "decline": {
+            "approval": -2
+          },
+          "decline_note": "The congregation will judge the action on its own merits."
+        },
+        {
+          "id": "faith_land_deal",
+          "label": "SACRED LAND ACQUISITION",
+          "desc": "The city sells us the abandoned waterfront parcel at a discount. We build a community center, you get our blessing.",
+          "accept": {
+            "budget": -30,
+            "approval": 3,
+            "agenda_domain": {
+              "id": "urban_planning",
+              "n": 5
+            }
+          },
+          "accept_note": "-30M, +3% · Urban Planning grows bolder (+5 agenda)",
+          "decline": {},
+          "decline_note": "The waterfront remains in secular hands."
+        },
+        {
+          "id": "faith_confessional",
+          "label": "THE CONFESSIONAL NETWORK",
+          "desc": "Our clergy hear things. We can provide a summary of the moral failings of your closest advisors.",
+          "accept": {
+            "budget": -15,
+            "reveal_scheming": true,
+            "heat": 1
+          },
+          "accept_note": "-15M · verifies today's advice · +1 SCRUTINY",
+          "decline": {},
+          "decline_note": "Some secrets are best left between the faithful and the divine."
+        }
+      ],
+      "accept_line": [
+        "Go in peace, Governor. We will speak of you gently. This week. "
+      ],
+      "decline_line": [
+        "I will pray for your judgment. It appears to need it. "
+      ]
+    },
+    "criminal": {
+      "label": "THE OTHER ECONOMY ",
+      "keywords": [
+        "smuggler ",
+        "cartel ",
+        "gang ",
+        "mob ",
+        "crime ",
+        "boss ",
+        "fence ",
+        "trafficker ",
+        "warlord ",
+        "militia "
+      ],
+      "greeting": [
+        "Relax, Governor. If I wanted trouble, you'd already have it. I'm here because we have a shared interest. ",
+        "No bodyguards? Brave. Or well-informed. Either way — let's talk like businessmen. "
+      ],
+      "offers": [
+        {
+          "id": "crim_cash ",
+          "label": "NO-QUESTIONS LIQUIDITY ",
+          "desc": "A briefcase. Unmarked. The kind of money that solves today and complicates forever. ",
+          "accept": {
+            "budget": 70,
+            "heat": 4,
+            "risk": {
+              "chance": 0.20,
+              "tier": "major ",
+              "title": "Governor's Meeting With Known Criminal Figure Exposed "
+            }
+          },
+          "accept_note": "+70M · +4 SCRUTINY · 20% exposure ",
+          "decline": {},
+          "decline_note": "Door's always open. Mine, not yours. "
+        },
+        {
+          "id": "crim_streets ",
+          "label": "QUIET STREETS ",
+          "desc": "Tonight, nothing happens anywhere in this city without their say-so. Including against you. ",
+          "accept": {
+            "budget": -30,
+            "spin_today": true,
+            "heat": 2
+          },
+          "accept_note": "-30M · backlash softened · +2 SCRUTINY ",
+          "decline": {},
+          "decline_note": "Streets stay noisy, then. "
+        },
+        {
+          "id": "crim_ears ",
+          "label": "EARS IN EVERY WALL ",
+          "desc": "They know who in your building talks, and to whom, and for how much. ",
+          "accept": {
+            "budget": -25,
+            "reveal_scheming": true,
+            "heat": 1
+          },
+          "accept_note": "-25M · verifies today's advice · +1 SCRUTINY ",
+          "decline": {},
+          "decline_note": "Funny. Your predecessor said no too. Once. "
+        },
+        {
+          "id": "crim_election_fund",
+          "label": "UNTRACEABLE CAMPAIGN FUNDS",
+          "desc": "A substantial donation to your reelection war chest. It comes from a foundation that does not technically exist.",
+          "accept": {
+            "budget": 80,
+            "heat": 4,
+            "risk": {
+              "chance": 0.25,
+              "tier": "major",
+              "title": "Ghost Foundation Donation Exposed"
+            }
+          },
+          "accept_note": "+80M · +4 SCRUTINY · 25% exposure risk",
+          "decline": {},
+          "decline_note": "Campaigns are expensive. We are merely generous."
+        },
+        {
+          "id": "crim_rival_suppression",
+          "label": "RIVAL SUPPRESSION",
+          "desc": "Your most vocal political opponent will suddenly find themselves dealing with a series of unfortunate, distracting legal troubles.",
+          "accept": {
+            "budget": -45,
+            "approval": 4,
+            "heat": 2
+          },
+          "accept_note": "-45M, +4% · +2 SCRUTINY",
+          "decline": {
+            "approval": -1
+          },
+          "decline_note": "Your opponent remains remarkably healthy and vocal."
+        },
+        {
+          "id": "crim_blackmail",
+          "label": "MUTUAL ASSURANCE",
+          "desc": "We have compiled a rather detailed file on your deputy mayor. Consider it an insurance policy for our continued cooperation.",
+          "accept": {
+            "budget": -20,
+            "reveal_scheming": true,
+            "risk": {
+              "chance": 0.15,
+              "tier": "moderate",
+              "title": "Deputy Mayor Blackmail Attempt"
+            }
+          },
+          "accept_note": "-20M · verifies today's advice · 15% leak risk",
+          "decline": {},
+          "decline_note": "The file remains in our safe. For now."
+        }
+      ],
+      "accept_line": [
+        "Smart. We'll be in touch — you won't see us, but we'll be in touch. "
+      ],
+      "decline_line": [
+        "Principles. They make such interesting funerals. "
+      ]
+    },
+    "political": {
+      "label": "THE OPPOSITION ",
+      "keywords": [
+        "opposition ",
+        "senator ",
+        "councilman ",
+        "councilwoman ",
+        "minister ",
+        "rival ",
+        "party ",
+        "deputy ",
+        "mayor ",
+        "politician ",
+        "mp ",
+        "legislator "
+      ],
+      "greeting": [
+        "Governor. Let's skip the part where we pretend to like each other. I have votes you need. ",
+        "My caucus smells blood in the water. I can feed them — or I can distract them. Your move. "
+      ],
+      "offers": [
+        {
+          "id": "pol_truce ",
+          "label": "A QUIET TRUCE ",
+          "desc": "The opposition sits out today's news cycle. Their silence has a price tag and an expiry date. ",
+          "accept": {
+            "budget": -30,
+            "spin_today": true
+          },
+          "accept_note": "-30M · today's decision backlash softened ",
+          "decline": {
+            "approval": -2
+          },
+          "decline_note": "They sharpen the knives: -2% "
+        },
+        {
+          "id": "pol_dirt ",
+          "label": "TRADE INTELLIGENCE ",
+          "desc": "They track your cabinet more closely than you do. An exchange of files — yours for theirs. ",
+          "accept": {
+            "reveal_scheming": true,
+            "heat": 1
+          },
+          "accept_note": "Free · verifies today's advice · +1 SCRUTINY ",
+          "decline": {},
+          "decline_note": "Stay blind, then. It suits you. "
+        },
+        {
+          "id": "pol_coalition ",
+          "label": "COALITION VOTES ",
+          "desc": "Their bloc backs your next initiative — for committee seats your allies currently warm. ",
+          "accept": {
+            "budget": -20,
+            "approval": 4,
+            "trust_domain": {
+              "id": "religious_affairs ",
+              "n": -6
+            }
+          },
+          "accept_note": "-20M, +4% · an ally feels traded away (-6 trust) ",
+          "decline": {},
+          "decline_note": "Enjoy governing alone. "
+        },
+        {
+          "id": "pol_pork_barrel",
+          "label": "DISTRICT PORK BARREL",
+          "desc": "We support your bill if you redirect a modest infrastructure grant to our home district. The voters will be thrilled.",
+          "accept": {
+            "budget": -40,
+            "approval": 5,
+            "trust_domain": {
+              "id": "transport",
+              "n": -5
+            }
+          },
+          "accept_note": "-40M, +5% · Transport feels traded away (-5 trust)",
+          "decline": {
+            "approval": -2
+          },
+          "decline_note": "Our district will remember this slight."
+        },
+        {
+          "id": "pol_whip_count",
+          "label": "THE WHIP COUNT",
+          "desc": "We know exactly how every council member will vote on today's measure, and what it will take to change their minds.",
+          "accept": {
+            "budget": -25,
+            "reveal_scheming": true,
+            "agenda_domain": {
+              "id": "military_liaison",
+              "n": 3
+            }
+          },
+          "accept_note": "-25M · verifies today's advice · Military Liaison grows bolder (+3 agenda)",
+          "decline": {},
+          "decline_note": "You will vote blind, then."
+        },
+        {
+          "id": "pol_scapegoat",
+          "label": "OFFER A SCAPEGOAT",
+          "desc": "We will publicly blame a minor, expendable official for the current controversy. It will cost you a resignation, but save your approval.",
+          "accept": {
+            "approval": 5,
+            "heat": -2,
+            "risk": {
+              "chance": 0.10,
+              "tier": "minor",
+              "title": "Scapegoat Talks to Press"
+            }
+          },
+          "accept_note": "+5% · -2 SCRUTINY · 10% leak risk",
+          "decline": {
+            "heat": 2
+          },
+          "decline_note": "The controversy remains firmly attached to your office."
+        }
+      ],
+      "accept_line": [
+        "A pleasure. I'll deny this meeting ever happened — professionally, you understand. "
+      ],
+      "decline_line": [
+        "I'll remember this conversation at the recall hearings. "
+      ]
+    },
+    "community": {
+      "label": "CIVIL SOCIETY ",
+      "keywords": [
+        "activist ",
+        "community ",
+        "resident ",
+        "citizen ",
+        "ngo ",
+        "charity ",
+        "teacher ",
+        "student ",
+        "professor ",
+        "scientist ",
+        "doctor ",
+        "nurse ",
+        "environmental ",
+        "volunteer "
+      ],
+      "greeting": [
+        "Thank you for actually taking the meeting, Governor. Most of your predecessors sent interns. ",
+        "We're not here to shout. We're here because shouting hasn't worked. Yet. "
+      ],
+      "offers": [
+        {
+          "id": "civ_townhall ",
+          "label": "JOINT TOWN HALL ",
+          "desc": "Stand with them in a packed gymnasium and take real questions. Risky, human, memorable. ",
+          "accept": {
+            "approval": 5,
+            "risk": {
+              "chance": 0.10,
+              "tier": "minor ",
+              "title": "Town Hall Heckler Steals the Evening News "
+            }
+          },
+          "accept_note": "+5% · 10% it goes sideways ",
+          "decline": {
+            "approval": -1
+          },
+          "decline_note": "We'll hold it without you. -1% "
+        },
+        {
+          "id": "civ_program ",
+          "label": "FUND THE PILOT PROGRAM ",
+          "desc": "Their grassroots program, your logo on it. Cheap goodwill that actually does some good. ",
+          "accept": {
+            "budget": -15,
+            "approval": 3
+          },
+          "accept_note": "-15M, +3% ",
+          "decline": {},
+          "decline_note": "We'll crowdfund. Slower, but cleaner. "
+        },
+        {
+          "id": "civ_ground_truth ",
+          "label": "THE GROUND TRUTH ",
+          "desc": "They live where your policies land. Their read on today's options is unpolished and unbought. ",
+          "accept": {
+            "reveal_scheming": true
+          },
+          "accept_note": "Free · verifies today's advice ",
+          "decline": {},
+          "decline_note": "Your loss. We see everything from down here. "
+        },
+        {
+          "id": "civ_petition_drive",
+          "label": "ORGANIZED PETITION DRIVE",
+          "desc": "We will mobilize thousands of signatures in your favor, drowning out the opposition's noise. We just need a small grant for outreach.",
+          "accept": {
+            "budget": -20,
+            "approval": 4,
+            "spin_today": true
+          },
+          "accept_note": "-20M, +4% · today's decision backlash softened",
+          "decline": {},
+          "decline_note": "The opposition's noise will go unchallenged."
+        },
+        {
+          "id": "civ_whistleblower",
+          "label": "PROTECTED WHISTLEBLOWER",
+          "desc": "One of your contractors is cutting corners. We have the proof, and the witness, if you are willing to look the other way on our zoning request.",
+          "accept": {
+            "budget": -15,
+            "reveal_scheming": true,
+            "trust_domain": {
+              "id": "urban_planning",
+              "n": 4
+            }
+          },
+          "accept_note": "-15M · verifies today's advice · Urban Planning grows bolder (+4 trust)",
+          "decline": {
+            "heat": 1
+          },
+          "decline_note": "The contractor continues to cut corners."
+        },
+        {
+          "id": "civ_boycott",
+          "label": "TARGETED BOYCOTT",
+          "desc": "We will organize a boycott of the businesses opposing your policy. It will hurt them, and it will make you look strong.",
+          "accept": {
+            "approval": 3,
+            "heat": 2,
+            "risk": {
+              "chance": 0.12,
+              "tier": "minor",
+              "title": "Boycott Turns Violent"
+            }
+          },
+          "accept_note": "+3% · +2 SCRUTINY · 12% violence risk",
+          "decline": {},
+          "decline_note": "The businesses will continue to fund your opposition."
+        }
+      ],
+      "accept_line": [
+        "We'll hold you to it, Governor. Politely. At first. "
+      ],
+      "decline_line": [
+        "Noted. We have long memories and longer mailing lists. "
+      ]
+    },
+    "fixer": {
+      "label": "A USEFUL STRANGER ",
+      "keywords": [],
+      "greeting": [
+        "You don't know me, Governor. That's rather the point of people like me. ",
+        "I solve problems for a living. Yours are showing. "
+      ],
+      "offers": [
+        {
+          "id": "fix_smooth ",
+          "label": "MAKE TODAY GO SMOOTHLY ",
+          "desc": "Calls get made. Favors get spent. Today's decision lands softer than it should. ",
+          "accept": {
+            "budget": -25,
+            "spin_today": true
+          },
+          "accept_note": "-25M · today's decision backlash softened ",
+          "decline": {},
+          "decline_note": "You know where to find me. You don't, actually. I'll find you. "
+        },
+        {
+          "id": "fix_listen ",
+          "label": "A SECOND OPINION ",
+          "desc": "They've already read everyone in your building. For a fee, so can you. ",
+          "accept": {
+            "budget": -20,
+            "reveal_scheming": true
+          },
+          "accept_note": "-20M · verifies today's advice ",
+          "decline": {},
+          "decline_note": "Confidence is cheap. Information isn't. "
+        },
+        {
+          "id": "fix_evidence_sanitization",
+          "label": "EVIDENCE SANITIZATION",
+          "desc": "The digital trail leading to today's decision is messy. I can ensure the relevant servers experience a convenient outage.",
+          "accept": {
+            "budget": -40,
+            "heat": -3,
+            "risk": {
+              "chance": 0.15,
+              "tier": "moderate",
+              "title": "Server Wipe Investigated"
+            }
+          },
+          "accept_note": "-40M · -3 SCRUTINY · 15% investigation risk",
+          "decline": {
+            "heat": 2
+          },
+          "decline_note": "The digital trail remains intact."
+        },
+        {
+          "id": "fix_false_flag",
+          "label": "MANUFACTURED OUTRAGE",
+          "desc": "I can arrange for a minor, highly visible protest against your opponent tomorrow. It will dominate the news cycle.",
+          "accept": {
+            "budget": -30,
+            "approval": 4,
+            "risk": {
+              "chance": 0.15,
+              "tier": "moderate",
+              "title": "Astroturf Protest Exposed"
+            }
+          },
+          "accept_note": "-30M, +4% · 15% exposure risk",
+          "decline": {},
+          "decline_note": "The news cycle will belong to your opponents."
+        },
+        {
+          "id": "fix_debt_collection",
+          "label": "AGGRESSIVE DEBT COLLECTION",
+          "desc": "That vendor who has been overcharging the city. I know people who can persuade them to issue a full refund, plus a consulting fee to you.",
+          "accept": {
+            "budget": 50,
+            "heat": 3,
+            "risk": {
+              "chance": 0.20,
+              "tier": "major",
+              "title": "Extortion of City Vendor"
+            }
+          },
+          "accept_note": "+50M · +3 SCRUTINY · 20% extortion risk",
+          "decline": {},
+          "decline_note": "The vendor will continue to overcharge."
+        }
+      ],
+      "accept_line": [
+        "Consider it handled. Consider me forgotten. "
+      ],
+      "decline_line": [
+        "A careful one. They usually last longer. Usually. "
+      ]
+    }
+  }
+}

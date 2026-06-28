@@ -1,0 +1,19 @@
+[
+  {
+    "text": "{gov_admin} held office in {city} for a full term. The ledgers close at {approval}% approval and {budget}M in the treasury, with {crises} crises weathered along the way. History will record that the seat was filled; whether it was filled well is left to those who come after."
+  },
+  {
+    "text": "For {weeks} weeks {gov_admin} governed {city}. Some promises were kept, others quietly buried in committee. The final tally — {approval}% approval, {crises} crises survived — is neither triumph nor disaster, only the ordinary arithmetic of power."
+  },
+  {
+    "text": "{gov_admin} managed {city} through a standard twelve-turn term. The metrics log {approval}% approval and {budget}M in reserves, alongside {crises} crises. The system records the data and moves on, as it always does."
+  },
+  {
+    "when": { "outcome": "recalled" },
+    "text": "{gov_admin} did not finish what it started in {city}. Confidence drained to {approval}% and the public reclaimed the office it had lent. The file is short, the lesson shorter: the city's patience was never as deep as the chair was comfortable."
+  },
+  {
+    "when": { "outcome": "asset" },
+    "text": "{gov_admin} leaves {city} measurably better than it was found — {approval}% approval, {budget}M banked, {crises} crises met head-on. The Office has marked this subject for advancement. Competence, it turns out, is its own kind of conspiracy."
+  }
+]

@@ -47,7 +47,8 @@
             }
           ],
           "follow_up": "The task force accidentally implicates the deputy mayor. Several hard drives are mysteriously wiped with magnets.",
-          "city_reaction": "Ah yes, investigating themselves. I'm sure they'll find the culprit. {city.slang_reaction}."
+          "city_reaction": "Ah yes, investigating themselves. I'm sure they'll find the culprit. {city.slang_reaction}.",
+          "unlocks_decision_id": "ghost_taskforce_fallout"
         }
       },
       {

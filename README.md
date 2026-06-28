@@ -2,7 +2,7 @@
 
 > *Run the city. Hide the bodies. Smile for the cameras.*
 
-**GOVERNED** is a browser-based political governance simulator. You are appointed governor of a city in crisis. Survive a 12-turn term — keep your approval above zero, manage scandals, balance the budget, and decide every turn how dirty your hands are willing to get.
+**GOVERNED** is a browser-based political governance simulator. You are appointed governor of a city in crisis. Survive a 12-turn term — keep your approval above zero, manage scandals, balance the public budget and your own off-books wallet, and decide every turn how dirty your hands are willing to get.
 
 Play it live → **[putra10.github.io/governed](https://putra10.github.io/governed/)**
 
@@ -20,11 +20,17 @@ There are no right answers. SAFE is expensive, BOLD is risky, CHAOS is cheap and
 
 - **25 cities** across five difficulty tiers — Easy to War — each with unique crises, scandals, and advisor dynamics
 - **Advisor back channel** — build trust, start affairs, run corrupt pacts, threaten, or sacrifice colleagues to save yourself
+- **Personal funds** — an off-books wallet (30% starter + a salary on odd turns) that pays for every dirty move; corrupt skims flow in, and you can donate it back to the city for approval
+- **Corrupt pacts & Civic Oversight** — run several skimming schemes at once for compounding income; an Oversight watchdog's suspicion climbs toward a raid that exposes them all, while partners can blackmail you and a fixer can launder the trail
 - **SCRUTINY system** — a rolling heat meter that remembers every dirty deal; five levels from QUIET to UNDER SIEGE
 - **Black market** — six dealer types offer influence, cleanup, intelligence, and things you probably shouldn't buy
 - **Problem backlog** — ignore decisions and they pile up; ignore them too long and the press writes the story for you
 - **Scandal management** — suppress, accept, or manage the story; career-ending scandals offer only resignation or a 25% last stand
-- **Full end-of-term report** — dirty hands, clean hands, backroom relations, and everything the city remembers
+- **Step down on your terms** — resign voluntarily any turn through your most trusted advisor, not a menu
+- **The city knows your name** — your chosen name runs through headlines, advisor greetings, protest placards, and a final report titled *"The [You] Administration"*
+- **Career hall** — every finished term is filed under Settings → Past Administrations, with its outcome and final approval
+- **Light & dark themes** — a light "Paper Ledger" and a dark "Ink Slate," both high-contrast for sunlight, toggled in Settings; the world map recolors to match
+- **Full end-of-term report** — dirty hands, clean hands, backroom relations, the scandal that ended you, and everything the city remembers
 
 ---
 

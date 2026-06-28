@@ -105,13 +105,24 @@ describe('back channel', () => {
     expect(result.ok).toBe(false);
   });
 
-  it('corrupt pact requires low budget (< 150M) and trust >= 60', () => {
+  it('corrupt pact needs trust >= 60; wealth no longer blocks it', () => {
     const adv = state.getAdvisor('finance');
-    adv.trust = 80;
-    state.budget = 500; // too rich to need corruption
+    adv.trust = 50; // too cold
     expect(tm.backChannelAction('finance', 'corrupt_pact').ok).toBe(false);
-    state.budget = 100;
+    adv.trust = 80;
+    state.budget = 500; // being rich does NOT block a pact anymore
     expect(tm.backChannelAction('finance', 'corrupt_pact').ok).toBe(true);
     expect(adv.corruptPact).toBe(true);
+  });
+
+  it('skim flows into personal funds, not the city budget', () => {
+    const adv = state.getAdvisor('finance');
+    adv.trust = 80;
+    tm.backChannelAction('finance', 'corrupt_pact');
+    const budgetBefore = state.budget;
+    const personalBefore = state.personalFunds;
+    tm.advisorSystem.processCorruptPacts(tm.scandalSystem);
+    expect(state.budget).toBe(budgetBefore);            // public budget untouched
+    expect(state.personalFunds).toBeGreaterThan(personalBefore); // wallet grew
   });
 });
