@@ -162,6 +162,33 @@ export class SettingsScreen {
               </div>`;
               })()}
 
+              <div class="st-s-title" style="margin-top: 0.875rem">INCOME</div>
+              ${(() => {
+                const c = loadCareerStats();
+                const total = c.totalIncome ?? 0;
+                const turns = c.turnsGoverned ?? 0;
+                const avg = turns > 0 ? Math.round(total / turns) : 0;
+                const biggest = c.biggestIncome ?? 0;
+                return `
+              <div class="st-stat-grid">
+                <div class="st-stat-card">
+                  <div class="st-sc-label">TOTAL INCOME</div>
+                  <div class="st-sc-val" style="font-size: 1rem">${total}M</div>
+                  <div class="st-sc-sub">Into your pocket, all games</div>
+                </div>
+                <div class="st-stat-card">
+                  <div class="st-sc-label">AVG / TURN</div>
+                  <div class="st-sc-val">${avg}M</div>
+                  <div class="st-sc-sub">Personal income per turn</div>
+                </div>
+                <div class="st-stat-card">
+                  <div class="st-sc-label">BIGGEST TERM</div>
+                  <div class="st-sc-val" style="font-size: 1rem">${biggest}M</div>
+                  <div class="st-sc-sub">Most in one game</div>
+                </div>
+              </div>`;
+              })()}
+
               ${(() => {
                 const c = loadCareerStats();
                 const govs = (c.governors || []).slice(0, 6);

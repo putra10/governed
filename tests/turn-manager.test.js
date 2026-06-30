@@ -126,3 +126,17 @@ describe('back channel', () => {
     expect(state.personalFunds).toBeGreaterThan(personalBefore); // wallet grew
   });
 });
+
+describe('career-ending scandals only come from player schemes', () => {
+  it('the ambient/random roll never raises a career_ending scandal', () => {
+    const tm = freshGame({ scandals: [{ id: 'ce', title: 'CE', severity_tier: 'career_ending', approval_penalty: -40 }] });
+    for (let i = 0; i < 20; i++) { state.pendingScandal = null; tm._createPendingScandal(); }
+    expect(state.pendingScandal).toBe(null); // career_ending filtered out → nothing to raise
+  });
+
+  it('a bribe/crisis trigger never fires a career_ending scandal', () => {
+    const tm = freshGame({ scandals: [{ id: 'ce', title: 'CE', severity_tier: 'career_ending', approval_penalty: -40 }] });
+    tm.scandalSystem.trigger('bribe_x');
+    expect(state.activeScandals.some(a => a.severity_tier === 'career_ending')).toBe(false);
+  });
+});

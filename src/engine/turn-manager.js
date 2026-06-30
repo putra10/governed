@@ -71,6 +71,14 @@ export class TurnManager {
     // 3. Check end conditions BEFORE incrementing turn
     const endResult = this._checkEndConditions();
     if (endResult) {
+      // Don't let a scandal that fired this turn vanish silently into the report.
+      // Capture the worst one so the end screen names what hit you.
+      if (!s.endScandal) {
+        const RANK = { minor: 1, moderate: 2, major: 3, career_ending: 4 };
+        const firedThisTurn = (s.pendingScandalReveals ?? []).filter(r => r.turn === s.turn);
+        const worst = firedThisTurn.sort((a, b) => (RANK[b.severity_tier] ?? 0) - (RANK[a.severity_tier] ?? 0))[0];
+        if (worst) s.endScandal = { title: worst.title, tier: worst.severity_tier, description: '' };
+      }
       this.saveState();
       return endResult;
     }
@@ -111,6 +119,10 @@ export class TurnManager {
     this._applyPassiveTax();
     this._applyBudgetPressure();
     this._applyTierPassiveDrain();
+
+    // Snapshot the treasury for end-of-term spending stats.
+    if (!s.budgetHistory) s.budgetHistory = [];
+    s.budgetHistory.push({ turn: s.turn, budget: s.budget });
 
     // 20% chance: a scandal erupts this turn alongside the generic decision
     this._rollScandalEvent();
@@ -822,7 +834,8 @@ export class TurnManager {
 
     const available = (s.city?.scandals ?? []).filter(sc =>
       !s.activeScandals?.find(a => a.id === sc.id) &&
-      !(s.resolvedScandals ?? []).includes(sc.id)
+      !(s.resolvedScandals ?? []).includes(sc.id) &&
+      (sc.severity_tier ?? 'minor') !== 'career_ending' // never random — only from player schemes
     );
     if (!available.length) return;
 

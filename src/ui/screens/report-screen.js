@@ -3,8 +3,61 @@ import { govRaw, govLast } from '../../utils/governor.js';
 import { pickClosingRemark } from '../../utils/closing-remark.js';
 import { pickLegacy, pickClipping } from '../../utils/report-content.js';
 import { typeText } from '../../utils/typewriter.js';
+import { getGenericProblemById } from '../../engine/generic-problems.js';
 
 const LVL = { red: 'var(--color-red)', reddim: 'var(--color-red-dim)', amber: 'var(--color-amber)', green: 'var(--color-green)', dim: 'var(--color-text-muted)' };
+
+// The same context line the scandal popup showed the player (by source).
+const SCANDAL_SOURCE = {
+  threat_backfire: 'Your threat backfired \u2014 they went to the press.',
+  leak: 'Your leak splashed back on the office.',
+  corrupt_pact: 'The corruption scheme was discovered.',
+  romance: 'The affair went public.',
+  auto_fired: 'You left the story unanswered. It ran.',
+  ignored_problem: 'You left it on your desk for three weeks.',
+  impeachment: 'The hearings have begun.',
+  black_market: 'A deal went wrong.',
+  oversight_raid: 'Investigators raided your office.',
+  funding: 'A funded project drew scrutiny.',
+};
+function scandalContext(source) {
+  if (!source) return 'The story broke overnight.';
+  if (String(source).startsWith('bribe_')) return 'The back-channel payment leaked.';
+  return SCANDAL_SOURCE[source] || 'Fallout from your decision.';
+}
+
+// The fullest 'what happened' for a scandal: an authored description if it has
+// one; otherwise, for a decision-caused scandal, name the problem AND the option
+// the player picked; otherwise the generic context line.
+function scandalStory(sc, state) {
+  if (sc.description) return sc.description;
+  const prob = getGenericProblemById(sc.sourceId, state.city);
+  if (prob) {
+    const pd = (state.pastDecisions ?? []).find(p => p.decisionId === sc.sourceId);
+    const opt = (pd && prob.options) ? prob.options[pd.optionIndex] : null;
+    const choice = (opt && opt.label) ? ` \u2014 you chose &ldquo;${opt.label}&rdquo;` : '';
+    return `Fallout from &ldquo;${prob.title}&rdquo;${choice}.`;
+  }
+  return scandalContext(sc.sourceId);
+}
+
+// One-line news sentence on the governor's history with an advisor.
+function relationNews(a) {
+  const n = a.name;
+  if (a.betrayed && a.sacrificed) return `${n} was thrown to the wolves — and never forgave it.`;
+  if (a.betrayed) return `${n} turned on the governor and walked out.`;
+  if (a.sacrificed) return `${n} was sacrificed to the press to save the administration.`;
+  if (a.relationshipType === 'romantic' && a.romanceExposed) return `The governor's affair with ${n} spilled into the open.`;
+  if (a.relationshipType === 'romantic') return `The governor and ${n} grew close behind closed doors.`;
+  if (a.romanceExposed) return `An old flame with ${n} resurfaced in the headlines.`;
+  if ((a.totalSkimmed ?? 0) > 0) return `${n} ran a quiet arrangement with the governor — ${a.totalSkimmed}M skimmed.`;
+  if ((a.threatCount ?? 0) > 0) return `${n} was leaned on, hard, more than once.`;
+  if (a.leakUsed) return `${n} was smeared in the press on the governor's orders.`;
+  if ((a.scorned ?? 0) > 0) return `${n}, a scorned former flame, stayed dangerous.`;
+  if (a.relationshipType === 'rivalry') return `${n} and the governor were open rivals to the end.`;
+  if ((a.trust ?? 0) >= 60) return `${n} stayed loyal through it all.`;
+  return `${n} kept a cool, professional distance.`;
+}
 
 export class ReportScreen {
   static render(state) {
@@ -118,7 +171,7 @@ export class ReportScreen {
       : `<div class="dsr-finding clean">No misappropriation. No coercion. No undisclosed dealings. The audit returned nothing — because there was nothing.</div>`;
     const scandalHTML = state.endScandal ? `
       <div class="dsr-scandal">
-        <div class="ssl">${scandalExit ? 'WHY YOU RESIGNED' : 'WHAT BROUGHT YOU DOWN'} &middot; ${String(state.endScandal.tier || 'major').replace('_', ' ').toUpperCase()} SCANDAL</div>
+        <div class="ssl">${scandalExit ? 'WHY YOU RESIGNED' : recalled ? 'WHAT BROUGHT YOU DOWN' : 'THE STORY THAT BROKE'} &middot; ${String(state.endScandal.tier || 'major').replace('_', ' ').toUpperCase()} SCANDAL</div>
         <div class="sst"><strong>${state.endScandal.title}</strong>${state.endScandal.description ? ` — ${state.endScandal.description}` : ''}</div>
       </div>` : '';
 
@@ -129,8 +182,62 @@ export class ReportScreen {
     const adminLine = govRaw(state) ? `THE ${govLast(state).toUpperCase()} ADMINISTRATION` : 'FINAL ASSESSMENT';
     const govUpper = (govRaw(state) || 'Acting Governor').toUpperCase();
 
+    // Every scandal that reached print this term — as newspaper briefs inside the Ledger.
+    const SS_TIER = { minor: 'Minor', moderate: 'Moderate', major: 'Major', career_ending: 'Career-ending' };
+    const scandalSheet = (state.activeScandals ?? [])
+      .slice()
+      .sort((a, b) => (a.sourceTurn ?? 0) - (b.sourceTurn ?? 0))
+      .map(sc => {
+        const t = sc.severity_tier ?? 'minor';
+        const wk = (sc.sourceTurn ?? 0) * 6;
+        const story = scandalStory(sc, state);
+        return `<div class="clip-brief ${t}"><div class="cb-hl">${sc.title ?? 'Unnamed scandal'}</div><div class="cb-body">${story}</div><div class="cb-dl">Week ${wk || '\u2014'} &middot; ${SS_TIER[t] ?? t} scandal</div></div>`;
+      }).join('');
+
+    // ── Share-card payload (computed once; the share button picks the active tab) ──
+    const RANK_SC = { minor: 1, moderate: 2, major: 3, career_ending: 4 };
+    const topScandals = (state.activeScandals ?? [])
+      .slice()
+      .sort((a, b) => (RANK_SC[b.severity_tier] ?? 0) - (RANK_SC[a.severity_tier] ?? 0))
+      .slice(0, 3)
+      .map(sc => ({ title: sc.title ?? 'Unnamed scandal', story: scandalStory(sc, state), tier: sc.severity_tier ?? 'minor' }));
+    const relations = state.advisors.map(relationNews).filter(Boolean);
+    const findingsLines = dirty
+      ? anomalies.map(a => a.replace(/\{R:([^}]+)\}/, '$1') + '.')
+      : ['No misappropriation. No coercion. No undisclosed dealings. The audit found nothing.'];
+    const _bh = state.budgetHistory ?? [];
+    let highestBudget = state.startBudget ?? state.budget, biggestDrop = 0, biggestDropWk = null, totalSpend = 0, spendTurns = 0;
+    for (let i = 0; i < _bh.length; i++) {
+      highestBudget = Math.max(highestBudget, _bh[i].budget);
+      if (i > 0) { const dlt = _bh[i].budget - _bh[i - 1].budget; if (dlt < 0) { totalSpend += -dlt; spendTurns++; if (-dlt > biggestDrop) { biggestDrop = -dlt; biggestDropWk = _bh[i].turn * 6; } } }
+    }
+    const _startA = state.startApproval ?? state.approval, _startB = state.startBudget ?? state.budget;
+    const _pct = (cur, st) => st ? Math.round(((cur - st) / Math.abs(st)) * 100) : 0;
+    const payload = {
+      city: CITY, name: subject, weeks, tone, stamp: stampWord, cls: classification,
+      approval: state.approval, startApproval: _startA, apprPct: _pct(state.approval, _startA),
+      budget: state.budget, startBudget: _startB, budgPct: _pct(state.budget, _startB),
+      outcomeTitle, outcomeDesc,
+      avgSpend: spendTurns ? Math.round(totalSpend / spendTurns) : 0,
+      highestBudget, biggestDrop, biggestDropWk,
+      scandals: topScandals, relations, findings: findingsLines,
+    };
+
+    // Scandal popup gating: only when a scandal actually ended the term.
+    const scandalEnded = !!state.endScandal && (recalled || scandalExit);
+
     return `
       <div class="screen sv-report">
+        ${scandalEnded ? `
+        <div class="sv-scandal-alert" id="sv-scandal-alert">
+          <div class="ssa-box">
+            <div class="ssa-label">&#9888; SCANDAL BREAKS</div>
+            <div class="ssa-tier ${tone}">${String(state.endScandal.tier || 'major').replace('_', ' ').toUpperCase()} SCANDAL</div>
+            <div class="ssa-title">${state.endScandal.title}</div>
+            <div class="ssa-sub">This is what ended your term.</div>
+            <button class="ssa-ok" id="sv-scandal-ok">CONTINUE &#9656;</button>
+          </div>
+        </div>` : ''}
         <div class="sv-verdict sv2" id="sv-verdict" data-verdict="${verdict}" data-admin="${adminLine}"
              data-name="${govUpper}" data-comment="${remark.replace(/"/g, '&quot;')}">
           <div class="sv2-stage">
@@ -148,7 +255,7 @@ export class ReportScreen {
         </div>
         ${renderTopBar(state, { report: true })}
         <div class="report-screen">
-          <div class="dsr" data-share="${shareText.replace(/"/g, '&quot;')}" data-card="${JSON.stringify({ name: subject, stamp: stampWord, cls: classification, approval: state.approval, city: state.city?.city_name ?? '', weeks, fileno: fileNo, tone, loyal, total }).replace(/"/g, '&quot;')}">
+          <div class="dsr" data-share="${shareText.replace(/"/g, '&quot;')}" data-card="${JSON.stringify({ name: subject, stamp: stampWord, cls: classification, approval: state.approval, city: state.city?.city_name ?? '', weeks, fileno: fileNo, tone, loyal, total }).replace(/"/g, '&quot;')}" data-payload="${JSON.stringify(payload).replace(/"/g, '&quot;')}">
 
             <div class="dsr-tabs">
               <button class="dsr-tab active" data-tab="verdict">VERDICT</button>
@@ -187,6 +294,9 @@ export class ReportScreen {
                   <div class="clip-hl">${clip.headline}</div>
                   <div class="clip-deck">${clip.deck}</div>
                   <div class="clip-pull">&ldquo;${clip.pull}&rdquo;</div>
+                  ${scandalSheet
+                    ? `<div class="clip-sub">Also in this edition</div><div class="clip-briefs">${scandalSheet}</div>`
+                    : `<div class="clip-sub clean">A quiet term &mdash; nothing else made the front page.</div>`}
                 </div>
               </div>
 
@@ -256,14 +366,15 @@ export class ReportScreen {
     container.querySelector('#dsr-share')?.addEventListener('click', async (e) => {
       const dsr = container.querySelector('.dsr');
       const txt = dsr?.dataset.share || 'GOVERNED';
-      let card = {};
-      try { card = JSON.parse(dsr?.dataset.card || '{}'); } catch { /* ignore */ }
+      let payload = {};
+      try { payload = JSON.parse(dsr?.dataset.payload || '{}'); } catch { /* ignore */ }
+      const tab = container.querySelector('.dsr-tab.active')?.dataset.tab || 'verdict';
       const btn = e.currentTarget;
       btn.disabled = true;
       const prev = btn.textContent;
       btn.textContent = 'Rendering…';
       try {
-        const blob = await ReportScreen._makeShareCard(card);
+        const blob = await ReportScreen._makeNewsCard(tab, payload);
         const file = new File([blob], 'governed-dossier.png', { type: 'image/png' });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           await navigator.share({ files: [file], text: txt });
@@ -309,93 +420,135 @@ export class ReportScreen {
     container.querySelector('#rvskip')?.addEventListener('click', e => { e.stopPropagation(); done(); });
     ov.addEventListener('click', done);
 
-    at(1200, () => { body.innerHTML = 'COMPILING FINAL REPORT'; });
-    at(2400, () => { title.innerHTML = d.admin; body.innerHTML = 'ASSESSMENT RENDERED'; });
-    at(3600, () => {
-      box.classList.add('hidden');
-      text.classList.remove('hidden');
-      line.classList.remove('hidden');
-      arrow.classList.remove('hidden');
-      stopTyping = typeText(text, d.verdict, { speed: 70 });
-    });
-    at(5600, () => {
-      text.classList.add('sv2-remark');
-      stopTyping = typeText(text, d.comment, { speed: 24, done: () => { cta.classList.remove('hidden'); } });
-      container.querySelector('#rvskip')?.classList.add('hidden');
-    });
+    const startVerdict = () => {
+      at(1200, () => { body.innerHTML = 'COMPILING FINAL REPORT'; });
+      at(2400, () => { title.innerHTML = d.admin; body.innerHTML = 'ASSESSMENT RENDERED'; });
+      at(3600, () => {
+        box.classList.add('hidden');
+        text.classList.remove('hidden');
+        line.classList.remove('hidden');
+        arrow.classList.remove('hidden');
+        stopTyping = typeText(text, d.verdict, { speed: 70 });
+      });
+      at(5600, () => {
+        text.classList.add('sv2-remark');
+        stopTyping = typeText(text, d.comment, { speed: 24, done: () => { cta.classList.remove('hidden'); } });
+        container.querySelector('#rvskip')?.classList.add('hidden');
+      });
+    };
+
+    // A scandal that ended the term gets its own popup first — the Samaritan
+    // reveal waits behind it until the player acknowledges.
+    const scandalAlert = container.querySelector('#sv-scandal-alert');
+    if (scandalAlert) {
+      container.querySelector('#sv-scandal-ok')?.addEventListener('click', () => {
+        scandalAlert.style.opacity = '0';
+        setTimeout(() => scandalAlert.remove(), 350);
+        startVerdict();
+      });
+    } else {
+      startVerdict();
+    }
   }
 
-  // Draws the shareable dossier card (portrait, 1080x1350) to a PNG Blob.
-  static async _makeShareCard(card) {
-    const W = 1080, H = 1350;
-    const TONE = { red: '#f0685c', amber: '#e0a93b', green: '#5fb55f' };
-    const accent = TONE[card.tone] || '#e0a93b';
-    const MONO = "'IBM Plex Mono', monospace";
-    const SERIF = "'IBM Plex Serif', serif";
+  // Builds a 9:16 (1080x1920) newspaper share card for the active dossier tab.
+  static async _makeNewsCard(tab, d) {
+    const W = 1080, H = 1920;
+    const PAPER = '#efe9d9', INK = '#2b2519', MUTE = '#6f6451', RULE = '#b8ad90', RED = '#7a1f12', GREEN = '#3b6d11';
+    const SERIF = "'IBM Plex Serif', serif", MONO = "'IBM Plex Mono', monospace";
     try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch { /* ignore */ }
+    const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    const c = cv.getContext('2d'); c.textBaseline = 'alphabetic';
+    const PAD = 80, RIGHT = W - PAD, MAXW = W - PAD * 2;
 
-    const cv = document.createElement('canvas');
-    cv.width = W; cv.height = H;
-    const c = cv.getContext('2d');
+    c.fillStyle = PAPER; c.fillRect(0, 0, W, H);
+    c.strokeStyle = INK; c.lineWidth = 3; c.strokeRect(28, 28, W - 56, H - 56);
 
-    c.fillStyle = '#16150f'; c.fillRect(0, 0, W, H);
-    c.strokeStyle = '#3a3629'; c.lineWidth = 2; c.strokeRect(40, 40, W - 80, H - 80);
-    c.strokeStyle = accent; c.lineWidth = 6; c.strokeRect(40, 40, W - 80, 6);
+    const ent = (t) => String(t ?? '')
+      .replace(/&ldquo;/g, '\u201C').replace(/&rdquo;/g, '\u201D')
+      .replace(/&mdash;/g, '\u2014').replace(/&middot;/g, '\u00B7')
+      .replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+    const center = (txt, y, font, color) => { c.font = font; c.fillStyle = color; c.textAlign = 'center'; c.fillText(ent(txt), W / 2, y); c.textAlign = 'left'; };
+    const rule = (y, w = 1, x0 = PAD, x1 = RIGHT) => { c.strokeStyle = RULE; c.lineWidth = w; c.beginPath(); c.moveTo(x0, y); c.lineTo(x1, y); c.stroke(); };
+    const wrap = (txt, x, y, maxW, lh, font, color, align = 'left') => {
+      c.font = font; c.fillStyle = color; c.textAlign = align;
+      const ax = align === 'center' ? W / 2 : x;
+      const words = ent(txt).split(' '); let ln = '';
+      for (const w of words) {
+        const t = ln ? ln + ' ' + w : w;
+        if (c.measureText(t).width > maxW && ln) { c.fillText(ln, ax, y); ln = w; y += lh; }
+        else ln = t;
+      }
+      if (ln) { c.fillText(ln, ax, y); y += lh; }
+      c.textAlign = 'left'; return y;
+    };
 
-    const PAD = 90;
-    c.textBaseline = 'alphabetic';
+    center('GOVERNED \u00B7 CIVIC OVERSIGHT DISPATCH', 110, `700 22px ${MONO}`, MUTE);
+    center(`THE ${(d.city || 'CITY')} LEDGER`, 190, `700 60px ${SERIF}`, INK);
+    rule(216, 4); rule(224, 2);
+    c.font = `700 20px ${MONO}`; c.fillStyle = MUTE;
+    c.textAlign = 'left'; c.fillText('FINAL EDITION', PAD, 258);
+    c.textAlign = 'right'; c.fillText(`${d.weeks || 0} WEEKS IN OFFICE`, RIGHT, 258);
+    c.textAlign = 'left'; rule(278, 1);
 
-    c.fillStyle = '#a89f88'; c.font = `700 24px ${MONO}`; c.textAlign = 'left';
-    c.fillText('GOVERNED · CIVIC OVERSIGHT', PAD, 150);
-    c.textAlign = 'right';
-    c.fillText(`FILE ${card.fileno || '—'}`, W - PAD, 150);
-    c.textAlign = 'left';
-    c.fillStyle = '#3a3629'; c.fillRect(PAD, 175, W - PAD * 2, 2);
+    const SECTION = { verdict: 'THE VERDICT', record: 'THE SCANDAL FILE', persons: 'THE CABINET', findings: 'THE BOOKS' };
+    center(SECTION[tab] || 'SPECIAL REPORT', 332, `700 24px ${MONO}`, RED);
 
-    c.fillStyle = '#a89f88'; c.font = `700 22px ${MONO}`;
-    c.fillText('SUBJECT', PAD, 270);
-    c.fillStyle = '#f6f3ea'; c.font = `700 64px ${SERIF}`;
-    const name = String(card.name || 'The Administration');
-    const words = name.split(' '); let line = '', y = 345;
-    for (const w of words) {
-      const test = line ? line + ' ' + w : w;
-      if (c.measureText(test).width > W - PAD * 2 && line) { c.fillText(line, PAD, y); line = w; y += 74; }
-      else line = test;
+    let y = 412;
+    const tierColor = (t) => (t === 'major' || t === 'career_ending') ? RED : INK;
+
+    if (tab === 'record') {
+      const n = (d.scandals || []).length;
+      y = wrap(n ? `${n} SCANDALS ON THE RECORD` : 'A CLEAN RECORD', PAD, y, MAXW, 58, `700 50px ${SERIF}`, INK, 'center'); y += 16;
+      rule(y, 2); y += 42;
+      (d.scandals || []).forEach(sc => {
+        y = wrap(sc.title, PAD, y, MAXW, 44, `700 36px ${SERIF}`, tierColor(sc.tier)); y += 8;
+        y = wrap(sc.story, PAD, y, MAXW, 37, `400 26px ${SERIF}`, INK); y += 12;
+        c.font = `700 18px ${MONO}`; c.fillStyle = MUTE; c.fillText(String(sc.tier || 'minor').replace('_', '-').toUpperCase() + ' SCANDAL', PAD, y); y += 36;
+        rule(y, 1); y += 40;
+      });
+      if (!n) y = wrap('No scandal reached print this term. The file is empty.', PAD, y, MAXW, 40, `400 30px ${SERIF}`, MUTE); 
+      y += 6; y = wrap(`Approval closed at ${d.approval}%.`, PAD, y, MAXW, 40, `italic 700 30px ${SERIF}`, INK);
+    } else if (tab === 'persons') {
+      y = wrap('INSIDE THE CABINET', PAD, y, MAXW, 58, `700 50px ${SERIF}`, INK, 'center'); y += 16;
+      rule(y, 2); y += 48;
+      (d.relations || []).forEach(linetxt => {
+        c.fillStyle = RED; c.font = `700 28px ${SERIF}`; c.fillText('\u25AA', PAD, y);
+        y = wrap(linetxt, PAD + 36, y, MAXW - 36, 40, `400 29px ${SERIF}`, INK); y += 26;
+      });
+    } else if (tab === 'findings') {
+      y = wrap('THE BOOKS, EXAMINED', PAD, y, MAXW, 56, `700 48px ${SERIF}`, INK, 'center'); y += 16;
+      rule(y, 2); y += 40;
+      (d.findings || []).forEach(linetxt => { y = wrap(linetxt, PAD, y, MAXW, 37, `400 27px ${SERIF}`, INK); y += 24; });
+      y += 24; rule(y, 1); y += 56;
+      const stat = (label, val) => {
+        c.font = `700 22px ${MONO}`; c.fillStyle = MUTE; c.textAlign = 'left'; c.fillText(label, PAD, y);
+        c.font = `700 40px ${SERIF}`; c.fillStyle = INK; c.textAlign = 'right'; c.fillText(val, RIGHT, y);
+        c.textAlign = 'left'; y += 70;
+      };
+      stat('AVG SPENDING / TURN', `${d.avgSpend || 0}M`);
+      stat('HIGHEST TREASURY', `${d.highestBudget || 0}M`);
+      stat('BIGGEST SINGLE-TURN SPEND', d.biggestDropWk ? `${d.biggestDrop}M \u00B7 WK ${d.biggestDropWk}` : `${d.biggestDrop || 0}M`);
+    } else {
+      y = wrap(d.outcomeTitle || 'TERM COMPLETE', PAD, y, MAXW, 62, `700 54px ${SERIF}`, INK, 'center'); y += 18;
+      y = wrap(d.outcomeDesc || '', PAD, y, MAXW, 42, `italic 400 31px ${SERIF}`, MUTE, 'center'); y += 34;
+      rule(y, 2); y += 60;
+      const delta = (label, st, end, pct, unit) => {
+        c.font = `700 22px ${MONO}`; c.fillStyle = MUTE; c.fillText(label, PAD, y); y += 48;
+        c.font = `700 44px ${SERIF}`; c.fillStyle = INK; c.textAlign = 'left'; c.fillText(`${st}${unit} \u2192 ${end}${unit}`, PAD, y);
+        c.font = `700 40px ${SERIF}`; c.fillStyle = pct >= 0 ? GREEN : RED; c.textAlign = 'right';
+        c.fillText(`${pct >= 0 ? '+' : ''}${pct}%`, RIGHT, y); c.textAlign = 'left'; y += 80;
+      };
+      delta('PUBLIC APPROVAL', d.startApproval, d.approval, d.apprPct, '%');
+      delta('CITY TREASURY', d.startBudget, d.budget, d.budgPct, 'M');
     }
-    c.fillText(line, PAD, y); y += 30;
-    c.fillStyle = '#d8d2c2'; c.font = `400 30px ${MONO}`;
-    c.fillText(`${(card.city || '').toUpperCase()}  ·  ${card.weeks || 0} WEEKS IN OFFICE`, PAD, y + 30);
 
-    const sw = String(card.stamp || '').toUpperCase();
-    c.save();
-    c.translate(W - PAD - 150, 560); c.rotate(-11 * Math.PI / 180);
-    c.font = `700 46px ${SERIF}`; const tw = c.measureText(sw).width;
-    c.strokeStyle = accent; c.lineWidth = 5; c.globalAlpha = 0.85;
-    c.strokeRect(-tw / 2 - 26, -52, tw + 52, 78);
-    c.fillStyle = accent; c.textAlign = 'center';
-    c.fillText(sw, 0, 0); c.restore();
-    c.globalAlpha = 1; c.textAlign = 'left';
-
-    c.fillStyle = '#a89f88'; c.font = `700 26px ${MONO}`;
-    c.fillText('RELEVANCE INDEX', PAD, 760);
-    c.fillStyle = accent; c.font = `700 220px ${SERIF}`;
-    c.fillText(String(card.approval ?? 0), PAD - 6, 950);
-    c.fillStyle = '#a89f88'; c.font = `400 34px ${MONO}`;
-    c.fillText('%  APPROVAL AT FINAL ASSESSMENT', PAD + 6, 1000);
-
-    c.fillStyle = '#3a3629'; c.fillRect(PAD, 1060, W - PAD * 2, 2);
-    c.fillStyle = '#a89f88'; c.font = `700 24px ${MONO}`;
-    c.fillText('CLASSIFICATION', PAD, 1130);
-    c.fillStyle = accent; c.font = `700 48px ${SERIF}`;
-    c.fillText(String(card.cls || '—'), PAD, 1185);
-    c.fillStyle = '#a89f88'; c.font = `700 24px ${MONO}`; c.textAlign = 'right';
-    c.fillText('LOYALTY', W - PAD, 1130);
-    c.fillStyle = '#d8d2c2'; c.font = `700 48px ${SERIF}`;
-    c.fillText(`${card.loyal ?? 0}/${card.total ?? 0}`, W - PAD, 1185);
+    rule(H - 150, 1);
+    c.fillStyle = INK; c.font = `italic 700 30px ${SERIF}`; c.textAlign = 'center';
+    c.fillText(ent(d.name || 'The Administration'), W / 2, H - 102);
+    c.fillStyle = MUTE; c.font = `400 22px ${MONO}`;
+    c.fillText('putra10.github.io/governed', W / 2, H - 64);
     c.textAlign = 'left';
-
-    c.fillStyle = '#6b6452'; c.font = `400 24px ${MONO}`;
-    c.fillText('putra10.github.io/governed', PAD, H - 70);
 
     return await new Promise((res, rej) =>
       cv.toBlob(b => b ? res(b) : rej(new Error('toBlob failed')), 'image/png'));

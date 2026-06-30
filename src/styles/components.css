@@ -4964,3 +4964,102 @@
   text-align: center;
   margin-top: 0.35rem;
 }
+/* ── End-of-term scandal popup (shows before the Samaritan verdict) ──────── */
+.sv-scandal-alert {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.72);
+  transition: opacity 0.35s ease;
+}
+.ssa-box {
+  width: 100%;
+  max-width: 30rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-red);
+  border-top: 4px solid var(--color-red);
+  border-radius: var(--radius-lg, 4px);
+  padding: 1.6rem 1.4rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+}
+.ssa-label { color: var(--color-red); font-weight: 700; letter-spacing: 0.12em; font-size: 0.8rem; }
+.ssa-tier { margin-top: 0.5rem; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; color: var(--color-red); opacity: 0.85; }
+.ssa-tier.amber { color: var(--color-amber); }
+.ssa-title { font-family: var(--font-serif); font-weight: 700; font-size: 1.2rem; line-height: 1.2; margin: 0.6rem 0 0.4rem; color: var(--color-text); }
+.ssa-sub { font-size: 0.72rem; color: var(--color-text-muted); margin-bottom: 1.1rem; }
+.ssa-ok {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+  padding: 0.55rem 1.4rem;
+  border: 1px solid var(--color-red);
+  border-radius: 4px;
+  background: var(--color-red);
+  color: var(--color-surface);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.ssa-ok:hover { opacity: 0.88; }
+
+/* ── Scandal sheet — newspaper briefs inside the Ledger clipping ─────────── */
+.clip-sub {
+  margin-top: 0.55rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--news-rule);
+  font-family: var(--font-mono);
+  font-size: 0.4062rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--news-muted);
+  text-align: center;
+}
+.clip-sub.clean {
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.5938rem;
+  color: var(--news-muted);
+}
+.clip-briefs {
+  margin-top: 0.45rem;
+  column-count: 2;
+  column-gap: 0.9rem;
+  column-rule: 1px solid var(--news-rule);
+}
+.clip-brief {
+  break-inside: avoid;
+  padding-bottom: 0.45rem;
+  margin-bottom: 0.45rem;
+  border-bottom: 1px solid var(--news-rule);
+}
+.clip-brief:last-child { border-bottom: none; margin-bottom: 0; }
+.cb-hl {
+  font-weight: 700;
+  font-size: 0.6875rem;
+  line-height: 1.18;
+  color: var(--news-ink);
+}
+.cb-dl {
+  margin-top: 0.15rem;
+  font-family: var(--font-mono);
+  font-size: 0.4062rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--news-muted);
+}
+.cb-body {
+  margin-top: 0.15rem;
+  font-style: italic;
+  font-size: 0.5625rem;
+  line-height: 1.35;
+  color: var(--news-muted);
+}
+.clip-brief.major .cb-dl,
+.clip-brief.career_ending .cb-dl { color: var(--news-accent); font-weight: 700; }

@@ -14,6 +14,8 @@ const DEFAULTS = {
   turnsGoverned: 0,
   totalCorruption: 0, // lifetime dirty money made (pact skim + sell-side)
   biggestHaul: 0,     // most corrupt money in a single game
+  totalIncome: 0,     // lifetime gross personal income (salary + starter + skim + sell)
+  biggestIncome: 0,   // most personal income in a single game
   governors: [], // Hall of administrations: newest first, capped at 12
 };
 
@@ -63,6 +65,10 @@ export function recordGameEnd(state) {
   const haul = (state.dirtyDeeds?.skimmed ?? 0) + (state.dirtyDeeds?.sold ?? 0);
   s.totalCorruption = (s.totalCorruption ?? 0) + haul;
   s.biggestHaul = Math.max(s.biggestHaul ?? 0, haul);
+
+  const income = state.incomeThisGame ?? 0;
+  s.totalIncome = (s.totalIncome ?? 0) + income;
+  s.biggestIncome = Math.max(s.biggestIncome ?? 0, income);
 
   // Hall of administrations — newest first, capped at 12
   if (!Array.isArray(s.governors)) s.governors = [];

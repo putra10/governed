@@ -17,6 +17,10 @@ export const state = {
   budget: 0,
   personalFunds: 0,
   pendingDonationNews: null,
+  incomeThisGame: 0,    // gross money into personal funds this game (for stats)
+  startBudget: 0,
+  startApproval: 0,
+  budgetHistory: [],    // [{turn, budget}] snapshot per turn — drives spending stats
 
   activeCrises: [],
   resolvedCrises: [],
@@ -115,6 +119,10 @@ export const state = {
     // odd turns and corrupt skims flow here too. Every back-channel move is paid
     // from this wallet, never the public budget.
     this.personalFunds = Math.max(0, Math.round(0.30 * this.budget));
+    this.incomeThisGame = this.personalFunds; // the 30% starter is turn-1 income
+    this.startBudget = this.budget;
+    this.startApproval = this.approval;
+    this.budgetHistory = [{ turn: 1, budget: this.budget }];
     this.pendingDonationNews = null;
     this.activeCrises = [];
     this.resolvedCrises = [];
@@ -286,6 +294,7 @@ export const state = {
 
   // The off-books wallet. Floors at 0 — you can't spend money you don't have.
   shiftPersonal(delta) {
+    if (delta > 0) this.incomeThisGame = (this.incomeThisGame ?? 0) + delta;
     this.personalFunds = Math.max(0, Math.round((this.personalFunds ?? 0) + delta));
   },
 
@@ -311,6 +320,10 @@ export const state = {
       budget: this.budget,
       personalFunds: this.personalFunds,
       pendingDonationNews: this.pendingDonationNews,
+      incomeThisGame: this.incomeThisGame,
+      startBudget: this.startBudget,
+      startApproval: this.startApproval,
+      budgetHistory: this.budgetHistory,
       activeCrises: this.activeCrises,
       resolvedCrises: this.resolvedCrises,
       pendingCrisis: this.pendingCrisis,
@@ -393,6 +406,10 @@ export const state = {
     this.budget               = parsed.budget;
     this.personalFunds        = parsed.personalFunds ?? Math.max(0, Math.round(0.30 * (parsed.budget ?? 0)));
     this.pendingDonationNews  = parsed.pendingDonationNews ?? null;
+    this.incomeThisGame       = parsed.incomeThisGame ?? this.personalFunds ?? 0;
+    this.startBudget          = parsed.startBudget ?? this.budget ?? 0;
+    this.startApproval        = parsed.startApproval ?? this.approval ?? 0;
+    this.budgetHistory        = parsed.budgetHistory ?? [];
     this.activeCrises         = parsed.activeCrises ?? [];
     this.resolvedCrises       = parsed.resolvedCrises ?? [];
     this.pendingCrisis        = parsed.pendingCrisis ?? null;

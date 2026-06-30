@@ -19,7 +19,7 @@ export function renderTopBar(state, opts = {}) {
   const report = !!opts.report;
   return `
     <div class="tb">
-      <div class="masthead">GOVERNED DISPATCH</div>
+      <div class="masthead">GOVERNED</div>
       <div class="stats">
         <div class="stat"><span class="sl">CITY</span><span class="sv w">${(state.city?.city_name ?? '—').toUpperCase()}</span></div>
         <div class="stat"><span class="sl">TURN</span><span class="sv a">${state.turn}</span></div>

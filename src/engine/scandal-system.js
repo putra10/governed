@@ -67,9 +67,13 @@ export class ScandalSystem {
       return;
     }
 
+    // Career-ending scandals never come from a random pick — only from the
+    // player's own sustained schemes (pact exposure, raid, etc.), which fire
+    // their own matching scandal. A one-off bribe/crisis tops out at major.
     const available = s.city.scandals.filter(sc =>
       !s.activeScandals?.find(a => a.id === sc.id) &&
-      !s.resolvedScandals?.includes(sc.id)
+      !s.resolvedScandals?.includes(sc.id) &&
+      safeTier(sc.severity_tier ?? 'minor') !== 'career_ending'
     );
 
     if (!available.length) {

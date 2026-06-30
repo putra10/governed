@@ -56,9 +56,19 @@ class App {
 
   // Single exit point for every game-over path — records career stats once
   _endGame() {
-    if (!this.state.hasFlag('career_recorded')) {
-      recordGameEnd(this.state);
-      this.state.setFlag('career_recorded', true);
+    const s = this.state;
+    // Name whatever scandal ended the term, no matter which path got us here —
+    // grab the worst un-dismissed reveal if nothing set endScandal yet.
+    if (!s.endScandal) {
+      const RANK = { minor: 1, moderate: 2, major: 3, career_ending: 4 };
+      const worst = (s.pendingScandalReveals ?? [])
+        .slice()
+        .sort((a, b) => (RANK[b.severity_tier] ?? 0) - (RANK[a.severity_tier] ?? 0))[0];
+      if (worst) s.endScandal = { title: worst.title, tier: worst.severity_tier, description: '' };
+    }
+    if (!s.hasFlag('career_recorded')) {
+      recordGameEnd(s);
+      s.setFlag('career_recorded', true);
     }
     this.currentScreen = 'report';
   }
