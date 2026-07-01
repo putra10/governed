@@ -217,7 +217,7 @@ export class ReportScreen {
       city: CITY, name: subject, weeks, tone, stamp: stampWord, cls: classification,
       approval: state.approval, startApproval: _startA, apprPct: _pct(state.approval, _startA),
       budget: state.budget, startBudget: _startB, budgPct: _pct(state.budget, _startB),
-      outcomeTitle, outcomeDesc,
+      outcomeTitle, outcomeDesc, remark,
       avgSpend: spendTurns ? Math.round(totalSpend / spendTurns) : 0,
       highestBudget, biggestDrop, biggestDropWk,
       scandals: topScandals, relations, findings: findingsLines,
@@ -451,7 +451,7 @@ export class ReportScreen {
     }
   }
 
-  // Builds a 9:16 (1080x1920) newspaper share card for the active dossier tab.
+  // Builds a 9:16 (1080x1920) two-column newspaper share card for the active tab.
   static async _makeNewsCard(tab, d) {
     const W = 1080, H = 1920;
     const PAPER = '#efe9d9', INK = '#2b2519', MUTE = '#6f6451', RULE = '#b8ad90', RED = '#7a1f12', GREEN = '#3b6d11';
@@ -459,98 +459,108 @@ export class ReportScreen {
     try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch { /* ignore */ }
     const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
     const c = cv.getContext('2d'); c.textBaseline = 'alphabetic';
-    const PAD = 80, RIGHT = W - PAD, MAXW = W - PAD * 2;
+    const PAD = 76, RIGHT = W - PAD, MAXW = W - PAD * 2;
+    const GAP = 46, COLW = (MAXW - GAP) / 2, COLX = [PAD, PAD + COLW + GAP];
 
     c.fillStyle = PAPER; c.fillRect(0, 0, W, H);
-    c.strokeStyle = INK; c.lineWidth = 3; c.strokeRect(28, 28, W - 56, H - 56);
+    c.strokeStyle = INK; c.lineWidth = 3; c.strokeRect(26, 26, W - 52, H - 52);
 
-    const ent = (t) => String(t ?? '')
-      .replace(/&ldquo;/g, '\u201C').replace(/&rdquo;/g, '\u201D')
-      .replace(/&mdash;/g, '\u2014').replace(/&middot;/g, '\u00B7')
-      .replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+    const ent = (t) => String(t ?? '').replace(/&ldquo;/g, '“').replace(/&rdquo;/g, '”').replace(/&mdash;/g, '—').replace(/&middot;/g, '·').replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"');
     const center = (txt, y, font, color) => { c.font = font; c.fillStyle = color; c.textAlign = 'center'; c.fillText(ent(txt), W / 2, y); c.textAlign = 'left'; };
-    const rule = (y, w = 1, x0 = PAD, x1 = RIGHT) => { c.strokeStyle = RULE; c.lineWidth = w; c.beginPath(); c.moveTo(x0, y); c.lineTo(x1, y); c.stroke(); };
-    const wrap = (txt, x, y, maxW, lh, font, color, align = 'left') => {
-      c.font = font; c.fillStyle = color; c.textAlign = align;
-      const ax = align === 'center' ? W / 2 : x;
-      const words = ent(txt).split(' '); let ln = '';
-      for (const w of words) {
-        const t = ln ? ln + ' ' + w : w;
-        if (c.measureText(t).width > maxW && ln) { c.fillText(ln, ax, y); ln = w; y += lh; }
-        else ln = t;
-      }
-      if (ln) { c.fillText(ln, ax, y); y += lh; }
-      c.textAlign = 'left'; return y;
+    const hrule = (y, w, x0 = PAD, x1 = RIGHT) => { c.strokeStyle = RULE; c.lineWidth = w; c.beginPath(); c.moveTo(x0, y); c.lineTo(x1, y); c.stroke(); };
+    const wrapH = (txt, x, y, maxW, lh, font, color, draw, align) => {
+      c.font = font; const words = ent(txt).split(' '); let ln = '', cy = y, lines = 0;
+      const ax = align === 'center' ? (x + maxW / 2) : x;
+      if (draw) { c.fillStyle = color; c.textAlign = align || 'left'; }
+      for (const w of words) { const t = ln ? ln + ' ' + w : w; if (c.measureText(t).width > maxW && ln) { if (draw) c.fillText(ln, ax, cy); ln = w; cy += lh; lines++; } else ln = t; }
+      if (ln) { if (draw) c.fillText(ln, ax, cy); cy += lh; lines++; }
+      if (draw) c.textAlign = 'left';
+      return lines * lh;
     };
 
-    center('GOVERNED \u00B7 CIVIC OVERSIGHT DISPATCH', 110, `700 22px ${MONO}`, MUTE);
-    center(`THE ${(d.city || 'CITY')} LEDGER`, 190, `700 60px ${SERIF}`, INK);
-    rule(216, 4); rule(224, 2);
-    c.font = `700 20px ${MONO}`; c.fillStyle = MUTE;
-    c.textAlign = 'left'; c.fillText('FINAL EDITION', PAD, 258);
-    c.textAlign = 'right'; c.fillText(`${d.weeks || 0} WEEKS IN OFFICE`, RIGHT, 258);
-    c.textAlign = 'left'; rule(278, 1);
-
+    // ── Header ──
+    center('GOVERNED · CIVIC OVERSIGHT DISPATCH', 108, `700 22px ${MONO}`, MUTE);
+    center(`THE ${d.city || 'CITY'} LEDGER`, 186, `700 60px ${SERIF}`, INK);
+    hrule(212, 4); hrule(220, 2);
+    c.font = `700 20px ${MONO}`; c.fillStyle = MUTE; c.textAlign = 'left'; c.fillText('FINAL EDITION', PAD, 254);
+    c.textAlign = 'right'; c.fillText(`${d.weeks || 0} WEEKS IN OFFICE`, RIGHT, 254); c.textAlign = 'left';
+    hrule(274, 1);
     const SECTION = { verdict: 'THE VERDICT', record: 'THE SCANDAL FILE', persons: 'THE CABINET', findings: 'THE BOOKS' };
-    center(SECTION[tab] || 'SPECIAL REPORT', 332, `700 24px ${MONO}`, RED);
+    center(SECTION[tab] || 'SPECIAL REPORT', 326, `700 24px ${MONO}`, RED);
 
-    let y = 412;
-    const tierColor = (t) => (t === 'major' || t === 'career_ending') ? RED : INK;
+    // ── Column block builders (width = COLW) ──
+    const bPara = (txt, font = `400 26px ${SERIF}`, lh = 35, color = INK, gap = 16) => (x, y, draw) => wrapH(txt, x, y, COLW, lh, font, color, draw) + gap;
+    const bLead = (txt) => bPara(txt, `400 29px ${SERIF}`, 39, INK, 22);
+    const bSub = (txt) => (x, y, draw) => { if (draw) { c.font = `700 18px ${MONO}`; c.fillStyle = RED; c.textAlign = 'left'; c.fillText(ent(txt), x, y); } return 34; };
+    const bStat = (label, val, color = INK) => (x, y, draw) => { if (draw) { c.font = `700 16px ${MONO}`; c.fillStyle = MUTE; c.fillText(label, x, y); c.font = `700 36px ${SERIF}`; c.fillStyle = color; c.fillText(ent(val), x, y + 38); } return 70; };
+    const compose = (...fns) => (x, y, draw) => { let yy = y; for (const fn of fns) yy += fn(x, yy, draw); return yy - y; };
+
+    let headline, deck; const blocks = [];
+    const tierC = (t) => (t === 'major' || t === 'career_ending') ? RED : INK;
 
     if (tab === 'record') {
       const n = (d.scandals || []).length;
-      y = wrap(n ? `${n} SCANDALS ON THE RECORD` : 'A CLEAN RECORD', PAD, y, MAXW, 58, `700 50px ${SERIF}`, INK, 'center'); y += 16;
-      rule(y, 2); y += 42;
-      (d.scandals || []).forEach(sc => {
-        y = wrap(sc.title, PAD, y, MAXW, 44, `700 36px ${SERIF}`, tierColor(sc.tier)); y += 8;
-        y = wrap(sc.story, PAD, y, MAXW, 37, `400 26px ${SERIF}`, INK); y += 12;
-        c.font = `700 18px ${MONO}`; c.fillStyle = MUTE; c.fillText(String(sc.tier || 'minor').replace('_', '-').toUpperCase() + ' SCANDAL', PAD, y); y += 36;
-        rule(y, 1); y += 40;
-      });
-      if (!n) y = wrap('No scandal reached print this term. The file is empty.', PAD, y, MAXW, 40, `400 30px ${SERIF}`, MUTE); 
-      y += 6; y = wrap(`Approval closed at ${d.approval}%.`, PAD, y, MAXW, 40, `italic 700 30px ${SERIF}`, INK);
+      headline = n ? `${n} Scandals on the Record` : 'A Clean Record';
+      deck = n ? `Approval closed at ${d.approval}%.` : `Approval closed at ${d.approval}%. The file is empty.`;
+      (d.scandals || []).forEach(sc => blocks.push(compose(
+        bSub(String(sc.tier || 'minor').replace('_', '-').toUpperCase() + ' SCANDAL'),
+        bPara(sc.title, `700 31px ${SERIF}`, 38, tierC(sc.tier), 6),
+        bPara(sc.story, `400 25px ${SERIF}`, 34, INK, 26))));
+      if (!n) blocks.push(bPara('No scandal reached print this term. The auditors went home early.'));
     } else if (tab === 'persons') {
-      y = wrap('INSIDE THE CABINET', PAD, y, MAXW, 58, `700 50px ${SERIF}`, INK, 'center'); y += 16;
-      rule(y, 2); y += 48;
-      (d.relations || []).forEach(linetxt => {
-        c.fillStyle = RED; c.font = `700 28px ${SERIF}`; c.fillText('\u25AA', PAD, y);
-        y = wrap(linetxt, PAD + 36, y, MAXW - 36, 40, `400 29px ${SERIF}`, INK); y += 26;
-      });
+      headline = 'Inside the Cabinet';
+      deck = `${(d.relations || []).length} figures shaped the term — some loyal, some not.`;
+      (d.relations || []).forEach(t => blocks.push(bPara('▪  ' + t, `400 27px ${SERIF}`, 36, INK, 22)));
     } else if (tab === 'findings') {
-      y = wrap('THE BOOKS, EXAMINED', PAD, y, MAXW, 56, `700 48px ${SERIF}`, INK, 'center'); y += 16;
-      rule(y, 2); y += 40;
-      (d.findings || []).forEach(linetxt => { y = wrap(linetxt, PAD, y, MAXW, 37, `400 27px ${SERIF}`, INK); y += 24; });
-      y += 24; rule(y, 1); y += 56;
-      const stat = (label, val) => {
-        c.font = `700 22px ${MONO}`; c.fillStyle = MUTE; c.textAlign = 'left'; c.fillText(label, PAD, y);
-        c.font = `700 40px ${SERIF}`; c.fillStyle = INK; c.textAlign = 'right'; c.fillText(val, RIGHT, y);
-        c.textAlign = 'left'; y += 70;
-      };
-      stat('AVG SPENDING / TURN', `${d.avgSpend || 0}M`);
-      stat('HIGHEST TREASURY', `${d.highestBudget || 0}M`);
-      stat('BIGGEST SINGLE-TURN SPEND', d.biggestDropWk ? `${d.biggestDrop}M \u00B7 WK ${d.biggestDropWk}` : `${d.biggestDrop || 0}M`);
+      headline = 'The Books, Examined';
+      deck = 'What the audit turned up — and what the term cost.';
+      (d.findings || []).forEach(t => blocks.push(bPara(t, `400 26px ${SERIF}`, 35, INK, 20)));
+      blocks.push(compose(bSub('SPENDING'), (x, y, dr) => 8 + 0 * (dr ? 1 : 1)));
+      blocks.push(bStat('AVG SPENDING / TURN', `${d.avgSpend || 0}M`));
+      blocks.push(bStat('HIGHEST TREASURY', `${d.highestBudget || 0}M`));
+      blocks.push(bStat('BIGGEST SINGLE-TURN SPEND', d.biggestDropWk ? `${d.biggestDrop}M · wk ${d.biggestDropWk}` : `${d.biggestDrop || 0}M`));
     } else {
-      y = wrap(d.outcomeTitle || 'TERM COMPLETE', PAD, y, MAXW, 62, `700 54px ${SERIF}`, INK, 'center'); y += 18;
-      y = wrap(d.outcomeDesc || '', PAD, y, MAXW, 42, `italic 400 31px ${SERIF}`, MUTE, 'center'); y += 34;
-      rule(y, 2); y += 60;
-      const delta = (label, st, end, pct, unit) => {
-        c.font = `700 22px ${MONO}`; c.fillStyle = MUTE; c.fillText(label, PAD, y); y += 48;
-        c.font = `700 44px ${SERIF}`; c.fillStyle = INK; c.textAlign = 'left'; c.fillText(`${st}${unit} \u2192 ${end}${unit}`, PAD, y);
-        c.font = `700 40px ${SERIF}`; c.fillStyle = pct >= 0 ? GREEN : RED; c.textAlign = 'right';
-        c.fillText(`${pct >= 0 ? '+' : ''}${pct}%`, RIGHT, y); c.textAlign = 'left'; y += 80;
-      };
-      delta('PUBLIC APPROVAL', d.startApproval, d.approval, d.apprPct, '%');
-      delta('CITY TREASURY', d.startBudget, d.budget, d.budgPct, 'M');
+      headline = d.outcomeTitle || 'Term Complete';
+      deck = 'Final assessment, Office of Civic Oversight.';
+      blocks.push(bLead(d.outcomeDesc || ''));
+      blocks.push(compose(
+        bStat('PUBLIC APPROVAL', `${d.startApproval}% → ${d.approval}%`, d.apprPct >= 0 ? GREEN : RED),
+        bPara(`A ${d.apprPct >= 0 ? '+' : ''}${d.apprPct}% swing in public support across ${d.weeks} weeks in office.`, `400 25px ${SERIF}`, 34, INK, 22)));
+      blocks.push(compose(
+        bStat('CITY TREASURY', `${d.startBudget}M → ${d.budget}M`, d.budgPct >= 0 ? GREEN : RED),
+        bPara(`The treasury ${d.budgPct >= 0 ? 'grew' : 'shrank'} ${Math.abs(d.budgPct)}% from the day you took office.`, `400 25px ${SERIF}`, 34, INK, 22)));
     }
 
-    rule(H - 150, 1);
-    c.fillStyle = INK; c.font = `italic 700 30px ${SERIF}`; c.textAlign = 'center';
-    c.fillText(ent(d.name || 'The Administration'), W / 2, H - 102);
-    c.fillStyle = MUTE; c.font = `400 22px ${MONO}`;
-    c.fillText('putra10.github.io/governed', W / 2, H - 64);
-    c.textAlign = 'left';
+    // ── Headline + deck (full width, upper third) ──
+    let hy = 404 + wrapH(headline, PAD, 404, MAXW, 62, `700 54px ${SERIF}`, INK, true, 'center');
+    hy += 8;
+    hy += wrapH(deck, PAD, hy, MAXW, 40, `italic 400 30px ${SERIF}`, MUTE, true, 'center');
+    hy += 24; hrule(hy, 2);
+    const colTop = hy + 48;
 
-    return await new Promise((res, rej) =>
-      cv.toBlob(b => b ? res(b) : rej(new Error('toBlob failed')), 'image/png'));
+    // ── Two balanced columns (split near the height midpoint) ──
+    const quoteTop = d.remark ? 1512 : 1660;
+    const colBottom = quoteTop - 40;
+    const heights = blocks.map(b => b(0, 0, false));
+    const total = heights.reduce((a, b) => a + b, 0);
+    let acc = 0, split = blocks.length;
+    for (let i = 0; i < blocks.length; i++) { acc += heights[i]; if (acc >= total / 2) { split = i + 1; break; } }
+    let cy = colTop; for (let i = 0; i < split; i++) { blocks[i](COLX[0], cy, true); cy += heights[i]; } const lb = cy;
+    cy = colTop; for (let i = split; i < blocks.length; i++) { blocks[i](COLX[1], cy, true); cy += heights[i]; } const rb = cy;
+    c.strokeStyle = RULE; c.lineWidth = 1; c.beginPath(); c.moveTo(W / 2, colTop - 18); c.lineTo(W / 2, Math.min(colBottom, Math.max(lb, rb, colTop + 40))); c.stroke();
+
+    // ── Pull-quote band (anchors the lower golden section) ──
+    if (d.remark) {
+      hrule(quoteTop, 2);
+      const qh = wrapH('“' + ent(d.remark) + '”', PAD + 24, quoteTop + 54, MAXW - 48, 44, `italic 600 32px ${SERIF}`, RED, true, 'center');
+      hrule(quoteTop + 54 + qh - 28, 2);
+    }
+
+    // ── Footer ──
+    hrule(H - 150, 1);
+    center(d.name || 'The Administration', H - 100, `italic 700 30px ${SERIF}`, INK);
+    center('putra10.github.io/governed', H - 64, `400 22px ${MONO}`, MUTE);
+
+    return await new Promise((res, rej) => cv.toBlob(b => b ? res(b) : rej(new Error('toBlob failed')), 'image/png'));
   }
 }

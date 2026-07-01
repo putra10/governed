@@ -298,5 +298,530 @@
         }
       }
     ]
+  },
+  {
+    "id": "ghost_taskforce_fallout",
+    "category": "budget_corruption",
+    "domain": "finance",
+    "followup": true,
+    "title": "The Task Force Found Something",
+    "trigger": "Your anti-corruption task force was supposed to be theater. It wasn't supposed to actually find anything.",
+    "description": "Three weeks into the ghost-payroll investigation, the task force lead requests an urgent private meeting. The trail of fake employees doesn't end at the sanitation department — it runs through the {city.government_body}'s procurement office and stops one door from yours. The lead investigator is honest, ambitious, and currently deciding what to do with the file.",
+    "external_actors": [
+      "Lead Investigator",
+      "Opposition Councilwoman"
+    ],
+    "options": [
+      {
+        "id": "A",
+        "tag": "SAFE",
+        "label": "Let the investigation run its course, wherever it leads.",
+        "advisor_reason": "Let it run. We bleed a little now, or we hemorrhage when someone leaks that we stopped it. Cheap insurance, all things considered.",
+        "consequences": {
+          "approval_delta": 6,
+          "budget_delta": -40,
+          "scandal_risk": 15,
+          "advisor_effects": [
+            {
+              "advisor_id": "finance",
+              "trust_delta": 5,
+              "betrayal_risk_delta": -5
+            }
+          ],
+          "follow_up": "Two procurement officials resign. The press calls it 'unexpectedly genuine'. The deputy mayor stops returning your calls.",
+          "city_reaction": "An investigation that investigated. In THIS city. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "B",
+        "tag": "BOLD",
+        "label": "Promote the lead investigator — to a desk in another department.",
+        "advisor_reason": "Promote the problem. A bigger title, a quieter office, and the file inherits a successor who understands nuance. Costs us a salary bump, saves us a headline.",
+        "consequences": {
+          "approval_delta": -4,
+          "budget_delta": -20,
+          "scandal_risk": 45,
+          "advisor_effects": [
+            {
+              "advisor_id": "military_liaison",
+              "trust_delta": 5,
+              "betrayal_risk_delta": 0
+            }
+          ],
+          "follow_up": "The investigator accepts the promotion with a smile that doesn't reach their eyes. The file is 'transitioning between custodians'.",
+          "city_reaction": "Promoted for finding corruption. Sure. And I'm the new finance minister. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "C",
+        "tag": "CHAOS",
+        "label": "Leak the file yourself — all of it, names included, tonight.",
+        "advisor_reason": "Burn it all down before someone burns it down on top of us. If every name drops at once, yours is just one in the pile — and you're the one who lit the match in public.",
+        "consequences": {
+          "approval_delta": -8,
+          "budget_delta": 0,
+          "scandal_risk": 65,
+          "advisor_effects": [
+            {
+              "advisor_id": "finance",
+              "trust_delta": -10,
+              "betrayal_risk_delta": 10
+            }
+          ],
+          "follow_up": "The city wakes up to forty names and one question: who leaked it? Half the {city.government_body} isn't speaking to the other half. Or to you.",
+          "city_reaction": "The governor leaked his own government. This place is a reality show. {city.slang_reaction}."
+        }
+      }
+    ]
+  },
+  {
+    "id": "extreme_heatwave_fallout",
+    "category": "environmental_climate",
+    "domain": "urban_planning",
+    "followup": true,
+    "title": "The Shattered Streets of {city.name}",
+    "trigger": "The rapid cooling shattered the asphalt completely and tragically froze three stray dogs solid.",
+    "description": "Your 300M liquid nitrogen climate initiative was a catastrophic success. The localized temperature plummeted, but the extreme thermal shock turned downtown {city.name}'s infrastructure into jagged, impassable gravel. Emergency vehicles are stranded, the {city.primary_industry_workers} are unable to commute, and furious animal rights activists are holding a deeply unsettling candlelight vigil around the flash-frozen strays currently thawing near {city.landmark}. The {city.media_outlet} is running live aerial footage of the ruined grid.",
+    "external_actors": [
+      "Stranded Paramedic",
+      "Animal Rights Activist"
+    ],
+    "options": [
+      {
+        "id": "A",
+        "tag": "SAFE",
+        "label": "Deploy emergency crews to repave the major arteries with premium cold-weather asphalt.",
+        "advisor_reason": "It costs us another 140M, but we have to get ambulances moving again. We eat the horrific cost, pretend it was aggressively scheduled maintenance all along, and desperately try to buy back the public's forgiveness.",
+        "consequences": {
+          "approval_delta": 15,
+          "budget_delta": -140,
+          "scandal_risk": -10,
+          "advisor_effects": [
+            {
+              "advisor_id": "urban_planning",
+              "trust_delta": 10,
+              "betrayal_risk_delta": -5
+            }
+          ],
+          "follow_up": "The roads are finally fixed, but the treasury is hollowed out and municipal bond ratings plummet.",
+          "city_reaction": "They broke the entire city just to overcharge us to fix it. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "B",
+        "tag": "BOLD",
+        "label": "Ban all vehicles downtown and declare the jagged rubble a 'historical walking path'.",
+        "advisor_reason": "If we explicitly ban cars, the broken roads suddenly become brilliant pedestrian traffic calming measures. It costs barely 20M to print new signage and spins an infrastructure disaster as an aggressive green urban pedestrianization project.",
+        "consequences": {
+          "approval_delta": -10,
+          "budget_delta": -20,
+          "scandal_risk": 20,
+          "advisor_effects": [
+            {
+              "advisor_id": "transport",
+              "trust_delta": 15,
+              "betrayal_risk_delta": 0
+            }
+          ],
+          "follow_up": "Commuters are forced to hike through sharp asphalt chunks. Emergency response times triple, but carbon emissions drop.",
+          "city_reaction": "My ankles are bleeding profusely, but at least there is absolutely no traffic. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "C",
+        "tag": "CHAOS",
+        "label": "Sweep the shattered asphalt into massive mounds and sell them as avant-garde public art.",
+        "advisor_reason": "The roads are already destroyed. Let us deploy bulldozers, sweep the rubble into massive piles, shine some spotlights on them, and charge tourists 50M to witness our brilliant 'commentary on urban decay and climate fragility'.",
+        "consequences": {
+          "approval_delta": -20,
+          "budget_delta": 50,
+          "scandal_risk": 40,
+          "advisor_effects": [
+            {
+              "advisor_id": "finance",
+              "trust_delta": 10,
+              "betrayal_risk_delta": 15
+            }
+          ],
+          "follow_up": "An international art critic calls the asphalt piles 'transcendent'. An elderly citizen falls off one and sues the city for millions.",
+          "city_reaction": "We are living in a literal garbage dump and they call it high art. {city.slang_reaction}."
+        }
+      }
+    ]
+  },
+  {
+    "id": "toxic_spa_lawsuit",
+    "category": "environmental_climate",
+    "domain": "urban_planning",
+    "followup": true,
+    "title": "Spa Day at the Hague",
+    "trigger": "Rebranding the toxic river as a spa resulted in tourists getting severe chemical burns and international lawsuits.",
+    "description": "The 'Hot Springs Wellness Initiative' has triggered a public health and legal apocalypse. International health tribunals are threatening to freeze the {city.government_body}'s assets after the bubbling chemical sludge dissolved the epidermal layers of visiting dignitaries. To make matters worse, the mayor's legally blind cousin—who approved the environmental inspection—is publicly demanding hazard pay for operating the spa's ticket booth. The {city.media_outlet} is currently running a 24/7 telethon to pay for mass skin grafts.",
+    "external_actors": [
+      "International Human Rights Lawyer",
+      "Burn Unit Chief"
+    ],
+    "options": [
+      {
+        "id": "A",
+        "tag": "SAFE",
+        "label": "Settle the international lawsuits quietly and pay for the tourists' chemical burns.",
+        "advisor_reason": "We must pay 150M to settle this instantly before the international health organizations completely bankrupt our entire municipality. We made a massive mistake letting the mayor's cousin anywhere near this.",
+        "consequences": {
+          "approval_delta": 10,
+          "budget_delta": -150,
+          "scandal_risk": -15,
+          "advisor_effects": [
+            {
+              "advisor_id": "finance",
+              "trust_delta": 5,
+              "betrayal_risk_delta": -5
+            }
+          ],
+          "follow_up": "The tourists receive extensive skin grafts and sign ironclad NDAs. The toxic river continues to bubble quietly in the background.",
+          "city_reaction": "Glad to see my local taxes paying for an international billionaire's new epidermis. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "B",
+        "tag": "BOLD",
+        "label": "Counter-sue the burned tourists for stealing proprietary municipal chemical compounds.",
+        "advisor_reason": "They willingly bathed in it. For 30M in aggressive legal fees, we can argue in court that the chemical burns are actually unauthorized, parasitic absorption of valuable city property. Offense is the best defense.",
+        "consequences": {
+          "approval_delta": -15,
+          "budget_delta": -30,
+          "scandal_risk": 40,
+          "advisor_effects": [
+            {
+              "advisor_id": "military_liaison",
+              "trust_delta": 15,
+              "betrayal_risk_delta": 0
+            }
+          ],
+          "follow_up": "The international community places severe economic sanctions on the city. The sheer audacity of the counter-suit makes global legal history.",
+          "city_reaction": "We poisoned them and then sued them for bleeding. Utterly savage. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "C",
+        "tag": "CHAOS",
+        "label": "Market the skin-peeling water as an exclusive, radical anti-aging exfoliation therapy.",
+        "advisor_reason": "If we spend 50M on ultra-luxury marketing campaigns, we can convince paranoid billionaires that third-degree chemical burns are just aggressive cellular renewal. We can turn a massive profit from this horror.",
+        "consequences": {
+          "approval_delta": -20,
+          "budget_delta": 80,
+          "scandal_risk": 55,
+          "advisor_effects": [
+            {
+              "advisor_id": "urban_planning",
+              "trust_delta": -10,
+              "betrayal_risk_delta": 15
+            }
+          ],
+          "follow_up": "Wealthy international influencers start visiting the toxic sludge intentionally. The United Nations issues a severe human rights warning against the city.",
+          "city_reaction": "Rich people are literally paying our government to melt their faces off. Beautiful. {city.slang_reaction}."
+        }
+      }
+    ]
+  },
+  {
+    "id": "shaman_audit_panic",
+    "category": "environmental_climate",
+    "domain": "urban_planning",
+    "followup": true,
+    "title": "Auditing the Rain Gods",
+    "trigger": "The shaman danced for three days and failed to produce rain, prompting a massive state audit for fraudulent expenses.",
+    "description": "State auditors have arrived at the {city.government_body} with briefcases full of subpoenas, demanding itemized, logical receipts for the shaman's 150M 'cloud-coaxing and atmospheric manipulation fees'. The spectacle failed to produce a single drop of rain. Furthermore, the shaman used the massive consulting fee to purchase a fleet of luxury water trucks, and is currently driving through the drought-stricken districts selling the city's own stolen reserve water back to the dehydrated {city.primary_industry_workers} at a terrifying premium markup.",
+    "external_actors": [
+      "Ruthless State Auditor",
+      "Fraudulent Rainmaker"
+    ],
+    "options": [
+      {
+        "id": "A",
+        "tag": "SAFE",
+        "label": "Comply fully with the state audit and publicly write off the shaman's fee as a total loss.",
+        "advisor_reason": "We eat a 120M investigative penalty and cooperate fully. The shaman danced for three days and we got absolutely nothing. If we attempt to hide the magical fraud now, the state will remove us from office in handcuffs.",
+        "consequences": {
+          "approval_delta": 5,
+          "budget_delta": -120,
+          "scandal_risk": -20,
+          "advisor_effects": [
+            {
+              "advisor_id": "finance",
+              "trust_delta": 10,
+              "betrayal_risk_delta": -10
+            }
+          ],
+          "follow_up": "The auditors fine the city heavily and seize administrative controls. The shaman disappears into the desert with the original money.",
+          "city_reaction": "We paid millions for a magic trick and got federally audited. Brilliant leadership. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "B",
+        "tag": "BOLD",
+        "label": "Confiscate the shaman's luxury water trucks using the municipal police force.",
+        "advisor_reason": "The shaman used our taxpayer money to buy water trucks. Let's use 40M to militarize our police, seize the assets by force, and distribute the reclaimed water to the dying golf courses and furious citizens.",
+        "consequences": {
+          "approval_delta": 18,
+          "budget_delta": -40,
+          "scandal_risk": 30,
+          "advisor_effects": [
+            {
+              "advisor_id": "military_liaison",
+              "trust_delta": 15,
+              "betrayal_risk_delta": 0
+            }
+          ],
+          "follow_up": "A violent, publicized shootout occurs between the city police and the shaman's private security. The water is successfully reclaimed.",
+          "city_reaction": "City hall acting like apocalyptic warlords over a few gallons of water. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "C",
+        "tag": "CHAOS",
+        "label": "Bribe the auditors with remaining municipal funds to participate in a 'spiritual cleansing' retreat.",
+        "advisor_reason": "If we spend another 150M to send the auditors to the shaman's new luxury spiritual retreat, they might achieve enlightenment and lose the paperwork. We must double down on the magic to survive.",
+        "consequences": {
+          "approval_delta": -15,
+          "budget_delta": -150,
+          "scandal_risk": 45,
+          "advisor_effects": [
+            {
+              "advisor_id": "religious_affairs",
+              "trust_delta": 20,
+              "betrayal_risk_delta": 10
+            }
+          ],
+          "follow_up": "The auditors return wearing flowing robes and refuse to speak about the city's finances. The federal government prepares to intervene.",
+          "city_reaction": "They literally bought off the state feds with a cult retreat. We live in a dystopia. {city.slang_reaction}."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bulldozer_reef_fallout",
+    "category": "environmental_climate",
+    "domain": "urban_planning",
+    "followup": true,
+    "title": "The Rubble Reef of {city.name}",
+    "trigger": "The bulldozed coastal mansions collapsed into the harbor, creating a navigational hazard and an ecological nightmare.",
+    "description": "The 'aggressive urban planning' of pushing coastal mansions inland backfired spectacularly. The structures collapsed into the bay, creating a jagged, multi-million dollar artificial reef that is currently shredding the hulls of luxury yachts. Worse, the debris is attracting a massive, aggressive flock of invasive seagulls that are dive-bombing the {city.primary_industry_workers} at the docks. The {city.media_outlet} is running an hourly countdown of the remaining unsunken mega-yachts.",
+    "external_actors": [
+      "Furious Yacht Owner",
+      "Invasive Seagull Expert"
+    ],
+    "options": [
+      {
+        "id": "A",
+        "tag": "SAFE",
+        "label": "Deploy naval divers to painstakingly dismantle the rubble reef piece by piece.",
+        "advisor_reason": "It costs us 120M, but we have to clear the harbor before the yacht owners sue us into oblivion. The seagulls will just have to move to the financial district.",
+        "consequences": {
+          "approval_delta": 5,
+          "budget_delta": -120,
+          "scandal_risk": -10,
+          "advisor_effects": [
+            {
+              "advisor_id": "urban_planning",
+              "trust_delta": 5,
+              "betrayal_risk_delta": -5
+            }
+          ],
+          "follow_up": "The harbor is finally clear, but the city treasury is completely hollowed out. The seagulls have relocated to the financial district and are stealing briefcases.",
+          "city_reaction": "Glad my taxes paid for divers to pick up the mayor's broken promises. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "B",
+        "tag": "BOLD",
+        "label": "Declare the rubble reef a protected marine sanctuary and charge yachts a navigational hazard fee.",
+        "advisor_reason": "We spend 20M on signage and turn a disaster into an ecological triumph. The billionaires will scream, but federal environmental laws will protect our new seagull friends.",
+        "consequences": {
+          "approval_delta": -10,
+          "budget_delta": -20,
+          "scandal_risk": 30,
+          "advisor_effects": [
+            {
+              "advisor_id": "finance",
+              "trust_delta": -5,
+              "betrayal_risk_delta": 10
+            }
+          ],
+          "follow_up": "The seagulls are now protected by federal law. Yacht owners are forced to use a muddy alternative dock, and the sanctuary becomes a haven for aggressive birdwatchers.",
+          "city_reaction": "They destroyed our waterfront and then charged us a fee for the privilege. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "C",
+        "tag": "CHAOS",
+        "label": "Weaponize the seagulls to defend the harbor from unauthorized boats.",
+        "advisor_reason": "If we spend 40M on specialized feeding programs, we can train the flock to attack any vessel that isn't registered with the city. It's biological border control.",
+        "consequences": {
+          "approval_delta": -15,
+          "budget_delta": -40,
+          "scandal_risk": 60,
+          "advisor_effects": [
+            {
+              "advisor_id": "military_liaison",
+              "trust_delta": 10,
+              "betrayal_risk_delta": 15
+            }
+          ],
+          "follow_up": "The seagulls attack everyone, including the mayor's boat. The UN opens an investigation into the city's use of biological warfare.",
+          "city_reaction": "I got my eye pecked out by a pigeon on government payroll. Absolute madness. {city.slang_reaction}."
+        }
+      }
+    ]
+  },
+  {
+    "id": "mutant_fish_district_fallout",
+    "category": "environmental_climate",
+    "domain": "urban_planning",
+    "followup": true,
+    "title": "The Leviathans of {city.name}",
+    "trigger": "The fish introduced to the flooded downtown have thrived on a diet of sewage and are now attacking citizens.",
+    "description": "Your brilliant 'urban fishery' initiative has spawned an ecological horror. The fish, gorging on the nutrient-rich floodwater and discarded trash from {city.landmark}, have grown to the size of large dogs and developed a taste for human flesh. They are now leaping out of the submerged streets to snatch pedestrians. The {city.media_outlet} is broadcasting live footage of a giant carp eating a mailman, while the health department has officially declared the downtown a 'Class 4 Bio-Hazard Zone'.",
+    "external_actors": [
+      "Traumatized Mailman",
+      "Mutant Fish Biologist"
+    ],
+    "options": [
+      {
+        "id": "A",
+        "tag": "SAFE",
+        "label": "Drain the entire downtown district and hire international monster hunters to cull the fish.",
+        "advisor_reason": "It costs 140M to pump out the water and bring in heavily armed contractors, but it's the only way to stop the bloodbath. The smell will be unbearable, but at least people won't be eaten.",
+        "consequences": {
+          "approval_delta": 10,
+          "budget_delta": -140,
+          "scandal_risk": -15,
+          "advisor_effects": [
+            {
+              "advisor_id": "urban_planning",
+              "trust_delta": 10,
+              "betrayal_risk_delta": -10
+            }
+          ],
+          "follow_up": "The streets are dry and the monsters are dead, but the stench of rotting fish will linger in the downtown for a decade.",
+          "city_reaction": "Finally safe from the killer carp, but my clothes will smell like low tide until 2030. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "B",
+        "tag": "BOLD",
+        "label": "Mandate that all citizens carry harpoons and establish a bounty system for the fish.",
+        "advisor_reason": "We spend 30M on bounties and turn the crisis into a civic duty. The public will love the gamification of survival, even if the casualty rate spikes.",
+        "consequences": {
+          "approval_delta": 5,
+          "budget_delta": -30,
+          "scandal_risk": 40,
+          "advisor_effects": [
+            {
+              "advisor_id": "military_liaison",
+              "trust_delta": 5,
+              "betrayal_risk_delta": 5
+            }
+          ],
+          "follow_up": "Citizens are accidentally shooting each other in the crossfire. The fish are still breeding in the sewers.",
+          "city_reaction": "I got a bounty for a fish, but my neighbor got a harpoon to the leg. Worth it. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "C",
+        "tag": "CHAOS",
+        "label": "Deep-fry the mutant fish and sell them as a new local delicacy to tourists.",
+        "advisor_reason": "We spend 50M on a massive culinary marketing campaign. If we deep-fry them at high enough temperatures, the toxins are just 'extra flavor'. Tourism will boom.",
+        "consequences": {
+          "approval_delta": -20,
+          "budget_delta": -50,
+          "scandal_risk": 70,
+          "advisor_effects": [
+            {
+              "advisor_id": "finance",
+              "trust_delta": -15,
+              "betrayal_risk_delta": 20
+            }
+          ],
+          "follow_up": "Tourists get severe food poisoning and hallucinate. The fish are now classified by the WHO as a sentient biological threat.",
+          "city_reaction": "The mayor is serving us radioactive sushi and calling it 'urban renewal'. {city.slang_reaction}."
+        }
+      }
+    ]
+  },
+  {
+    "id": "smog_tornado_fallout",
+    "category": "environmental_climate",
+    "domain": "urban_planning",
+    "followup": true,
+    "title": "The Yellow Hurricane of {city.name}",
+    "trigger": "The wealthy suburbs retaliated against the smog fans by installing their own, creating a devastating atmospheric tug-of-war.",
+    "description": "The billionaire suburbs didn't just file lawsuits; they bought military-grade jet engines and pointed them back at the city. The opposing air currents have created a perpetual, high-velocity 'smog tornado' directly over the border between the poor and wealthy districts. The localized hurricane is tearing roofs off houses, uprooting trees, and spinning the toxic yellow fog into a blinding, suffocating cyclone. The {city.government_body} is currently being pelted with debris while the {city.media_outlet} compares the skyline to a dystopian washing machine.",
+    "external_actors": [
+      "Vengeful Billionaire",
+      "Hurricane Chaser"
+    ],
+    "options": [
+      {
+        "id": "A",
+        "tag": "SAFE",
+        "label": "Negotiate a ceasefire and dismantle both fan arrays, eating the cost of the original project.",
+        "advisor_reason": "We lose 110M to tear down our own fans and beg the suburbs to do the same. The smog will return, but at least the city won't be literally blown away.",
+        "consequences": {
+          "approval_delta": 5,
+          "budget_delta": -110,
+          "scandal_risk": -20,
+          "advisor_effects": [
+            {
+              "advisor_id": "finance",
+              "trust_delta": 5,
+              "betrayal_risk_delta": -5
+            }
+          ],
+          "follow_up": "The smog returns to normal levels. The billionaires laugh at your financial ruin and buy the scrap metal for pennies.",
+          "city_reaction": "We paid millions to build giant fans just to pay millions more to take them down. Genius. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "B",
+        "tag": "BOLD",
+        "label": "Seize the billionaires' jet engines to power the city grid, claiming them as emergency requisitions.",
+        "advisor_reason": "We spend 40M on legal and tactical seizures. We take their jet engines, hook them up to the grid, and tell the suburbs they can have their air back when they pay a 'wind tax'.",
+        "consequences": {
+          "approval_delta": -5,
+          "budget_delta": -40,
+          "scandal_risk": 35,
+          "advisor_effects": [
+            {
+              "advisor_id": "military_liaison",
+              "trust_delta": 15,
+              "betrayal_risk_delta": 5
+            }
+          ],
+          "follow_up": "The smog clears and the grid is powered, but the wealthy suburbs secede and cut off the city's water supply.",
+          "city_reaction": "We stole their engines and now we're dying of thirst. The class war is literally a weather event. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "C",
+        "tag": "CHAOS",
+        "label": "Aim the city's fans straight up into the atmosphere to shoot the smog into the jet stream.",
+        "advisor_reason": "We spend 90M to recalibrate the fans vertically. If we shoot the smog into the stratosphere, it becomes everyone's problem. Let the global wind handle it.",
+        "consequences": {
+          "approval_delta": -15,
+          "budget_delta": -90,
+          "scandal_risk": 65,
+          "advisor_effects": [
+            {
+              "advisor_id": "transport",
+              "trust_delta": -10,
+              "betrayal_risk_delta": 15
+            }
+          ],
+          "follow_up": "The smog is shot into the stratosphere, causing global weather anomalies. Neighboring countries threaten military action.",
+          "city_reaction": "The mayor literally weaponized the weather and gave the neighboring country a yellow blizzard. {city.slang_reaction}."
+        }
+      }
+    ]
   }
 ]
