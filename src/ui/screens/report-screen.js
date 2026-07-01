@@ -500,13 +500,15 @@ export class ReportScreen {
 
     if (tab === 'record') {
       const n = (d.scandals || []).length;
-      headline = n ? `${n} Scandals on the Record` : 'A Clean Record';
-      deck = n ? `Approval closed at ${d.approval}%.` : `Approval closed at ${d.approval}%. The file is empty.`;
+      headline = n ? `${n} Scandal${n === 1 ? '' : 's'} on the Record` : 'A Clean Record';
+      deck = 'The permanent public record, filed by Civic Oversight.';
+      blocks.push(bLead(n ? `${n === 1 ? 'One story' : 'These stories'} defined how the ${d.weeks}-week term will be remembered.` : `${d.weeks} weeks, and not one scandal reached print.`));
       (d.scandals || []).forEach(sc => blocks.push(compose(
         bSub(String(sc.tier || 'minor').replace('_', '-').toUpperCase() + ' SCANDAL'),
         bPara(sc.title, `700 31px ${SERIF}`, 38, tierC(sc.tier), 6),
         bPara(sc.story, `400 25px ${SERIF}`, 34, INK, 26))));
-      if (!n) blocks.push(bPara('No scandal reached print this term. The auditors went home early.'));
+      if (!n) blocks.push(bPara('The auditors went home early. A rare, quiet administration.'));
+      blocks.push(bPara(`The books close with public approval at ${d.approval}%.`, `italic 400 25px ${SERIF}`, 34, MUTE, 0));
     } else if (tab === 'persons') {
       headline = 'Inside the Cabinet';
       deck = `${(d.relations || []).length} figures shaped the term — some loyal, some not.`;
@@ -541,13 +543,25 @@ export class ReportScreen {
     // ── Two balanced columns (split near the height midpoint) ──
     const quoteTop = d.remark ? 1512 : 1660;
     const colBottom = quoteTop - 40;
+    const availH = colBottom - colTop;
     const heights = blocks.map(b => b(0, 0, false));
     const total = heights.reduce((a, b) => a + b, 0);
     let acc = 0, split = blocks.length;
     for (let i = 0; i < blocks.length; i++) { acc += heights[i]; if (acc >= total / 2) { split = i + 1; break; } }
-    let cy = colTop; for (let i = 0; i < split; i++) { blocks[i](COLX[0], cy, true); cy += heights[i]; } const lb = cy;
-    cy = colTop; for (let i = split; i < blocks.length; i++) { blocks[i](COLX[1], cy, true); cy += heights[i]; } const rb = cy;
-    c.strokeStyle = RULE; c.lineWidth = 1; c.beginPath(); c.moveTo(W / 2, colTop - 18); c.lineTo(W / 2, Math.min(colBottom, Math.max(lb, rb, colTop + 40))); c.stroke();
+    const leftIdx = []; for (let i = 0; i < split; i++) leftIdx.push(i);
+    const rightIdx = []; for (let i = split; i < blocks.length; i++) rightIdx.push(i);
+    // Justify each column vertically: spread its blocks with even padding so the
+    // content fills from the top of the body down to the pull-quote (no big void).
+    const drawCol = (idxs, x) => {
+      if (!idxs.length) return;
+      const ch = idxs.reduce((a, i) => a + heights[i], 0);
+      const pad = Math.max(16, (availH - ch) / (idxs.length + 1));
+      let cy = colTop;
+      for (const i of idxs) { cy += pad; blocks[i](x, cy, true); cy += heights[i]; }
+    };
+    drawCol(leftIdx, COLX[0]);
+    drawCol(rightIdx, COLX[1]);
+    c.strokeStyle = RULE; c.lineWidth = 1; c.beginPath(); c.moveTo(W / 2, colTop - 18); c.lineTo(W / 2, colBottom); c.stroke();
 
     // ── Pull-quote band (anchors the lower golden section) ──
     if (d.remark) {

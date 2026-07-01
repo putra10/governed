@@ -300,306 +300,6 @@
     ]
   },
   {
-    "id": "ghost_taskforce_fallout",
-    "category": "budget_corruption",
-    "domain": "finance",
-    "followup": true,
-    "title": "The Task Force Found Something",
-    "trigger": "Your anti-corruption task force was supposed to be theater. It wasn't supposed to actually find anything.",
-    "description": "Three weeks into the ghost-payroll investigation, the task force lead requests an urgent private meeting. The trail of fake employees doesn't end at the sanitation department — it runs through the {city.government_body}'s procurement office and stops one door from yours. The lead investigator is honest, ambitious, and currently deciding what to do with the file.",
-    "external_actors": [
-      "Lead Investigator",
-      "Opposition Councilwoman"
-    ],
-    "options": [
-      {
-        "id": "A",
-        "tag": "SAFE",
-        "label": "Let the investigation run its course, wherever it leads.",
-        "advisor_reason": "Let it run. We bleed a little now, or we hemorrhage when someone leaks that we stopped it. Cheap insurance, all things considered.",
-        "consequences": {
-          "approval_delta": 6,
-          "budget_delta": -40,
-          "scandal_risk": 15,
-          "advisor_effects": [
-            {
-              "advisor_id": "finance",
-              "trust_delta": 5,
-              "betrayal_risk_delta": -5
-            }
-          ],
-          "follow_up": "Two procurement officials resign. The press calls it 'unexpectedly genuine'. The deputy mayor stops returning your calls.",
-          "city_reaction": "An investigation that investigated. In THIS city. {city.slang_reaction}."
-        }
-      },
-      {
-        "id": "B",
-        "tag": "BOLD",
-        "label": "Promote the lead investigator — to a desk in another department.",
-        "advisor_reason": "Promote the problem. A bigger title, a quieter office, and the file inherits a successor who understands nuance. Costs us a salary bump, saves us a headline.",
-        "consequences": {
-          "approval_delta": -4,
-          "budget_delta": -20,
-          "scandal_risk": 45,
-          "advisor_effects": [
-            {
-              "advisor_id": "military_liaison",
-              "trust_delta": 5,
-              "betrayal_risk_delta": 0
-            }
-          ],
-          "follow_up": "The investigator accepts the promotion with a smile that doesn't reach their eyes. The file is 'transitioning between custodians'.",
-          "city_reaction": "Promoted for finding corruption. Sure. And I'm the new finance minister. {city.slang_reaction}."
-        }
-      },
-      {
-        "id": "C",
-        "tag": "CHAOS",
-        "label": "Leak the file yourself — all of it, names included, tonight.",
-        "advisor_reason": "Burn it all down before someone burns it down on top of us. If every name drops at once, yours is just one in the pile — and you're the one who lit the match in public.",
-        "consequences": {
-          "approval_delta": -8,
-          "budget_delta": 0,
-          "scandal_risk": 65,
-          "advisor_effects": [
-            {
-              "advisor_id": "finance",
-              "trust_delta": -10,
-              "betrayal_risk_delta": 10
-            }
-          ],
-          "follow_up": "The city wakes up to forty names and one question: who leaked it? Half the {city.government_body} isn't speaking to the other half. Or to you.",
-          "city_reaction": "The governor leaked his own government. This place is a reality show. {city.slang_reaction}."
-        }
-      }
-    ]
-  },
-  {
-    "id": "extreme_heatwave_fallout",
-    "category": "environmental_climate",
-    "domain": "urban_planning",
-    "followup": true,
-    "title": "The Shattered Streets of {city.name}",
-    "trigger": "The rapid cooling shattered the asphalt completely and tragically froze three stray dogs solid.",
-    "description": "Your 300M liquid nitrogen climate initiative was a catastrophic success. The localized temperature plummeted, but the extreme thermal shock turned downtown {city.name}'s infrastructure into jagged, impassable gravel. Emergency vehicles are stranded, the {city.primary_industry_workers} are unable to commute, and furious animal rights activists are holding a deeply unsettling candlelight vigil around the flash-frozen strays currently thawing near {city.landmark}. The {city.media_outlet} is running live aerial footage of the ruined grid.",
-    "external_actors": [
-      "Stranded Paramedic",
-      "Animal Rights Activist"
-    ],
-    "options": [
-      {
-        "id": "A",
-        "tag": "SAFE",
-        "label": "Deploy emergency crews to repave the major arteries with premium cold-weather asphalt.",
-        "advisor_reason": "It costs us another 140M, but we have to get ambulances moving again. We eat the horrific cost, pretend it was aggressively scheduled maintenance all along, and desperately try to buy back the public's forgiveness.",
-        "consequences": {
-          "approval_delta": 15,
-          "budget_delta": -140,
-          "scandal_risk": -10,
-          "advisor_effects": [
-            {
-              "advisor_id": "urban_planning",
-              "trust_delta": 10,
-              "betrayal_risk_delta": -5
-            }
-          ],
-          "follow_up": "The roads are finally fixed, but the treasury is hollowed out and municipal bond ratings plummet.",
-          "city_reaction": "They broke the entire city just to overcharge us to fix it. {city.slang_reaction}."
-        }
-      },
-      {
-        "id": "B",
-        "tag": "BOLD",
-        "label": "Ban all vehicles downtown and declare the jagged rubble a 'historical walking path'.",
-        "advisor_reason": "If we explicitly ban cars, the broken roads suddenly become brilliant pedestrian traffic calming measures. It costs barely 20M to print new signage and spins an infrastructure disaster as an aggressive green urban pedestrianization project.",
-        "consequences": {
-          "approval_delta": -10,
-          "budget_delta": -20,
-          "scandal_risk": 20,
-          "advisor_effects": [
-            {
-              "advisor_id": "transport",
-              "trust_delta": 15,
-              "betrayal_risk_delta": 0
-            }
-          ],
-          "follow_up": "Commuters are forced to hike through sharp asphalt chunks. Emergency response times triple, but carbon emissions drop.",
-          "city_reaction": "My ankles are bleeding profusely, but at least there is absolutely no traffic. {city.slang_reaction}."
-        }
-      },
-      {
-        "id": "C",
-        "tag": "CHAOS",
-        "label": "Sweep the shattered asphalt into massive mounds and sell them as avant-garde public art.",
-        "advisor_reason": "The roads are already destroyed. Let us deploy bulldozers, sweep the rubble into massive piles, shine some spotlights on them, and charge tourists 50M to witness our brilliant 'commentary on urban decay and climate fragility'.",
-        "consequences": {
-          "approval_delta": -20,
-          "budget_delta": 50,
-          "scandal_risk": 40,
-          "advisor_effects": [
-            {
-              "advisor_id": "finance",
-              "trust_delta": 10,
-              "betrayal_risk_delta": 15
-            }
-          ],
-          "follow_up": "An international art critic calls the asphalt piles 'transcendent'. An elderly citizen falls off one and sues the city for millions.",
-          "city_reaction": "We are living in a literal garbage dump and they call it high art. {city.slang_reaction}."
-        }
-      }
-    ]
-  },
-  {
-    "id": "toxic_spa_lawsuit",
-    "category": "environmental_climate",
-    "domain": "urban_planning",
-    "followup": true,
-    "title": "Spa Day at the Hague",
-    "trigger": "Rebranding the toxic river as a spa resulted in tourists getting severe chemical burns and international lawsuits.",
-    "description": "The 'Hot Springs Wellness Initiative' has triggered a public health and legal apocalypse. International health tribunals are threatening to freeze the {city.government_body}'s assets after the bubbling chemical sludge dissolved the epidermal layers of visiting dignitaries. To make matters worse, the mayor's legally blind cousin—who approved the environmental inspection—is publicly demanding hazard pay for operating the spa's ticket booth. The {city.media_outlet} is currently running a 24/7 telethon to pay for mass skin grafts.",
-    "external_actors": [
-      "International Human Rights Lawyer",
-      "Burn Unit Chief"
-    ],
-    "options": [
-      {
-        "id": "A",
-        "tag": "SAFE",
-        "label": "Settle the international lawsuits quietly and pay for the tourists' chemical burns.",
-        "advisor_reason": "We must pay 150M to settle this instantly before the international health organizations completely bankrupt our entire municipality. We made a massive mistake letting the mayor's cousin anywhere near this.",
-        "consequences": {
-          "approval_delta": 10,
-          "budget_delta": -150,
-          "scandal_risk": -15,
-          "advisor_effects": [
-            {
-              "advisor_id": "finance",
-              "trust_delta": 5,
-              "betrayal_risk_delta": -5
-            }
-          ],
-          "follow_up": "The tourists receive extensive skin grafts and sign ironclad NDAs. The toxic river continues to bubble quietly in the background.",
-          "city_reaction": "Glad to see my local taxes paying for an international billionaire's new epidermis. {city.slang_reaction}."
-        }
-      },
-      {
-        "id": "B",
-        "tag": "BOLD",
-        "label": "Counter-sue the burned tourists for stealing proprietary municipal chemical compounds.",
-        "advisor_reason": "They willingly bathed in it. For 30M in aggressive legal fees, we can argue in court that the chemical burns are actually unauthorized, parasitic absorption of valuable city property. Offense is the best defense.",
-        "consequences": {
-          "approval_delta": -15,
-          "budget_delta": -30,
-          "scandal_risk": 40,
-          "advisor_effects": [
-            {
-              "advisor_id": "military_liaison",
-              "trust_delta": 15,
-              "betrayal_risk_delta": 0
-            }
-          ],
-          "follow_up": "The international community places severe economic sanctions on the city. The sheer audacity of the counter-suit makes global legal history.",
-          "city_reaction": "We poisoned them and then sued them for bleeding. Utterly savage. {city.slang_reaction}."
-        }
-      },
-      {
-        "id": "C",
-        "tag": "CHAOS",
-        "label": "Market the skin-peeling water as an exclusive, radical anti-aging exfoliation therapy.",
-        "advisor_reason": "If we spend 50M on ultra-luxury marketing campaigns, we can convince paranoid billionaires that third-degree chemical burns are just aggressive cellular renewal. We can turn a massive profit from this horror.",
-        "consequences": {
-          "approval_delta": -20,
-          "budget_delta": 80,
-          "scandal_risk": 55,
-          "advisor_effects": [
-            {
-              "advisor_id": "urban_planning",
-              "trust_delta": -10,
-              "betrayal_risk_delta": 15
-            }
-          ],
-          "follow_up": "Wealthy international influencers start visiting the toxic sludge intentionally. The United Nations issues a severe human rights warning against the city.",
-          "city_reaction": "Rich people are literally paying our government to melt their faces off. Beautiful. {city.slang_reaction}."
-        }
-      }
-    ]
-  },
-  {
-    "id": "shaman_audit_panic",
-    "category": "environmental_climate",
-    "domain": "urban_planning",
-    "followup": true,
-    "title": "Auditing the Rain Gods",
-    "trigger": "The shaman danced for three days and failed to produce rain, prompting a massive state audit for fraudulent expenses.",
-    "description": "State auditors have arrived at the {city.government_body} with briefcases full of subpoenas, demanding itemized, logical receipts for the shaman's 150M 'cloud-coaxing and atmospheric manipulation fees'. The spectacle failed to produce a single drop of rain. Furthermore, the shaman used the massive consulting fee to purchase a fleet of luxury water trucks, and is currently driving through the drought-stricken districts selling the city's own stolen reserve water back to the dehydrated {city.primary_industry_workers} at a terrifying premium markup.",
-    "external_actors": [
-      "Ruthless State Auditor",
-      "Fraudulent Rainmaker"
-    ],
-    "options": [
-      {
-        "id": "A",
-        "tag": "SAFE",
-        "label": "Comply fully with the state audit and publicly write off the shaman's fee as a total loss.",
-        "advisor_reason": "We eat a 120M investigative penalty and cooperate fully. The shaman danced for three days and we got absolutely nothing. If we attempt to hide the magical fraud now, the state will remove us from office in handcuffs.",
-        "consequences": {
-          "approval_delta": 5,
-          "budget_delta": -120,
-          "scandal_risk": -20,
-          "advisor_effects": [
-            {
-              "advisor_id": "finance",
-              "trust_delta": 10,
-              "betrayal_risk_delta": -10
-            }
-          ],
-          "follow_up": "The auditors fine the city heavily and seize administrative controls. The shaman disappears into the desert with the original money.",
-          "city_reaction": "We paid millions for a magic trick and got federally audited. Brilliant leadership. {city.slang_reaction}."
-        }
-      },
-      {
-        "id": "B",
-        "tag": "BOLD",
-        "label": "Confiscate the shaman's luxury water trucks using the municipal police force.",
-        "advisor_reason": "The shaman used our taxpayer money to buy water trucks. Let's use 40M to militarize our police, seize the assets by force, and distribute the reclaimed water to the dying golf courses and furious citizens.",
-        "consequences": {
-          "approval_delta": 18,
-          "budget_delta": -40,
-          "scandal_risk": 30,
-          "advisor_effects": [
-            {
-              "advisor_id": "military_liaison",
-              "trust_delta": 15,
-              "betrayal_risk_delta": 0
-            }
-          ],
-          "follow_up": "A violent, publicized shootout occurs between the city police and the shaman's private security. The water is successfully reclaimed.",
-          "city_reaction": "City hall acting like apocalyptic warlords over a few gallons of water. {city.slang_reaction}."
-        }
-      },
-      {
-        "id": "C",
-        "tag": "CHAOS",
-        "label": "Bribe the auditors with remaining municipal funds to participate in a 'spiritual cleansing' retreat.",
-        "advisor_reason": "If we spend another 150M to send the auditors to the shaman's new luxury spiritual retreat, they might achieve enlightenment and lose the paperwork. We must double down on the magic to survive.",
-        "consequences": {
-          "approval_delta": -15,
-          "budget_delta": -150,
-          "scandal_risk": 45,
-          "advisor_effects": [
-            {
-              "advisor_id": "religious_affairs",
-              "trust_delta": 20,
-              "betrayal_risk_delta": 10
-            }
-          ],
-          "follow_up": "The auditors return wearing flowing robes and refuse to speak about the city's finances. The federal government prepares to intervene.",
-          "city_reaction": "They literally bought off the state feds with a cult retreat. We live in a dystopia. {city.slang_reaction}."
-        }
-      }
-    ]
-  },
-  {
     "id": "bulldozer_reef_fallout",
     "category": "environmental_climate",
     "domain": "urban_planning",
@@ -820,6 +520,456 @@
           ],
           "follow_up": "The smog is shot into the stratosphere, causing global weather anomalies. Neighboring countries threaten military action.",
           "city_reaction": "The mayor literally weaponized the weather and gave the neighboring country a yellow blizzard. {city.slang_reaction}."
+        }
+      }
+    ]
+  },
+  {
+    "id": "egg_emergency_powers",
+    "category": "media_scandal",
+    "domain": null,
+    "followup": true,
+    "title": "The Omelet Mandate of {city.name}",
+    "trigger": "After being pelted with eggs, the mayor declares a public health emergency against 'unlawful protein assaults'.",
+    "description": "The egg-throwing incident has spiraled into a full-blown constitutional crisis. The mayor, still picking shell fragments from his hair, has signed an executive order banning the possession of eggs within 500 feet of any government building. The {city.media_outlet} has obtained a leaked memo suggesting the mayor's office is planning to seize all commercial egg supplies to prevent future attacks, effectively nationalizing the {city.primary_industry_workers}' breakfast. The {city.government_body} is divided, and the opposition is calling for a no-confidence vote.",
+    "external_actors": [
+      "Egg Farmer",
+      "Constitutional Lawyer"
+    ],
+    "options": [
+      {
+        "id": "A",
+        "tag": "SAFE",
+        "label": "Repeal the order and issue a formal apology to the egg industry.",
+        "advisor_reason": "Apology costs 50M in lost egg tax revenue, but the press will call it a climbdown. We'll be fine.",
+        "consequences": {
+          "approval_delta": 5,
+          "budget_delta": -50,
+          "scandal_risk": 20,
+          "advisor_effects": [
+            {
+              "advisor_id": "finance",
+              "trust_delta": 5,
+              "betrayal_risk_delta": -5
+            }
+          ],
+          "follow_up": "The egg ban is lifted, but the mayor is still mocked for overreacting. The egg farmers are appeased but demand a permanent subsidy.",
+          "city_reaction": "First they called us livestock, now they try to steal our eggs. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "B",
+        "tag": "BOLD",
+        "label": "Expand the ban to all projectiles and declare martial law in egg-prone zones.",
+        "advisor_reason": "Aggressive posturing costs 80M, but the base loves a strongman. We'll redirect the police to enforce it.",
+        "consequences": {
+          "approval_delta": -10,
+          "budget_delta": -80,
+          "scandal_risk": 40,
+          "advisor_effects": [
+            {
+              "advisor_id": "military_liaison",
+              "trust_delta": 10,
+              "betrayal_risk_delta": 0
+            }
+          ],
+          "follow_up": "The city becomes a police state for a week. Several citizens are arrested for throwing snowballs. The opposition files an emergency injunction.",
+          "city_reaction": "I got arrested for tossing a snowball. This is insanity. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "C",
+        "tag": "CHAOS",
+        "label": "Host a city-wide egg-tossing festival to raise money for the legal defense fund.",
+        "advisor_reason": "For 30M we can turn the crisis into a carnival. People will forget the original scandal.",
+        "consequences": {
+          "approval_delta": -5,
+          "budget_delta": -30,
+          "scandal_risk": 50,
+          "advisor_effects": [
+            {
+              "advisor_id": "transport",
+              "trust_delta": -5,
+              "betrayal_risk_delta": 10
+            }
+          ],
+          "follow_up": "The festival is a logistical disaster. Thousands of eggs are thrown, dozens are injured, and the city is left with a sticky mess. The mayor's approval somehow improves among the chaos-loving segment.",
+          "city_reaction": "We paid to have eggs thrown at us. This is the most honest government event yet. {city.slang_reaction}."
+        }
+      }
+    ]
+  },
+  {
+    "id": "transparency_backlash",
+    "category": "media_scandal",
+    "domain": null,
+    "followup": true,
+    "title": "The Open Mic Nightmare of {city.name}",
+    "trigger": "The released bathroom audios have triggered a wave of defamation lawsuits from every official who resigned.",
+    "description": "The mayor's ill-advised 'full transparency' move has backfired catastrophically. Dozens of former officials are suing the city for defamation, invasion of privacy, and emotional distress. The {city.media_outlet} is running a daily segment tallying the legal fees. Worse, the audio included the mayor's own unguarded comments about the {city.primary_industry_workers}, which have now gone viral in the international press. The {city.government_body} is paralyzed, and the city's legal defense fund is already overdrawn.",
+    "external_actors": [
+      "Class Action Attorney",
+      "Embarrassed Former Official"
+    ],
+    "options": [
+      {
+        "id": "A",
+        "tag": "SAFE",
+        "label": "Settle all lawsuits quickly with a blanket confidentiality agreement.",
+        "advisor_reason": "Settling costs 150M, but it closes the door on the story. The public will see it as admitting guilt, but the headlines will shift to the next scandal.",
+        "consequences": {
+          "approval_delta": -5,
+          "budget_delta": -150,
+          "scandal_risk": 20,
+          "advisor_effects": [
+            {
+              "advisor_id": "finance",
+              "trust_delta": -10,
+              "betrayal_risk_delta": 10
+            }
+          ],
+          "follow_up": "The lawsuits are settled, but the city is bankrupt. The mayor is forced to sell the municipal art collection.",
+          "city_reaction": "Paying millions to silence people we humiliated. Classic. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "B",
+        "tag": "BOLD",
+        "label": "Counter-sue the former officials for defamation of the city's reputation.",
+        "advisor_reason": "For 50M, we can drag this out in court and paint them as disgruntled whiners. The base will cheer, even if we lose.",
+        "consequences": {
+          "approval_delta": 10,
+          "budget_delta": -50,
+          "scandal_risk": 40,
+          "advisor_effects": [
+            {
+              "advisor_id": "military_liaison",
+              "trust_delta": 5,
+              "betrayal_risk_delta": -5
+            }
+          ],
+          "follow_up": "The counter-suits create a legal circus. The judge throws out both cases, but the city is now a punchline in legal textbooks.",
+          "city_reaction": "Suing the people we recorded without consent. We are legally insane. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "C",
+        "tag": "CHAOS",
+        "label": "Release a second batch of even more embarrassing audio to prove everyone is equally terrible.",
+        "advisor_reason": "For 20M, we flood the zone with additional recordings. The volume will overwhelm the specific lawsuits, and the public will just laugh at everything.",
+        "consequences": {
+          "approval_delta": -15,
+          "budget_delta": -20,
+          "scandal_risk": 70,
+          "advisor_effects": [
+            {
+              "advisor_id": "religious_affairs",
+              "trust_delta": -15,
+              "betrayal_risk_delta": 15
+            }
+          ],
+          "follow_up": "The new audio includes the mayor's own karaoke attempts and the police chief's private snack drawer confession. The city becomes a global meme, and the lawsuits are drowned out by sheer absurdity.",
+          "city_reaction": "They are just leaking everything now. I can't stop watching. {city.slang_reaction}."
+        }
+      }
+    ]
+  },
+  {
+    "id": "acting_mayor_chaos",
+    "category": "media_scandal",
+    "domain": null,
+    "followup": true,
+    "title": "The Acting Mayor's First Day in {city.name}",
+    "trigger": "With the mayor in custody at the airport, the deputy mayor assumes power and immediately faces a crisis.",
+    "description": "The deputy mayor, who was previously known for having no pulse, has taken over. Within hours, he accidentally fires the entire police force via a mis-sent email. The {city.media_outlet} is broadcasting the police chief crying on the steps of {city.landmark}. The {city.primary_industry_workers} are rioting because the email also canceled all public holidays. The {city.government_body} is trying to recall the email but the IT director is on vacation.",
+    "external_actors": [
+      "Deputy Mayor",
+      "Police Chief"
+    ],
+    "options": [
+      {
+        "id": "A",
+        "tag": "SAFE",
+        "label": "Immediately rescind the email and issue a formal apology to the police and public.",
+        "advisor_reason": "Apology costs 40M in overtime pay and a new IT policy, but we can contain the damage quickly.",
+        "consequences": {
+          "approval_delta": 10,
+          "budget_delta": -40,
+          "scandal_risk": 15,
+          "advisor_effects": [
+            {
+              "advisor_id": "transport",
+              "trust_delta": 5,
+              "betrayal_risk_delta": -5
+            }
+          ],
+          "follow_up": "The email is rescinded, but the police are furious about the scare. The deputy mayor is now universally feared.",
+          "city_reaction": "They accidentally fired everyone and then said sorry. That's our city. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "B",
+        "tag": "BOLD",
+        "label": "Let the firings stand and hire a private military contractor to enforce order.",
+        "advisor_reason": "For 80M, we can bring in Blackstone-style mercenaries. The riots will end, and the base will appreciate our decisiveness.",
+        "consequences": {
+          "approval_delta": -10,
+          "budget_delta": -80,
+          "scandal_risk": 45,
+          "advisor_effects": [
+            {
+              "advisor_id": "military_liaison",
+              "trust_delta": 15,
+              "betrayal_risk_delta": 5
+            }
+          ],
+          "follow_up": "The mercenaries are effective but expensive. The city is now run by a paramilitary force. The police chief is seen begging for his job back.",
+          "city_reaction": "We replaced cops with guns-for-hire. What could go wrong? {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "C",
+        "tag": "CHAOS",
+        "label": "Turn the police selection into a public reality TV show where citizens vote for new officers.",
+        "advisor_reason": "For 30M, we turn disaster into entertainment. Ratings will be huge, and we can rig the votes to get loyalists.",
+        "consequences": {
+          "approval_delta": -5,
+          "budget_delta": -30,
+          "scandal_risk": 60,
+          "advisor_effects": [
+            {
+              "advisor_id": "finance",
+              "trust_delta": -10,
+              "betrayal_risk_delta": 10
+            }
+          ],
+          "follow_up": "The reality show is a hit, but the newly elected police officers have zero training. The crime rate spikes, but the mayor's approval among reality TV fans is sky-high.",
+          "city_reaction": "I voted for a cop and now I'm getting robbed on the way to work. Fantastic. {city.slang_reaction}."
+        }
+      }
+    ]
+  },
+  {
+    "id": "general_strike_fallout",
+    "category": "public_protest",
+    "domain": "military_liaison",
+    "followup": true,
+    "title": "The General Strike of {city.name}",
+    "trigger": "The mayor's appearance on the picket line emboldens every union in the city to walk off the job.",
+    "description": "Inspired by the mayor's defiance, the teachers, nurses, and sanitation workers all join the wildcat strike. The city is completely paralyzed; trash piles up, schools are closed, and hospitals run on skeleton crews. The federal government, furious at the mayor's insurrection, freezes all municipal funding and threatens to send in the national guard. The {city.media_outlet} is running a live tally of economic losses per hour.",
+    "external_actors": [
+      "Federal Envoy",
+      "Union Coalition Spokesperson"
+    ],
+    "options": [
+      {
+        "id": "A",
+        "tag": "SAFE",
+        "label": "Negotiate a return-to-work agreement and accept federal oversight.",
+        "advisor_reason": "We must concede to the unions and the feds. It costs us 150M in backpay, but we restore order.",
+        "consequences": {
+          "approval_delta": 5,
+          "budget_delta": -150,
+          "scandal_risk": -10,
+          "advisor_effects": [
+            {
+              "advisor_id": "finance",
+              "trust_delta": 5,
+              "betrayal_risk_delta": -5
+            }
+          ],
+          "follow_up": "The unions return, but the federal government imposes a strict austerity regime. The mayor is stripped of most powers.",
+          "city_reaction": "We won the battle but lost the city. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "B",
+        "tag": "BOLD",
+        "label": "Declare martial law and use the national guard to break the strike.",
+        "advisor_reason": "We can call the feds' bluff by requesting national guard, then use them to crush the unions. Costs 80M in legal fees.",
+        "consequences": {
+          "approval_delta": -15,
+          "budget_delta": -80,
+          "scandal_risk": 50,
+          "advisor_effects": [
+            {
+              "advisor_id": "military_liaison",
+              "trust_delta": 15,
+              "betrayal_risk_delta": 0
+            }
+          ],
+          "follow_up": "The national guard breaks the strike violently. Dozens are injured. The city is under military occupation.",
+          "city_reaction": "Bringing in the army to fight the workers. Great leadership. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "C",
+        "tag": "CHAOS",
+        "label": "Form a new city government from the union leaders and secede from the federation.",
+        "advisor_reason": "We can go all-in on revolution. Costs 200M to set up a shadow government, but we become a city-state.",
+        "consequences": {
+          "approval_delta": 10,
+          "budget_delta": -200,
+          "scandal_risk": 70,
+          "advisor_effects": [
+            {
+              "advisor_id": "finance",
+              "trust_delta": -10,
+              "betrayal_risk_delta": 15
+            }
+          ],
+          "follow_up": "The city declares independence. The federal government cuts off all services. The city is now a rogue entity.",
+          "city_reaction": "We are now a city-state. Can we get a passport? {city.slang_reaction}."
+        }
+      }
+    ]
+  },
+  {
+    "id": "state_sect_fallout",
+    "category": "public_protest",
+    "domain": "military_liaison",
+    "followup": true,
+    "title": "The Holy Flop of {city.name}",
+    "trigger": "The state-sponsored sect holds its inaugural service, and exactly three people show up—all of them undercover security.",
+    "description": "The mayor's attempt to create a rival religion has backfired spectacularly. The cleric's followers are now calling for a holy war against the 'infidel administration'. The {city.media_outlet} is running a poll: 95% of citizens prefer the original cleric. The {city.landmark} is being used as a makeshift bomb shelter as tensions rise.",
+    "external_actors": [
+      "Original Cleric",
+      "State Sect Leader"
+    ],
+    "options": [
+      {
+        "id": "A",
+        "tag": "SAFE",
+        "label": "Disband the state sect and issue a public apology to the cleric.",
+        "advisor_reason": "We can salvage our reputation for 100M. The cleric might accept a donation.",
+        "consequences": {
+          "approval_delta": 5,
+          "budget_delta": -100,
+          "scandal_risk": -10,
+          "advisor_effects": [
+            {
+              "advisor_id": "religious_affairs",
+              "trust_delta": 5,
+              "betrayal_risk_delta": -5
+            }
+          ],
+          "follow_up": "The sect is dissolved. The cleric accepts the apology and calls off the holy war. The mayor is seen attending his next sermon.",
+          "city_reaction": "Praise be, the mayor found religion. Again. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "B",
+        "tag": "BOLD",
+        "label": "Double down and inject another 200M into the state sect to make it more appealing.",
+        "advisor_reason": "We can buy better robes and hire better preachers. The cleric will eventually be outflanked.",
+        "consequences": {
+          "approval_delta": -10,
+          "budget_delta": -200,
+          "scandal_risk": 40,
+          "advisor_effects": [
+            {
+              "advisor_id": "finance",
+              "trust_delta": -10,
+              "betrayal_risk_delta": 10
+            }
+          ],
+          "follow_up": "The state sect's new golden robes and celebrity endorsements attract a few followers, but the original cleric's followers grow more violent.",
+          "city_reaction": "The mayor's new religion looks like a MLM scheme. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "C",
+        "tag": "CHAOS",
+        "label": "Convert the state sect into a tax-collection agency and make tithing mandatory.",
+        "advisor_reason": "If we can't win souls, we'll win revenue. Costs 50M to set up, but we'll make it back.",
+        "consequences": {
+          "approval_delta": -20,
+          "budget_delta": -50,
+          "scandal_risk": 70,
+          "advisor_effects": [
+            {
+              "advisor_id": "religious_affairs",
+              "trust_delta": -15,
+              "betrayal_risk_delta": 15
+            }
+          ],
+          "follow_up": "The city becomes a theocratic tax haven. Citizens riot against the mandatory tithing. The original cleric leads a rebellion.",
+          "city_reaction": "My religion is now a tax audit. {city.slang_reaction}."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bulldozer_rebellion_fallout",
+    "category": "public_protest",
+    "domain": "military_liaison",
+    "followup": true,
+    "title": "The Bulldozer Rebellion of {city.name}",
+    "trigger": "Residents use the seized bulldozers to demolish the corporate developer's headquarters and several banks.",
+    "description": "The neighborhood residents have gone on a rampage, driving bulldozers through the financial district. The {city.media_outlet} is calling it a class war. The wealthy elite are fleeing the city, and the federal government is considering sending the military. The {city.government_body} is in emergency session, but the residents are now a heavily armed militia.",
+    "external_actors": [
+      "Militia Leader",
+      "Corporate CEO"
+    ],
+    "options": [
+      {
+        "id": "A",
+        "tag": "SAFE",
+        "label": "Negotiate with the militia and promise to halt all gentrification projects.",
+        "advisor_reason": "We must stop the bloodshed. Costs 100M in reparations, but we preserve the city.",
+        "consequences": {
+          "approval_delta": 10,
+          "budget_delta": -100,
+          "scandal_risk": 15,
+          "advisor_effects": [
+            {
+              "advisor_id": "urban_planning",
+              "trust_delta": 10,
+              "betrayal_risk_delta": -5
+            }
+          ],
+          "follow_up": "The militia agrees to stand down. Gentrification is permanently banned. The city's economy takes a hit.",
+          "city_reaction": "We scared the developers away. Now we have no money. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "B",
+        "tag": "BOLD",
+        "label": "Send in police snipers to take out the bulldozer operators.",
+        "advisor_reason": "We can end this with decisive force. Costs 80M for tactical operations.",
+        "consequences": {
+          "approval_delta": -15,
+          "budget_delta": -80,
+          "scandal_risk": 60,
+          "advisor_effects": [
+            {
+              "advisor_id": "military_liaison",
+              "trust_delta": 15,
+              "betrayal_risk_delta": -5
+            }
+          ],
+          "follow_up": "Snipers take out two operators. The rest of the residents surrender. The city is in mourning and fury.",
+          "city_reaction": "They shot our neighbors for defending their homes. {city.slang_reaction}."
+        }
+      },
+      {
+        "id": "C",
+        "tag": "CHAOS",
+        "label": "Give the militia more bulldozers and direct them to demolish the city's zoning laws.",
+        "advisor_reason": "If they want to bulldoze, let them bulldoze everything. Costs 50M for new machines.",
+        "consequences": {
+          "approval_delta": -5,
+          "budget_delta": -50,
+          "scandal_risk": 80,
+          "advisor_effects": [
+            {
+              "advisor_id": "transport",
+              "trust_delta": -10,
+              "betrayal_risk_delta": 15
+            }
+          ],
+          "follow_up": "The militia demolishes the zoning office, the planning department, and half of city hall. The city is in complete chaos.",
+          "city_reaction": "Our mayor is actively funding anarchy. This is fine. {city.slang_reaction}."
         }
       }
     ]
